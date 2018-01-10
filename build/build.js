@@ -1,8 +1,15 @@
 'use strict'
 require('./check-versions')()
 
+if (program.test) {
+  console.log('test build.....');
+  process.env.BUILD_ENV = 'test'
+  process.env.API_PATH = '"//localhost:9050/api"'
+} else {
+  process.env.BUILD_ENV = 'prod'
+  process.env.API_PATH = '"//localhost:9050/api"'
+}
 process.env.NODE_ENV = 'production'
-
 const ora = require('ora')
 const rm = require('rimraf')
 const path = require('path')

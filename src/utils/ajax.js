@@ -1,0 +1,52 @@
+import axios from 'axios';
+import qs from 'qs';
+axios.interceptors.request.use(config => {
+    return config
+}, error => {
+    return Promise.reject(error)
+});
+//响应返回之时
+axios.interceptors.response.use(response => {
+    // if (response.data.code == 10086) {
+    //     sessionStorage.loginStatus = false;
+    //     location.hash = '#/login';
+    //     return;
+    // }
+    return response
+}, error => {
+    return Promise.resolve(error.response)
+});
+
+
+const serverUrl = process.env.API_PATH;
+
+export const ajax = (options) => {
+    const _options = {
+        method: 'get',
+        timeout: 20000,
+        responseType: options.responseType || 'json'
+        // withCredentials: true
+    };
+    options = Object.assign(_options, options);
+    options.url = serverUrl + options.url
+
+    if (_options.method.toLowerCase() == 'post') {
+        if (_options.params) {
+            if (Object.prototype.toString.call(_options.params) == '[object FormData]') {
+                _options.data = _options.params
+            } else {
+                _options.data = qs.stringify(_options.params);
+            }
+            delete _options.params;
+            if (!_options.headers) {
+                _options.headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                }
+            }
+        }
+    }
+
+    return axios(_options).then((res) => {
+        return res.data;
+    }).catch((err) => { throw err });
+}

@@ -25,7 +25,7 @@ app.use(convert(logger()));
 
 app.use(bodyParser());
 
-app.use(resource(path.join(__dirname, "../public")));;
+app.use(resource(path.join(__dirname, "../public")));
 
 app.use(async (ctx, next) => {
     const start = new Date();
