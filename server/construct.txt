@@ -1,0 +1,9 @@
+目录结构
+-server 
+    -src
+        -controller 具体业务实现 条用dao查询
+        -dao        与数据库进行操作，模型采用models内的内容
+        -models     数据实体
+        -routes     路由，通过接口的请求被路由进行分配，调用相关controller进行操作
+        -public     公共资源
+        server.js   服务器入口文件
