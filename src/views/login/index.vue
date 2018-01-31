@@ -2,7 +2,7 @@
     <div class="login-container">
         <el-form>
             <div class="title-container">
-                <h3 class="title">{{$t('login.title')}}</h3>
+                <h3 class="title">{{$t('signin.title')}}</h3>
             </div>
             <el-form-item>
                 <el-input type="text" placeholder="username" clearable></el-input>
