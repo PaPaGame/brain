@@ -20,6 +20,5 @@ new Vue({
   router,
   template: '<App/>',
   components: { App },
-  i18n,
-  render: h => h(App)
+  i18n
 })

@@ -1,0 +1,13 @@
+<template>
+    <div>
+        <div class="main-container"></div>
+    </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
+
+</style>

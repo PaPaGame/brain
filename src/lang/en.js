@@ -4,5 +4,9 @@ export default {
         login: 'Login',
         username: 'Username',
         password: 'Password'
+    },
+    navbar: {
+        dashboard: 'DashBoard',
+        logOut: 'Logout'
     }
 }
