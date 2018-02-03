@@ -5,22 +5,23 @@
                 <h3 class="title">{{$t('signin.title')}}</h3>
             </div>
             <el-form-item>
-                <el-input type="text" placeholder="username" clearable></el-input>
+                <el-input type="text" placeholder="username"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-input type="password" placeholder="password" @keyup.enter.native="login"></el-input>
             </el-form-item>
+            <el-button type="primary" style="width:100%; margin-bottom:30px;" @click="login">{{$t('signin.login')}}</el-button>
         </el-form>
     </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    login: () => {
-      console.log("哈哈哈");
+    methods: {
+        login: () => {
+            console.log("走登录业务");
+        }
     }
-  }
 };
 </script>
 

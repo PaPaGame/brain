@@ -1,6 +1,8 @@
 import axios from 'axios';
 import qs from 'qs';
 axios.interceptors.request.use(config => {
+    // 检测本地超时状态进行拦截
+    // 如果不合格，跳转登录
     return config
 }, error => {
     return Promise.reject(error)
@@ -23,7 +25,7 @@ const serverUrl = process.env.API_PATH;
 export const ajax = (options) => {
     const _options = {
         method: 'get',
-        timeout: 20000,
+        timeout: 10000,
         responseType: options.responseType || 'json'
         // withCredentials: true
     };
