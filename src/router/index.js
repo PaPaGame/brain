@@ -1,27 +1,18 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Login from '@/components/Login'
-import NewLogin from '@/views/login/index.vue'
+import Vue from 'vue';
+import Router from 'vue-router';
+const _import = require('./_import_' + process.env.NODE_ENV);
 
-Vue.use(Router)
+Vue.use(Router);
+
+import Layout from '../views/layout/Layout';
+
+export const constantRouterMap = [
+  { path: '/login', component: _import('login/index'), hidden: true }
+];
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: "/login",
-      name: "login",
-      component: Login
-    },
-    {
-      path: "/newlogin",
-      name: "newlogin",
-      component: NewLogin
-    }
-  ]
-})
+  scrollBehavior: () => ({ y: 0 }),
+  routes: constantRouterMap
+});
+
+export const asyncRouterMap = [];
