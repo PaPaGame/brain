@@ -10,6 +10,10 @@ import adminDashboard from "@/views/dashboard/admin";
 import editorDashboard from "@/views/dashboard/editor";
 export default {
     name: 'dashboard',
+    components: {
+        adminDashboard,
+        editorDashboard
+    },
     data() {
         return {
             currentRole: 'adminDashboard'

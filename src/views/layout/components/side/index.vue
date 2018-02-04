@@ -1,4 +1,5 @@
 <template>
+  <span>Menu List</span>
 </template>
 
 <script>
