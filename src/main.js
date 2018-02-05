@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import i18n from './lang'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss'
+import store from '@/store'
 
 Vue.config.productionTip = false
 
@@ -18,8 +19,9 @@ Vue.use(ElementUI, {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
+  i18n,
   router,
   template: '<App/>',
-  components: { App },
-  i18n
+  components: { App }
 })

@@ -18,8 +18,9 @@
 <script>
 export default {
     methods: {
-        login: () => {
+        login() {
             console.log("走登录业务");
+            this.$router.push({ path: '/' });
         }
     }
 };
