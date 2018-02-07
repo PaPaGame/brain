@@ -5,7 +5,27 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name: 'SideBarItem',
+    props: {
+        routers: {
+            type: Array
+        },
+        isNest: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+
+    },
+    watch: {
+        routers: (val) => {
+            console.log("aaaaaaaaaaaaa", val);
+        }
+    }
+
+};
 </script>
 
 <style>

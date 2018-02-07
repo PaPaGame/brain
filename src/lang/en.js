@@ -8,5 +8,17 @@ export default {
     navbar: {
         dashboard: 'DashBoard',
         logOut: 'Logout'
+    },
+    menu: {
+        reading: 'Reading',
+        listen: 'Listening',
+        roleManager: 'Employee',
+        student: 'Student',
+        teacher: 'Teacher',
+        stuff: 'Stuff',
+        article: 'Article',
+        keyin: 'Key In',
+        marking: 'Marking',
+        data: 'Data Center'
     }
 }

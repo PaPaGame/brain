@@ -28,4 +28,22 @@ export default new Router({
     routes: constantRouterMap
 });
 
-export const asyncRouterMap = [];
+// 动态路由， 通常是根据权限划分给的
+export const asyncRouterMap = [
+    {
+        path: 'reading',
+        component: Layout,
+        redirect: 'reading',
+        meta: { roles: ['student'] },
+        children: [{
+            path: 'index',
+            component: _import('reading/index'),
+            name: 'reading',
+            meta: {
+                title: 'reading',
+                icon: '',
+                roles: ['student']
+            }
+        }]
+    }
+];
