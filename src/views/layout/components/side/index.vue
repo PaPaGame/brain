@@ -29,7 +29,7 @@
 				<i class="el-icon-setting"></i>
 				<span slot="title">导航三</span>
 			</el-menu-item> -->
-			<side-bar-item :routers="this.$store.getters.permission_routers"></side-bar-item>
+			<side-bar-item :routers="permission_routers"></side-bar-item>
 		</el-menu>
 	</scroll-bar>
 </template>

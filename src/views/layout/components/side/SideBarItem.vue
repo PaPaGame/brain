@@ -1,6 +1,11 @@
 <template>
     <div class="menu-wapper">
-
+        <template v-for="item in routers">
+            <router-link>
+                <el-menu-item>
+                </el-menu-item>
+            </router-link>
+        </template>
     </div>
 </template>
 
@@ -18,11 +23,6 @@ export default {
     },
     methods: {
 
-    },
-    watch: {
-        routers: (val) => {
-            console.log("aaaaaaaaaaaaa", val);
-        }
     }
 
 };

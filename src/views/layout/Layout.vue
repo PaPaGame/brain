@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="app-wrapper">
         <side-bar class="sidebar-container"></side-bar>
         <div class="main-container">
             <nav-bar></nav-bar>
@@ -21,5 +21,8 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
+@import "src/styles/mixin.scss";
+.app_wrapper {
+  @include clearfix;
+}
 </style>
