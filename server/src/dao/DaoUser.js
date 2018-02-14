@@ -14,11 +14,12 @@ util.inherits(UsersDAO, DaoBase);
 
 /** 根据名字查找*/
 UsersDAO.prototype.findByName = (user, callback) => {
+    if (!user)
+        callback({ err: 'err parameter' });
 
-}
-
-UsersDAO.prototype.regist = (callback) => {
-
+    UsersModel.findOne({ name: user.name }, (err, data) => {
+        callback(err, user);
+    });
 }
 
 module.exports = UsersDAO;
