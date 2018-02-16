@@ -1,5 +1,5 @@
 var DaoBase = require("./DaoBase");
-var UsersModel = require("../models/user");
+var UsersModel = require("../models").Users;
 var util = require("util");
 
 var UsersDAO = function (user) {

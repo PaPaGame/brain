@@ -4,7 +4,7 @@ var fs = require("fs");
 //"mongodb://solszl:sol870627@ds245277.mlab.com:45277/readmap"
 mongoose.connect("mongodb://solszl:sol870627@ds245277.mlab.com:45277/readmap");
 
-var db = mongoose.Connection();
+var db = mongoose.connection;
 
 db.on("error", () => {
     console.log("db connect failed");
