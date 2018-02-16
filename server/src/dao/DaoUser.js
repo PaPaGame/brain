@@ -1,5 +1,5 @@
 var DaoBase = require("./DaoBase");
-var UsersModel = require("../models").Users;
+var StudentModel = require("../models").student;
 var util = require("util");
 
 var UsersDAO = function (user) {
@@ -17,8 +17,8 @@ UsersDAO.prototype.findByName = (user, callback) => {
     if (!user)
         callback({ err: 'err parameter' });
 
-    UsersModel.findOne({ name: user.name }, (err, data) => {
-        callback(err, user);
+    StudentModel.findOne({ username: user.username }, (err, data) => {
+        callback(err, data);
     });
 }
 

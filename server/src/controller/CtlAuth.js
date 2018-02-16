@@ -1,18 +1,18 @@
 import jwt from 'koa-jwt';
 import UserDao from '../dao/DaoUser';
-// import UserModel from '../models/UsersModel';
-var UserModel = require("../models").Users;
-var userDao = new UserDao(UserModel);
+var StudentModel = require("../models").student;
+var userDao = new UserDao(StudentModel);
 // 登录
 const SignIn = async (ctx) => {
-    let data = ctx.request.body;
-    const user = await userDao.findByName(user, (err, user) => {
+    let u = ctx.request.body;
+    const user = await userDao.findByName(u, (err, bku) => {
         if (err)
             console.log("no user find");
-        if (user.password === this.user.password) {
-            ctx.body = {
-                code: 200
-            }
+
+        console.log(bku);
+        // 如果验证通过
+        if (StudentModel.authenticate(bku.hash_password, u.password)) {
+            console.log(`验证通过， 用户名是：${u.username}, 密码是：${u.password}`);
         }
     })
 };
