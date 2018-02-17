@@ -8,7 +8,7 @@ function DaoBase(Model) {
 }
 
 /** 创建*/
-DaoBase.prototype.create = (doc, callback) => {
+DaoBase.prototype.create = function (doc, callback) {
     this.model.create(doc, (err, data) => {
         if (err)
             callback(err, null);
@@ -18,7 +18,7 @@ DaoBase.prototype.create = (doc, callback) => {
 };
 
 /** 根据id查找*/
-DaoBase.prototype.getById = (id, callback) => {
+DaoBase.prototype.getById = function (id, callback) {
     this.model.findOne({ _id: id }, (err, data) => {
         if (err)
             callback(err, null);
@@ -28,7 +28,7 @@ DaoBase.prototype.getById = (id, callback) => {
 };
 
 /** 数量*/
-DaoBase.prototype.countByQuery = (query, callback) => {
+DaoBase.prototype.countByQuery = function (query, callback) {
     this.model.find(query, (err, data) => {
         if (err)
             callback(err, null);
@@ -37,7 +37,7 @@ DaoBase.prototype.countByQuery = (query, callback) => {
 };
 
 /** 查找内容，不一定是全部的集合*/
-DaoBase.prototype.getByQuery = (query, fileds, opt, callback) => {
+DaoBase.prototype.getByQuery = function (query, fileds, opt, callback) {
     this.model.find(query, fileds, opt, (err, data) => {
         if (err)
             callback(err, null);
@@ -45,7 +45,7 @@ DaoBase.prototype.getByQuery = (query, fileds, opt, callback) => {
     });
 };
 
-DaoBase.prototype.getAll = (callback) => {
+DaoBase.prototype.getAll = function (callback) {
     this.model.find({}, (err, data) => {
         if (err)
             callback(err, null);
@@ -55,7 +55,7 @@ DaoBase.prototype.getAll = (callback) => {
 };
 
 /** 删除*/
-DaoBase.prototype.delete = (query, callback) => {
+DaoBase.prototype.delete = function (query, callback) {
     this.model.remove(query, err => {
         if (err)
             callback(err);
@@ -64,7 +64,7 @@ DaoBase.prototype.delete = (query, callback) => {
 }
 
 /** 更新*/
-DaoBase.prototype.update = (conditions, update, options, callback) => {
+DaoBase.prototype.update = function (conditions, update, options, callback) {
     this.model.update(conditions, update, options, err => {
         if (err)
             callback(err);
