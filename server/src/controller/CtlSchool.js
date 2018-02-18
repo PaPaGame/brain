@@ -21,7 +21,19 @@ const Update = async (ctx) => {
     //     console.log("更新成功");
     // });
 
-    SchoolModel.findOneAndUpdate({ code: `${code}` }, info)
+    // SchoolModel.findOneAndUpdate({ code: `${code}` }, info)
+
+    let scinfo = school;
+    scinfo.phone = 19999999911;
+
+    // console.log(scinfo);
+    schoolDao.update({ _id: `${scinfo._id}` }, { $set: scinfo }, null, err => {
+        if (!!err) {
+            console.log(err);
+        }
+
+        console.log("ok");
+    });
 }
 
 const Delete = async (ctx) => {
@@ -32,6 +44,7 @@ const Delete = async (ctx) => {
     });
 }
 
+var school;
 const Get = async (ctx) => {
     let code = ctx.params['code'];
     console.log("获取学校详情,学校代码", code);
@@ -39,18 +52,14 @@ const Get = async (ctx) => {
         if (!!err)
             console.log(`${err}`);
 
+        school = data[0];
         console.log(data);
     });
-}
-
-const GetAllSchool = async (ctx) => {
-
 }
 
 module.exports = {
     Create,
     Update,
     Delete,
-    Get,
-    GetAllSchool
+    Get
 };

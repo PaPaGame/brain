@@ -3,7 +3,6 @@ var crypto = require("crypto");
 var Schema = mongoose.Schema;
 
 var studentSchema = new Schema({
-    _id: String,
     username: String,
     hash_password: String,
     gender: String,
@@ -12,12 +11,11 @@ var studentSchema = new Schema({
     status: String,
     phone: String,
     mail: String,
-    createTime: Date,
     validateTime: Date,
     lastLoginTime: Date,
     lastLoginIP: String,
     articleLevel: Array
-});
+}, { timestamps: true });
 
 studentSchema.virtual("password").set(function (password) {
     console.log("Model ==> virtual method");
