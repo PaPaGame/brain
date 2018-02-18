@@ -11,7 +11,8 @@ var articleSchema = new Schema({
     lexile: Number,
     createTime: Date,
     updateTime: Date,
-    layoutType: String
+    layoutType: String,
+    status: String
 });
 
 mongoose.model("article", articleSchema, "article");
