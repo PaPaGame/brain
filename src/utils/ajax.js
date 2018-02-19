@@ -22,7 +22,7 @@ axios.interceptors.response.use(response => {
 
 const serverUrl = process.env.API_PATH;
 
-export const ajax = (options) => {
+const ajax = (options) => {
     const _options = {
         method: 'get',
         timeout: 10000,
@@ -52,3 +52,5 @@ export const ajax = (options) => {
         return res.data;
     }).catch((err) => { throw err });
 }
+
+export default ajax;

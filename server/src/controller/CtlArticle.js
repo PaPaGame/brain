@@ -23,12 +23,12 @@ const GetByID = async (ctx) => {
     // find all
     if (!!!id) {
         console.log("查找所有文章");
-        articleDao.getAll((err, data) => {
+        ctx.body = await articleDao.getAll((err, data) => {
             console.log(data);
         });
     } else {
         console.log(`查找编号为${id}的文章`);
-        articleDao.getById(id, (err, data) => {
+        ctx.body = await articleDao.getById(id, (err, data) => {
             console.log(data);
         });
     }

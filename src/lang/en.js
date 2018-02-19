@@ -25,5 +25,8 @@ export default {
         marking: 'Marking',
         data: 'Data Center',
         school: 'School'
+    },
+    school: {
+        searchName: "school name"
     }
 }

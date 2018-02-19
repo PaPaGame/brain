@@ -25,5 +25,19 @@ export default {
         marking: '评分',
         data: '数据中心',
         school: '校区管理'
+    },
+    school: {
+        searchName: "学校名称",
+        search: "搜索",
+        add: "添加",
+        code: "校区编码",
+        status: "状态",
+        master: "校长",
+        phone: "联系方式",
+        createTime: "创建时间",
+        operate: "操作",
+        modify: "修改",
+        delete: "删除",
+        freeze: "封停"
     }
 }
