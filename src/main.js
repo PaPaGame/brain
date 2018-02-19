@@ -17,6 +17,8 @@ Vue.use(ElementUI, {
     size: 'medium',
     i18n: (key, value) => i18n.t(key, value)
 });
+
+Vue.config.productionTip = false;
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+const delta = 15;
 export default {
     name: 'scrollBar',
     data() {

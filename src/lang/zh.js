@@ -1,4 +1,7 @@
 export default {
+    common: {
+
+    },
     signin: {
         title: '系统登录',
         login: '登录',

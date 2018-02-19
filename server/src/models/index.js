@@ -22,6 +22,7 @@ db.on("open", () => {
 });
 
 var models_path = __dirname + '/../models/mapping'
+// 因为是启动服务器的时候一次性执行，所以采用同步方式读取
 fs.readdirSync(models_path).forEach(file => {
     require(models_path + '/' + file);
     var modelName = file.replace('Model.js', '');

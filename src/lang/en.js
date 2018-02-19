@@ -1,4 +1,7 @@
 export default {
+    common: {
+
+    },
     signin: {
         title: 'Login Form',
         login: 'Login',
