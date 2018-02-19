@@ -1,4 +1,5 @@
-import router from './router';
+import router from './router'
+import store from './store'
 
 const whiteList = ['/login', '/authredirect'];
 
@@ -6,6 +7,7 @@ function hasPermission(role, permissionRoles) {
     return Math.random() < 0.9 ? true : false;
 }
 
+var roles = [];
 router.beforeEach((to, from, next) => {
 
     console.log(to, from);
@@ -17,8 +19,15 @@ router.beforeEach((to, from, next) => {
             next({ path: '/' });
         } else {
             // 已经登录，查看是否有人物信息
-            if (false) {
+            if (roles.length === 0) {
                 //没有的话，获取人物信息
+                // store.dispatch("GetUserInfo").then(res => {
+                roles = ["admin"];
+                store.dispatch("GenerateRoutes", roles).then(() => {
+                    router.addRoutes(store.getters.addRouters);
+                    next({ ...to, replace: true });
+                });
+                // })
             } else {
                 if (hasPermission("", "")) {
                     next();

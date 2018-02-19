@@ -31,19 +31,23 @@ export default new Router({
 // 动态路由， 通常是根据权限划分给的
 export const asyncRouterMap = [
     {
-        path: 'reading',
+        path: "",
         component: Layout,
-        redirect: 'reading',
-        meta: { roles: ['student'] },
-        children: [{
-            path: 'index',
-            component: _import('reading/index'),
-            name: 'reading',
-            meta: {
-                title: 'reading',
-                icon: '',
-                roles: ['student']
-            }
-        }]
+        children: [{ path: "/school", component: _import("school/index"), name: 'school', meta: { title: "school" } }]
+    },
+    {
+        path: "",
+        component: Layout,
+        children: [{ path: "/stuff", component: _import("school/index"), name: 'stuff', meta: { title: "stuff" } }]
+    },
+    {
+        path: "",
+        component: Layout,
+        children: [{ path: "/article", component: _import("school/index"), name: 'article', meta: { title: "article" } }]
+    },
+    {
+        path: "",
+        component: Layout,
+        children: [{ path: "/marking", component: _import("school/index"), name: 'marking', meta: { title: "marking" } }]
     }
 ];

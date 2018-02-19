@@ -12,7 +12,8 @@ export default {
         dashboard: '首页',
         logOut: '登出'
     },
-    menu: {
+    route: {
+        dashboard: '首页',
         reading: '阅读理解',
         listen: '听力训练',
         roleManager: '人员管理',
@@ -22,6 +23,7 @@ export default {
         article: '文章',
         keyin: '录入',
         marking: '评分',
-        data: '数据中心'
+        data: '数据中心',
+        school: '校区管理'
     }
 }

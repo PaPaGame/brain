@@ -12,7 +12,8 @@ export default {
         dashboard: 'DashBoard',
         logOut: 'Logout'
     },
-    menu: {
+    route: {
+        dashboard: 'dashboard',
         reading: 'Reading',
         listen: 'Listening',
         roleManager: 'Employee',
@@ -22,6 +23,7 @@ export default {
         article: 'Article',
         keyin: 'Key In',
         marking: 'Marking',
-        data: 'Data Center'
+        data: 'Data Center',
+        school: 'School'
     }
 }
