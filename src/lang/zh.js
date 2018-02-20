@@ -38,6 +38,7 @@ export default {
         operate: "操作",
         modify: "修改",
         delete: "删除",
-        freeze: "封停"
+        freeze: "封停",
+        unfreeze: "解封"
     }
 }
