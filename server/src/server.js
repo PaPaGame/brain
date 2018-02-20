@@ -9,7 +9,8 @@ import path from "path";
 import http from "http";
 
 import routers from "./routes";
-import config from "../config/config"
+import config from "../config/config";
+import { connectDatabase } from "./models/index";
 
 //实例化koa
 const app = new Koa();
@@ -45,5 +46,7 @@ http.createServer(app.callback()).listen(config.port).on('listening', function (
     console.log("[server start]");
     console.log('listen port:' + config.port);
 });
+
+connectDatabase("mongodb://solszl:sol870627@ds245277.mlab.com:45277/readmap");
 
 export default app;

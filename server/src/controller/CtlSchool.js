@@ -45,24 +45,26 @@ const Delete = async (ctx) => {
 }
 
 var school;
-const Get = async (ctx) => {
+const Get = async function (ctx) {
     let code = ctx.params['code'];
 
     if (!code) {
         console.log("获取全部学校详情");
-        await schoolDao.getAll((err, data) => {
-            if (!!err)
-                console.log(`${err}`);
-        })
-    } else {
-        console.log("获取学校详情,学校代码", code);
-        await schoolDao.getByQuery({ code: `${code}` }, null, null, (err, data) => {
+        let school = await schoolDao.getAll((err, data) => {
             if (!!err)
                 console.log(`${err}`);
         });
-    }
 
-    ctx.body = { schools: [] };
+        ctx.body = { schools: school };
+    } else {
+        console.log("获取学校详情,学校代码", code);
+        let school = await schoolDao.getByQuery({ code: `${code}` }, null, null, (err, data) => {
+            if (!!err)
+                console.log(`${err}`);
+        });
+
+        ctx.body = { schools: school };
+    }
 }
 
 module.exports = {

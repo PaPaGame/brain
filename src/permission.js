@@ -4,7 +4,7 @@ import store from './store'
 const whiteList = ['/login', '/authredirect'];
 
 function hasPermission(role, permissionRoles) {
-    return Math.random() < 0.9 ? true : false;
+    return Math.random() < 0.96 ? true : false;
 }
 
 var roles = [];
