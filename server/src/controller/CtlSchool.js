@@ -37,11 +37,19 @@ const Update = async (ctx) => {
 }
 
 const Delete = async (ctx) => {
-    let code = ctx.params["code"];
-    schoolDao.delete({ code: `${code}` }, err => {
+    // console.log(ctx.params);
+    // let id = ctx.params["id"];
+    // console.log(id);
+    let data = ctx.request.body;
+    let result = schoolDao.delete({ _id: `${data.id}` }, err => {
         if (!!err)
             console.log(`${err}`);
     });
+
+    if (result) {
+        ctx.body = { status: 200 };
+    }
+
 }
 
 var school;
@@ -53,6 +61,8 @@ const Get = async function (ctx) {
         let school = await schoolDao.getAll((err, data) => {
             if (!!err)
                 console.log(`${err}`);
+
+            // console.log(data);
         });
 
         ctx.body = { schools: school };

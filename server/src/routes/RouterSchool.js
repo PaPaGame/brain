@@ -8,6 +8,6 @@ childRouter.post("/school", SchoolController.Create);
 childRouter.get("/school/:code", SchoolController.Get);
 childRouter.get("/school", SchoolController.Get);
 childRouter.put("/school/:code", SchoolController.Update);
-childRouter.delete("/school/:code", SchoolController.Delete);
+childRouter.delete("/school", SchoolController.Delete);
 
 module.exports = childRouter;

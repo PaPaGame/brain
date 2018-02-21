@@ -3,7 +3,7 @@
         <h3>校区管理</h3>
         <!-- filter 容器 -->
         <div class="filter-container">
-            <el-input :placeholder="$t('school.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+            <el-input ref="tiSearch" type="input" :placeholder="$t('school.searchName')" class="filter-item" style="width:200px" clearable></el-input>
             <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('school.search')}}</el-button>
             <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="btnAddClickHandler">{{$t('school.add')}}</el-button>
         </div>
@@ -38,7 +38,7 @@
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.operate')" min-width="300">
                     <template slot-scope="scope">
-                        <el-button size="mini" @click="operateHandler(scope.row,'update')">{{$t('school.modify')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'edit')">{{$t('school.edit')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'delete')">{{$t('school.delete')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'freeze')" v-if="scope.row.status==1">{{$t('school.freeze')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'unfreeze')" v-if="scope.row.status==0">{{$t('school.unfreeze')}}</el-button>
@@ -54,16 +54,35 @@
         </div>
 
         <!-- 弹框 -->
-        <div></div>
+        <div>
+            <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
+                <detail-panel :info="schoolInfo"></detail-panel>
+            </el-dialog>
+        </div>
     </div>
 </template>
 
 <script>
-import { fetchData } from "@/api/school";
+import { fetchData, deleteData } from "@/api/school";
+import DetailPanel from "./detail";
 export default {
+    components: {
+        DetailPanel
+    },
     data() {
         return {
-            list: null
+            list: null,
+            dialogVisible: false,
+            dialogTitle: null,
+            popDeleteVisible: false,
+            visible2: false,
+            schoolInfo: {
+                code: null,
+                status: 0,
+                master: String,
+                phone: String,
+                createTime: String
+            }
         };
     },
     created() {
@@ -71,18 +90,38 @@ export default {
     },
     methods: {
         getList() {
-            console.log("获取学校列表");
             fetchData({}).then(res => {
                 this.list = res.schools;
-                console.log(this.list);
             })
         },
-        btnSearchClickHandler() { },
+        btnSearchClickHandler() {
+            console.log(this.$refs.tiSearch);
+        },
         btnAddClickHandler() { },
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
         operateHandler(row, op) {
-            alert(row + op)
+            this.schoolInfo = row;
+            switch (op) {
+                case "edit":
+                    this.dialogVisible = true;
+                    this.dialogTitle = this.$t('school.edit');
+                    break;
+                case "delete":
+                    console.log(row._id);
+                    let deleteQuery = { id: row._id };
+                    deleteData(deleteQuery).then(res => {
+                        // 删除成功后重新获取一下列表
+                        this.getList();
+                    });
+                    break;
+                case "freeze":
+                    break;
+                case "unfreeze":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

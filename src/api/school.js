@@ -7,3 +7,11 @@ export function fetchData(query) {
         params: query
     });
 }
+
+export function deleteData(query) {
+    return ajax({
+        url: "/school",
+        method: "delete",
+        data: query
+    });
+}

@@ -36,9 +36,13 @@ export default {
         phone: "联系方式",
         createTime: "创建时间",
         operate: "操作",
-        modify: "修改",
+        edit: "修改",
         delete: "删除",
         freeze: "封停",
-        unfreeze: "解封"
+        unfreeze: "解封",
+        create: "创建",
+        edit: "编辑",
+        stuff: "老师",
+        requiredCode: "校区编码必须填写"
     }
 }
