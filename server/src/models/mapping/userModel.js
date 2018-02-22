@@ -2,17 +2,19 @@ var mongoose = require("mongoose");
 var crypto = require("crypto");
 var Schema = mongoose.Schema;
 
-var studentSchema = new Schema({
-    gender: String,
-    firstName: String,
-    secondName: String,
+var userSchema = new Schema({
+    username: String,
+    hash_password: String,
     status: String,
-    validateTime: Date,
-    articleLevel: Array
+    role: String,
+    phone: String,
+    mail: String,
+    lastLoginTime: Date,
+    lastLoginIP: String,
+    school: String
 }, { timestamps: true });
 
-studentSchema.virtual("password").set(function (password) {
-    console.log("Model ==> virtual method");
+userSchema.virtual("password").set(function (password) {
     this.hash_password = encryptoPassword(password);
 });
 
@@ -21,8 +23,8 @@ function encryptoPassword(password) {
 }
 
 //http://mongoosejs.com/docs/guide.html 设置schema 的函数列表的时候， 不可以用箭头函数定义
-studentSchema.static("authenticate", function (dbPassword, userPassword) {
+userSchema.static("authenticate", function (dbPassword, userPassword) {
     return encryptoPassword(userPassword) === dbPassword;
 });
 
-mongoose.model('student', studentSchema, 'student');
+mongoose.model('user', userSchema, 'user');
