@@ -6,11 +6,18 @@ var SchoolModel = require("../models").school;
 var schoolDao = new SchoolDao(SchoolModel);
 
 const Create = async (ctx) => {
+    let info = ctx.request.body;
+    console.log(info);
+    let result = schoolDao.create(info, (err, data) => {
+        if (err)
+            console.log(err);
+    });
 
+    if (result)
+        ctx.body = { status: 200 };
 }
 
 const Update = async (ctx) => {
-    let code = ctx.params["code"];
     let info = ctx.request.body;
 
     // console.log(info);
@@ -23,11 +30,7 @@ const Update = async (ctx) => {
 
     // SchoolModel.findOneAndUpdate({ code: `${code}` }, info)
 
-    let scinfo = school;
-    scinfo.phone = 19999999911;
-
-    // console.log(scinfo);
-    schoolDao.update({ _id: `${scinfo._id}` }, { $set: scinfo }, null, err => {
+    schoolDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
         if (!!err) {
             console.log(err);
         }

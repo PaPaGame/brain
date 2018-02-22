@@ -7,7 +7,7 @@ const childRouter = new Router();
 childRouter.post("/school", SchoolController.Create);
 childRouter.get("/school/:code", SchoolController.Get);
 childRouter.get("/school", SchoolController.Get);
-childRouter.put("/school/:code", SchoolController.Update);
+childRouter.put("/school", SchoolController.Update);
 childRouter.delete("/school", SchoolController.Delete);
 
 module.exports = childRouter;

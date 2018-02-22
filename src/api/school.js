@@ -15,3 +15,19 @@ export function deleteData(query) {
         data: query
     });
 }
+
+export function createData(info) {
+    return ajax({
+        url: "/school",
+        method: "post",
+        data: info
+    });
+}
+
+export function updateData(info) {
+    return ajax({
+        url: "/school",
+        method: "put",
+        data: info
+    });
+}

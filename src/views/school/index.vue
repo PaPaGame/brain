@@ -5,7 +5,7 @@
         <div class="filter-container">
             <el-input ref="tiSearch" type="input" :placeholder="$t('school.searchName')" class="filter-item" style="width:200px" clearable></el-input>
             <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('school.search')}}</el-button>
-            <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="btnAddClickHandler">{{$t('school.add')}}</el-button>
+            <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('school.add')}}</el-button>
         </div>
 
         <!-- 表单 -->
@@ -14,6 +14,11 @@
                 <el-table-column align="center" :label="$t('school.code')" width="90" prop="master">
                     <template slot-scope="scope">
                         <span>{{scope.row.code}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" :label="$t('school.name')" width="90" prop="name">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.status')" width="60">
@@ -31,9 +36,14 @@
                         <span>{{scope.row.phone}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('school.createTime')" width="150">
+                <el-table-column align="center" :label="$t('school.createdTime')" width="150">
                     <template slot-scope="scope">
-                        <span>{{scope.row.createTime}}</span>
+                        <span>{{scope.row.createdAt}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" :label="$t('school.updatedTime')" width="150">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.updatedAt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.operate')" min-width="300">
@@ -56,14 +66,14 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <detail-panel :info="schoolInfo"></detail-panel>
+                <detail-panel :info="schoolInfo" v-on:closeDialog="dialogVisible=false"></detail-panel>
             </el-dialog>
         </div>
     </div>
 </template>
 
 <script>
-import { fetchData, deleteData } from "@/api/school";
+import { fetchData, deleteData, createData } from "@/api/school";
 import DetailPanel from "./detail";
 export default {
     components: {
@@ -74,14 +84,12 @@ export default {
             list: null,
             dialogVisible: false,
             dialogTitle: null,
-            popDeleteVisible: false,
-            visible2: false,
             schoolInfo: {
                 code: null,
                 status: 0,
                 master: String,
                 phone: String,
-                createTime: String
+                createAt: String
             }
         };
     },
@@ -118,6 +126,16 @@ export default {
                 case "freeze":
                     break;
                 case "unfreeze":
+                    break;
+                case "create":
+                    this.schoolInfo = {};
+                    this.schoolInfo.name = "";
+                    this.schoolInfo.code = "";
+                    this.schoolInfo.status = 0;
+                    this.schoolInfo.master = "";
+                    this.schoolInfo.phone = "";
+                    this.dialogVisible = true;
+                    this.dialogTitle = this.$t("school.add");
                     break;
                 default:
                     break;

@@ -1,8 +1,11 @@
 <template>
     <div>
-        <el-form :model="info" :rules="rules" label-position="left" label-width="70px">
+        <el-form :model="info" :rules="rules" label-position="left" label-width="85px">
             <el-form-item :label="$t('school.code')" prop="code">
                 <el-input v-model="info.code" clearable></el-input>
+            </el-form-item>
+            <el-form-item :label="$t('school.name')" prop="code">
+                <el-input v-model="info.name" clearable></el-input>
             </el-form-item>
             <el-form-item :label="$t('school.master')" prop="code">
                 <el-input v-model="info.master" clearable></el-input>
@@ -31,15 +34,15 @@
             </el-form-item>
         </el-form>
         <div slot="footer">
-            <!-- <el-button @click="dialogFormVisible = false">{{$t('table.cancel')}}</el-button>
-            <el-button v-if="dialogStatus=='create'" type="primary" @click="createData">{{$t('table.confirm')}}</el-button>
-            <el-button v-else type="primary" @click="updateData">{{$t('table.confirm')}}</el-button> -->
-            <el-button>创建</el-button>
+            <el-button @click="btnUpdateHandler">更新</el-button>
+            <el-button @click="btnCreateHandler">创建</el-button>
+            <el-button @click="close">取消</el-button>
         </div>
     </div>
 </template>
 
 <script>
+import { createData, updateData } from "@/api/school";
 export default {
     name: "DetailPanel",
     props: {
@@ -59,6 +62,15 @@ export default {
     methods: {
         add() {
             this.stuffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
+        },
+        btnUpdateHandler() {
+            updateData(this.info);
+        },
+        btnCreateHandler() {
+            createData(this.info);
+        },
+        close() {
+            this.$emit("closeDialog");
         }
     }
 }
