@@ -19,7 +19,7 @@ export default {
         roleManager: 'Employee',
         student: 'Student',
         teacher: 'Teacher',
-        stuff: 'Stuff',
+        staff: 'staff',
         article: 'Article',
         keyin: 'Key In',
         marking: 'Marking',
@@ -44,7 +44,7 @@ export default {
         unfreeze: "解封",
         create: "创建",
         edit: "编辑",
-        stuff: "老师",
+        staff: "老师",
         requiredCode: "校区编码必须填写"
     }
 }

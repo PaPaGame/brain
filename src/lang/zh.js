@@ -19,7 +19,7 @@ export default {
         roleManager: '人员管理',
         student: '学生',
         teacher: '老师',
-        stuff: '校长',
+        staff: '校长',
         article: '文章',
         keyin: '录入',
         marking: '评分',
@@ -44,7 +44,20 @@ export default {
         unfreeze: "解封",
         create: "创建",
         edit: "编辑",
-        stuff: "老师",
+        staff: "老师",
         requiredCode: "校区编码必须填写"
+    },
+    staff: {
+        searchName: "老师名字",
+        search: "搜索",
+        add: "添加",
+        username: "用户名",
+        status: "用户状态",
+        phone: "电话",
+        mail: "邮箱",
+        createdAt: "创建时间",
+        lastLoginAt: "上次登录时间",
+        school: "所属学校",
+        operate: "操作"
     }
 }

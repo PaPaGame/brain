@@ -38,16 +38,16 @@ export const asyncRouterMap = [
     {
         path: "",
         component: Layout,
-        children: [{ path: "/stuff", component: _import("school/index"), name: 'stuff', meta: { title: "stuff" } }]
-    },
-    {
-        path: "",
-        component: Layout,
         children: [{ path: "/article", component: _import("school/index"), name: 'article', meta: { title: "article" } }]
     },
     {
         path: "",
         component: Layout,
         children: [{ path: "/marking", component: _import("school/index"), name: 'marking', meta: { title: "marking" } }]
+    },
+    {
+        path: "",
+        component: Layout,
+        children: [{ path: "/staff", component: _import("staff/index"), name: "staff", meta: { title: "teacher" } }]
     }
 ];

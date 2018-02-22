@@ -19,7 +19,7 @@
                     <el-radio label="0">关停</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-form-item :label="$t('school.stuff')">
+            <el-form-item :label="$t('school.staff')">
                 <el-input></el-input>
                 <el-button icon="el-icon-search" type="primary"></el-button>
                 <div>
@@ -27,8 +27,8 @@
                     <el-button type="primary" icon="el-icon-plus" size="mini" @click="add"></el-button>
                 </div>
                 <ul>
-                    <li v-for="stuff in stuffs">
-                        {{stuff.name}}
+                    <li v-for="staff in staffs">
+                        {{staff.name}}
                     </li>
                 </ul>
             </el-form-item>
@@ -53,7 +53,7 @@ export default {
     },
     data() {
         return {
-            stuffs: [],
+            staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("school.requiredCode"), trigger: 'change' }]
             }
@@ -61,7 +61,7 @@ export default {
     },
     methods: {
         add() {
-            this.stuffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
+            this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
             updateData(this.info);
