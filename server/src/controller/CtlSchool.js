@@ -7,7 +7,6 @@ var schoolDao = new SchoolDao(SchoolModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
-    console.log(info);
     let result = schoolDao.create(info, (err, data) => {
         if (err)
             console.log(err);
