@@ -19,17 +19,6 @@ const Create = async (ctx) => {
 
 const Update = async (ctx) => {
     let info = ctx.request.body;
-
-    // console.log(info);
-    // schoolDao.update({ code: `${code}` }, { $set: info }, null, err => {
-    //     if (!!err)
-    //         console.log(`${err}`);
-
-    //     console.log("更新成功");
-    // });
-
-    // SchoolModel.findOneAndUpdate({ code: `${code}` }, info)
-
     schoolDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
         if (!!err) {
             console.log(err);
@@ -40,9 +29,6 @@ const Update = async (ctx) => {
 }
 
 const Delete = async (ctx) => {
-    // console.log(ctx.params);
-    // let id = ctx.params["id"];
-    // console.log(id);
     let data = ctx.request.body;
     let result = schoolDao.delete({ _id: `${data.id}` }, err => {
         if (!!err)
