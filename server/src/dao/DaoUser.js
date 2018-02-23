@@ -1,7 +1,8 @@
 var DaoBase = require("./DaoBase");
-var StudentModel = require("../models").student;
+var UserModel = require("../models").user;
 var util = require("util");
 
+var user;
 var UsersDAO = function (user) {
     this.user = user || {};
     DaoBase.call(this, this.user);
@@ -13,11 +14,14 @@ util.inherits(UsersDAO, DaoBase);
 // 扩展方法
 
 /** 根据名字查找*/
-UsersDAO.prototype.findByName = (user, callback) => {
-    if (!user)
+UsersDAO.prototype.findByName = async (userinfo, callback) => {
+    if (!userinfo)
         callback({ err: 'err parameter' });
 
-    StudentModel.findOne({ username: user.username }, (err, data) => {
+    return UserModel.findOne({ username: userinfo.username }, (err, data) => {
+        if (err)
+            console.log(err);
+
         callback(err, data);
     });
 }
