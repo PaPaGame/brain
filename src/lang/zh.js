@@ -71,7 +71,7 @@ export default {
         operate: "操作",
         createdAt: "创建时间",
         updatedAt: "最后更新时间",
-        teacher: "老师",
+        staff: "老师",
         students: "学生",
         studentCount: "数量",
         name: "班级名称",
@@ -81,7 +81,10 @@ export default {
         delete: "删除",
         deleteSuccess: "删除成功",
         deleteCancel: "取消删除",
+        deleteMsg: "删除后，该班级学生将打散",
         confirm: "确认",
-        cancel: "取消"
+        cancel: "取消",
+        update: "更新",
+        noResult: "查无此人"
     }
 }

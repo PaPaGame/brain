@@ -11,5 +11,6 @@ childRouter.delete("/staff", StaffController.Delete);
 childRouter.get("/staff/phone/:phone", StaffController.GetByPhone);
 childRouter.get("/staff/name/:name", StaffController.GetByName);
 childRouter.get("/staff/school/:school", StaffController.GetBySchool);
+childRouter.get("/staff/fuzzy/:name", StaffController.GetByFuzzyName);
 
 module.exports = childRouter;

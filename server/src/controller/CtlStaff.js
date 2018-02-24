@@ -98,7 +98,23 @@ const GetBySchool = async (ctx) => {
         staffs: staffs,
         status: 200
     };
-}
+};
+
+const GetByFuzzyName = async (ctx) => {
+    let name = ctx.params["name"];
+    // 正则忽略大小写  i
+    let infos = await staffDao.getByQuery({ "name": { $regex: name, $options: 'i' } }, null, null, (err, data) => {
+        if (err)
+            console.log(err);
+    });
+
+    if (infos) {
+        ctx.body = {
+            infos: infos,
+            status: 200
+        };
+    }
+};
 
 module.exports = {
     Create,
@@ -107,5 +123,6 @@ module.exports = {
     Delete,
     GetByPhone,
     GetByName,
-    GetBySchool
+    GetBySchool,
+    GetByFuzzyName
 }

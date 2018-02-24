@@ -22,14 +22,14 @@
                         <span>{{scope.row.school}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.teacher')" width="90" prop="name">
+                <el-table-column align="center" :label="$t('group.staff')" width="90" prop="name">
                     <template slot-scope="scope">
-                        <span>{{scope.row.stuff['name']}}</span>
+                        <span>{{scope.row.staff && scope.row.staff['name']}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.studentCount')" width="60">
                     <template slot-scope="scope">
-                        <span>{{scope.row.student['length']}}</span>
+                        <span>{{(scope.row.student && scope.row.student['length']) || 0}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.createdAt')" width="120">
@@ -60,14 +60,14 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <class-detail-panel :info="classInfo" v-on:closeDialog="dialogVisible=false"></class-detail-panel>
+                <class-detail-panel :info="classInfo" v-on:closeDialog="dialogVisible=false" :operate="dialogOperate" v-on:fetchClassInfo="getList()"></class-detail-panel>
             </el-dialog>
         </div>
     </div>
 </template>
 
 <script>
-import { fetchClass } from "@/api/group";
+import { fetchClass, deleteClass } from "@/api/group";
 import ClassDetailPanel from "./detail";
 export default {
     components: {
@@ -77,6 +77,7 @@ export default {
         return {
             dialogVisible: false,
             dialogTitle: null,
+            dialogOperate: "",
             list: [],
             classInfo: {
                 name: String,
@@ -109,18 +110,23 @@ export default {
                     this.classInfo.school = "asdf";
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;
+                    this.dialogOperate = opt;
                     break;
                 case "edit":
                     this.dialogTitle = this.$t("group.edit");
                     this.dialogVisible = true;
+                    this.dialogOperate = opt;
                     break;
                 case "delete":
-                    this.$confirm("aaaa", "bb", {
+                    this.$confirm(this.$t("group.deleteMsg"), this.$t("group.delete"), {
                         confirmButtonText: this.$t("group.confirm"),
                         cancelButtonText: this.$t("group.cancel"),
                         type: "warning"
                     }).then(() => {
-                        this.$message({ type: "success", message: this.$t("group.deleteSuccess") });
+                        deleteClass(row).then(res => {
+                            this.$message({ type: "success", message: this.$t("group.deleteSuccess") });
+                            this.getList();
+                        });
                     }).catch(() => {
                         this.$message({ type: "info", message: this.$t("group.deleteCancel") });
                     });

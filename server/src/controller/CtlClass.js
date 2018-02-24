@@ -22,7 +22,7 @@ const Update = async (ctx) => {
     if (!info)
         return;
 
-    let result = await classDao.update({ _id: `${info._id}` }, { $set: info }, null, null, (err, data) => {
+    let result = await classDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
         if (err)
             console.log(err);
     });
