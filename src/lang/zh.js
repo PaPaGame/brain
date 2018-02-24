@@ -73,11 +73,15 @@ export default {
         updatedAt: "最后更新时间",
         teacher: "老师",
         students: "学生",
-        studentCount: "学生数量",
+        studentCount: "数量",
         name: "班级名称",
         staff: "老师",
         requiredCode1: "字母、数字、横线组成",
         edit: "编辑",
-        delete: "删除"
+        delete: "删除",
+        deleteSuccess: "删除成功",
+        deleteCancel: "取消删除",
+        confirm: "确认",
+        cancel: "取消"
     }
 }

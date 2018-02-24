@@ -4,14 +4,15 @@
             <el-form-item :label="$t('group.name')" prop="code">
                 <el-input v-model="info.name" clearable></el-input>
             </el-form-item>
-            <el-form-item :label="$t('group.school')" prop="code">
+            <el-form-item :label="$t('group.school')">
                 <el-input v-model="info.school" disabled></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.teacher')" prop="code">
                 <el-input v-model="info.teacher" clearable></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.students')" prop="phone">
-                <el-input v-model="info.students" clearable></el-input>
+                <el-input ref="tiStudentName" v-model="info.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
+                <span v-if="findStudent">查无此人</span>
             </el-form-item>
         </el-form>
         <div slot="footer">
@@ -34,6 +35,7 @@ export default {
     },
     data() {
         return {
+            findStudent: false,
             staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
@@ -53,6 +55,11 @@ export default {
         },
         close() {
             this.$emit("closeDialog");
+        },
+        searchStudentByName() {
+            let name = this.$refs.tiStudentName.value
+            console.log("搜索学生名字：" + name);
+            this.findStudent = Math.random() < 0.2;
         }
     }
 }

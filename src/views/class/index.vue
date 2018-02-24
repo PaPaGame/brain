@@ -24,22 +24,22 @@
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.teacher')" width="90" prop="name">
                     <template slot-scope="scope">
-                        <span>{{scope.row.staff.name}}</span>
+                        <span>{{scope.row.stuff['name']}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.students')" width="60">
+                <el-table-column align="center" :label="$t('group.studentCount')" width="60">
                     <template slot-scope="scope">
-                        <span>444444444444444</span>
+                        <span>{{scope.row.student['length']}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.createdAt')" width="120">
                     <template slot-scope="scope">
-                        <span>6666666666666</span>
+                        <span>{{scope.row.createdAt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.updatedAt')" width="150">
                     <template slot-scope="scope">
-                        <span>777777777777777</span>
+                        <span>{{scope.row.updatedAt}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.operate')" min-width="300">
@@ -109,6 +109,21 @@ export default {
                     this.classInfo.school = "asdf";
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;
+                    break;
+                case "edit":
+                    this.dialogTitle = this.$t("group.edit");
+                    this.dialogVisible = true;
+                    break;
+                case "delete":
+                    this.$confirm("aaaa", "bb", {
+                        confirmButtonText: this.$t("group.confirm"),
+                        cancelButtonText: this.$t("group.cancel"),
+                        type: "warning"
+                    }).then(() => {
+                        this.$message({ type: "success", message: this.$t("group.deleteSuccess") });
+                    }).catch(() => {
+                        this.$message({ type: "info", message: this.$t("group.deleteCancel") });
+                    });
                     break;
             }
         }
