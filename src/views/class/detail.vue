@@ -12,7 +12,7 @@
             </el-form-item>
             <el-form-item :label="$t('group.students')" prop="phone">
                 <el-input ref="tiStudentName" v-model="info.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
-                <span v-if="findStudent">查无此人</span>
+                <span v-if="findNothing">查无此人</span>
             </el-form-item>
         </el-form>
         <div slot="footer">
@@ -25,6 +25,7 @@
 
 <script>
 import { createClass, updateClass } from "@/api/group";
+import { FetchInfoByFuzzyName } from "@/api/student"
 export default {
     name: "ClassDetailPanel",
     props: {
@@ -35,7 +36,7 @@ export default {
     },
     data() {
         return {
-            findStudent: false,
+            findNothing: false,
             staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
@@ -58,8 +59,12 @@ export default {
         },
         searchStudentByName() {
             let name = this.$refs.tiStudentName.value
-            console.log("搜索学生名字：" + name);
-            this.findStudent = Math.random() < 0.2;
+
+            FetchInfoByFuzzyName(name).then(res => {
+                // 如果没有找到人 显示，否则呈现列表插入
+                let result = res.infos;
+                this.findNothing = result.length === 0
+            });
         }
     }
 }

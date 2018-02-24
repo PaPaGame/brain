@@ -4,6 +4,7 @@ const SchoolController = require("./CtlSchool");
 const ArticleController = require("./CtlArticle");
 const StaffController = require("./CtlStaff");
 const ClassController = require("./CtlClass");
+const StudentController = require("./CtlStudent");
 
 module.exports = {
     UserController,
@@ -11,5 +12,6 @@ module.exports = {
     SchoolController,
     ArticleController,
     StaffController,
-    ClassController
+    ClassController,
+    StudentController
 }
