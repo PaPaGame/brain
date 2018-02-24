@@ -7,6 +7,7 @@ var classDao = new ClassDao(ClassModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
+    console.log(info);
     let result = await classDao.create(info, (err, data) => {
         if (err)
             console.log(err);
@@ -45,7 +46,8 @@ const Get = async (ctx) => {
     let name = ctx.params["name"];
     if (!name) {
         let classes = await classDao.getAll((err, data) => {
-
+            if (err)
+                console.log(err);
         });
 
         ctx.body = {

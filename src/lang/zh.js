@@ -24,7 +24,8 @@ export default {
         keyin: '录入',
         marking: '评分',
         data: '数据中心',
-        school: '校区管理'
+        school: '校区管理',
+        group: '班级管理'
     },
     school: {
         searchName: "学校名称",
@@ -59,5 +60,24 @@ export default {
         lastLoginAt: "上次登录时间",
         school: "所属学校",
         operate: "操作"
+    },
+    group: {
+        searchName: "班级名字",
+        search: "搜索",
+        add: "添加",
+        createdAt: "创建时间",
+        lastLoginAt: "上次登录时间",
+        school: "所属学校",
+        operate: "操作",
+        createdAt: "创建时间",
+        updatedAt: "最后更新时间",
+        teacher: "老师",
+        students: "学生",
+        studentCount: "学生数量",
+        name: "班级名称",
+        staff: "老师",
+        requiredCode1: "字母、数字、横线组成",
+        edit: "编辑",
+        delete: "删除"
     }
 }
