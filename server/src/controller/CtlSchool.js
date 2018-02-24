@@ -18,7 +18,7 @@ const Create = async (ctx) => {
 
 const Update = async (ctx) => {
     let info = ctx.request.body;
-    schoolDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
+    await schoolDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
         if (!!err) {
             console.log(err);
         }
