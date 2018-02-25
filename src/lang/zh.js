@@ -94,6 +94,9 @@ export default {
         secondName: "名",
         firstName: "姓",
         school: "学校",
-        group: "班级"
+        group: "班级",
+        searchName: "学生名字",
+        search: "搜索",
+        add: "添加"
     }
 }

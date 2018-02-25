@@ -1,6 +1,14 @@
 <template>
     <div class="main">
         <h3>学生管理</h3>
+        <!-- 过滤器 -->
+        <div>
+            <div class="filter-container">
+                <el-input ref="tiSearch" type="input" :placeholder="$t('student.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+                <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('student.search')}}</el-button>
+                <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('student.add')}}</el-button>
+            </div>
+        </div>
         <div class="leftContainer">
             <class-list></class-list>
         </div>
@@ -21,7 +29,7 @@
                         <span>{{scope.row.school}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('student.group')" width="90" prop="name">
+                <el-table-column align="center" :label="$t('student.group')" width="270" prop="name">
                     <template slot-scope="scope">
                         <span>{{scope.row.group}}</span>
                     </template>
