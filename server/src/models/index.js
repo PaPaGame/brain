@@ -31,7 +31,7 @@ export function connectDatabase(uri) {
             .on("close", () => console.log("DataBase connection closed."))
             .on("open", () => {
                 console.log("[DB] connect success,", new Date());
-                // mongoose.model("school").aggrega
+                // mongoose.model("school").find()
                 resolve(mongoose.connection)
             });
 

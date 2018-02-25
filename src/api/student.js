@@ -7,3 +7,10 @@ export function FetchStudentByFuzzyName(query) {
         method: "get"
     });
 }
+
+export function FetchStudents() {
+    return ajax({
+        url: "/student",
+        method: "get"
+    });
+}

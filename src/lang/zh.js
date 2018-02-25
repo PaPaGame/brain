@@ -18,8 +18,8 @@ export default {
         listen: '听力训练',
         roleManager: '人员管理',
         student: '学生',
-        teacher: '老师',
-        staff: '校长',
+        staff: '老师',
+        master: '校长',
         article: '文章',
         keyin: '录入',
         marking: '评分',
@@ -86,5 +86,14 @@ export default {
         cancel: "取消",
         update: "更新",
         noResult: "查无此人"
+    },
+    student: {
+        inputGroupName: "请输入班级名称",
+        inputTips: "输入后匹配输入建议",
+        username: "名字",
+        secondName: "名",
+        firstName: "姓",
+        school: "学校",
+        group: "班级"
     }
 }

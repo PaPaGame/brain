@@ -10,7 +10,17 @@ var Create = async (ctx) => {
 };
 
 var Get = async (ctx) => {
+    let students = await studentDao.getAll((err, data) => {
+        if (err)
+            console.log(err);
+    });
 
+    if (students) {
+        ctx.body = {
+            status: 200,
+            students: students
+        };
+    }
 }
 
 var GetFuzzyByName = async (ctx) => {

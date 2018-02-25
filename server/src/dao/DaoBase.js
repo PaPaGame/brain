@@ -46,13 +46,12 @@ DaoBase.prototype.getByQuery = function (query, fileds, opt, callback) {
 };
 
 DaoBase.prototype.getAll = function (callback) {
-    return this.model.find({}, (err, data) => {
+    return this.model.find({}, null, { sort: { "createdAt": -1 } }, (err, data) => {
         if (err)
             callback(err, null);
 
         callback(null, data);
     });
-
 };
 
 /** 删除*/

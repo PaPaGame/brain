@@ -1,0 +1,78 @@
+<template>
+    <div class="main">
+        <h3>学生管理</h3>
+        <div class="leftContainer">
+            <class-list></class-list>
+        </div>
+        <div class="rightContainer">
+            <el-table :data="studentList" border style="width:100%" fit>
+                <el-table-column align="center" :label="$t('student.secondName')" width="90" prop="master">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.secondName}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" :label="$t('student.firstName')" width="60">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.firstName}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" :label="$t('student.school')" width="150">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.school}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column align="center" :label="$t('student.group')" width="90" prop="name">
+                    <template slot-scope="scope">
+                        <span>{{scope.row.group}}</span>
+                    </template>
+                </el-table-column>
+            </el-table>
+            <!-- 翻页 -->
+            <div class="pagination-container">
+                <el-pagination background @size-change="pageSizeChangeHandler" @current-change="pageCurrentChangeHandler" :current-page="1" :page-sizes="[5,10,20]" :page-size="10" :total="2" layout="total, sizes, prev, pager, next, jumper">
+                </el-pagination>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import ClassList from "@/components/ClassList";
+import { FetchStudents } from "@/api/student";
+export default {
+    components: {
+        ClassList
+    },
+    data() {
+        return {
+            studentList: []
+        };
+    },
+    methods: {
+        pageSizeChangeHandler() { },
+        pageCurrentChangeHandler() { }
+    },
+    beforeMount() {
+        FetchStudents().then(res => {
+            this.studentList = res.students;
+        })
+    }
+}
+</script>
+
+<style lang="scss" scoped>
+.main {
+  width: 100%;
+  height: auto;
+}
+.leftContainer {
+  width: 400px;
+  float: left;
+  height: auto;
+}
+.rightContainer {
+  width: auto;
+  float: right;
+  height: auto;
+}
+</style>

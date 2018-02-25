@@ -13,6 +13,7 @@
     "axios": "^0.17.1",
     "element-ui": "^2.0.11",
     "vue": "^2.5.2",
+    "vue-gemini-scrollbar": "^2.0.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
