@@ -4,8 +4,7 @@
             :data="tableData"
             @cell-click="cellClick"
             style="with:100%"
-            class="edu-fix"
-            border>
+            class="edu-fix">
             <el-table-column v-for="(value, index) in tableColumns"
                 :key="index"
                 :prop="value.prop"

@@ -43,9 +43,11 @@
 </template>
 
 <script>
-import { createClass, updateClass } from "@/api/group";
-// import { FetchStudentByFuzzyName } from "@/api/student";
-import { FetchTeacherByFuzzyName } from "@/api/staff";
+// import { createClass, updateClass } from "@/api/group";
+import groupService from "@/api/group";
+import studentService from "@/api/student";
+// import { FetchTeacherByFuzzyName } from "@/api/staff";
+import staffService from "@/api/staff";
 import { deepClone } from "@/utils/index";
 export default {
     name: "ClassDetailPanel",
@@ -74,13 +76,13 @@ export default {
             this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
-            updateClass(this.info).then(res => {
+            groupService.updateClass(this.info).then(res => {
                 this.close();
                 this.$emit("fetchClassInfo");
             });
         },
         btnCreateHandler() {
-            createClass(this.info).then(res => {
+            groupService.createClass(this.info).then(res => {
                 this.$emit("fetchClassInfo");
                 this.close();
             });
@@ -91,15 +93,15 @@ export default {
         searchStudentByName() {
             let name = this.$refs.tiStudentName.value
 
-            // FetchStudentByFuzzyName(name).then(res => {
-            //     // 如果没有找到人 显示，否则呈现列表插入
-            //     let result = res.infos;
-            //     this.findStudentNothing = result.length === 0;
-            // });
+            studentService.fetchStudentByFuzzyName(name).then(res => {
+                // 如果没有找到人 显示，否则呈现列表插入
+                let result = res.infos;
+                this.findStudentNothing = result.length === 0;
+            });
         },
         searchStaffByName() {
             let name = this.$refs.tiTeacherName.value;
-            FetchTeacherByFuzzyName(name).then(res => {
+            staffService.fetchTeacherByFuzzyName(name).then(res => {
                 let result = res.infos;
                 this.findTeacherNothing = result.length === 0;
                 if (result.length) {

@@ -1,7 +1,7 @@
 import ajax from "@/utils/ajax";
 
 const staff = {
-    FetchTeacherByFuzzyName(query) {
+    fetchTeacherByFuzzyName(query) {
         return ajax({
             url: "/staff/fuzzy/" + query,
             method: "get"

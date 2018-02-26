@@ -1,15 +1,14 @@
 import ajax from "@/utils/ajax";
-///student/fuzzy/:name
 
 const student = {
-    FetchStudentByFuzzyName(query) {
+    fetchStudentByFuzzyName(query) {
         return ajax({
             url: "/student/fuzzy/" + query,
             method: "get"
         });
     },
 
-    FetchStudents() {
+    fetchStudents() {
         return ajax({
             url: "/student",
             method: "get"

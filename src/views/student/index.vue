@@ -25,61 +25,14 @@
             <class-list></class-list>
         </div>
         <div class="rightContainer">
-            <el-table :data="studentList"
-                border
-                style="width:100%"
-                fit>
-                <el-table-column align="center"
-                    :label="$t('student.secondName')"
-                    width="90"
-                    prop="master">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.secondName}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('student.firstName')"
-                    width="60">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.firstName}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('student.school')"
-                    width="150">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.school}}</span>
-                    </template>
-                </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('student.group')"
-                    width="270"
-                    prop="name">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.group}}</span>
-                    </template>
-                </el-table-column>
-            </el-table>
-            <!-- 翻页 -->
-            <div class="pagination-container">
-                <el-pagination background
-                    @size-change="pageSizeChangeHandler"
-                    @current-change="pageCurrentChangeHandler"
-                    :current-page="1"
-                    :page-sizes="[5,10,20]"
-                    :page-size="10"
-                    :total="2"
-                    layout="prev, pager, next">
-                </el-pagination>
-            </div>
+            <edu-table :tableColumns="tableColumns"
+                :tableData="studentList"
+                :totalCount="totalCount"
+                :pageSize="studentModel.pagesize"
+                @pageChange="pageChange"
+                ref="table">
+            </edu-table>
         </div>
-        <edu-table :tableColumns="tableColumns"
-            :tableData="studentList"
-            :totalCount="totalCount"
-            :pageSize="studentModel.pagesize"
-            @pageChange="pageChange"
-            ref="table">
-        </edu-table>
     </div>
 </template>
 
@@ -87,6 +40,7 @@
 import { mapGetters, mapActions } from "vuex";
 import ClassList from "@/components/ClassList";
 // import { FetchStudents } from "@/api/student";
+import studentService from "@/api/student";
 import table from "@/components/table";
 export default {
     components: {
@@ -127,6 +81,11 @@ export default {
     //         this.studentList = this.studentList.concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList)
     //     })
     // },
+    created() {
+        studentService.fetchStudents().then(res => {
+            this.studentList = res.students;
+        });
+    },
     computed: mapGetters({ tableData: 'groupList', totalCount: 'groupCount', })
 }
 </script>

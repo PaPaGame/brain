@@ -7,7 +7,8 @@
         <span>{{$t('student.inputTips')}}</span>
         <GeminiScrollbar class="my-scroll-bar">
             <ul>
-                <li v-for="group in groups">{{group}}{{group.name}}({{group.count}})</li>
+                <li v-for="group in groups"
+                    style="margin-top:10px;">{{group.name}} ({{group.student.length}})</li>
             </ul>
         </GeminiScrollbar>
     </div>
@@ -16,7 +17,6 @@
 <script>
 import Vue from "vue";
 import GeminiScrollbar from "vue-gemini-scrollbar";
-// import { fetchClass } from "@/api/group";
 import { mapGetters, mapActions } from "vuex";
 Vue.use(GeminiScrollbar);
 export default {

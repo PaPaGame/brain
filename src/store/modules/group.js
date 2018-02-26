@@ -1,4 +1,5 @@
 import groupService from "@/api/group";
+import * as types from "../mutation-type";
 
 const state = {
     groupData: {},
@@ -12,7 +13,7 @@ const getters = {
 }
 
 const mutations = {
-    ["UPDATE_GROUP_LIST"](state, { data }) {
+    [types.GROUP_UPDATE_LIST](state, { data }) {
         state.groupList.push(...data);
         state.groupCount = state.groupList.length;
     }
@@ -20,11 +21,10 @@ const mutations = {
 
 const actions = {
     getGroupList({ commit, state }, payload) {
-        console.log("在module 里获取数据");
         groupService.fetchClass({}).then(res => {
             console.log("获取数据完毕", res);
             if (res.status == 200) {
-                commit("UPDATE_GROUP_LIST", { data: res.classInfos });
+                commit(types.GROUP_UPDATE_LIST, { data: res.classInfos });
             } else {
 
             }

@@ -115,7 +115,8 @@
 </template>
 
 <script>
-import { fetchClass, deleteClass } from "@/api/group";
+// import { fetchClass, deleteClass } from "@/api/group";
+import groupService from "@/api/group";
 import ClassDetailPanel from "./detail";
 export default {
     components: {
@@ -140,7 +141,7 @@ export default {
     },
     methods: {
         getList() {
-            fetchClass({}).then(res => {
+            groupService.fetchClass({}).then(res => {
                 this.list = res.classInfos;
             })
         },
@@ -171,7 +172,7 @@ export default {
                         cancelButtonText: this.$t("group.cancel"),
                         type: "warning"
                     }).then(() => {
-                        deleteClass(row).then(res => {
+                        groupService.deleteClass(row).then(res => {
                             this.$message({ type: "success", message: this.$t("group.deleteSuccess") });
                             this.getList();
                         });
