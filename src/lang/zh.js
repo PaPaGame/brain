@@ -10,7 +10,7 @@ export default {
     },
     navbar: {
         dashboard: '首页',
-        logOut: '登出'
+        logout: '登出'
     },
     route: {
         dashboard: '首页',

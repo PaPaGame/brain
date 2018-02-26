@@ -10,7 +10,7 @@ export default {
     },
     navbar: {
         dashboard: 'DashBoard',
-        logOut: 'Logout'
+        logout: 'Logout'
     },
     route: {
         dashboard: 'dashboard',

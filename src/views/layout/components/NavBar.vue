@@ -12,7 +12,7 @@
                             {{$t('navbar.dashboard')}}
                         </el-dropdown-item>
                         <el-dropdown-item divided>
-                            <span @click="logout" style="display:block;">{{$t('navbar.logOut')}}</span>
+                            <span @click="logout" style="display:block;">{{$t('navbar.logout')}}</span>
                         </el-dropdown-item>
                     </router-link>
                 </el-dropdown-menu>
