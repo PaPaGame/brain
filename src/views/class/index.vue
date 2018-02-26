@@ -115,7 +115,6 @@
 </template>
 
 <script>
-// import { fetchClass, deleteClass } from "@/api/group";
 import groupService from "@/api/group";
 import ClassDetailPanel from "./detail";
 export default {
