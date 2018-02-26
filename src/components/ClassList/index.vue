@@ -1,10 +1,13 @@
 <template>
     <div>
-        <el-autocomplete :placeholder="$t('student.inputGroupName')" :trigger-on-focus="false" @select="selectHandler" class="inline-input"></el-autocomplete>
+        <el-autocomplete :placeholder="$t('student.inputGroupName')"
+            :trigger-on-focus="false"
+            @select="selectHandler"
+            class="inline-input"></el-autocomplete>
         <span>{{$t('student.inputTips')}}</span>
         <GeminiScrollbar class="my-scroll-bar">
             <ul>
-                <li v-for="group in groups">{{group.name}}({{group.count}})</li>
+                <li v-for="group in groups">{{group}}{{group.name}}({{group.count}})</li>
             </ul>
         </GeminiScrollbar>
     </div>
@@ -13,13 +16,13 @@
 <script>
 import Vue from "vue";
 import GeminiScrollbar from "vue-gemini-scrollbar";
-import { fetchClass } from "@/api/group";
+// import { fetchClass } from "@/api/group";
+import { mapGetters, mapActions } from "vuex";
 Vue.use(GeminiScrollbar);
 export default {
     name: 'classList',
     data() {
         return {
-            groups: [],
             items: [{ id: "all", name: "ALL" },
             { id: "哈哈哈", name: "SAT0900-FFW-R3-MIRANDA" },
             { id: "咪咪咪", name: "SAT1620-FFW-LT-SELINA" },
@@ -31,26 +34,28 @@ export default {
     methods: {
         selectHandler(item) {
             console.log(item);
-        }
+        },
+        ...mapActions(["getGroupList"])
     },
-    beforeMount() {
-        // console.log("get data");
-        fetchClass({}).then(res => {
-            console.log(res);
-            this.groups = [];
-            let classInfos = res.classInfos;
-            if (classInfos.length <= 0)
-                return;
-            let total = 0;
-            classInfos.forEach(info => {
-                let count = info.student.length
-                total += count;
-                this.groups.push({ id: info._id, name: info.name, count: count });
-            });
+    computed: mapGetters({ groups: "groupList" })
+    // beforeMount() {
+    //     // console.log("get data");
+    //     fetchClass({}).then(res => {
+    //         console.log(res);
+    //         this.groups = [];
+    //         let classInfos = res.classInfos;
+    //         if (classInfos.length <= 0)
+    //             return;
+    //         let total = 0;
+    //         classInfos.forEach(info => {
+    //             let count = info.student.length
+    //             total += count;
+    //             this.groups.push({ id: info._id, name: info.name, count: count });
+    //         });
 
-            this.groups.unshift({ id: "{}", name: "ALL", count: total });
-        });
-    }
+    //         this.groups.unshift({ id: "{}", name: "ALL", count: total });
+    //     });
+    // }
 }
 </script>
 

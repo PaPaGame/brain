@@ -84,13 +84,17 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import ClassList from "@/components/ClassList";
-import { FetchStudents } from "@/api/student";
+// import { FetchStudents } from "@/api/student";
 import table from "@/components/table";
 export default {
     components: {
         ClassList,
         "edu-table": table
+    },
+    created() {
+        this.getGroupList();
     },
     data() {
         return {
@@ -111,14 +115,19 @@ export default {
     },
     methods: {
         pageSizeChangeHandler() { },
-        pageCurrentChangeHandler() { }
+        pageCurrentChangeHandler() { },
+        btnSearchClickHandler() { },
+        pageChange() { },
+        click() { },
+        ...mapActions(["getGroupList"])
     },
-    beforeMount() {
-        FetchStudents().then(res => {
-            this.studentList = res.students;
-            this.studentList = this.studentList.concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList)
-        })
-    }
+    // beforeMount() {
+    //     FetchStudents().then(res => {
+    //         this.studentList = res.students;
+    //         this.studentList = this.studentList.concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList)
+    //     })
+    // },
+    computed: mapGetters({ tableData: 'groupList', totalCount: 'groupCount', })
 }
 </script>
 
