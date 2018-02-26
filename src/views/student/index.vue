@@ -69,7 +69,7 @@
                     :page-sizes="[5,10,20]"
                     :page-size="10"
                     :total="2"
-                    layout="total, sizes, prev, pager, next, jumper">
+                    layout="prev, pager, next">
                 </el-pagination>
             </div>
         </div>
