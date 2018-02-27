@@ -4,33 +4,16 @@
         <!-- 过滤器 -->
         <div>
             <div class="filter-container">
-                <el-input ref="tiSearch"
-                    type="input"
-                    :placeholder="$t('student.searchName')"
-                    class="filter-item"
-                    style="width:200px"
-                    clearable></el-input>
-                <el-button type="primary"
-                    icon="el-icon-search"
-                    class="filter-item"
-                    @click="btnSearchClickHandler">{{$t('student.search')}}</el-button>
-                <el-button type="primary"
-                    icon="el-icon-edit"
-                    class="filter-item"
-                    style="margin-left: 10px;"
-                    @click="operateHandler(null,'create')">{{$t('student.add')}}</el-button>
+                <el-input ref="tiSearch" type="input" :placeholder="$t('student.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+                <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('student.search')}}</el-button>
+                <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('student.add')}}</el-button>
             </div>
         </div>
         <div class="leftContainer">
-            <class-list></class-list>
+            <class-list v-on:groupListClick="classListClick"></class-list>
         </div>
         <div class="rightContainer">
-            <edu-table :tableColumns="tableColumns"
-                :tableData="studentList"
-                :totalCount="totalCount"
-                :pageSize="studentModel.pagesize"
-                @pageChange="pageChange"
-                ref="table">
+            <edu-table :tableColumns="tableColumns" :tableData="studentList" :totalCount="totalCount" :pageSize="studentModel.pagesize" @pageChange="pageChange" ref="table">
             </edu-table>
         </div>
     </div>
@@ -73,14 +56,11 @@ export default {
         btnSearchClickHandler() { },
         pageChange() { },
         click() { },
+        classListClick(info) {
+            console.log("需要获取新数据，id为", info._id);
+        },
         ...mapActions(["getGroupList"])
     },
-    // beforeMount() {
-    //     FetchStudents().then(res => {
-    //         this.studentList = res.students;
-    //         this.studentList = this.studentList.concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList).concat(this.studentList)
-    //     })
-    // },
     created() {
         studentService.fetchStudents().then(res => {
             this.studentList = res.students;
