@@ -8,6 +8,7 @@ const articleRouter = require("../routes/RouterArticle");
 const staffRouter = require("../routes/RouterStaff");
 const classRouter = require("../routes/RouterClass");
 const studentRouter = require("../routes/RouterStudent");
+const courseRouter = require("../routes/RouterCourse");
 
 // 用户相关路由
 router.use("/api", userRouter.routes(), userRouter.allowedMethods());
@@ -23,5 +24,7 @@ router.use("/api", staffRouter.routes(), staffRouter.allowedMethods());
 router.use("/api", classRouter.routes(), classRouter.allowedMethods());
 // 学生相关的路由
 router.use("/api", studentRouter.routes(), studentRouter.allowedMethods());
+// 课程相关路由
+router.use("/api", courseRouter.routes(), courseRouter.allowedMethods());
 
 module.exports = router;
