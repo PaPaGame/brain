@@ -1,0 +1,19 @@
+import { SchemaTypes } from "mongoose";
+
+var mongoose = require("mongoose");
+var crypto = require("crypto");
+var Schema = mongoose.Schema;
+
+/** 
+ * @param cid 对应哪篇文章
+ * @param uid 对应哪个学生
+ * @param recordName 录音名字
+*/
+var recordSchema = new Schema({
+    cid: SchemaTypes.ObjectId,
+    uid: SchemaTypes.ObjectId,
+    recordName: String
+}, { timestamps: true });
+
+
+mongoose.model("record", recordSchema, "record");
