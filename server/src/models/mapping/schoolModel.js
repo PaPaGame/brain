@@ -7,10 +7,8 @@ var Schema = mongoose.Schema;
 var schoolSchema = new Schema({
     name: String,
     code: String,
-    master: String,
-    phone: String,
     status: String,
-    staff: Array,
+    staff: SchemaTypes.ObjectId,
 }, { timestamps: true });
 
 mongoose.model("school", schoolSchema, "school");

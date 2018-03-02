@@ -46,7 +46,7 @@ const Get = async function (ctx) {
 
     if (!code) {
         console.log("获取全部学校详情");
-        let school = await schoolDao.getAll((err, data) => {
+        let school = await schoolDao.findAllSchool((err, data) => {
             if (!!err)
                 console.log(`${err}`);
 
