@@ -5,6 +5,22 @@ var UserModel = require("../models").user;
 
 var userDao = new UserDao(UserModel);
 
+const Exist = async (ctx) => {
+    let info = ctx.request.body;
+    // info  username
+    console.log(info);
+    let result = await userDao.findByName(info, (err, data) => {
+        if (err)
+            console.log(err);
+    });
+
+    ctx.body = {
+        // exist: result && result.count >= 1;
+        status: 200,
+        exist: result !== null
+    };
+}
+
 const Create = async (ctx) => {
     let info = ctx.request.body;
     let result = userDao.create(info, (err, data) => {
@@ -18,18 +34,22 @@ const Create = async (ctx) => {
 
 const Update = async (ctx) => {
     let info = ctx.request.body;
-    userDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
+    let result = await userDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
         if (!!err) {
             console.log(err);
         }
-
-        console.log("ok");
     });
+
+    if (result) {
+        ctx.body = {
+            status: 200
+        };
+    }
 }
 
 const Delete = async (ctx) => {
     let data = ctx.request.body;
-    let result = userDao.delete({ _id: `${data.id}` }, err => {
+    let result = userDao.delete({ _id: `${data._id}` }, err => {
         if (!!err)
             console.log(`${err}`);
     });
@@ -42,7 +62,17 @@ const Delete = async (ctx) => {
 
 var user;
 const Get = async function (ctx) {
-    let code = ctx.params['code'];
+    // let code = ctx.params['code'];
+    let result = await userDao.getAll((err, data) => {
+
+    });
+
+    if (result) {
+        ctx.body = {
+            status: 200,
+            users: result
+        };
+    }
 }
 
 const Login = async function (ctx) {
@@ -71,5 +101,6 @@ module.exports = {
     Update,
     Delete,
     Get,
-    Login
+    Login,
+    Exist
 };

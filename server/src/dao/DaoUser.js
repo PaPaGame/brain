@@ -18,7 +18,7 @@ UsersDAO.prototype.findByName = async (userinfo, callback) => {
     if (!userinfo)
         callback({ err: 'err parameter' });
 
-    return UserModel.findOne({ username: userinfo.username }, (err, data) => {
+    return await UserModel.findOne({ username: userinfo.username }, (err, data) => {
         if (err)
             console.log(err);
 
