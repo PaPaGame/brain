@@ -1,3 +1,5 @@
+import { SchemaTypes } from "mongoose";
+
 var mongoose = require("mongoose");
 var crypto = require("crypto");
 var Schema = mongoose.Schema;
@@ -11,7 +13,8 @@ var userSchema = new Schema({
     mail: String,
     lastLoginTime: Date,
     lastLoginIP: String,
-    school: String
+    school: String,
+    uid: SchemaTypes.ObjectId
 }, { timestamps: true });
 
 userSchema.virtual("password").set(function (password) {

@@ -96,11 +96,61 @@ const Login = async function (ctx) {
     }
 }
 
+const AddStaff = async (ctx) => {
+    let userInfo = ctx.request.body;
+
+    let result = await userDao.addStaff(userInfo, (err, data) => {
+
+    });
+
+    if (result) {
+        ctx.body = {
+            status: 200
+        };
+    }
+}
+
+const UpdateStaff = async (ctx) => {
+
+}
+
+const DeleteStaff = async (ctx) => {
+
+}
+
+const GetStaff = async (ctx) => {
+
+}
+
+const AddStudent = async (ctx) => {
+
+}
+
+const UpdateStudent = async (ctx) => {
+
+}
+
+const DeleteStudent = async (ctx) => {
+
+}
+
+const GetStudent = async (ctx) => {
+
+}
+
 module.exports = {
     Create,
     Update,
     Delete,
     Get,
     Login,
-    Exist
+    Exist,
+    AddStaff,
+    UpdateStaff,
+    DeleteStaff,
+    GetStaff,
+    AddStudent,
+    UpdateStudent,
+    DeleteStudent,
+    GetStudent
 };

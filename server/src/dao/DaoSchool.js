@@ -13,7 +13,7 @@ var SchoolDao = function (school) {
 util.inherits(SchoolDao, DaoBase);
 
 /**
- * 管理员获取所有学校列表
+ * 管理员获取所有学校列表， 跟普通单表的getall不同， 这个是多表有筛选的
  * @param {*} ctx 
  * 
  */
