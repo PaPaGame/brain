@@ -3,8 +3,10 @@ import { StudentController } from "../controller/index";
 
 const childRouter = new Router();
 
-childRouter.post("/student", StudentController.Create);
 childRouter.get("/student/fuzzy/:name", StudentController.GetFuzzyByName);
-childRouter.get("/student", StudentController.Get);
+childRouter.post("/student", StudentController.AddStudent);
+childRouter.put("/student", StudentController.UpdateStudent);
+childRouter.delete("/student", StudentController.DeleteStudent);
+childRouter.get("/student", StudentController.GetStudent);
 
 module.exports = childRouter;

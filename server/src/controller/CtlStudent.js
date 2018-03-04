@@ -5,10 +5,6 @@ var StudentModel = require("../models").student;
 
 var studentDao = new StudentDao(StudentModel);
 
-var Create = async (ctx) => {
-
-};
-
 var Get = async (ctx) => {
     let students = await studentDao.getAll((err, data) => {
         if (err)
@@ -40,8 +36,28 @@ var GetFuzzyByName = async (ctx) => {
 }
 
 
+const AddStudent = async (ctx) => {
+
+}
+
+const UpdateStudent = async (ctx) => {
+
+}
+
+const DeleteStudent = async (ctx) => {
+
+}
+
+const GetStudent = async (ctx) => {
+
+}
+
+
 module.exports = {
-    Create,
     Get,
-    GetFuzzyByName
+    GetFuzzyByName,
+    AddStudent,
+    UpdateStudent,
+    DeleteStudent,
+    GetStudent
 }

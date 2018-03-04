@@ -116,6 +116,59 @@ const GetByFuzzyName = async (ctx) => {
     }
 };
 
+
+const AddStaff = async (ctx) => {
+    let userInfo = ctx.request.body;
+
+    let result = await userDao.addStaff(userInfo, (err, data) => {
+
+    });
+
+    if (result) {
+        ctx.body = {
+            status: 200
+        };
+    }
+}
+
+const UpdateStaff = async (ctx) => {
+
+}
+
+const DeleteStaff = async (ctx) => {
+    // console.log(ctx);
+    // console.log(ctx.request.body);
+    let info = ctx.request.body;
+    if (!info) {
+        ctx.body = {
+            status: 400,
+            msg: "参数错误"
+        };
+        return;
+    }
+
+    let result = await userDao.findByName(info, (err, data) => {
+        if (err)
+            console.log(err);
+    });
+
+
+    console.log("delte=>find=>result", result);
+    let deleteResult = await userDao.deleteStaff(result, () => {
+
+    })
+
+    if (deleteResult) {
+        ctx.body = {
+            status: 200
+        }
+    }
+}
+
+const GetStaff = async (ctx) => {
+
+}
+
 module.exports = {
     Create,
     Update,
@@ -124,5 +177,9 @@ module.exports = {
     GetByPhone,
     GetByName,
     GetBySchool,
-    GetByFuzzyName
+    GetByFuzzyName,
+    AddStaff,
+    UpdateStaff,
+    DeleteStaff,
+    GetStaff
 }
