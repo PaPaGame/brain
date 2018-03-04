@@ -105,6 +105,7 @@ export default {
         mail: "邮箱",
         phone: "电话",
         status: "账号状态",
-        createdAt: "创建日期"
+        createdAt: "创建日期",
+        addTitle: "添加学生"
     }
 }

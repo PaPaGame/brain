@@ -78,19 +78,18 @@ html {
         }
     }
     /* 单选框 */
-    .el-radio {
-        .el-radio__inner {
-            margin-right: 20px;
-        }
-        .el-radio__label {
-            display: none;
-        }
-    }
+    // .el-radio {
+    // .el-radio__inner {
+    //     margin-right: 20px;
+    // } 
+    // .el-radio__label {
+    //     display: none;
+    // }
+    // }
     .is-checked {
         .el-radio__inner {
             border-color: #7db7f0;
-            background: #7db7f0;
-            margin-right: 20px;
+            background: #7db7f0; // margin-right: 20px;
         }
     }
     /* 多选框 */

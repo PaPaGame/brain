@@ -6,11 +6,13 @@
         <el-input ref="tiUsername"></el-input>
         <el-button type="primary"
             @click="getUserInfos">获取用户信息</el-button>
+        <el-button type="primary"
+            @click="printUserinfo">输出用户信息</el-button>
     </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
     data() {
         return {
@@ -22,11 +24,23 @@ export default {
             let username = this.$refs.tiUsername.currentValue;
             let query = {};
             query.username = username;
-            console.log(query);
             this.getUserInfo(query);
         },
+        printUserinfo() {
+            // console.log(this.comParams);
+            // console.log(this.userinfo, userinfo);
+            console.log(this.$store.getters.userinfo);
+        },
         ...mapActions(["getUserInfo"])
-    }
+    },
+    computed: {
+        comParams() {
+            return this.userinfo;
+        }
+    },
+    ...mapGetters({
+        userinfo: "userinfo"
+    })
 }
 </script>
 

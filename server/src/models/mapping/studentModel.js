@@ -3,13 +3,16 @@ var crypto = require("crypto");
 var Schema = mongoose.Schema;
 
 var studentSchema = new Schema({
-    gender: String,
-    firstName: String,
-    secondName: String,
-    status: String,
+    username: String,
+    group: String,
+    school: String,
     validateTime: Date,
     articleLevel: Array
 }, { timestamps: true });
+
+studentSchema.virtual("validateT").set(function (validate) {
+    // 给创建时间 添加一个月份
+});
 
 studentSchema.virtual("password").set(function (password) {
     console.log("Model ==> virtual method");

@@ -112,7 +112,7 @@ export default {
                     this.studentInfo.mail = "";
                     this.studentInfo.status = 1;
                     this.dialogVisible = true;
-                    this.dialogTitle = this.$t("student.add");
+                    this.dialogTitle = this.$t("student.addTitle");
                     this.dialogOperate = opt;
                     break;
             }

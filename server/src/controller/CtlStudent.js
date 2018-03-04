@@ -38,7 +38,15 @@ const GetFuzzyByName = async (ctx) => {
 
 
 const AddStudent = async (ctx) => {
+    let userinfo = ctx.request.body;
+    // console.log(userinfo);
+    let result = studentDao.addStudent(userinfo, (err, data) => {
 
+    });
+
+    if (result) {
+
+    }
 }
 
 const UpdateStudent = async (ctx) => {

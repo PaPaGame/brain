@@ -1,37 +1,51 @@
 import userService from "@/api/user";
 import * as types from "../mutation-type";
-const user = {
 
-    state: {
-        username: "",
-        userId: "",
-        token: '',
-        role: "",
-        school: "",
-    },
+const state = {
+    username: "",
+    userId: "",
+    token: '',
+    role: "",
+    school: "",
+    userinfo: {}
+}
 
-    mutations: {
-        [types.USER_UPDATE_INFO](state, { data }) {
-            console.log(data);
-            state.username = data.username;
-            state.userId = data._id;
-            state.role = data.role;
-            state.school = data.school;
-        }
-    },
+const mutations = {
+    [types.USER_UPDATE_INFO](state, { data }) {
+        state.username = data.username;
+        state.userId = data._id;
+        state.role = data.role;
+        state.school = data.school;
+        state.userinfo = {
+            username: state.username,
+            userId: state.userId,
+            role: state.role,
+            school: state.school
+        };
 
-    actions: {
-        getUserInfo({ commit, state }, payload) {
-            userService.getUserInfo(payload).then(res => {
-                if (res.status === 200) {
-                    console.log("获取用户信息成功");
-                    commit(types.USER_UPDATE_INFO, { data: res.userinfo });
-                } else {
-
-                }
-            })
-        }
+        console.log("获取用户信息成功", state);
     }
 }
 
-export default user;
+const getters = {
+    userinfo: state => state.userinfo,
+}
+
+const actions = {
+    getUserInfo({ commit, state }, payload) {
+        userService.getUserInfo(payload).then(res => {
+            if (res.status === 200) {
+                commit(types.USER_UPDATE_INFO, { data: res.userinfo });
+            } else {
+
+            }
+        })
+    }
+}
+
+export default {
+    state,
+    actions,
+    mutations,
+    getters
+};

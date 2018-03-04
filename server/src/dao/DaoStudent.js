@@ -10,4 +10,13 @@ var StudentDao = function (student) {
 
 util.inherits(StudentDao, DaoBase);
 
+StudentDao.prototype.addStudent = async (userinfo, callback) => {
+    if (!userinfo)
+        return callback({ err: 'err parameter' });
+
+    let student = new StudentModel({
+
+    });
+}
+
 module.exports = StudentDao;

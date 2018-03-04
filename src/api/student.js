@@ -13,7 +13,17 @@ const student = {
             url: "/student",
             method: "get"
         });
+    },
+
+    addStudent(user) {
+        return ajax({
+            url: "/student",
+            method: "post",
+            data: user
+        });
     }
+
+
 };
 
 
