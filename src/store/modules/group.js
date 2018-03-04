@@ -18,10 +18,6 @@ const mutations = {
         state.groupList.push(...data);
         state.groupList.push(...data);
         state.groupList.push(...data);
-        state.groupList.push(...data);
-        state.groupList.push(...data);
-        state.groupList.push(...data);
-        state.groupList.push(...data);
         state.groupCount = state.groupList.length;
     }
 }

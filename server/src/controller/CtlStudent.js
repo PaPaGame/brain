@@ -5,8 +5,9 @@ var StudentModel = require("../models").student;
 
 var studentDao = new StudentDao(StudentModel);
 
-var Get = async (ctx) => {
+const GetStudent = async (ctx) => {
     let students = await studentDao.getAll((err, data) => {
+        // let student = await studentDao.getByQuery({}, () => {
         if (err)
             console.log(err);
     });
@@ -19,7 +20,7 @@ var Get = async (ctx) => {
     }
 }
 
-var GetFuzzyByName = async (ctx) => {
+const GetFuzzyByName = async (ctx) => {
     let name = ctx.params["name"];
     // 正则忽略大小写  i
     let infos = await studentDao.getByQuery({ "firstName": { $regex: name, $options: 'i' } }, null, null, (err, data) => {
@@ -48,13 +49,7 @@ const DeleteStudent = async (ctx) => {
 
 }
 
-const GetStudent = async (ctx) => {
-
-}
-
-
 module.exports = {
-    Get,
     GetFuzzyByName,
     AddStudent,
     UpdateStudent,

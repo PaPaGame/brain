@@ -97,6 +97,14 @@ export default {
         group: "班级",
         searchName: "学生名字",
         search: "搜索",
-        add: "添加"
+        add: "添加",
+        username: "账号",
+        password: "密码",
+        schoolCode: "学校编码",
+        validate: "有效期",
+        mail: "邮箱",
+        phone: "电话",
+        status: "账号状态",
+        createdAt: "创建日期"
     }
 }

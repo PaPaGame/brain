@@ -95,6 +95,22 @@ const Login = async function (ctx) {
     }
 }
 
+const GetUserInfo = async (ctx) => {
+    let user = ctx.request.body;
+    console.log("获取用户信息", user);
+    let result = await userDao.findByName(user, (err, data) => {
+        if (err)
+            console.log(err);
+    });
+
+    if (result) {
+        ctx.body = {
+            status: 200,
+            userinfo: result
+        };
+    }
+}
+
 
 module.exports = {
     Create,
@@ -102,5 +118,6 @@ module.exports = {
     Delete,
     Get,
     Login,
-    Exist
+    Exist,
+    GetUserInfo
 };
