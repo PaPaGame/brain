@@ -16,8 +16,6 @@ const mutations = {
     [types.GROUP_UPDATE_LIST](state, { data }) {
         state.groupList = [];
         state.groupList.push(...data);
-        state.groupList.push(...data);
-        state.groupList.push(...data);
         state.groupCount = state.groupList.length;
     }
 }

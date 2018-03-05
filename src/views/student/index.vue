@@ -31,6 +31,15 @@
                 :pageSize="studentModel.pagesize"
                 @pageChange="pageChange"
                 ref="table">
+                <template slot="opBtns"
+                    slot-scope="scope">
+                    <el-button size="mini"
+                        @click="operateHandler(scope.row,'view')">查看</el-button>
+                    <el-button size="mini"
+                        @click="operateHandler(scope.row,'edit')">修改</el-button>
+                    <el-button size="mini"
+                        @click="operateHandler(scope.row,'delete')">删除</el-button>
+                </template>
             </edu-table>
         </div>
 
@@ -39,6 +48,23 @@
             <detail-panel :info="studentInfo"
                 :operate="dialogOperate"
                 v-on:closeDialog="dialogVisible=false"></detail-panel>
+        </el-dialog>
+
+        <!-- 修改密码 -->
+        <el-dialog :visible.sync="dialogPassword"
+            width="600px"
+            top="0"
+            center
+            custom-class="edu-fix share center"
+            title="修改密码"
+            :uid="currentUserId"
+            :username="currentUsername">
+            <pass-word></pass-word>
+            <span slot="footer"
+                class="dialog-footer">
+                <el-button type="primary"
+                    @click="dialogPassword = false">关闭</el-button>
+            </span>
         </el-dialog>
     </div>
 </template>
@@ -50,11 +76,13 @@ import ClassList from "@/components/ClassList";
 import studentService from "@/api/student";
 import table from "@/components/table";
 import DetailPanel from "./detail";
+import PassWord from "@/components/Password";
 export default {
     components: {
         ClassList,
         "edu-table": table,
-        DetailPanel
+        DetailPanel,
+        PassWord
     },
     created() {
         this.getGroupList();
@@ -65,7 +93,11 @@ export default {
             dialogVisible: false,
             dialogTitle: "",
             dialogOperate: "",
+            dialogPassword: false,
+            currentUserId: "",
+            currentUsername: "",
             studentInfo: {
+                _id: String,
                 username: String,
                 password: String,
                 schoolCode: String,
@@ -81,13 +113,13 @@ export default {
                 type: "page"
             },
             tableColumns: [
-                { prop: "secondName", label: this.$t('student.secondName'), width: '90' },
-                { prop: "firstName", label: this.$t('student.firstName'), width: '90' },
+                { prop: "username", label: this.$t('student.username'), width: '190' },
                 { prop: "school", label: this.$t('student.school'), width: '90' },
-                { prop: "phone", label: this.$t('student.phone'), width: '90' },
-                { prop: "mail", label: this.$t('student.mail'), width: '90' },
-                { prop: "createdAt", label: this.$t('student.createdAt'), width: '90' },
-                { prop: "group", label: this.$t('student.group'), width: '90' }
+                { prop: "phone", label: this.$t('student.phone'), width: '140' },
+                { prop: "mail", label: this.$t('student.mail'), width: '140' },
+                { prop: "createdAt", label: this.$t('student.createdAt'), width: '230' },
+                { prop: "group", label: this.$t('student.group'), width: '140' },
+                { label: "操作", slotName: 'opBtns', width: '170' }
             ]
         };
     },
@@ -114,6 +146,15 @@ export default {
                     this.dialogVisible = true;
                     this.dialogTitle = this.$t("student.addTitle");
                     this.dialogOperate = opt;
+                    break;
+                case "view":
+                    break;
+                case "edit":
+                    this.currentUserId = this.studentInfo._id;
+                    this.currentUsername = this.studentInfo.username;
+                    this.dialogPassword = true;
+                    break;
+                case "delete":
                     break;
             }
         },
