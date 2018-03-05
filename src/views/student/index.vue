@@ -47,6 +47,7 @@
             :title="dialogTitle">
             <detail-panel :info="studentInfo"
                 :operate="dialogOperate"
+                :userId="currentUserId"
                 v-on:closeDialog="dialogVisible=false"></detail-panel>
         </el-dialog>
 
@@ -57,7 +58,7 @@
             center
             custom-class="edu-fix share center"
             title="修改密码"
-            :uid="currentUserId"
+            :userId="currentUserId"
             :username="currentUsername">
             <pass-word></pass-word>
             <span slot="footer"
@@ -148,6 +149,10 @@ export default {
                     this.dialogOperate = opt;
                     break;
                 case "view":
+                    this.currentUserId = this.studentInfo._id;
+                    this.dialogVisible = true;
+                    this.dialogTitle = this.$t("student.view");
+                    this.dialogOperate = opt;
                     break;
                 case "edit":
                     this.currentUserId = this.studentInfo._id;

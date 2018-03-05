@@ -57,10 +57,26 @@ const DeleteStudent = async (ctx) => {
 
 }
 
+const GetById = async (ctx) => {
+    let userinfo = ctx.request.body;
+    // console.log(userinfo);
+    let result = await studentDao.getById(userinfo.id, (err, data) => {
+
+    });
+
+    if (result) {
+        ctx.body = {
+            status: 200,
+            info: result
+        };
+    }
+}
+
 module.exports = {
     GetFuzzyByName,
     AddStudent,
     UpdateStudent,
     DeleteStudent,
-    GetStudent
+    GetStudent,
+    GetById
 }

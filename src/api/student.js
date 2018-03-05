@@ -21,6 +21,14 @@ const student = {
             method: "post",
             data: user
         });
+    },
+
+    getStudentById(id) {
+        return ajax({
+            url: "/student/id",
+            method: "post",
+            data: id
+        })
     }
 
 

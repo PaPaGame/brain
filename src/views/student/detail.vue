@@ -71,7 +71,9 @@ export default {
         operate: {
             type: String,
             default: ""
-        }
+        },
+        userId: "",
+        username: ""
     },
     data() {
         return {
@@ -104,6 +106,16 @@ export default {
         },
         close() {
             this.$emit("closeDialog");
+        },
+        getKey(id) {
+            studentService.getStudentById({ id: id }).then(res => {
+                if (res.status == 200) {
+                    let info = res.info;
+
+                    this.dataModel.username = info.username;
+                    this.dataModel.schoolCode = info.school;
+                }
+            })
         }
     },
     computed: {
@@ -119,14 +131,19 @@ export default {
     },
     watch: {
         info(val) {
-            console.log("watch: info：", this.canEditSchool, val.schoolCode, this.userSchool);
-            this.dataModel.username = val.username;
-            this.dataModel.password = val.password;
-            this.dataModel.schoolCode = this.canEditSchool ? val.schoolCode : this.userSchool;
-            this.dataModel.phone = val.phone;
-            this.dataModel.mail = val.mail;
-            this.dataModel.status = val.status;
-            this.dataModel.group = val.group;
+            console.log("info" + val);
+            // this.dataModel.username = val.username;
+            // this.dataModel.password = val.password;
+            // this.dataModel.school = this.canEditSchool ? val.school : this.userSchool;
+            // this.dataModel.phone = val.phone;
+            // this.dataModel.mail = val.mail;
+            // this.dataModel.status = val.status;
+            // this.dataModel.group = val.group;
+
+            this.getKey(val._id);
+        },
+        userId(val) {
+            console.log("uid:" + val);
         }
     }
 }

@@ -106,6 +106,7 @@ export default {
         phone: "电话",
         status: "账号状态",
         createdAt: "创建日期",
-        addTitle: "添加学生"
+        addTitle: "添加学生",
+        view: "查看"
     }
 }
