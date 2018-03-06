@@ -2,8 +2,8 @@
     <div class="app-wrapper clearfix">
         <side-bar class="sidebar-container"></side-bar>
         <div class="main-container">
-            <nav-bar class="nav-container"></nav-bar>
-            <app-main class="content-container"></app-main>
+            <nav-bar></nav-bar>
+            <app-main></app-main>
         </div>
     </div>
 </template>
@@ -21,13 +21,9 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.app_wrapper {
+.app-wrapper {
   position: relative;
-  width: 100%;
-}
-.content-container {
-  top: 0px;
-  bottom: 0px;
+  height: 100%;
   width: 100%;
 }
 </style>
