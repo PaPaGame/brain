@@ -1,22 +1,58 @@
 <template>
-    <div class="login-container">
-        <el-form>
-            <div class="title-container">
-                <h3 class="title">{{$t('signin.title')}}</h3>
-            </div>
-            <el-form-item>
-                <el-input type="text" placeholder="username"></el-input>
+    <div>
+        <el-form :model="form"
+            :rules="rules2"
+            ref="form"
+            label-position="left"
+            label-width="0px"
+            class="demo-ruleForm card-box loginform">
+            <h3 class="title">{{systemName}}</h3>
+            <el-form-item prop="username">
+                <el-input type="text"
+                    v-model="form.username"
+                    auto-complete="off"
+                    placeholder="账号"></el-input>
             </el-form-item>
-            <el-form-item>
-                <el-input type="password" placeholder="password" @keyup.enter.native="login"></el-input>
+            <el-form-item prop="password">
+                <el-input type="password"
+                    v-model="form.password"
+                    auto-complete="off"
+                    placeholder="密码"></el-input>
             </el-form-item>
-            <el-button type="primary" style="width:100%; margin-bottom:30px;" @click="login">{{$t('signin.login')}}</el-button>
+            <el-form-item style="width:100%;">
+                <el-button type="primary"
+                    style="width:100%;"
+                    v-loading="loading"
+                    @click.native.prevent="login('form')">登录</el-button>
+            </el-form-item>
         </el-form>
     </div>
 </template>
 
 <script>
 export default {
+    data() {
+        return {
+            title: 'bbbbb',
+            systemName: '登录',
+            loading: false,
+            form: {
+                username: '',
+                password: '',
+            },
+            rules2: {
+                username: [
+                    { required: true, message: '请输入账号', trigger: 'blur' }
+                ],
+                password: [
+                    { required: true, message: '请输入密码', trigger: 'blur' }
+                ],
+                verifyCode: [
+                    { required: false, message: '请输入验证码', trigger: 'blur' }
+                ]
+            }
+        }
+    },
     methods: {
         login() {
             console.log("走登录业务");
@@ -26,41 +62,27 @@ export default {
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-$bg: #2d3a4b;
-$light_gray: #eee;
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85px;
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-      &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: #fff !important;
-      }
-    }
-  }
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
-  .title {
-    font-size: 26px;
-    font-weight: 400;
-    color: $light_gray;
-    margin: 0px auto 40px auto;
-    text-align: center;
-    font-weight: bold;
-  }
+<style>
+.card-box {
+  padding: 20px;
+  /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-clip: padding-box;
+  margin-bottom: 20px;
+  background-color: #f9fafc;
+  margin: 120px auto;
+  width: 400px;
+  border: 2px solid #8492a6;
+}
+.title {
+  margin: 0px auto 40px auto;
+  text-align: center;
+  color: #505458;
+}
+.loginform {
+  width: 350px;
+  padding: 35px 35px 15px 35px;
 }
 </style>

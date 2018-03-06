@@ -1,5 +1,5 @@
 <template>
-    <div class="dashboard-admin-container">
+    <div class="dashboard-admin-container app-container">
         <div class="clearfix">
             <span class="display_name">{{name}}</span>
         </div>
@@ -47,8 +47,7 @@ export default {
 <style lang="scss" scoped>
 .dashboard-admin-container {
   background-color: #e3e3e3;
-  min-height: 100vh;
-  padding: 100px 60px 0px;
+  padding: 32px;
 }
 </style>
 

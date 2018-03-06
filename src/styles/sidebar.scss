@@ -1,13 +1,14 @@
 #app {
     // 主体区域
     .main-container {
-        min-height: 100%;
+        top: 0px;
+        bottom: 0px;
         transition: margin-left 0.28s;
-        margin-left: 180px;
+        margin-left: 160px;
     } // 侧边栏
     .sidebar-container {
         transition: width 0.28s;
-        width: 180px!important;
+        width: 160px!important;
         height: 100%;
         position: fixed;
         top: 0;
@@ -88,13 +89,13 @@
     }
     .nest-menu .el-submenu>.el-submenu__title,
     .el-submenu .el-menu-item {
-        min-width: 180px!important;
+        min-width: 160px!important;
         background-color: $subMenuBg!important;
         &:hover {
             background-color: $menuHover!important;
         }
     }
     .el-menu--collapse .el-menu .el-submenu {
-        min-width: 180px!important;
+        min-width: 160px!important;
     }
 }

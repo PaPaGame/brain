@@ -19,7 +19,8 @@ export default {
 <style lang="scss" scoped>
 .dashboard-student-container {
   background-color: #e3e3e3;
-  min-height: 100vh;
+  top: 0px;
+  bottom: 0px;
   padding: 100px 60px 0px;
 }
 </style>

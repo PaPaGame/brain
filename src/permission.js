@@ -16,7 +16,8 @@ router.beforeEach((to, from, next) => {
     if (true) {
         // 已经登录的情况下 再次访问登录页跳转dashboard
         if (to.path === '/login') {
-            next({ path: '/' });
+            // next({ path: '/' });
+            next();
         } else {
             // 已经登录，查看是否有人物信息
             if (roles.length === 0) {

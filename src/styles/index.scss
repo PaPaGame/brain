@@ -7,19 +7,18 @@ body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
     font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-}
-
-label {
-    font-weight: 700;
-}
-
-html {
-    height: 100%;
-    box-sizing: border-box;
+    background: #1f2d3d;
+    margin: 0px;
+    padding: 0px;
 }
 
 #app {
-    height: 100%;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    .app-container {
+        padding: 20px;
+    }
     /* 分页 */
     .el-pagination {
         float: right;
@@ -432,12 +431,7 @@ code {
 
 //main-container全局样式
 .app-container {
-    padding: 20px;
-}
-
-.components-container {
-    margin: 30px 50px;
-    position: relative;
+    padding: 0px;
 }
 
 .pagination-container {

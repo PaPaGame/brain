@@ -1,6 +1,10 @@
 <template>
-    <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
-        <div class="scroll-wapper" ref="scrollWrapper" :style="{top:top+'px'}">
+    <div class="scroll-container"
+        ref="scrollContainer"
+        @wheel.prevent="handleScroll">
+        <div class="scroll-wapper"
+            ref="scrollWrapper"
+            :style="{top:top+'px'}">
             <slot></slot>
         </div>
     </div>
@@ -45,7 +49,8 @@ export default {
 .scroll-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  top: 0px;
+  bottom: 0px;
   background-color: $menuBg;
   .scroll-wapper {
     position: absolute;
