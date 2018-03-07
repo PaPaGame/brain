@@ -44,7 +44,8 @@
         </div>
 
         <el-dialog :visible.sync="dialogVisible"
-            :title="dialogTitle">
+            :title="dialogTitle"
+            center>
             <detail-panel :info="studentInfo"
                 :operate="dialogOperate"
                 :userId="currentUserId"
@@ -175,18 +176,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.main {
-  width: 100%;
-  height: auto;
-}
+// .main {
+//   width: 100%;
+//   height: auto;
+// }
 .leftContainer {
-  width: 400px;
   float: left;
-  height: auto;
+  //   height: auto;
 }
 .rightContainer {
-  width: auto;
+  //   width: auto;
   float: right;
-  height: auto;
+  //   height: auto;
 }
 </style>

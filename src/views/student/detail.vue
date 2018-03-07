@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="clearfix">
         <el-form :model="info"
             :rules="rules"
             label-position="left"
