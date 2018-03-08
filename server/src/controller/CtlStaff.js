@@ -120,15 +120,18 @@ const GetByFuzzyName = async (ctx) => {
 const AddStaff = async (ctx) => {
     let userInfo = ctx.request.body;
 
-    let result = await userDao.addStaff(userInfo, (err, data) => {
-
-    });
+    let message = {};
+    let result = staffDao.addStaff(userInfo);
 
     if (result) {
-        ctx.body = {
-            status: 200
-        };
+        message.status = 200;
+        message.message = "创建成功";
+    } else {
+        message.status = 400;
+        message.message = "创建失败";
     }
+
+    ctx.body = message;
 }
 
 const UpdateStaff = async (ctx) => {
@@ -136,30 +139,26 @@ const UpdateStaff = async (ctx) => {
 }
 
 const DeleteStaff = async (ctx) => {
-    // console.log(ctx);
-    // console.log(ctx.request.body);
+    let message = {};
     let info = ctx.request.body;
     if (!info) {
-        ctx.body = {
-            status: 400,
-            msg: "参数错误"
-        };
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
         return;
     }
 
-    let result = await userDao.findByName(info);
-
-
-    console.log("delte=>find=>result", result);
-    let deleteResult = await userDao.deleteStaff(result, () => {
-
-    })
-
-    if (deleteResult) {
-        ctx.body = {
-            status: 200
-        }
+    // let result = await userDao.findByName(info);
+    let result = await staffDao.deleteStaff(info);
+    if (result) {
+        message.status = 200;
+        message.message = "删除成功";
+    } else {
+        message.status = 400;
+        message.message = "删除失败";
     }
+
+    ctx.body = message;
 }
 
 const GetStaff = async (ctx) => {

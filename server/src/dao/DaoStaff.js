@@ -27,7 +27,7 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
     let staffResult = await StaffModel.create(staff);
     var user;
     if (staffResult) {
-        let uid = res._id;
+        let uid = staffResult._id;
         user = new UserModel({
             username: userinfo.username,
             password: userinfo.password,
@@ -44,17 +44,15 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
     return await UserModel.create(user);
 }
 
-StaffDao.prototype.deleteStaff = async (userinfo) => {
-    let staffId = userinfo.uid;
-    let userId = userinfo._id;
+StaffDao.prototype.deleteStaff = async userinfo => {
+    console.log(userinfo);
+    let s = await StaffModel.findOne({ "name": userinfo.username });
+    console.log(s);
+    let uid = s._id;
 
-    console.log("userID:" + userId);
-    console.log("staffID:" + staffId);
+    await StaffModel.deleteOne({ "name": userinfo.username });
 
-    await StaffModel.remove({ "_id": staffId }).then(res => {
-
-        return UserModel.remove({ "_id": userId });
-    });
+    return await UserModel.deleteOne({ "uid": uid });
 }
 
 module.exports = StaffDao;
