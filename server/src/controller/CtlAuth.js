@@ -1,7 +1,8 @@
 import jwt from 'koa-jwt';
 import UserDao from '../dao/DaoUser';
 var StudentModel = require("../models").student;
-var userDao = new UserDao(StudentModel);
+var UserModel = require("../models").user;
+var userDao = new UserDao(UserModel);
 // 登录
 const SignIn = async (ctx) => {
     let u = ctx.request.body;

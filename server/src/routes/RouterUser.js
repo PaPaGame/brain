@@ -11,5 +11,6 @@ childRouter.get("/user", userController.Get);
 childRouter.delete("/user", userController.Delete);
 childRouter.post("/user/info", userController.GetUserInfo);
 childRouter.post("/user/logout", userController.Logout);
+childRouter.post("/user/password", userController.ChangePassword);
 
 module.exports = childRouter;

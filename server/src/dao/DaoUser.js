@@ -6,10 +6,10 @@ var StaffModel = require("../models").staff;
 var util = require("util");
 var mongoose = require("mongoose");
 
-var user;
-var UsersDAO = function(user) {
-    this.user = user || {};
-    DaoBase.call(this, this.user);
+var u;
+var UsersDAO = function (um) {
+    u = new um();
+    DaoBase.call(this, um);
 };
 
 // 实现继承
@@ -24,6 +24,17 @@ UsersDAO.prototype.findByUsername = async userinfo => {
     return await UserModel.findOne({
         username: userinfo.username
     });
+}
+
+UsersDAO.prototype.changePassword = async passwordInfo => {
+    if (!passwordInfo)
+        return await null;
+    let uid = passwordInfo.id;
+    let pwd = passwordInfo.password;
+
+    u.password = pwd;
+
+    return await UserModel.update({ "_id": uid }, { $set: { "hash_password": u.hash_password } });
 }
 
 module.exports = UsersDAO;

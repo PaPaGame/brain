@@ -3,10 +3,10 @@ var StudentModel = require("../models").student;
 var UserModel = require("../models").user;
 var util = require("util");
 
-var student;
-var StudentDao = function(student) {
-    this.student = student || {};
-    DaoBase.call(this, this.student);
+var s;
+var StudentDao = function (stModel) {
+    s = new stModel()
+    DaoBase.call(this, stModel);
 }
 
 util.inherits(StudentDao, DaoBase);
@@ -59,6 +59,20 @@ StudentDao.prototype.deleteByUserName = async userinfo => {
     await StudentModel.deleteOne({ "username": userinfo.username });
 
     return await UserModel.deleteOne({ "uid": uid });
+}
+
+// 更新学生文章等级
+StudentDao.prototype.updateArticleLevel = async articleInfo => {
+    // 用户id
+    let id = articleInfo.id;
+    let user = await StudentModel.findOne({ "_id": id });
+
+    if (!user) {
+        return null;
+    }
+
+    let arr = articleInfo.levels;
+    return await StudentModel.update({ "_id": id }, { $set: { "articleLevel": arr } });
 }
 
 module.exports = StudentDao;

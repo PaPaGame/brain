@@ -14,12 +14,12 @@ var userSchema = new Schema({
     lastLoginTime: Date,
     lastLoginIP: String,
     school: String,
-    uid: SchemaTypes.ObjectId
+    uid: { type: [SchemaTypes.ObjectId], index: true }
 }, { timestamps: true });
 
 userSchema.virtual("password").set(function (password) {
     this.hash_password = encryptoPassword(password);
-});
+}).get(function () { return this.hash_password });
 
 function encryptoPassword(password) {
     return crypto.createHash("md5").update(password).digest("base64");

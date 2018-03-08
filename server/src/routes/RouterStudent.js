@@ -9,5 +9,6 @@ childRouter.put("/student", StudentController.UpdateStudent);
 childRouter.delete("/student", StudentController.DeleteStudent);
 childRouter.get("/student", StudentController.GetStudent);
 childRouter.post("/student/id", StudentController.GetById);
+childRouter.post("/student/article", StudentController.UpdateArticleLevel);
 
 module.exports = childRouter;

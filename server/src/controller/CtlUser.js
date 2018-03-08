@@ -56,7 +56,7 @@ const Delete = async (ctx) => {
 }
 
 var user;
-const Get = async function(ctx) {
+const Get = async function (ctx) {
     // let code = ctx.params['code'];
     let result = await userDao.getAll((err, data) => {
 
@@ -70,7 +70,7 @@ const Get = async function(ctx) {
     }
 }
 
-const Login = async function(ctx) {
+const Login = async function (ctx) {
     let message = {};
     let userInfo = ctx.request.body;
 
@@ -89,7 +89,7 @@ const Login = async function(ctx) {
         ctx.body = message;
         return;
     }
-    console.log("find:", result);
+
     if (userDao.model.authenticate(result.hash_password, userInfo.password)) {
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
         message.status = 200;
@@ -124,6 +124,26 @@ const Logout = async (ctx) => {
     await ctx.redirect('/');
 }
 
+//  修改密码
+const ChangePassword = async ctx => {
+    let userinfo = ctx.request.body;
+    let message = {};
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "用户信息错误";
+    }
+
+    let result = await userDao.changePassword(userinfo);
+    if (!result) {
+        message.status = 400;
+        message.menubar = "修改密码失败";
+    }
+
+    message.status = 200;
+    message.menubar = "修改密码成功";
+    ctx.body = message;
+}
+
 module.exports = {
     Create,
     Update,
@@ -132,5 +152,6 @@ module.exports = {
     Login,
     Exist,
     GetUserInfo,
-    Logout
+    Logout,
+    ChangePassword
 };
