@@ -25,9 +25,12 @@ StudentDao.prototype.addStudent = async (userinfo) => {
         validateTime: 10
     });
 
-    let result = await StudentModel.create(student).then(res => {
-        let uid = res._id;
-        let user = new UserModel({
+    let result = await StudentModel.create(student);
+
+    var user;
+    if (result) {
+        let uid = result._id;
+        user = new UserModel({
             username: userinfo.username,
             password: userinfo.password,
             status: userinfo.status,
@@ -39,9 +42,23 @@ StudentDao.prototype.addStudent = async (userinfo) => {
             school: userinfo.school,
             uid: uid
         });
+    }
 
-        return UserModel.create(user);
-    })
+    return await UserModel.create(user);
+}
+
+StudentDao.prototype.deleteByUserName = async userinfo => {
+    if (!userinfo) {
+        console.log("error userinfo");
+        return;
+    }
+
+    let s = await StudentModel.findOne({ "username": userinfo.username });
+    let uid = s._id;
+
+    await StudentModel.deleteOne({ "username": userinfo.username });
+
+    return await UserModel.deleteOne({ "uid": uid });
 }
 
 module.exports = StudentDao;

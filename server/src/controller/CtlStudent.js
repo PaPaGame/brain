@@ -39,14 +39,18 @@ const GetFuzzyByName = async (ctx) => {
 
 const AddStudent = async (ctx) => {
     let userinfo = ctx.request.body;
-    // console.log(userinfo);
-    let result = studentDao.addStudent(userinfo, (err, data) => {
-
-    });
+    let message = {};
+    let result = studentDao.addStudent(userinfo);
 
     if (result) {
-
+        message.status = 200;
+        message.message = "创建成功";
+    } else {
+        message.status = 400;
+        message.message = "创建失败";
     }
+
+    ctx.body = message;
 }
 
 const UpdateStudent = async (ctx) => {
@@ -54,15 +58,25 @@ const UpdateStudent = async (ctx) => {
 }
 
 const DeleteStudent = async (ctx) => {
+    let userinfo = ctx.request.body;
+    let message = {};
+    let result = await studentDao.deleteByUserName(userinfo);
+    if (result) {
+        message.status = 200;
+        message.message = "删除成功";
+    } else {
+        message.status = 400;
+        message.message = "删除失败";
+    }
+
+    ctx.body = message;
 
 }
 
 const GetById = async (ctx) => {
     let userinfo = ctx.request.body;
     // console.log(userinfo);
-    let result = await studentDao.getById(userinfo.id, (err, data) => {
-
-    });
+    let result = await studentDao.getById(userinfo.id);
 
     if (result) {
         ctx.body = {

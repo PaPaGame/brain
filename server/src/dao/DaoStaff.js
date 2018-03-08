@@ -24,11 +24,11 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
         school: userinfo.school
     });
 
-    let staffResult = await StaffModel.create(staff).then(res => {
-        // console.log(res);
+    let staffResult = await StaffModel.create(staff);
+    var user;
+    if (staffResult) {
         let uid = res._id;
-        // console.log(uid);
-        let user = new UserModel({
+        user = new UserModel({
             username: userinfo.username,
             password: userinfo.password,
             status: userinfo.status,
@@ -40,8 +40,8 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
             school: userinfo.school,
             uid: uid
         });
-        return UserModel.create(user);
-    });
+    }
+    return await UserModel.create(user);
 }
 
 StaffDao.prototype.deleteStaff = async (userinfo) => {
