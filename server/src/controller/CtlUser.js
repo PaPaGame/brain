@@ -6,17 +6,13 @@ var UserModel = require("../models").user;
 var userDao = new UserDao(UserModel);
 
 const Exist = async (ctx) => {
+    let message = {};
     let info = ctx.request.body;
-    // info  username
-    let result = await userDao.findByName(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
+    let result = await userDao.findByUsername(info);
 
     ctx.body = {
-        // exist: result && result.count >= 1;
         status: 200,
-        exist: result !== null
+        exist: result !== null,
     };
 }
 
@@ -60,7 +56,7 @@ const Delete = async (ctx) => {
 }
 
 var user;
-const Get = async function (ctx) {
+const Get = async function(ctx) {
     // let code = ctx.params['code'];
     let result = await userDao.getAll((err, data) => {
 
@@ -74,31 +70,42 @@ const Get = async function (ctx) {
     }
 }
 
-const Login = async function (ctx) {
+const Login = async function(ctx) {
+    let message = {};
     let userInfo = ctx.request.body;
-    let result = await userDao.findByName(userInfo, (err, data) => {
-        if (err)
-            console.log(err);
-    })
 
+    if (!userInfo) {
+        message.status = 400;
+        message.message = "登录信息出错";
+        ctx.body = message;
+        return;
+    }
 
+    let result = await userDao.findByUsername(userInfo);
+
+    if (!result) {
+        message.status = 400;
+        message.message = "查无此用户";
+        ctx.body = message;
+        return;
+    }
+    console.log("find:", result);
     if (userDao.model.authenticate(result.hash_password, userInfo.password)) {
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
-        ctx.body = {
-            userInfo: result,
-            status: 200
-        }
+        message.status = 200;
+        message.userInfo = result;
     } else {
-        ctx.body = {
-            status: 400
-        };
+        message.message = "密码不正确";
+        message.status = 400;
     }
+
+    ctx.body = message;
 }
 
 const GetUserInfo = async (ctx) => {
     let user = ctx.request.body;
     console.log("获取用户信息", user);
-    let result = await userDao.findByName(user, (err, data) => {
+    let result = await userDao.findByUsername(user, (err, data) => {
         if (err)
             console.log(err);
     });
@@ -112,6 +119,11 @@ const GetUserInfo = async (ctx) => {
 }
 
 
+const Logout = async (ctx) => {
+    ctx.session = null;
+    await ctx.redirect('/');
+}
+
 module.exports = {
     Create,
     Update,
@@ -119,5 +131,6 @@ module.exports = {
     Get,
     Login,
     Exist,
-    GetUserInfo
+    GetUserInfo,
+    Logout
 };
