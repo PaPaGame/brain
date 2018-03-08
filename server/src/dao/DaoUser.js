@@ -18,7 +18,7 @@ util.inherits(UsersDAO, DaoBase);
 // 扩展方法
 
 /** 根据名字查找*/
-UsersDAO.prototype.findByUsername = async (userinfo) => {
+UsersDAO.prototype.findByUsername = async userinfo => {
     if (!userinfo)
         return {};
     return await UserModel.findOne({

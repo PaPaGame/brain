@@ -4,7 +4,7 @@ var UserModel = require("../models").user;
 var util = require("util");
 
 var staff;
-var StaffDao = function (staff) {
+var StaffDao = function(staff) {
     this.staff = staff || {};
     DaoBase.call(this, this.staff);
 }
@@ -44,7 +44,7 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
     });
 }
 
-StaffDao.prototype.deleteStaff = async (userinfo, callback) => {
+StaffDao.prototype.deleteStaff = async (userinfo) => {
     let staffId = userinfo.uid;
     let userId = userinfo._id;
 

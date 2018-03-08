@@ -147,10 +147,7 @@ const DeleteStaff = async (ctx) => {
         return;
     }
 
-    let result = await userDao.findByName(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
+    let result = await userDao.findByName(info);
 
 
     console.log("delte=>find=>result", result);

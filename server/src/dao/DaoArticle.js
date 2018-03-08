@@ -4,27 +4,19 @@ var util = require("util");
 
 var article;
 
-var ArticleDao = function (article) {
+var ArticleDao = function(article) {
     this.article = article;
     DaoBase.call(this, this.article);
 }
 
 util.inherits(ArticleDao, DaoBase);
 
-ArticleDao.prototype.getById = (id, callback) => {
-    ArticleModel.findOne({ id: id }, (err, data) => {
-        if (err)
-            callback(err, null);
-        callback(null, data);
-    });
+ArticleDao.prototype.getById = async id => {
+    return await ArticleModel.findOne({ id: id });
 };
 
-ArticleDao.prototype.getByLevel = (level, callback) => {
-    ArticleModel.find({ level: level }, (err, data) => {
-        if (err)
-            callback(err, null);
-        callback(null, data);
-    });
+ArticleDao.prototype.getByLevel = async level => {
+    return await ArticleModel.find({ level: level });
 }
 
 module.exports = ArticleDao;

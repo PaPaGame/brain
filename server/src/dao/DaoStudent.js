@@ -4,16 +4,18 @@ var UserModel = require("../models").user;
 var util = require("util");
 
 var student;
-var StudentDao = function (student) {
+var StudentDao = function(student) {
     this.student = student || {};
     DaoBase.call(this, this.student);
 }
 
 util.inherits(StudentDao, DaoBase);
 
-StudentDao.prototype.addStudent = async (userinfo, callback) => {
-    if (!userinfo)
-        return callback({ err: 'err parameter' });
+StudentDao.prototype.addStudent = async (userinfo) => {
+    if (!userinfo) {
+        console.log("params error");
+        return;
+    }
 
     let student = new StudentModel({
         username: userinfo.username,
