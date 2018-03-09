@@ -21,9 +21,8 @@ CourseDao.prototype.addCourse = async userinfo => {
     let articleLevel = student.articleLevel;
     // console.log(articleLevel);
     let articles = await ArticleModel.find({ "articleLevel": { $in: articleLevel } });
-    // console.log(articles.length);
+    console.log(articles.length);
 
-    // let course = new CourseModel()
     var courses = [];
 
     articles.forEach(ele => {
@@ -34,7 +33,33 @@ CourseDao.prototype.addCourse = async userinfo => {
         courses.push(course);
     });
 
-    return await CourseModel.insertMany(courses);
+    // 判断是否已经存在 文章，如果不存在，插入全部， 否则逐条判断插入
+    let count = await CourseModel.count({ "uid": userinfo["id"] });//
+
+    if (count == 0) {
+        return await CourseModel.insertMany(courses);
+    } else {
+        courses.forEach(async ele => {
+            await CourseModel.findOne({ cid: ele.cid }, (err, data) => {
+                if (data == null) {
+                    // console.log("缺失数据，id:", ele.cid);
+                    return CourseModel.create(ele);
+                }
+            })
+        });
+    }
+}
+
+CourseDao.prototype.removeByLevel = async userinfo => {
+    let uid = userinfo.id;
+    let articleLevel = userinfo.articleLevel;
+    console.log(articleLevel);
+    // 找到所有符合的文章id
+    let articles = await ArticleModel.find({ "articleLevel": { $in: articleLevel } }, { $group: "_id" });
+    // console.log(articles);
+    var filterArticle = articles.map(ele => { return ele._id });
+    // console.log(uid, filterArticle);
+    return await CourseModel.deleteMany({ "uid": uid, "cid": { $in: filterArticle } });
 }
 
 module.exports = CourseDao;
