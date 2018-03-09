@@ -5,4 +5,18 @@ var CourseModel = require("../models").course;
 
 var courseDao = new CourseDao(CourseModel);
 
-module.exports = {};
+const AddCourse = async ctx => {
+    let message = {};
+    let userinfo = ctx.request.body;
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+    await courseDao.addCourse(userinfo);
+}
+
+module.exports = {
+    AddCourse
+};

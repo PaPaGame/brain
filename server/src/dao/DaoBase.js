@@ -1,10 +1,10 @@
 /**
  *  创建一个DAO 基类操作
  * 
- * @param {any} Model 
+ * @param {any} m 
  */
-function DaoBase(Model) {
-    model = new Model();
+function DaoBase(m) {
+    model = m;
 }
 
 var model;
