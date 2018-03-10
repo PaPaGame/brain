@@ -4,9 +4,9 @@ var util = require("util");
 
 var StudentModel = require("../models").student;
 var ArticleModel = require("../models").article;
-var course;
+var courseModel;
 var CourseDao = function (cm) {
-    course = new cm();
+    courseModel = new cm();
     DaoBase.call(this, this.course);
 }
 
@@ -62,4 +62,45 @@ CourseDao.prototype.removeByLevel = async userinfo => {
     return await CourseModel.deleteMany({ "uid": uid, "cid": { $in: filterArticle } });
 }
 
+CourseDao.prototype.answerTai = async userinfo => {
+    let uid = userinfo.uid;
+    let cid = userinfo.cid;
+    let accuracy = userinfo.accuracy;
+    return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid }, { "taiAccuracy": accuracy, "taiState": 1 });
+}
+
+CourseDao.prototype.answerQuiz = async userinfo => {
+    let uid = userinfo.uid;
+    let cid = userinfo.cid;
+    let currentIndex = userinfo.currentIndex; // 0：未开始，1，2，3 答题序号， -1 全部打完
+    let quizCount = userinfo.quizCount; // 题目总数
+    let userQuiz = userinfo.quiz;// 某一题的答题详情 {quizId:123,result:true|false}
+
+    if (currentIndex != -1) {
+        return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid },
+            {
+                $push: { "quizAnswer": userQuiz },
+                "quizCurrent": currentIndex,
+                "quizCount": quizCount,
+                "quizState": 1
+            });
+    } else {
+        // 最终答完了
+        let course = await CourseModel.findOne({ "uid": uid, "cid": cid });
+        console.log("单条课程信息", course);
+        if (course.quizAccuracy !== 0) {
+            return null;
+        }
+        let quizAnswers = course.quizAnswer;
+        let correctCount = quizAnswers.map(ele => { return ele.result == true }).length;
+        let quizCount = course.quizCount;
+        return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid }, {
+            $push: { "quizAnswer": userQuiz },
+            "quizCurrent": currentIndex,
+            "quizCount": quizCount,
+            "quizAccuracy": correctCount / quizCount,
+            "quizState": 2
+        });
+    }
+}
 module.exports = CourseDao;
