@@ -1,3 +1,4 @@
+var mongoose = require("mongoose");
 var DaoBase = require("./DaoBase");
 var CourseModel = require("../models").course;
 var util = require("util");
@@ -102,5 +103,27 @@ CourseDao.prototype.answerQuiz = async userinfo => {
             "quizState": 2
         });
     }
+}
+
+CourseDao.prototype.getCourse = async userinfo => {
+    let uid = userinfo.uid;
+    return await CourseModel.aggregate([{
+        $match: {
+            "uid": new mongoose.Types.ObjectId(uid)
+        }
+    }, {
+        $lookup: {
+            from: "article",
+            localField: "cid",
+            foreignField: "_id",
+            as: "article"
+        }
+    }, {
+        $sort: {
+            "courseState": -1,
+            "cid": -1,
+            "quizAccuracy": -1
+        }
+    }]);
 }
 module.exports = CourseDao;

@@ -73,9 +73,29 @@ const AnswerQuiz = async ctx => {
     }
 }
 
+const GetCourse = async ctx => {
+    let message = {};
+    let userinfo = ctx.request.body;
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+
+    let result = await courseDao.getCourse(userinfo);
+    if (result) {
+        message.status = 200;
+        message.message = "获取成功";
+        message.courses = result;
+        ctx.body = message;
+    }
+}
+
 module.exports = {
     AddCourse,
     RemoveCourseByLevel,
     AnswerTai,
-    AnswerQuiz
+    AnswerQuiz,
+    GetCourse
 };

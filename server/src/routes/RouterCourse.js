@@ -6,5 +6,6 @@ childRouter.post("/course/add", CourseController.AddCourse);
 childRouter.post("/course/remove", CourseController.RemoveCourseByLevel);
 childRouter.post("/course/tai", CourseController.AnswerTai);
 childRouter.post("/course/quiz", CourseController.AnswerQuiz);
+childRouter.post("/course/get", CourseController.GetCourse);
 
 module.exports = childRouter;
