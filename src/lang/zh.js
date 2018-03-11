@@ -26,7 +26,7 @@ export default {
         data: '数据中心',
         school: '校区管理',
         group: '班级管理',
-        content: "阅读内容"
+        article: "阅读内容"
     },
     school: {
         searchName: "学校名称",
@@ -109,5 +109,17 @@ export default {
         createdAt: "创建日期",
         addTitle: "添加学生",
         view: "查看"
+    },
+    reading: {
+        title: "阅读理解",
+        back: "返回",
+        alphabet: "生词表",
+        reading: "阅读",
+        record: "录音",
+        quiz: "答题",
+        desc1: "这是一个描述，用来描述生词表的",
+        desc2: "这是一个描述，用来描述阅读的",
+        desc3: "这是一个描述，用来描述录音的",
+        desc4: "这是一个描述，用来描述答题的"
     }
 }

@@ -61,6 +61,6 @@ export const asyncRouterMap = [
     }, {
         path: "",
         component: Layout,
-        children: [{ path: "/read", component: _import("reading/content"), name: "content", meta: { title: "content" } }]
+        children: [{ path: "/read", component: _import("reading/article"), name: "readArticle", meta: { title: "article" } }]
     }
 ];

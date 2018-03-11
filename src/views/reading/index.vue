@@ -1,7 +1,7 @@
 <template>
     <div>
         <span>
-            <h3>Here is Reading Page</h3>
+            <h3>Here is Article List Page</h3>
         </span>
         <div>
             <ul>

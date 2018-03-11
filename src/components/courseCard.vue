@@ -29,7 +29,7 @@ export default {
     methods: {
         btnGoClick() {
             // 开始阅读
-            this.$router.push({ name: "content", params: { info: this.courseInfo } });
+            this.$router.push({ name: "readArticle", params: { info: this.courseInfo } });
         },
         btnGoAgainClcik() {
 
