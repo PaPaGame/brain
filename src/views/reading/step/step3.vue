@@ -1,6 +1,10 @@
 <template>
     <div>
-        <span>record</span>
+        <div>
+            <span>{{$t("reading.desc3")}}</span>
+        </div>
+        <el-button>{{$t('reading.record2')}}</el-button>
+        <el-button>{{$t('reading.playmyreading')}}</el-button>
     </div>
 </template>
 

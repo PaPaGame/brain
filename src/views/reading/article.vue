@@ -22,7 +22,7 @@
                 <step-record></step-record>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.quiz')">
-                <step-record></step-record>
+                <step-quiz></step-quiz>
             </el-tab-pane>
         </el-tabs>
     </section>

@@ -117,9 +117,15 @@ export default {
         reading: "阅读",
         record: "录音",
         quiz: "答题",
-        desc1: "这是一个描述，用来描述生词表的",
-        desc2: "这是一个描述，用来描述阅读的",
-        desc3: "这是一个描述，用来描述录音的",
-        desc4: "这是一个描述，用来描述答题的"
+        desc1: "这是一个描述，用来描述答题的",
+        desc2: "Preview & Read on My Own",
+        desc3: "Read & Record",
+        desc4: "Take The Quiz",
+        glossary: "解释",
+        readtome: "Read to Me",
+        record2: "Record",
+        playmyreading: "Play My Reading",
+        takequiz: "Take Quiz",
+        takequizagain: "Take Quiz Again"
     }
 }
