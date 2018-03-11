@@ -8,12 +8,17 @@
             @click="getUserInfos">获取用户信息</el-button>
         <el-button type="primary"
             @click="printUserinfo">输出用户信息</el-button>
+        <course-card></course-card>
     </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import CourseCard from "@/components/courseCard";
 export default {
+    components: {
+        CourseCard
+    },
     data() {
         return {
             name: "admin"
