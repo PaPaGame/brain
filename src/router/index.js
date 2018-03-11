@@ -34,35 +34,33 @@ export const asyncRouterMap = [
         path: "",
         component: Layout,
         children: [{ path: "/school", component: _import("school/index"), name: 'school', meta: { title: "school" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/article", component: _import("school/index"), name: 'article', meta: { title: "article" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/marking", component: _import("school/index"), name: 'marking', meta: { title: "marking" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/staff", component: _import("staff/index"), name: "staff", meta: { title: "staff" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/class", component: _import("class/index"), name: "group", meta: { title: "group" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/student", component: _import("student/index"), name: "student", meta: { title: "student" } }]
-    },
-    {
+    }, {
         path: "",
         component: Layout,
         children: [{ path: "/reading", component: _import("reading/index"), name: "reading", meta: { title: "reading" } }]
+    }, {
+        path: "",
+        component: Layout,
+        children: [{ path: "/read", component: _import("reading/content"), name: "content", meta: { title: "content" } }]
     }
 ];

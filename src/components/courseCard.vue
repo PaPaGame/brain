@@ -28,7 +28,8 @@
 export default {
     methods: {
         btnGoClick() {
-            console.log("go go go");
+            // 开始阅读
+            this.$router.push({ name: "content", params: { info: this.courseInfo } });
         },
         btnGoAgainClcik() {
 
@@ -40,15 +41,18 @@ export default {
     data() {
         return {
             courseModel: {
-                title: "bbb"
+                title: "",
+                cid: ""
             }
         };
     },
     watch: {
         courseInfo(val) {
             // console.log("watch::::", val);
-            this.courseModel.title = val.course.article[0].fullTitle;
-            // console.log(val.createdAt);
+            let c = val.course;
+            let a = val.course.article[0];
+            this.courseModel.title = a.fullTitle;
+            this.courseModel.cid = c.cid;
         }
     }
 }

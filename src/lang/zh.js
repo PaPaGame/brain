@@ -25,7 +25,8 @@ export default {
         marking: '评分',
         data: '数据中心',
         school: '校区管理',
-        group: '班级管理'
+        group: '班级管理',
+        content: "阅读内容"
     },
     school: {
         searchName: "学校名称",

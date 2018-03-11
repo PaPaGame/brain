@@ -34,15 +34,6 @@ export default {
             this.rebuildData(res.courses);
         });
     },
-    beforeCreate() {
-        console.log("beforeCreate");
-    },
-    mounted() {
-        console.log("mounted");
-    },
-    created() {
-        console.log("created");
-    },
     data() {
         return {
             courses: []
