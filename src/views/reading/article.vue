@@ -25,17 +25,22 @@
                 <step-quiz></step-quiz>
             </el-tab-pane>
         </el-tabs>
+        <page-content>
+
+        </page-content>
     </section>
 </template>
 
 <script>
 import Steps from "./step";
+import PageContent from "./pageContent";
 export default {
     components: {
         "step-preview": Steps.Step1,
         "step-read": Steps.Step2,
         "step-record": Steps.Step3,
-        "step-quiz": Steps.Step4
+        "step-quiz": Steps.Step4,
+        "page-content": PageContent
     },
     data() {
         return {
