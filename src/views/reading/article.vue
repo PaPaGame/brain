@@ -26,14 +26,15 @@
             </el-tab-pane>
         </el-tabs>
         <page-content>
-
         </page-content>
+        <el-button @click="loadRemoteJSON">Load File</el-button>
     </section>
 </template>
 
 <script>
 import Steps from "./step";
 import PageContent from "./pageContent";
+import loader from "@/utils/loader";
 export default {
     components: {
         "step-preview": Steps.Step1,
@@ -50,6 +51,21 @@ export default {
     methods: {
         goBack() {
             this.$router.go(-1);
+        },
+        loadRemoteJSON() {
+
+            // axios({
+            //     url: "http://localhost:9050/ACubsLife_4061_609.json",
+            //     method: "get"
+            // }).then((res) => {
+            //     console.log(res.data);
+            // }).catch((err) => { throw err });
+
+            loader({
+                url: "http://localhost:9050/ACubsLife_4061_609.json"
+            }).then(res => {
+                console.log(res);
+            });
         }
     },
     watch: {
