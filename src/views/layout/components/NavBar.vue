@@ -1,24 +1,27 @@
 <template>
-    <el-menu class="navbar" mode="horizontal">
-        <div class="right-menu">
-            <el-dropdown class="avatar-container right-menu-item" trigger="click">
-                <div class="avatar-wrapper">
-                    <img class="user-avatar el-icon-menu">
-                    <i class="el-icon-caret-bottom"></i>
-                </div>
-                <el-dropdown-menu slot="dropdown">
-                    <router-link to="/">
-                        <el-dropdown-item>
-                            {{$t('navbar.dashboard')}}
-                        </el-dropdown-item>
-                        <el-dropdown-item divided>
-                            <span @click="logout" style="display:block;">{{$t('navbar.logout')}}</span>
-                        </el-dropdown-item>
-                    </router-link>
-                </el-dropdown-menu>
-            </el-dropdown>
+  <el-menu class="navbar"
+    mode="horizontal">
+    <div class="right-menu">
+      <el-dropdown class="avatar-container right-menu-item"
+        trigger="click">
+        <div class="avatar-wrapper">
+          <img class="user-avatar el-icon-menu">
+          <i class="el-icon-caret-bottom"></i>
         </div>
-    </el-menu>
+        <el-dropdown-menu slot="dropdown">
+          <router-link to="/">
+            <el-dropdown-item>
+              {{$t('navbar.dashboard')}}
+            </el-dropdown-item>
+            <el-dropdown-item divided>
+              <span @click="logout"
+                style="display:block;">{{$t('navbar.logout')}}</span>
+            </el-dropdown-item>
+          </router-link>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
+  </el-menu>
 </template>
 
 <script>

@@ -53,19 +53,6 @@ export default {
             this.$router.go(-1);
         },
         loadRemoteJSON() {
-
-            // axios({
-            //     url: "http://localhost:9050/ACubsLife_4061_609.json",
-            //     method: "get"
-            // }).then((res) => {
-            //     console.log(res.data);
-            // }).catch((err) => { throw err });
-
-            loader({
-                url: "http://localhost:9050/ACubsLife_4061_609.json"
-            }).then(res => {
-                console.log(res);
-            });
         }
     },
     watch: {
@@ -76,6 +63,13 @@ export default {
             // console.log(this.$route.params);
             this.contentModel = this.$route.params.info;
         }
+    },
+    created() {
+        loader({
+            url: "http://localhost:9050/ACubsLife_4061_609.json"
+        }).then(res => {
+            console.log(res);
+        });
     }
 }
 </script>
