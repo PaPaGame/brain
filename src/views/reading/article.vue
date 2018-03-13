@@ -67,7 +67,7 @@ export default {
     },
     created() {
         loader({
-            url: "http://localhost:9050/ACubsLife_4061_609.json"
+            url: "http://localhost:9050/dist/ACubsLife_4061_609/ACubsLife_4061_609.json"
         }).then(res => {
             console.log(res);
 
