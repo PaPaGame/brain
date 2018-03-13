@@ -35,6 +35,7 @@
 import Steps from "./step";
 import PageContent from "./pageContent";
 import loader from "@/utils/loader";
+var ArticleAnalyze = require("./analyze/articleAnalyze");
 export default {
     components: {
         "step-preview": Steps.Step1,
@@ -69,6 +70,9 @@ export default {
             url: "http://localhost:9050/ACubsLife_4061_609.json"
         }).then(res => {
             console.log(res);
+
+            var aa = new ArticleAnalyze();
+            aa.start(res);
         });
     }
 }
