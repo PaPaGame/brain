@@ -66,6 +66,11 @@ export default {
         }
     },
     created() {
+
+        if (this.contentModel) {
+            console.log(this.contentModel);
+        }
+
         loader({
             url: "http://localhost:9050/dist/ACubsLife_4061_609/ACubsLife_4061_609.json"
         }).then(res => {
