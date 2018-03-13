@@ -59,26 +59,27 @@ export default {
     watch: {
         contentModel(val) {
             this.contentModel = val;
+            if (!this.contentModel) {
+                return;
+            }
+
+            let folder = this.contentModel.article[0].dirName;
+            let fileName = folder + ".json";
+            loader({
+                url: `http://localhost:9050/dist/${folder}/${fileName}`
+            }).then(res => {
+                let aa = new ArticleAnalyze();
+                aa.start(res);
+            });
         },
         '$route'(to, from) {
-            // console.log(this.$route.params);
             this.contentModel = this.$route.params.info;
         }
     },
     created() {
-
         if (this.contentModel) {
-            console.log(this.contentModel);
+            console.log("created", this.contentModel);
         }
-
-        loader({
-            url: "http://localhost:9050/dist/ACubsLife_4061_609/ACubsLife_4061_609.json"
-        }).then(res => {
-            console.log(res);
-
-            var aa = new ArticleAnalyze();
-            aa.start(res);
-        });
     }
 }
 </script>

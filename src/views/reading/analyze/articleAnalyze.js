@@ -5,6 +5,7 @@ function ArticleAnalyze() {
 
 ArticleAnalyze.prototype.start = (originData) => {
     // 传进来的就是obj
+    // console.log(originData);
 
 }
 

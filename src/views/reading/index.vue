@@ -21,7 +21,6 @@ export default {
         CourseCard
     },
     beforeMount() {
-        console.log("beforeMount");
         let query = {};
         query.uid = "5a86acd9838e715b6f7c7099";
         CourseService.fetchAllCourse(query).then(res => {

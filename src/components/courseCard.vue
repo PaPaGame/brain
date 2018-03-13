@@ -9,6 +9,7 @@
             <el-tooltip :content="this.courseModel.title"
                 placement="top"
                 effect="light">
+                {{this.courseModel.title}}
                 <span class="title">
                     {{this.courseModel.title.length >= 16 ? this.courseModel.title.substring(0,18) : this.courseModel.title}}
                 </span>
