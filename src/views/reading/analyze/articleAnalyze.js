@@ -2,6 +2,7 @@
 function ArticleAnalyze() {
 }
 
+// 解析基础数据
 ArticleAnalyze.prototype.startBasicInfo = (originData) => {
     // 传进来的就是obj
     // console.log(originData);
@@ -26,8 +27,12 @@ ArticleAnalyze.prototype.startBasicInfo = (originData) => {
     return result;
 }
 
+// 解析quiz
 ArticleAnalyze.prototype.startQuizs = (originData) => {
     let result = [];
+    originData.forEach(ele => {
+        result.push(ele.id);
+    })
     return result;
 }
 

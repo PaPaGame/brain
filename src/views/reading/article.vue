@@ -36,6 +36,7 @@ import Steps from "./step";
 import PageContent from "./pageContent";
 import loader from "@/utils/loader";
 var ArticleAnalyze = require("./analyze/articleAnalyze");
+var myAsync = require("async");
 export default {
     components: {
         "step-preview": Steps.Step1,
@@ -47,7 +48,8 @@ export default {
     data() {
         return {
             contentModel: this.$route.params.info,
-            articleInfos: {}
+            articleInfos: {},
+            analyze: new ArticleAnalyze()
         };
     },
     methods: {
@@ -58,22 +60,30 @@ export default {
             let aa = new ArticleAnalyze();
             let folder = this.contentModel.article[0].dirName;
             let fileName = folder + ".json";
-            var obj = {};
-            loader({
-                url: `http://localhost:9050/dist/${folder}/${fileName}`
-            }).then(res => {
-                let aa = new ArticleAnalyze();
-                obj = aa.startBasicInfo(res);
-            });
 
-            let quizName = "quizzes.json";
-            loader({
-                url: `http://localhost:9050/dist/${folder}/${quizName}`
-            }).then(res => {
-                let obj2 = aa.startQuizs(res);
-                obj.quizs = obj2;
-                this.articleInfos = obj;
-                console.log(this.articleInfos);
+            var obj = {};
+            myAsync.series({
+                one: callback => {
+                    loader({
+                        url: `http://localhost:9050/dist/${folder}/${fileName}`
+                    }).then(res => {
+                        this.articleInfos = Object.assign(obj, this.analyze.startBasicInfo(res));
+                        callback(null, this.articleInfos);
+                    });
+                },
+                two: callback => {
+                    let quizName = "quizzes.json";
+                    loader({
+                        url: `http://localhost:9050/dist/${folder}/${quizName}`
+                    }).then(res => {
+                        let obj2 = this.analyze.startQuizs(res);
+                        obj.quizs = obj2;
+                        this.articleInfos = obj;
+                        callback(null, this.articleInfos);
+                    });
+                }
+            }, (err, result) => {
+                console.log("final", this.articleInfos);
             });
         }
     },
