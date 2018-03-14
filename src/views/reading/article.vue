@@ -46,7 +46,8 @@ export default {
     },
     data() {
         return {
-            contentModel: this.$route.params.info
+            contentModel: this.$route.params.info,
+            articleInfos: {}
         };
     },
     methods: {
@@ -54,6 +55,26 @@ export default {
             this.$router.go(-1);
         },
         loadRemoteJSON() {
+            let aa = new ArticleAnalyze();
+            let folder = this.contentModel.article[0].dirName;
+            let fileName = folder + ".json";
+            var obj = {};
+            loader({
+                url: `http://localhost:9050/dist/${folder}/${fileName}`
+            }).then(res => {
+                let aa = new ArticleAnalyze();
+                obj = aa.startBasicInfo(res);
+            });
+
+            let quizName = "quizzes.json";
+            loader({
+                url: `http://localhost:9050/dist/${folder}/${quizName}`
+            }).then(res => {
+                let obj2 = aa.startQuizs(res);
+                obj.quizs = obj2;
+                this.articleInfos = obj;
+                console.log(this.articleInfos);
+            });
         }
     },
     watch: {
@@ -63,14 +84,8 @@ export default {
                 return;
             }
 
-            let folder = this.contentModel.article[0].dirName;
-            let fileName = folder + ".json";
-            loader({
-                url: `http://localhost:9050/dist/${folder}/${fileName}`
-            }).then(res => {
-                let aa = new ArticleAnalyze();
-                aa.start(res);
-            });
+            this.loadRemoteJSON();
+
         },
         '$route'(to, from) {
             this.contentModel = this.$route.params.info;
@@ -78,7 +93,7 @@ export default {
     },
     created() {
         if (this.contentModel) {
-            console.log("created", this.contentModel);
+            this.loadRemoteJSON();
         }
     }
 }

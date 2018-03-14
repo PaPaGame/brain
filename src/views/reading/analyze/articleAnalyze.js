@@ -1,15 +1,15 @@
 // 文章解析
 function ArticleAnalyze() {
-    console.log("实例化对象");
 }
 
-ArticleAnalyze.prototype.start = (originData) => {
+ArticleAnalyze.prototype.startBasicInfo = (originData) => {
     // 传进来的就是obj
     // console.log(originData);
     let result = {};
     // 解析标题
     result.title = originData.full_title;
 
+    result.pages = [];
     // 解析 文章内容
     let pages = originData.pages;
     pages.forEach(ele => {
@@ -22,6 +22,13 @@ ArticleAnalyze.prototype.start = (originData) => {
     tais.forEach(ele => {
         result.tais.push(ele.id);
     });
+
+    return result;
+}
+
+ArticleAnalyze.prototype.startQuizs = (originData) => {
+    let result = [];
+    return result;
 }
 
 module.exports = ArticleAnalyze;
