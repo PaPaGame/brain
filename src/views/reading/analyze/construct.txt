@@ -1,0 +1,22 @@
+page 文件结构
+root
+    id     //编号
+    regions //布局，单词等
+        [0]
+            layout  内容布局方式， 需要解析 left top width height
+            paragraphs  段落，是个数组，每隔内容为一行
+                [0]
+                    sentences 几个句子
+                    words //单词， 需要解析
+                        spelling    //单词拼写
+                        audio       // 单词发音
+                    trigger
+                        question_id // 灯泡id
+        [1]
+            layout  // 内容布局方式 同上
+            image   // 图片
+
+    sentences   // 句子
+        [0]
+            id
+            audio   //整句  解析这个播放，很重要
