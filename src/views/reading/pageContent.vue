@@ -14,7 +14,11 @@
 
         <div>
             <label>this is title</label>
-            <div>content div</div>
+            <div class="contentContainer">content div
+                <div class="paragraphs">A leo</div>
+                <img class="figure"
+                    src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3467130448,4091191020&fm=27&gp=0.jpg"></img>
+            </div>
             <div>footer</div>
         </div>
     </div>
@@ -26,6 +30,26 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.contentContainer {
+  background-color: #f00;
+  position: relative;
+  .paragraphs {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    font-size: 18px;
+    color: lightblue;
+    top: 100px;
+    left: 300px;
+  }
 
+  .figure {
+    top: 400px;
+    right: 100px;
+    width: 100px;
+    height: 160px;
+    position: absolute;
+  }
+}
 </style>
