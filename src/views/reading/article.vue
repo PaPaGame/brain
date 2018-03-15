@@ -35,7 +35,7 @@
 import Steps from "./step";
 import PageContent from "./pageContent";
 import loader from "@/utils/loader";
-var ArticleAnalyze = require("./analyze/articleAnalyze");
+var ArticleAnalyze = require("./util/articleAnalyze");
 var myAsync = require("async");
 export default {
     components: {
