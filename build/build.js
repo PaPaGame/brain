@@ -4,10 +4,12 @@ require('./check-versions')()
 if (program.test) {
   console.log('test build.....');
   process.env.BUILD_ENV = 'test'
-  process.env.API_PATH = '"//localhost:9050/api"'
+  process.env.API_PATH = '"//192.168.199.136:9050/api"'
+  // process.env.PUBLIC_PATH = '"//192.168.199.136:9050/dist"'
 } else {
   process.env.BUILD_ENV = 'prod'
   process.env.API_PATH = '"//localhost:9050/api"'
+  // process.env.PUBLIC_PATH = '"//192.168.199.136:9050/dist"'
 }
 process.env.NODE_ENV = 'production'
 const ora = require('ora')

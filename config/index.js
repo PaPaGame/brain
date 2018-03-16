@@ -16,6 +16,12 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
         }
+      },
+      'dist/': {
+        target: 'http://localhost:9050/',
+        changeOrigin: true,
+        pathRewrite: {
+        }
       }
     },
 

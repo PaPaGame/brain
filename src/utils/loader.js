@@ -19,6 +19,8 @@ axios.interceptors.response.use(response => {
     return Promise.resolve(error.response)
 });
 
+const publicURL = process.env.PUBLIC_PATH;
+
 const loader = (opt) => {
     const _options = {
         method: 'get',
@@ -26,6 +28,7 @@ const loader = (opt) => {
         responseType: opt.responseType || 'json'
         // withCredentials: true
     };
+    opt.url = publicURL + opt.url
     opt = Object.assign(_options, opt);
     return axios(opt).then((res) => {
         return res.data;

@@ -25,7 +25,11 @@
                 <step-quiz></step-quiz>
             </el-tab-pane>
         </el-tabs>
-        <page-content>
+        <page-content :title="articleInfos.title"
+            :pages="articleInfos.pages"
+            :tais="articleInfos.tais"
+            :quizs="articleInfos.quizs"
+            :dirName="this.contentModel.article[0].dirName">
         </page-content>
         <el-button @click="loadRemoteJSON">Load File</el-button>
     </section>
@@ -65,7 +69,7 @@ export default {
             myAsync.series({
                 one: callback => {
                     loader({
-                        url: `http://localhost:9050/dist/${folder}/${fileName}`
+                        url: `/${folder}/${fileName}`
                     }).then(res => {
                         this.articleInfos = Object.assign(obj, this.analyze.startBasicInfo(res));
                         callback(null, this.articleInfos);
@@ -74,7 +78,7 @@ export default {
                 two: callback => {
                     let quizName = "quizzes.json";
                     loader({
-                        url: `http://localhost:9050/dist/${folder}/${quizName}`
+                        url: `/${folder}/${quizName}`
                     }).then(res => {
                         let obj2 = this.analyze.startQuizs(res);
                         obj.quizs = obj2;

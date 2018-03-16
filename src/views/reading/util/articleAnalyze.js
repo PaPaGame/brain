@@ -10,6 +10,8 @@ ArticleAnalyze.prototype.startBasicInfo = (originData) => {
     // 解析标题
     result.title = originData.full_title;
 
+    result.dirName = originData.dirName;
+
     result.pages = [];
     // 解析 文章内容
     let pages = originData.pages;

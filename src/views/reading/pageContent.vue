@@ -4,18 +4,22 @@
             <h1> this is content page</h1>
         </span>
         <div style="float:left">
-            <el-button size="medium">上一页</el-button>
+            <el-button size="medium"
+                :v-show="this.currentPage!=0">上一页</el-button>
             <el-button size="mini">首页</el-button>
         </div>
         <div style="float:right">
-            <el-button size="medium">下一页</el-button>
+            <el-button size="medium"
+                :v-show="this.currentPage!=totalPage">下一页</el-button>
             <el-button size="mini">末页</el-button>
         </div>
 
         <div>
-            <label>this is title</label>
+            <label>{{this.title}}</label>
             <div class="contentContainer">content div
-                <div class="paragraphs">A leo</div>
+                <div class="paragraphs">{{this.pages}}</div>
+                <div class="paragraphs">{{this.tais}}</div>
+                <div class="paragraphs">{{this.quizs}}</div>
                 <img class="figure"
                     src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3467130448,4091191020&fm=27&gp=0.jpg"></img>
             </div>
@@ -25,8 +29,51 @@
 </template>
 
 <script>
+import strategy from "./strategy/strategy";
+import loader from "@/utils/loader";
 export default {
+    data() {
+        return {
+            currentPage: 0,
+            totalPage: 10
+        };
+    },
+    props: {
+        title: { type: String, default: () => "" },
+        pages: { type: Array, default: () => [] },
+        tais: { type: Array, default: () => [] },
+        quizs: { type: Array, default: () => [] },
+        dirName: { type: String, default: () => "" }
+    },
+    methods: {
+        loadPage(id) {
+            console.log(`开始加载${id}数据`);
+            loader({
+                url: `/${this.dirName}/page/${id}.json`
+            }).then(res => {
+                console.log(typeof res);
+                console.log(res["regions"][0]);
+                strategy.setOrigin(res);
+            })
+        }
+    },
+    watch: {
+        pages(val) {
+            let data = val;
+            if (data.length == 0)
+                throw new Error("课文数据为空");
+            //  赋值的话， 只有可能是外部点击文章列表， 所以显示第一页内容即可
+            this.loadPage(data[0]);
+            this.currentPage = 0;
+            this.totalPage = data.length;
+        },
+        tais(val) {
 
+        },
+        quizs(val) {
+
+        }
+    }
 }
 </script>
 
