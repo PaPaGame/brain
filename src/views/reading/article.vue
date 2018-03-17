@@ -9,14 +9,15 @@
                 @click.native="goBack">
                 <i class="el-icon-d-arrow-left"></i>{{$t("reading.back")}}</el-col>
         </el-row>
-        <span>{{contentModel}}</span>
+        <!-- <span>{{contentModel}}</span> -->
         <el-tabs tab-position="top"
-            style="height: 200px;">
+            style="height: 150px;">
             <el-tab-pane :label="$t('reading.alphabet')">
                 <step-preview></step-preview>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.reading')">
-                <step-read></step-read>
+                <step-read v-on:startReading="startReading"
+                    v-on:stopReading="stopReading"></step-read>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.record')">
                 <step-record></step-record>
@@ -29,8 +30,12 @@
             :pages="articleInfos.pages"
             :tais="articleInfos.tais"
             :quizs="articleInfos.quizs"
-            :dirName="this.contentModel.article[0].dirName">
+            :dirName="this.contentModel.article[0].dirName"
+            :currentSentenceIndex="sentenceIndex"
+            ref="pageContent">
         </page-content>
+        <audio autoplay
+            ref="articleAudio"></audio>
     </section>
 </template>
 
@@ -52,7 +57,8 @@ export default {
         return {
             contentModel: this.$route.params.info,
             articleInfos: {},
-            analyze: new ArticleAnalyze()
+            analyze: new ArticleAnalyze(),
+            sentenceIndex: -1
         };
     },
     methods: {
@@ -88,6 +94,12 @@ export default {
             }, (err, result) => {
                 console.log("final", this.articleInfos);
             });
+        },
+        startReading() {
+            this.$refs.pageContent.start();
+        },
+        stopReading() {
+            this.$refs.pageContent.stop();
         }
     },
     watch: {

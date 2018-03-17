@@ -13,17 +13,16 @@ GenerHtml.prototype.generContainer = (layout) => {
     return div;
 }
 // 848*475
-GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios) => {
+GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios, audioIndex) => {
     var content = "";
     var div = document.createElement("div");
+    div.setAttribute("_idx", audioIndex);
     div.style.fontStyle.bold = fontStyle.bold;
-    div.style.fontStyle.fontcolor = "#00ff00";//"#" + fontStyle.front_color;
-    // div.style.fontSize = "64px";
+    div.style.fontStyle.fontcolor = "#" + fontStyle.front_color;
     div.style.fontStyle.italic = fontStyle.italic;
     // div.style.fontStyle. = fontStyle.name;
     div.style.fontsize = fontStyle.size + "px";
     div.style.fontStyle.underline = fontStyle.underline == "true";
-    // div.style.cssText = "";
     words.forEach(word => {
         content += '<a _audio=' + wordAudios[word] + '>' + word + "</a> ";
     })

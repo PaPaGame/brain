@@ -1,31 +1,29 @@
 <template>
     <div>
-        <span>
-            <h1> this is content page</h1>
-        </span>
-        <div style="float:left">
-            <el-button size="medium"
-                :v-show="this.currentPage!=0"
-                @click="btnPageChange(--currentPage)">上一页</el-button>
-            <el-button size="mini"
-                @click="btnPageChange(currentPage=0)">首页</el-button>
-        </div>
-        <div style="float:right">
-            <el-button size="medium"
-                :v-show="this.currentPage!=totalPage"
-                @click="btnPageChange(++currentPage)">下一页</el-button>
-            <el-button size="mini"
-                @click="btnPageChange(totalPage-1)">末页</el-button>
-        </div>
-
-        <div>
-            <label>{{this.title}}</label>
+        <label class="title">{{this.title}}</label>
+        <!-- 文章具体内容 -->
+        <div class="pageContent">
             <audio ref="audio"
+                v-on:ended="playerOver"
                 autoplay></audio>
             <div class="contentContainer"
                 ref="contentContainer">
             </div>
-            <div>footer</div>
+        </div>
+        <!-- 翻页部分 -->
+        <div style="float:left;width:60px;text-align:right;">
+            <el-button size="medium"
+                :v-show="currentPage!=0"
+                @click="btnPageChange(--currentPage)">上一页</el-button>
+            <el-button size="mini"
+                @click="btnPageChange(currentPage=0)">首页</el-button>
+        </div>
+        <div style="float:right;width:60px;text-align:right;margin:'0 auto';">
+            <el-button size="medium"
+                :v-show="currentPage!=totalPage"
+                @click="btnPageChange(++currentPage)">下一页</el-button>
+            <el-button size="mini"
+                @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
     </div>
 </template>
@@ -38,7 +36,12 @@ export default {
         return {
             currentPage: 0,
             totalPage: 10,
-            divs: []
+            divs: [],
+            sentences: [],
+            currentSentenceIndex: 1,
+            currentPlayMode: 0,
+            currentPlayState: 0,
+            sentenceIndexs: 1
         };
     },
     props: {
@@ -47,8 +50,10 @@ export default {
         tais: { type: Array, default: () => [] },
         quizs: { type: Array, default: () => [] },
         dirName: { type: String, default: () => "" }
+
     },
     methods: {
+        // 加载文章内容并且解析
         loadPage(id) {
             console.log(`开始加载${id}数据`);
             loader({
@@ -67,14 +72,28 @@ export default {
                 this.divs.forEach(div => {
                     pdiv.appendChild(div);
                     div.addEventListener("click", this.divClick);
-                })
+                });
+
+                this.sentences = strategy.getAllSentenceAudios();
+                this.sentenceIndexs = strategy.getAllSentenceIndex();
+
+                this.currentSentenceIndex = this.sentenceIndexs.shift();
+                // 语音正在播放的话
+                if (this.currentPlayMode == 1) {
+                    this.start();
+                }
             })
         },
-
+        // 单词点击
         divClick(e) {
+            // 如果正在播放原文，不能听单独的单词
+            if (this.currentPlayMode == 1) {
+                return;
+            }
             var node = e.target;
             if (node.tagName.toLowerCase() == "a") {
-                // alert(node.getAttribute("_audio"));
+                // alert(node.getAttribute("_audio"));]
+                this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
                 this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
             }
@@ -90,6 +109,36 @@ export default {
 
             this.currentPage = page;
             this.loadPage(this.pages[page]);
+        },
+        start() {
+            this.currentPlayMode = 1;
+            this.currentPlayState = 1;
+            var audioName = this.sentences[this.currentSentenceIndex];
+            this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
+            this.$refs.audio.play();
+        },
+        stop() {
+            this.$refs.audio.pause();
+            this.currentPlayState = 0;
+            this.currentPlayMode = 0;
+        },
+        playerOver() {
+            this.currentPlayState = 0;
+            // 如果是单词
+            if (this.currentPlayMode == 0) {
+
+            } else {
+                // 如果是课文句子
+                if (this.sentenceIndexs.length > 0) {
+                    // 是否还有句子语音，如果有播放，没有的话翻页
+                    this.currentSentenceIndex = this.sentenceIndexs.shift();
+                    this.start();
+                } else if (this.currentPage < this.totalPage - 1) {
+                    this.btnPageChange(++this.currentPage);
+                } else {
+                    this.currentPlayState = 0;
+                }
+            }
         }
     },
     watch: {
@@ -113,25 +162,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.contentContainer {
-  background-color: #f00;
+.pageContent {
+  min-width: 850px;
+  min-height: 475px;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
   position: relative;
-  .paragraphs {
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    font-size: 18px;
-    color: lightblue;
-    top: 100px;
-    left: 300px;
+  .contentContainer {
+    background-color: #f00;
+    position: relative;
+    left: 20%;
+    width: 100%;
+    height: 100%;
   }
+}
 
-  .figure {
-    top: 400px;
-    right: 100px;
-    width: 100px;
-    height: 160px;
-    position: absolute;
-  }
+.title {
+  color: red;
+}
+
+.active {
+  background-color: yellowgreen;
 }
 </style>

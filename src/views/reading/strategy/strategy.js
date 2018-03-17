@@ -14,6 +14,8 @@ var imagesDiv;
 var contentDiv;
 var html;
 var containers;
+var allSentenceAudios;
+var allSentenceIndex;
 /** 设置原始数据*/
 Strategy.prototype.setOrigin = o => {
     origin = o;
@@ -41,7 +43,11 @@ Strategy.prototype.getAllWordAudios = () => {
 }
 
 Strategy.prototype.getAllSentenceAudios = () => {
+    return allSentenceAudios || {};
+}
 
+Strategy.prototype.getAllSentenceIndex = () => {
+    return allSentenceIndex || [];
 }
 
 function analyser() {
@@ -49,6 +55,8 @@ function analyser() {
     wordAudios = {};
     imagesDiv = [];
     contentDiv = [];
+    allSentenceAudios = {};
+    allSentenceIndex = [];
     // 所有的句子， 里面存的是数组，[["hello", "world"],["My","name","is","LiLei"]]
     var aSentences = [];
     regions.forEach(ele => {
@@ -81,12 +89,19 @@ function analyser() {
                         }
                     }
                     aSentences.push(awords);
-                    pdiv.appendChild(html.generSentences(awords, sentence.textFont, wordAudios));
+                    pdiv.appendChild(html.generSentences(awords, sentence.textFont, wordAudios, sentence.sentence));
                 })
                 contentDiv.push(pdiv);
             })
         }
     });
+
+    let sentences2 = origin.sentences;
+    sentences2.forEach(sentence => {
+        allSentenceAudios[sentence.id] = sentence.audio;
+        allSentenceIndex.push(sentence.id);
+
+    })
 }
 
 // module.exports = Strategy;
