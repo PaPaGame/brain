@@ -16,12 +16,14 @@
 
         <div>
             <label>{{this.title}}</label>
-            <div class="contentContainer">content div
+            <div class="contentContainer"
+                ref="contentContainer">content div
                 <div class="paragraphs">{{this.pages}}</div>
                 <div class="paragraphs">{{this.tais}}</div>
                 <div class="paragraphs">{{this.quizs}}</div>
                 <img class="figure"
                     src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3467130448,4091191020&fm=27&gp=0.jpg"></img>
+                <!-- <template v-for="div in divs">{{div.innerHTML}}</template> -->
             </div>
             <div>footer</div>
         </div>
@@ -29,13 +31,14 @@
 </template>
 
 <script>
-import strategy from "./strategy/strategy";
+import Strategy from "./strategy/strategy";
 import loader from "@/utils/loader";
 export default {
     data() {
         return {
             currentPage: 0,
-            totalPage: 10
+            totalPage: 10,
+            divs: []
         };
     },
     props: {
@@ -51,9 +54,16 @@ export default {
             loader({
                 url: `/${this.dirName}/page/${id}.json`
             }).then(res => {
-                console.log(typeof res);
-                console.log(res["regions"][0]);
+                // console.log(typeof res);
+                // console.log(res["regions"][0]);
+                var strategy = new Strategy();
                 strategy.setOrigin(res);
+                let divs = strategy.getAllContentDiv();
+                this.divs = divs;
+
+                this.divs.forEach(div => {
+                    this.$refs.contentContainer.appendChild(div);
+                })
             })
         }
     },
