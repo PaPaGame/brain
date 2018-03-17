@@ -12,8 +12,8 @@ GenerHtml.prototype.generContainer = (layout) => {
     div.style.position = "absolute";
     return div;
 }
-
-GenerHtml.prototype.generSentences = (words, fontStyle) => {
+// 848*475
+GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios) => {
     var content = "";
     var div = document.createElement("div");
     div.style.fontStyle.bold = fontStyle.bold;
@@ -25,7 +25,7 @@ GenerHtml.prototype.generSentences = (words, fontStyle) => {
     div.style.fontStyle.underline = fontStyle.underline == "true";
     // div.style.cssText = "";
     words.forEach(word => {
-        content += '<a>' + word + "</a> ";
+        content += '<a _audio=' + wordAudios[word] + '>' + word + "</a> ";
     })
     // content += "</div>";
     div.innerHTML = content + ".";

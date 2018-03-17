@@ -20,13 +20,10 @@
 
         <div>
             <label>{{this.title}}</label>
+            <audio ref="audio"
+                autoplay></audio>
             <div class="contentContainer"
-                ref="contentContainer">asd
-                <div class="paragraphs">{{this.pages}}</div>
-                <div class="paragraphs">{{this.tais}}</div>
-                <div class="paragraphs">{{this.quizs}}</div>
-                <img class="figure"
-                    src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3467130448,4091191020&fm=27&gp=0.jpg"></img>
+                ref="contentContainer">
             </div>
             <div>footer</div>
         </div>
@@ -69,12 +66,21 @@ export default {
                 //追加内容
                 this.divs.forEach(div => {
                     pdiv.appendChild(div);
+                    div.addEventListener("click", this.divClick);
                 })
             })
         },
 
+        divClick(e) {
+            var node = e.target;
+            if (node.tagName.toLowerCase() == "a") {
+                // alert(node.getAttribute("_audio"));
+                var audioName = node.getAttribute("_audio");
+                this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
+            }
+        },
+
         btnPageChange(page) {
-            console.log(this.currentPage);
             if (page < 0) {
                 page = 0;
             }

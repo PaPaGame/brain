@@ -31,7 +31,6 @@
             :quizs="articleInfos.quizs"
             :dirName="this.contentModel.article[0].dirName">
         </page-content>
-        <el-button @click="loadRemoteJSON">Load File</el-button>
     </section>
 </template>
 

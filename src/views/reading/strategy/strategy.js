@@ -81,7 +81,7 @@ function analyser() {
                         }
                     }
                     aSentences.push(awords);
-                    pdiv.appendChild(html.generSentences(awords, sentence.textFont));
+                    pdiv.appendChild(html.generSentences(awords, sentence.textFont, wordAudios));
                 })
                 contentDiv.push(pdiv);
             })
