@@ -22,7 +22,7 @@ export default {
     },
     beforeMount() {
         let query = {};
-        query.uid = "5a86acd9838e715b6f7c7099";
+        query.uid = "5aa10052eed4971a84c1666c";
         CourseService.fetchAllCourse(query).then(res => {
             console.log(res);
             if (res.status != 200) {

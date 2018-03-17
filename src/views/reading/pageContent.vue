@@ -5,25 +5,28 @@
         </span>
         <div style="float:left">
             <el-button size="medium"
-                :v-show="this.currentPage!=0">上一页</el-button>
-            <el-button size="mini">首页</el-button>
+                :v-show="this.currentPage!=0"
+                @click="btnPageChange(--currentPage)">上一页</el-button>
+            <el-button size="mini"
+                @click="btnPageChange(currentPage=0)">首页</el-button>
         </div>
         <div style="float:right">
             <el-button size="medium"
-                :v-show="this.currentPage!=totalPage">下一页</el-button>
-            <el-button size="mini">末页</el-button>
+                :v-show="this.currentPage!=totalPage"
+                @click="btnPageChange(++currentPage)">下一页</el-button>
+            <el-button size="mini"
+                @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
 
         <div>
             <label>{{this.title}}</label>
             <div class="contentContainer"
-                ref="contentContainer">content div
+                ref="contentContainer">asd
                 <div class="paragraphs">{{this.pages}}</div>
                 <div class="paragraphs">{{this.tais}}</div>
                 <div class="paragraphs">{{this.quizs}}</div>
                 <img class="figure"
                     src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3467130448,4091191020&fm=27&gp=0.jpg"></img>
-                <!-- <template v-for="div in divs">{{div.innerHTML}}</template> -->
             </div>
             <div>footer</div>
         </div>
@@ -54,17 +57,33 @@ export default {
             loader({
                 url: `/${this.dirName}/page/${id}.json`
             }).then(res => {
-                // console.log(typeof res);
-                // console.log(res["regions"][0]);
+                // 清空内容
+                let pdiv = this.$refs.contentContainer;
+                while (pdiv.hasChildNodes()) {
+                    pdiv.removeChild(pdiv.firstChild);
+                }
                 var strategy = new Strategy();
                 strategy.setOrigin(res);
                 let divs = strategy.getAllContentDiv();
                 this.divs = divs;
-
+                //追加内容
                 this.divs.forEach(div => {
-                    this.$refs.contentContainer.appendChild(div);
+                    pdiv.appendChild(div);
                 })
             })
+        },
+
+        btnPageChange(page) {
+            console.log(this.currentPage);
+            if (page < 0) {
+                page = 0;
+            }
+            if (page >= this.totalPage) {
+                page = this.totalPage - 1;
+            }
+
+            this.currentPage = page;
+            this.loadPage(this.pages[page]);
         }
     },
     watch: {

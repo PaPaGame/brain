@@ -13,14 +13,38 @@ var wordAudios;
 var imagesDiv;
 var contentDiv;
 var html;
+var containers;
 /** 设置原始数据*/
 Strategy.prototype.setOrigin = o => {
     origin = o;
     html = new HtmlGenerate();
+    analyser();
+}
+
+Strategy.prototype.getAllContainer = () => {
+    containers = [];
+    return containers;
 }
 
 /**返回 带有样式的div，插入到pageContent的内容区域*/
 Strategy.prototype.getAllContentDiv = () => {
+    return contentDiv;
+}
+
+Strategy.prototype.getAllImagesDiv = () => {
+    return imagesDiv || [];
+}
+
+/** 返回单词的声音的一个完成对象 采用键值对的形式存放 {"hello":"1.mp3","world":"2.mp3"}*/
+Strategy.prototype.getAllWordAudios = () => {
+    return wordAudios || {};
+}
+
+Strategy.prototype.getAllSentenceAudios = () => {
+
+}
+
+function analyser() {
     let regions = origin.regions;
     wordAudios = {};
     imagesDiv = [];
@@ -30,10 +54,12 @@ Strategy.prototype.getAllContentDiv = () => {
     regions.forEach(ele => {
         // 布局
         let layout = ele.layout;
+        var pdiv = html.generContainer(layout);
         // 如果是图片的
         if (ele.image) {
             // imagesDiv.push();
-            imagesDiv.push(html.generImages(layout, ele.image));
+            pdiv.appendChild(html.generImages(ele.image));
+            contentDiv.push(pdiv);
         } else {
             // 如果是文章内容的
             let paragraphs = ele.paragraphs;
@@ -55,29 +81,13 @@ Strategy.prototype.getAllContentDiv = () => {
                         }
                     }
                     aSentences.push(awords);
-                    contentDiv.push(html.generSentences(layout, awords));
+                    pdiv.appendChild(html.generSentences(awords, sentence.textFont));
                 })
+                contentDiv.push(pdiv);
             })
         }
     });
-
-    return contentDiv;
 }
-
-Strategy.prototype.getAllImagesDiv = () => {
-    return imagesDiv || [];
-}
-
-/** 返回单词的声音的一个完成对象 采用键值对的形式存放 {"hello":"1.mp3","world":"2.mp3"}*/
-Strategy.prototype.getAllWordAudios = () => {
-    return wordAudios || {};
-}
-
-Strategy.prototype.getAllSentenceAudios = () => {
-
-}
-
-
 
 // module.exports = Strategy;
 export default Strategy;

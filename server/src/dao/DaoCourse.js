@@ -20,9 +20,9 @@ CourseDao.prototype.addCourse = async userinfo => {
 
     let student = await StudentModel.findOne({ "_id": userinfo["id"] });
     let articleLevel = student.articleLevel;
+    console.log(student, articleLevel);
     // console.log(articleLevel);
     let articles = await ArticleModel.find({ "articleLevel": { $in: articleLevel } });
-    console.log(articles.length);
 
     var courses = [];
 
@@ -36,17 +36,20 @@ CourseDao.prototype.addCourse = async userinfo => {
 
     // 判断是否已经存在 文章，如果不存在，插入全部， 否则逐条判断插入
     let count = await CourseModel.count({ "uid": userinfo["id"] });//
-
     if (count == 0) {
         return await CourseModel.insertMany(courses);
     } else {
         courses.forEach(async ele => {
-            await CourseModel.findOne({ cid: ele.cid }, (err, data) => {
-                if (data == null) {
-                    // console.log("缺失数据，id:", ele.cid);
-                    return CourseModel.create(ele);
-                }
-            })
+            let result = await CourseModel.findOne({ cid: ele.cid, uid: ele.uid }, (err, data) => {
+                // if (data == null) {
+                //     // console.log("缺失数据，id:", ele.cid);
+                //     return CourseModel.create(ele);
+                // }
+            });
+
+            if (!result) {
+                return await CourseModel.create(ele);
+            }
         });
     }
 }
