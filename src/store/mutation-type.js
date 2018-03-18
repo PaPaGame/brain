@@ -11,4 +11,5 @@ export const USER_UPDATE_INFO = USER + "update_info";
 
 /***********************    课程相关    *****************************/
 const COURSE = APP + "course_";
-export const COURSE_UPDATE_INFO = COURSE + "update_info";
+export const COURSE_UPDATE_INFO = COURSE + "update_info";   // 更新文章内容
+export const COURSE_UPDATE_QUESTION = COURSE + "update_question";   // 更新问答内容

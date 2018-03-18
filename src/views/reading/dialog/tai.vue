@@ -1,16 +1,8 @@
 <template>
-    <!-- <edu-dialog @close="this.close"
-        :isShow="dialogVisible">
-        <span>hello</span>
-    </edu-dialog> -->
     <edu-dialog :isShow="dialogVisible"
         @close="close">
+        <span>{{this.question}}</span>
     </edu-dialog>
-    <!-- <div>
-        <audio ref="taiAudio"></audio>
-        <span>this is Tai</span>
-        <el-button @click="closePopUp">cancel</el-button>
-    </div> -->
 </template>
 
 <script>
@@ -34,8 +26,7 @@ export default {
             this.dialogVisible = this.isShow;
         },
         questionId() {
-            // this.getTaiInfo();//this.dirName, this.questionId
-            console.log(this.questionId);
+            this.getTaiInfo({ dirName: this.dirName, taiId: this.questionId });
         }
     },
     methods: {
@@ -43,14 +34,12 @@ export default {
             this.dialogVisible = false;
             this.$emit("close");
         },
-        // ...mapActions(["getTaiInfo"])
-        closePopUp() {
-            this.$emit('closePopUp')
-        }
+        ...mapActions(["getTaiInfo"])
     },
     computed: {
         ...mapGetters({
-            dirName: "dirName"
+            dirName: "dirName",
+            question: "question"
         })
     }
 }

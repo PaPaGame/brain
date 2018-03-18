@@ -7,7 +7,8 @@ const state = {
     tais: [],
     quizs: [],
     title: "",
-    pages: []
+    pages: [],
+    question: {}
 }
 
 const getters = {
@@ -15,7 +16,8 @@ const getters = {
     tais: state => state.tais,
     quizs: state => state.quizs,
     title: state => state.title,
-    pages: state => state.pages
+    pages: state => state.pages,
+    question: state => state.question
 }
 
 const mutations = {
@@ -25,6 +27,9 @@ const mutations = {
         state.tais = data.tais;
         state.quizs = data.quizs;
         state.pages = data.pages;
+    },
+    [types.COURSE_UPDATE_QUESTION](state, { data }) {
+        state.question = data;
     }
 }
 
@@ -66,13 +71,13 @@ const actions = {
     },
 
     getTaiInfo({ commit, state }, payload) {
-        // console.log("asdasdasd", payload);
-        // let { folder, taiId } = payload;
-        // loader({
-        //     url: `/${folder}/question/${taiId},json`
-        // }).then(res => {
-        //     console.log(res);
-        // });
+        console.log("asdasdasd", payload.dirName, payload.taiId);
+        let { dirName, taiId } = payload;
+        loader({
+            url: `/${dirName}/question/${taiId}.json`
+        }).then(res => {
+            commit(types.COURSE_UPDATE_QUESTION, { data: res });
+        });
     }
 }
 

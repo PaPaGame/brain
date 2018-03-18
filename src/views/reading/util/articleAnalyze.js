@@ -38,4 +38,9 @@ ArticleAnalyze.prototype.startQuizs = (originData) => {
     return result;
 }
 
+// 解析question  包括灯泡 和quiz
+ArticleAnalyze.prototype.startQuestion = (originData) => {
+    let result = {};
+}
+
 module.exports = ArticleAnalyze;
