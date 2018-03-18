@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section>
         <label class="title">{{this.title}}</label>
         <!-- 文章具体内容 -->
         <div class="pageContent">
@@ -25,13 +25,19 @@
             <el-button size="mini"
                 @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
-    </div>
+        <tai-dialog :isShow="taiVisible"
+            @close="taiVisible = false"></tai-dialog>
+    </section>
 </template>
 
 <script>
 import Strategy from "./strategy/strategy";
 import loader from "@/utils/loader";
+import TaiDialog from "./dialog/tai";
 export default {
+    components: {
+        TaiDialog
+    },
     data() {
         return {
             currentPage: 0,
@@ -41,7 +47,8 @@ export default {
             currentSentenceIndex: 1,
             currentPlayMode: 0,
             currentPlayState: 0,
-            sentenceIndexs: 1
+            sentenceIndexs: 1,
+            taiVisible: false
         };
     },
     props: {
@@ -92,10 +99,18 @@ export default {
             }
             var node = e.target;
             if (node.tagName.toLowerCase() == "a") {
-                // alert(node.getAttribute("_audio"));]
+                // 播放单词
                 this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
                 this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
+            } else if (node.tagName.toLowerCase() == "img") {
+                // 播放灯泡
+                let taiId = node.getAttribute("_tai");
+                if (taiId) {
+                    // alert(taiId)
+                    console.log("需要打开灯泡弹框");
+                    this.taiVisible = true;
+                }
             }
         },
 
@@ -137,6 +152,7 @@ export default {
                     this.btnPageChange(++this.currentPage);
                 } else {
                     this.currentPlayState = 0;
+                    this.currentPlayMode = 0;
                 }
             }
         }

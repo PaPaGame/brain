@@ -82,10 +82,11 @@ function analyser() {
 
                         awords.push(wordObj.spelling);
                     });
-                    let trigger = paragraph.trigger;
+                    let trigger = sentence.trigger;
                     if (trigger) {
                         if (trigger.question_id) {
-                            awords.push("~!tai");
+                            // 一个特殊标记
+                            awords.push("~!tai_" + trigger.question_id);
                         }
                     }
                     aSentences.push(awords);

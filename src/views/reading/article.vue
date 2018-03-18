@@ -12,9 +12,9 @@
         <!-- <span>{{contentModel}}</span> -->
         <el-tabs tab-position="top"
             style="height: 150px;">
-            <el-tab-pane :label="$t('reading.alphabet')">
+            <!-- <el-tab-pane :label="$t('reading.alphabet')">
                 <step-preview></step-preview>
-            </el-tab-pane>
+            </el-tab-pane> -->
             <el-tab-pane :label="$t('reading.reading')">
                 <step-read v-on:startReading="startReading"
                     v-on:stopReading="stopReading"></step-read>
