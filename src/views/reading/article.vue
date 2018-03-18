@@ -26,25 +26,26 @@
                 <step-quiz></step-quiz>
             </el-tab-pane>
         </el-tabs>
-        <page-content :title="articleInfos.title"
-            :pages="articleInfos.pages"
-            :tais="articleInfos.tais"
-            :quizs="articleInfos.quizs"
-            :dirName="this.contentModel.article[0].dirName"
-            :currentSentenceIndex="sentenceIndex"
+        <page-content :currentSentenceIndex="sentenceIndex"
             ref="pageContent">
         </page-content>
         <audio autoplay
             ref="articleAudio"></audio>
     </section>
+
+    <!-- :title="course.title"
+            :pages="course.pages"
+            :tais="course.tais"
+            :quizs="course.quizs"
+            :dirName="course.dirName" -->
+
 </template>
 
 <script>
 import Steps from "./step";
 import PageContent from "./pageContent";
 import loader from "@/utils/loader";
-var ArticleAnalyze = require("./util/articleAnalyze");
-var myAsync = require("async");
+import { mapGetters, mapActions } from "vuex";
 export default {
     components: {
         "step-preview": Steps.Step1,
@@ -56,8 +57,6 @@ export default {
     data() {
         return {
             contentModel: this.$route.params.info,
-            articleInfos: {},
-            analyze: new ArticleAnalyze(),
             sentenceIndex: -1
         };
     },
@@ -66,42 +65,24 @@ export default {
             this.$router.go(-1);
         },
         loadRemoteJSON() {
-            let aa = new ArticleAnalyze();
-            let folder = this.contentModel.article[0].dirName;
-            let fileName = folder + ".json";
-
-            var obj = {};
-            myAsync.series({
-                one: callback => {
-                    loader({
-                        url: `/${folder}/${fileName}`
-                    }).then(res => {
-                        this.articleInfos = Object.assign(obj, this.analyze.startBasicInfo(res));
-                        callback(null, this.articleInfos);
-                    });
-                },
-                two: callback => {
-                    let quizName = "quizzes.json";
-                    loader({
-                        url: `/${folder}/${quizName}`
-                    }).then(res => {
-                        let obj2 = this.analyze.startQuizs(res);
-                        obj.quizs = obj2;
-                        this.articleInfos = obj;
-                        callback(null, this.articleInfos);
-                    });
-                }
-            }, (err, result) => {
-                console.log("final", this.articleInfos);
-            });
+            let f = this.contentModel.article[0].dirName;
+            this.getArticleInfo(f);
         },
         startReading() {
             this.$refs.pageContent.start();
         },
         stopReading() {
             this.$refs.pageContent.stop();
-        }
+        },
+        ...mapActions(["getArticleInfo"])
+
     },
+    computed: mapGetters({
+        title: "title",
+        dirName: "dirName",
+        quizs: "quizs",
+        tais: "tais"
+    }),
     watch: {
         contentModel(val) {
             this.contentModel = val;
@@ -110,7 +91,6 @@ export default {
             }
 
             this.loadRemoteJSON();
-
         },
         '$route'(to, from) {
             this.contentModel = this.$route.params.info;

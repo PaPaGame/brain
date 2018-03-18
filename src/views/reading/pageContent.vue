@@ -26,7 +26,8 @@
                 @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
         <tai-dialog :isShow="taiVisible"
-            @close="taiVisible = false"></tai-dialog>
+            @close="taiVisible = false"
+            :questionId="taiId"></tai-dialog>
     </section>
 </template>
 
@@ -34,6 +35,7 @@
 import Strategy from "./strategy/strategy";
 import loader from "@/utils/loader";
 import TaiDialog from "./dialog/tai";
+import { mapGetters, mapActions } from "vuex";
 export default {
     components: {
         TaiDialog
@@ -41,23 +43,16 @@ export default {
     data() {
         return {
             currentPage: 0,
-            totalPage: 10,
+            totalPage: 3,
             divs: [],
             sentences: [],
             currentSentenceIndex: 1,
             currentPlayMode: 0,
             currentPlayState: 0,
             sentenceIndexs: 1,
-            taiVisible: false
+            taiVisible: false,
+            taiId: ""
         };
-    },
-    props: {
-        title: { type: String, default: () => "" },
-        pages: { type: Array, default: () => [] },
-        tais: { type: Array, default: () => [] },
-        quizs: { type: Array, default: () => [] },
-        dirName: { type: String, default: () => "" }
-
     },
     methods: {
         // 加载文章内容并且解析
@@ -107,8 +102,8 @@ export default {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
                 if (taiId) {
-                    // alert(taiId)
                     console.log("需要打开灯泡弹框");
+                    this.taiId = taiId;
                     this.taiVisible = true;
                 }
             }
@@ -123,7 +118,8 @@ export default {
             }
 
             this.currentPage = page;
-            this.loadPage(this.pages[page]);
+            console.log(this.currentPage);
+            this.loadPage(this.pages[this.currentPage]);
         },
         start() {
             this.currentPlayMode = 1;
@@ -157,22 +153,16 @@ export default {
             }
         }
     },
-    watch: {
-        pages(val) {
-            let data = val;
-            if (data.length == 0)
-                throw new Error("课文数据为空");
-            //  赋值的话， 只有可能是外部点击文章列表， 所以显示第一页内容即可
-            this.loadPage(data[0]);
-            this.currentPage = 0;
-            this.totalPage = data.length;
-        },
-        tais(val) {
-
-        },
-        quizs(val) {
-
-        }
+    computed: {
+        totalPage() {
+            return this.pages.length;
+        }, ...mapGetters({
+            title: "title",
+            dirName: "dirName",
+            quizs: "quizs",
+            tais: "tais",
+            pages: "pages"
+        })
     }
 }
 </script>

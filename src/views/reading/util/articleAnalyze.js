@@ -5,7 +5,7 @@ function ArticleAnalyze() {
 // 解析基础数据
 ArticleAnalyze.prototype.startBasicInfo = (originData) => {
     // 传进来的就是obj
-    // console.log(originData);
+    console.log(originData);
     let result = {};
     // 解析标题
     result.title = originData.full_title;
