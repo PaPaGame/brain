@@ -1,12 +1,8 @@
 export default {
-    name: 'PgDialog',
+    name: 'eduDialog',
     props: {
         title: String,
-        isShow: Boolean,
-        size: {
-            type: String,
-            default: 'large'
-        }
+        isShow: Boolean
     },
     data() {
         return {
@@ -15,15 +11,13 @@ export default {
     },
     watch: {
         isShow() {
-            this.dialogVisible = this.isShow;
-            console.log("this.dialogVisible", this.dialogVisible);
+            this.dialogVisible = this.isShow
         }
     },
     methods: {
         onClose() {
-            this.dialogVisible = false;
+            this.dialogVisible = false
             this.$emit('close')
-            console.log("ccccccccccccccccclose");
         }
     }
 }

@@ -26,8 +26,15 @@
                 @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
         <tai-dialog :isShow="taiVisible"
-            @close="taiVisible = false"
+            @close="onClose"
             :questionId="taiId"></tai-dialog>
+        <!-- <edu-dialog :isShow="taiVisible"
+            @close="taiVisible = false">
+            <span>Hello world</span>
+        </edu-dialog> -->
+        <!-- <pop-up :PopUpIsShow="taiVisible">
+            <tai-container @closePopUp="taiVisible = false"></tai-container>
+        </pop-up> -->
     </section>
 </template>
 
@@ -35,15 +42,18 @@
 import Strategy from "./strategy/strategy";
 import loader from "@/utils/loader";
 import TaiDialog from "./dialog/tai";
+import EduDialog from "@/components/Dialog/dialog";
+import popUp from "@/components/Dialog/popUp";
 import { mapGetters, mapActions } from "vuex";
 export default {
     components: {
-        TaiDialog
+        TaiDialog,
+        EduDialog,
+        popUp
     },
     data() {
         return {
             currentPage: 0,
-            totalPage: 3,
             divs: [],
             sentences: [],
             currentSentenceIndex: 1,
@@ -151,6 +161,11 @@ export default {
                     this.currentPlayMode = 0;
                 }
             }
+        },
+
+        onClose() {
+            console.log("哈哈哈哈，终于好了");
+            this.taiVisible = false;
         }
     },
     computed: {

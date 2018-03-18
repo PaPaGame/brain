@@ -63,6 +63,16 @@ const actions = {
             console.log("final", this.articleInfos);
             commit(types.COURSE_UPDATE_INFO, { data: this.articleInfos });
         });
+    },
+
+    getTaiInfo({ commit, state }, payload) {
+        // console.log("asdasdasd", payload);
+        // let { folder, taiId } = payload;
+        // loader({
+        //     url: `/${folder}/question/${taiId},json`
+        // }).then(res => {
+        //     console.log(res);
+        // });
     }
 }
 

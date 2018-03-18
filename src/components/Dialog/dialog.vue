@@ -1,10 +1,9 @@
 <template>
     <el-dialog :title="title"
         v-model="dialogVisible"
-        :visible="dialogVisible"
         @close="onClose"
-        :close-on-click-modal="true"
-        :size="size">
+        :visible="dialogVisible"
+        :close-on-click-modal="true">
         <slot></slot>
     </el-dialog>
 </template>

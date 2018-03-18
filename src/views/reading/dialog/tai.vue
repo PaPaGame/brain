@@ -1,12 +1,21 @@
 <template>
+    <!-- <edu-dialog @close="this.close"
+        :isShow="dialogVisible">
+        <span>hello</span>
+    </edu-dialog> -->
     <edu-dialog :isShow="dialogVisible"
         @close="close">
-        <span>hello</span>
     </edu-dialog>
+    <!-- <div>
+        <audio ref="taiAudio"></audio>
+        <span>this is Tai</span>
+        <el-button @click="closePopUp">cancel</el-button>
+    </div> -->
 </template>
 
 <script>
 import eduDialog from "@/components/Dialog/dialog";
+import { mapActions, mapGetters } from 'vuex';
 export default {
     components: {
         eduDialog
@@ -25,7 +34,8 @@ export default {
             this.dialogVisible = this.isShow;
         },
         questionId() {
-            this.loadQuestion(this.questionId);
+            // this.getTaiInfo();//this.dirName, this.questionId
+            console.log(this.questionId);
         }
     },
     methods: {
@@ -33,9 +43,15 @@ export default {
             this.dialogVisible = false;
             this.$emit("close");
         },
-        loadQuestion(id) {
-            console.log("现在要去加载" + id + "编号 问题了");
+        // ...mapActions(["getTaiInfo"])
+        closePopUp() {
+            this.$emit('closePopUp')
         }
+    },
+    computed: {
+        ...mapGetters({
+            dirName: "dirName"
+        })
     }
 }
 </script>
