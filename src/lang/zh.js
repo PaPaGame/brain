@@ -127,6 +127,7 @@ export default {
         record2: "Record",
         playmyreading: "Play My Reading",
         takequiz: "Take Quiz",
-        takequizagain: "Take Quiz Again"
+        takequizagain: "Take Quiz Again",
+        commit: "提交"
     }
 }

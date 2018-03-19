@@ -1,7 +1,15 @@
 <template>
     <edu-dialog :isShow="dialogVisible"
-        @close="close">
-        <span>{{this.question}}</span>
+        @close="close"
+        :title="this.question.question">
+        <el-radio-group v-model="radioModel">
+            <el-radio v-for="(option,index) in question.answers"
+                :key="option.answer"
+                :label="option.answer"></el-radio>
+        </el-radio-group>
+        <el-button>
+            <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+        <audio ref="taiAudio"></audio>
     </edu-dialog>
 </template>
 
@@ -15,6 +23,7 @@ export default {
     data() {
         return {
             dialogVisible: false,
+            radioModel: ""
         };
     },
     props: {

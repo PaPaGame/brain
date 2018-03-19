@@ -71,7 +71,7 @@ const actions = {
     },
 
     getTaiInfo({ commit, state }, payload) {
-        console.log("asdasdasd", payload.dirName, payload.taiId);
+        console.log(payload.dirName, payload.taiId);
         let { dirName, taiId } = payload;
         loader({
             url: `/${dirName}/question/${taiId}.json`

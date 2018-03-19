@@ -108,7 +108,7 @@ export default {
                 this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
                 this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
-            } else if (node.tagName.toLowerCase() == "img") {
+            } else if (node.tagName.toLowerCase() == "i") {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
                 if (taiId) {

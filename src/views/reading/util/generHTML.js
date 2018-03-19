@@ -25,7 +25,8 @@ GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios, audioIndex) 
     div.style.fontStyle.underline = fontStyle.underline == "true";
     words.forEach(word => {
         if (word.indexOf("~!tai") >= 0) {
-            content += '<img _tai=' + word.split('_')[1] + ' src=' + 'http://csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png' + ' style="width:15px;height:15px;cursor:pointer">';
+            // content += '<img _tai=' + word.split('_')[1] + ' src=' + 'http://csdnimg.cn/jifen/images/xunzhang/xunzhang/chizhiyiheng.png' + ' style="width:15px;height:15px;cursor:pointer">';
+            content += `<i class="iconfont icon-tai" _tai='${word.split('_')[1]}' style='cursor:pointer'></i>`
         } else {
             content += '<a _audio=' + wordAudios[word] + '>' + word + "</a> ";
         }
