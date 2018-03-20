@@ -1,5 +1,6 @@
 import userService from "@/api/user";
 import * as types from "../mutation-type";
+import router from '@/router'
 
 const state = {
     username: "",
@@ -40,6 +41,17 @@ const actions = {
 
             }
         })
+    },
+
+    doLogin({ commit, state }, payload) {
+        userService.login(payload).then(res => {
+            if (res.status === 200) {
+                router.push({ path: '/' });
+                resolve();
+            } else {
+                router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
+            }
+        });
     }
 }
 

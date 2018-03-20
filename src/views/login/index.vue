@@ -22,23 +22,23 @@
             <el-form-item style="width:100%;">
                 <el-button type="primary"
                     style="width:100%;"
-                    v-loading="loading"
-                    @click.native.prevent="login('form')">登录</el-button>
+                    @click.native.prevent="handleSubmit2('form')">登录</el-button>
             </el-form-item>
         </el-form>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
     data() {
         return {
-            title: 'bbbbb',
-            systemName: '登录',
-            loading: false,
+            title: '',
+            systemName: '学习系统',
             form: {
                 username: '',
-                password: '',
+                password: ''
             },
             rules2: {
                 username: [
@@ -46,23 +46,43 @@ export default {
                 ],
                 password: [
                     { required: true, message: '请输入密码', trigger: 'blur' }
-                ],
-                verifyCode: [
-                    { required: false, message: '请输入验证码', trigger: 'blur' }
                 ]
             }
         }
     },
     methods: {
-        login() {
-            console.log("走登录业务");
-            this.$router.push({ path: '/' });
-        }
+        handleSubmit2(form) {
+            this.$refs.form.validate((valid) => {
+                if (valid) {
+                    let data = {}
+
+                    data.username = this.form.username
+                    data.password = this.form.password
+
+                    this.doLogin(data);
+                } else {
+                    return false
+                }
+            })
+        },
+        ...mapActions(["doLogin"])
+    },
+    mounted() {
+        window.addEventListener('keyup', (e) => {
+            if (e.keyCode === 13) {
+                this.handleSubmit2('form')
+            }
+        })
     }
-};
+}
 </script>
 
 <style>
+.verify-pos {
+  position: absolute;
+  right: 100px;
+  top: 0px;
+}
 .card-box {
   padding: 20px;
   /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/

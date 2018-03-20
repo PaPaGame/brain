@@ -90,7 +90,7 @@ const Login = async function (ctx) {
         return;
     }
 
-    if (userDao.model.authenticate(result.hash_password, userInfo.password)) {
+    if (UserModel.authenticate(result.hash_password, userInfo.password)) {
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
         message.status = 200;
         message.userInfo = result;

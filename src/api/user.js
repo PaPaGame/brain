@@ -7,6 +7,13 @@ const user = {
             method: "post",
             params: data
         });
+    },
+    login(data) {
+        return ajax({
+            url: "/user/login",
+            method: "post",
+            params: data
+        })
     }
 };
 
