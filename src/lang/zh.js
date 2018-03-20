@@ -6,7 +6,9 @@ export default {
         title: '系统登录',
         login: '登录',
         username: '用户名',
-        password: '密码'
+        password: '密码',
+        inputUsername: "请输入用户名",
+        inputPassword: "请输入密码"
     },
     navbar: {
         dashboard: '首页',

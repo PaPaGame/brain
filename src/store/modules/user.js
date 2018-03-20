@@ -25,6 +25,17 @@ const mutations = {
         };
 
         console.log("获取用户信息成功", state);
+    },
+    [types.USER_UPDATE](state, { data }) {
+        state.username = data.username;
+        state.userId = data._id;
+        user.school = data.school;
+        user.phone = data.phone;
+        user.mail = data.mail;
+        user.lastLoginTime = data.lastLoginTime;
+        user.role = data.role;
+        user.status = data.status;
+        // user.uid =
     }
 }
 
@@ -46,8 +57,9 @@ const actions = {
     doLogin({ commit, state }, payload) {
         userService.login(payload).then(res => {
             if (res.status === 200) {
-                router.push({ path: '/' });
-                resolve();
+                commit(types.USER_UPDATE, { data: res.userInfo });
+                // router.push({ path: '/' });
+                // resolve();
             } else {
                 router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
             }

@@ -4,6 +4,13 @@ var mongoose = require("mongoose");
 var crypto = require("crypto");
 var Schema = mongoose.Schema;
 
+/**
+ * @param username 用户名
+ * @param hash_password hash过后的的密码
+ * @param status 用户状态
+ * @param role 用户组别， 管理员，学生，老师等
+ * @param 根据role 去staff表或者student表中找到的id
+ */
 var userSchema = new Schema({
     username: String,
     hash_password: String,

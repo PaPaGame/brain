@@ -6,23 +6,23 @@
             label-position="left"
             label-width="0px"
             class="demo-ruleForm card-box loginform">
-            <h3 class="title">{{systemName}}</h3>
+            <h3 class="title">{{$t("signin.title")}}</h3>
             <el-form-item prop="username">
                 <el-input type="text"
                     v-model="form.username"
                     auto-complete="off"
-                    placeholder="账号"></el-input>
+                    :placeholder="$t('signin.username')"></el-input>
             </el-form-item>
             <el-form-item prop="password">
                 <el-input type="password"
                     v-model="form.password"
                     auto-complete="off"
-                    placeholder="密码"></el-input>
+                    :placeholder="$t('signin.password')"></el-input>
             </el-form-item>
             <el-form-item style="width:100%;">
                 <el-button type="primary"
                     style="width:100%;"
-                    @click.native.prevent="handleSubmit2('form')">登录</el-button>
+                    @click.native.prevent="handleSubmit2('form')">{{$t("signin.login")}}</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -35,17 +35,16 @@ export default {
     data() {
         return {
             title: '',
-            systemName: '学习系统',
             form: {
                 username: '',
                 password: ''
             },
             rules2: {
                 username: [
-                    { required: true, message: '请输入账号', trigger: 'blur' }
+                    { required: true, message: this.$t("signin.inputUsername"), trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' }
+                    { required: true, message: this.$t("signin.inputPassword"), trigger: 'blur' }
                 ]
             }
         }
