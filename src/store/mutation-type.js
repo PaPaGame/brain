@@ -13,3 +13,4 @@ export const USER_UPDATE_INFO = USER + "update_info";
 const COURSE = APP + "course_";
 export const COURSE_UPDATE_INFO = COURSE + "update_info";   // 更新文章内容
 export const COURSE_UPDATE_QUESTION = COURSE + "update_question";   // 更新问答内容
+export const COURSE_UPDATE_QUIZ = COURSE + "update_quiz";   //更新quiz题目内容

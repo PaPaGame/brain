@@ -1,6 +1,6 @@
 <template>
     <section>
-        <label class="title">{{this.title}}</label>
+        <label class="ti">{{this.title}}</label>
         <!-- 文章具体内容 -->
         <div class="pageContent">
             <audio ref="audio"
@@ -107,7 +107,7 @@ export default {
                 // 播放单词
                 this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
-                this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
+                this.$refs.audio.src = `http://${process.env.PUBLIC_URL}/dist/${this.dirName}/audio/${audioName}`;
             } else if (node.tagName.toLowerCase() == "i") {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
@@ -164,7 +164,6 @@ export default {
         },
 
         onClose() {
-            console.log("哈哈哈哈，终于好了");
             this.taiVisible = false;
         }
     },
@@ -193,16 +192,18 @@ export default {
   .contentContainer {
     background-color: #f00;
     position: relative;
-    left: 20%;
+    left: 50%;
     width: 100%;
     height: 100%;
+    transform: translateX(-20%);
   }
 }
-
-.title {
+.ti {
   color: red;
+  text-align: center;
+  width: 100%;
+  left: 50%;
 }
-
 .active {
   background-color: yellowgreen;
 }
