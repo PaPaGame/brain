@@ -29,12 +29,12 @@ const mutations = {
     [types.USER_UPDATE](state, { data }) {
         state.username = data.username;
         state.userId = data._id;
-        user.school = data.school;
-        user.phone = data.phone;
-        user.mail = data.mail;
-        user.lastLoginTime = data.lastLoginTime;
-        user.role = data.role;
-        user.status = data.status;
+        state.school = data.school;
+        state.phone = data.phone;
+        state.mail = data.mail;
+        state.lastLoginTime = data.lastLoginTime;
+        state.role = data.role;
+        state.status = data.status;
         // user.uid =
     }
 }
@@ -57,9 +57,11 @@ const actions = {
     doLogin({ commit, state }, payload) {
         userService.login(payload).then(res => {
             if (res.status === 200) {
+                console.log("登录成功");
                 commit(types.USER_UPDATE, { data: res.userInfo });
-                // router.push({ path: '/' });
-                // resolve();
+                router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
+                router.push({ path: '/' });
+                resolve();
             } else {
                 router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
             }

@@ -1,6 +1,5 @@
 <template>
-    <edu-dialog :isShow="dialogVisible"
-        @close="close">
+    <edu-dialog :isShow="dialogVisible" @close="close">
 
     </edu-dialog>
 </template>
@@ -34,7 +33,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.taiAudio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${id}`;
+            this.$refs.taiAudio.src = `http://${process.env.PUBLIC_PATH}:9050/dist/${this.dirName}/audio/${id}`;
         },
         ...mapActions(["getQuizInfo"])
     },

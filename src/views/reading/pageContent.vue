@@ -3,31 +3,20 @@
         <label class="ti">{{this.title}}</label>
         <!-- 文章具体内容 -->
         <div class="pageContent">
-            <audio ref="audio"
-                v-on:ended="playerOver"
-                autoplay></audio>
-            <div class="contentContainer"
-                ref="contentContainer">
+            <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
+            <div class="contentContainer" ref="contentContainer">
             </div>
         </div>
         <!-- 翻页部分 -->
         <div style="float:left;width:60px;text-align:right;">
-            <el-button size="medium"
-                :v-show="currentPage!=0"
-                @click="btnPageChange(--currentPage)">上一页</el-button>
-            <el-button size="mini"
-                @click="btnPageChange(currentPage=0)">首页</el-button>
+            <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)">上一页</el-button>
+            <el-button size="mini" @click="btnPageChange(currentPage=0)">首页</el-button>
         </div>
         <div style="float:right;width:60px;text-align:right;margin:'0 auto';">
-            <el-button size="medium"
-                :v-show="currentPage!=totalPage"
-                @click="btnPageChange(++currentPage)">下一页</el-button>
-            <el-button size="mini"
-                @click="btnPageChange(totalPage-1)">末页</el-button>
+            <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)">下一页</el-button>
+            <el-button size="mini" @click="btnPageChange(totalPage-1)">末页</el-button>
         </div>
-        <tai-dialog :isShow="taiVisible"
-            @close="onClose"
-            :questionId="taiId"></tai-dialog>
+        <tai-dialog :isShow="taiVisible" @close="onClose" :questionId="taiId"></tai-dialog>
         <!-- <edu-dialog :isShow="taiVisible"
             @close="taiVisible = false">
             <span>Hello world</span>
@@ -107,7 +96,7 @@ export default {
                 // 播放单词
                 this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
-                this.$refs.audio.src = `http://${process.env.PUBLIC_URL}/dist/${this.dirName}/audio/${audioName}`;
+                this.$refs.audio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
             } else if (node.tagName.toLowerCase() == "i") {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
@@ -135,7 +124,7 @@ export default {
             this.currentPlayMode = 1;
             this.currentPlayState = 1;
             var audioName = this.sentences[this.currentSentenceIndex];
-            this.$refs.audio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${audioName}`;
+            this.$refs.audio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
             this.$refs.audio.play();
         },
         stop() {

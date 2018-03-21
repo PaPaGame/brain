@@ -1,7 +1,6 @@
 import loader from "@/utils/loader";
 import * as types from "../mutation-type";
 import async from "async";
-import { dirname } from "upath";
 var ArticleAnalyze = require("@/views/reading/util/articleAnalyze");
 const state = {
     dirName: "",

@@ -1,12 +1,7 @@
 <template>
-    <edu-dialog :isShow="dialogVisible"
-        @close="close"
-        :title="this.question.question">
-        <el-radio-group v-model="radioLabel"
-            @change="onRadioChange(radioLabel)">
-            <el-radio v-for="(option,index) in question.answers"
-                :key="index"
-                :label="option.answer"></el-radio>
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.question.question">
+        <el-radio-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
+            <el-radio v-for="(option,index) in question.answers" :key="index" :label="option.answer"></el-radio>
         </el-radio-group>
         <el-button @click="submitAnswer">
             <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
@@ -14,9 +9,7 @@
             <div v-show="hits!=''">{{hits}}</div>
         </transition>
 
-        <audio ref="taiAudio"
-            autoplay
-            @ended="playend"></audio>
+        <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
 
@@ -81,7 +74,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.taiAudio.src = `http://192.168.199.136:9050/dist/${this.dirName}/audio/${id}`;
+            this.$refs.taiAudio.src = `http://${process.env.PUBLIC_PATH}:9050/dist/${this.dirName}/audio/${id}`;
         },
         playend() {
             if (!this.findAnswer)
