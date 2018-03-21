@@ -165,6 +165,22 @@ const GetStaff = async (ctx) => {
 
 }
 
+const GetStaffList = async ctx => {
+    let message = {};
+    let queryInfo = ctx.request.body;
+    console.log(queryInfo);
+    let result = await staffDao.getStaffList(queryInfo);
+    if (result) {
+        message.status = 200;
+        message.staffList = result;
+    } else {
+        message.status = 400;
+        message.message = "查询失败";
+    }
+
+    ctx.body = message;
+}
+
 module.exports = {
     Create,
     Update,
@@ -177,5 +193,6 @@ module.exports = {
     AddStaff,
     UpdateStaff,
     DeleteStaff,
-    GetStaff
+    GetStaff,
+    GetStaffList
 }

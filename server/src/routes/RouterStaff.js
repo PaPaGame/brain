@@ -12,5 +12,6 @@ childRouter.post("/staff", StaffController.AddStaff);
 childRouter.put("/staff", StaffController.UpdateStaff);
 childRouter.delete("/staff", StaffController.DeleteStaff);
 childRouter.get("/staff", StaffController.GetStaff);
+childRouter.post("/staff/getList", StaffController.GetStaffList);
 
 module.exports = childRouter;

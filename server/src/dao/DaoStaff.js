@@ -45,7 +45,6 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
 }
 
 StaffDao.prototype.deleteStaff = async userinfo => {
-    console.log(userinfo);
     let s = await StaffModel.findOne({ "name": userinfo.username });
     console.log(s);
     let uid = s._id;
@@ -53,6 +52,10 @@ StaffDao.prototype.deleteStaff = async userinfo => {
     await StaffModel.deleteOne({ "name": userinfo.username });
 
     return await UserModel.deleteOne({ "uid": uid });
+}
+
+StaffDao.prototype.getStaffList = async queryinfo => {
+    return await StaffModel.find(queryinfo);
 }
 
 module.exports = StaffDao;

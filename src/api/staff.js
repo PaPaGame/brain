@@ -6,6 +6,13 @@ const staff = {
             url: "/staff/fuzzy/" + query,
             method: "get"
         });
+    },
+    fetchStaffList(query) {
+        return ajax({
+            url: "/staff/getList",
+            method: "post",
+            data: query
+        })
     }
 };
 

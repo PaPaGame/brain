@@ -62,7 +62,8 @@ export default {
         createdAt: "创建时间",
         lastLoginAt: "上次登录时间",
         school: "所属学校",
-        operate: "操作"
+        operate: "操作",
+        group: "班级"
     },
     group: {
         searchName: "班级名字",

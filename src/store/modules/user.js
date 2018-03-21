@@ -8,7 +8,12 @@ const state = {
     token: '',
     role: "",
     school: "",
-    userinfo: {}
+    userinfo: {
+        username: "",
+        userId: "",
+        role: "",
+        school: "BJTZ003"
+    }
 }
 
 const mutations = {
@@ -18,10 +23,10 @@ const mutations = {
         state.role = data.role;
         state.school = data.school;
         state.userinfo = {
-            username: state.username,
-            userId: state.userId,
-            role: state.role,
-            school: state.school
+            username: data.username,
+            userId: data._id,
+            role: data.role,
+            school: data.school
         };
 
         console.log("获取用户信息成功", state);
@@ -35,12 +40,19 @@ const mutations = {
         state.lastLoginTime = data.lastLoginTime;
         state.role = data.role;
         state.status = data.status;
+        state.userinfo = {
+            username: data.username,
+            userId: data._id,
+            role: data.role,
+            school: data.school
+        };
         // user.uid =
     }
 }
 
 const getters = {
     userinfo: state => state.userinfo,
+    school: state => state.school
 }
 
 const actions = {
@@ -58,10 +70,8 @@ const actions = {
         userService.login(payload).then(res => {
             if (res.status === 200) {
                 console.log("登录成功");
-                commit(types.USER_UPDATE, { data: res.userInfo });
-                router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
+                commit(types.USER_UPDATE, { data: res.userinfo });
                 router.push({ path: '/' });
-                resolve();
             } else {
                 router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
             }
