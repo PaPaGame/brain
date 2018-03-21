@@ -13,6 +13,13 @@ const staff = {
             method: "post",
             data: query
         })
+    },
+    addStaff(info) {
+        return ajax({
+            url: "/staff",
+            method: "post",
+            data: info
+        });
     }
 };
 

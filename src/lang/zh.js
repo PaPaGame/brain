@@ -60,10 +60,21 @@ export default {
         phone: "电话",
         mail: "邮箱",
         createdAt: "创建时间",
-        lastLoginAt: "上次登录时间",
+        updatedAt: "最后更新时间",
+        lastLoginAt: "最后登录时间",
         school: "所属学校",
         operate: "操作",
-        group: "班级"
+        group: "班级",
+        password: "密码",
+        createTitle: "新增老师",
+        placeholderName: "请输入用户名",
+        placeholderPassword: "请输入密码",
+        placeholderSchoolCode: "请输入学校编码，如：‘BJTZ001’",
+        placeholderPhone: "请输入电话",
+        placeholderMail: "请输入邮箱",
+        placeholderGroupName: "请输入班级名称",
+        groupName: "班级名称",
+        groupStudentCount: "班级人数"
     },
     group: {
         searchName: "班级名字",

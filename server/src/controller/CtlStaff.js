@@ -118,10 +118,15 @@ const GetByFuzzyName = async (ctx) => {
 
 
 const AddStaff = async (ctx) => {
-    let userInfo = ctx.request.body;
-
+    let info = ctx.request.body;
     let message = {};
-    let result = staffDao.addStaff(userInfo);
+    if (!info) {
+        message.status = 400;
+        message.message = "创建失败";
+        ctx.body = message;
+        return;
+    }
+    let result = staffDao.addStaff(info);
 
     if (result) {
         message.status = 200;

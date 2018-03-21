@@ -65,9 +65,25 @@ const Get = async function (ctx) {
     }
 }
 
+const FuzzyList = async ctx => {
+    let message = {};
+    let info = ctx.request.body;
+    if (!info) {
+        message.status = 400;
+        message.message = "参数错误";
+    }
+
+    let result = await SchoolModel.find({ "code": { $regex: info.code, $options: 'i' } });
+
+    message.status = 200;
+    message.school = result ? result : [];
+    ctx.body = message;
+}
+
 module.exports = {
     Create,
     Update,
     Delete,
-    Get
+    Get,
+    FuzzyList
 };

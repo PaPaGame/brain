@@ -31,8 +31,6 @@
             <template slot="opBtns"
                 slot-scope="scope">
                 <el-button size="mini"
-                    @click="operateHandler(scope.row,'view')">查看</el-button>
-                <el-button size="mini"
                     @click="operateHandler(scope.row,'edit')">修改</el-button>
                 <el-button size="mini"
                     @click="operateHandler(scope.row,'delete')">删除</el-button>
@@ -40,23 +38,40 @@
         </edu-table>
         <!-- 弹框 -->
         <div></div>
-
+        <detail-dialog :title="dialogTitle"
+            :isShow="dialogVisible"
+            @close="dialogVisible = false"></detail-dialog>
     </div>
 </template>
 
 <script>
 import table from "@/components/table";
 import { mapActions, mapGetters } from "vuex";
-
+import DetailDialog from "./detail";
 export default {
     components: {
-        "edu-table": table
+        "edu-table": table,
+        DetailDialog
     },
     methods: {
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
         pageChange() { },
         btnSearchClickHandler() { },
+        operateHandler(row, opt) {
+            let role = {};
+            role.school = "";
+            switch (opt) {
+                case "create":
+                    this.dialogTitle = this.$t('staff.createTitle');
+                    this.dialogVisible = true;
+                    break;
+                case "edit":
+                    break;
+                case "delete":
+                    break;
+            }
+        },
         ...mapActions(["getStaffList"])
     },
     created() {
@@ -73,7 +88,7 @@ export default {
                 { prop: "group", label: this.$t('staff.group'), width: '140' },
                 { prop: "createdAt", label: this.$t('staff.createdAt'), width: '230' },
                 { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
-                { label: "操作", slotName: 'opBtns', width: '170' }
+                { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
             ],
             staffModel: {
                 curr_page: 1,
@@ -81,6 +96,8 @@ export default {
                 type: "page"
             },
             totalCount: 0,
+            dialogTitle: "",
+            dialogVisible: false
         }
     },
     computed: {

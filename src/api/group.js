@@ -31,6 +31,13 @@ const group = {
             method: "put",
             data: info
         });
+    },
+    getFuzzyGroup(query) {
+        return ajax({
+            url: "/class/fuzzyGroup",
+            method: "post",
+            data: query
+        })
     }
 };
 

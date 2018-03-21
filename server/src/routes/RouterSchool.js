@@ -9,5 +9,6 @@ childRouter.get("/school/:code", SchoolController.Get);
 childRouter.get("/school", SchoolController.Get);
 childRouter.put("/school", SchoolController.Update);
 childRouter.delete("/school", SchoolController.Delete);
+childRouter.post("/school/fuzzyList", SchoolController.FuzzyList);
 
 module.exports = childRouter;

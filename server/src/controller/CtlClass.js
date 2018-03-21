@@ -67,14 +67,28 @@ const Get = async (ctx) => {
     }
 };
 
-const FuzzyGet = async (ctx) => {
+const GetFuzzyGroups = async ctx => {
+    let message = {};
+    let info = ctx.request.body;
+    console.log("aaaa", info);
+    if (!info) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
 
-};
+    let result = await ClassModel.find({ "name": { $regex: info.name, $options: 'i' } });
+
+    message.status = 200;
+    message.group = result ? result : [];
+    ctx.body = message;
+}
 
 module.exports = {
     Create,
     Update,
     Delete,
     Get,
-    FuzzyGet
+    GetFuzzyGroups
 };

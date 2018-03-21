@@ -31,6 +31,14 @@ const school = {
             method: "put",
             data: info
         });
+    },
+
+    getFuzzySchoolList(fuzzy) {
+        return ajax({
+            url: "/school/fuzzyList",
+            method: "post",
+            data: fuzzy
+        })
     }
 };
 export default school;

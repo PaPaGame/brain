@@ -4,7 +4,7 @@ var UserModel = require("../models").user;
 var util = require("util");
 
 var staff;
-var StaffDao = function(staff) {
+var StaffDao = function (staff) {
     this.staff = staff || {};
     DaoBase.call(this, this.staff);
 }
@@ -16,7 +16,7 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
         return callback({ err: 'err parameter' });
 
     let staff = new StaffModel({
-        name: userinfo.username,
+        name: userinfo.name,
         mail: userinfo.mail,
         status: userinfo.status,
         group: userinfo.group,
@@ -29,13 +29,13 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
     if (staffResult) {
         let uid = staffResult._id;
         user = new UserModel({
-            username: userinfo.username,
+            username: userinfo.name,
             password: userinfo.password,
             status: userinfo.status,
             role: userinfo.role,
             phone: userinfo.phone,
             mail: userinfo.mail,
-            lastLoginTime: new Date().toISOString(),
+            lastLoginTime: "",//new Date().toISOString(),
             lastLoginIP: "",
             school: userinfo.school,
             uid: uid
