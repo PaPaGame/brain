@@ -10,12 +10,12 @@
             <div class="clearfix label-box">
                 <span>密码</span>
                 <input class="copy-text fl"
-                    type="text"></input>
+                    type="password"></input>
             </div>
             <div class="clearfix label-box">
                 <span>再次输入</span>
                 <input class="copy-text fl"
-                    type="text"></input>
+                    type="password"></input>
             </div>
         </div>
     </section>

@@ -34,9 +34,12 @@
                 <template slot="opBtns"
                     slot-scope="scope">
                     <el-button size="mini"
-                        @click="operateHandler(scope.row,'edit')">修改</el-button>
+                        @click="operateHandler(scope.row,'editpwd')">修改密码</el-button>
                     <el-button size="mini"
-                        @click="operateHandler(scope.row,'delete')">删除</el-button>
+                        @click="operateHandler(scope.row,'edit')">修改信息</el-button>
+                    <el-button size="mini"
+                        @click="operateHandler(scope.row,'delete')"
+                        type="danger">删除</el-button>
                 </template>
             </edu-table>
         </div>
@@ -122,18 +125,20 @@ export default {
                 { prop: "school", label: this.$t('student.school'), width: '90' },
                 { prop: "phone", label: this.$t('student.phone'), width: '140' },
                 { prop: "mail", label: this.$t('student.mail'), width: '140' },
-                { prop: "createdAt", label: this.$t('student.createdAt'), width: '230' },
+                {                    prop: "articleLevel", label: this.$t('student.article'), width: '140',
+                    template: (row) => {
+                        return row.articleLevel.join(",");
+                    }
+                },
                 { prop: "group", label: this.$t('student.group'), width: '140' },
+                { prop: "createdAt", label: this.$t('student.createdAt'), width: '230' },
                 { label: "操作", slotName: 'opBtns', width: '170' }
             ]
         };
     },
     methods: {
-        pageSizeChangeHandler() { },
-        pageCurrentChangeHandler() { },
         btnSearchClickHandler() { },
         pageChange() { },
-        click() { },
         classListClick(info) {
             console.log("需要获取新数据，id为", info._id);
         },
@@ -158,7 +163,7 @@ export default {
                     this.dialogTitle = this.$t("student.view");
                     this.dialogOperate = opt;
                     break;
-                case "edit":
+                case "editpwd":
                     this.currentUserId = this.studentInfo._id;
                     this.currentUsername = this.studentInfo.username;
                     this.dialogPassword = true;
