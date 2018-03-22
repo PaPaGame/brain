@@ -98,8 +98,6 @@ export default {
             this.$emit("closeDialog");
         },
         btnCreateHandler() {
-            // schoolService.createData(this.info);
-            // this.$emit("closeDialog");
             studentService.addStudent(this.dataModel).then(res => {
                 console.log(res);
             })

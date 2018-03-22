@@ -73,7 +73,7 @@ export default {
         ...mapActions(["getGroupList"])
     },
     created() {
-        this.getGroupList();
+        // this.getGroupList();
     },
     computed: mapGetters({ groups: "groupList" })
     // beforeMount() {

@@ -5,6 +5,7 @@ import permission from './modules/permission';
 import group from "./modules/group";
 import course from "./modules/course";
 import staff from "./modules/staff";
+import student from "./modules/student";
 
 import getters from './getters';
 
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
         group,
         permission,
         course,
-        staff
+        staff,
+        student
     },
     getters
 });

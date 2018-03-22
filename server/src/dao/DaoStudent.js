@@ -75,4 +75,16 @@ StudentDao.prototype.updateArticleLevel = async articleInfo => {
     return await StudentModel.update({ "_id": id }, { $set: { "articleLevel": arr } });
 }
 
+StudentDao.prototype.getAllStudent = async info => {
+    let message = {};
+    console.log(info);
+    let student = await StudentModel.find(info);
+
+    if (student) {
+        return student;
+    } else {
+        return [];
+    }
+}
+
 module.exports = StudentDao;

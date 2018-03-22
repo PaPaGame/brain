@@ -106,12 +106,36 @@ const UpdateArticleLevel = async ctx => {
 
 }
 
+const GetAllStudent = async ctx => {
+    let message = {};
+    let info = ctx.request.body;
+    if (!info) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+
+    let query = info.school == "" ? {} : { school: info.school };
+    let result = await studentDao.getAllStudent(query);
+    if (result) {
+        message.status = 200;
+        message.students = result;
+    } else {
+        message.status = 400;
+        message.message = "查询失败";
+    }
+
+    ctx.body = message;
+}
+
 module.exports = {
     GetFuzzyByName,
     AddStudent,
     UpdateStudent,
     DeleteStudent,
-    GetStudent,
+    // GetStudent,
     GetById,
-    UpdateArticleLevel
+    UpdateArticleLevel,
+    GetAllStudent
 }

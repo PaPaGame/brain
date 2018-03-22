@@ -29,6 +29,14 @@ const student = {
             method: "post",
             data: id
         })
+    },
+
+    getAllStudent(query) {
+        return ajax({
+            url: "/student/all",
+            method: "post",
+            data: query
+        });
     }
 
 
