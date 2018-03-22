@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import staffService from "@/api/staff";
 import table from "@/components/table";
 import { mapActions, mapGetters } from "vuex";
 import DetailDialog from "./detail";
@@ -69,6 +70,14 @@ export default {
                 case "edit":
                     break;
                 case "delete":
+                    staffService.deleteStaff(row).then(res => {
+                        if (res.status == 200) {
+                            this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
+                            this.getStaffList(this.userParam);
+                        } else {
+                            this.$message({ type: "error", message: this.$t("staff.deleteStaffFailed") });
+                        }
+                    })
                     break;
             }
         },

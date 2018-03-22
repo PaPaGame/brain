@@ -74,7 +74,9 @@ export default {
         placeholderMail: "请输入邮箱",
         placeholderGroupName: "请输入班级名称",
         groupName: "班级名称",
-        groupStudentCount: "班级人数"
+        groupStudentCount: "班级人数",
+        deleteStaffSuccess: "删除老师成功",
+        deleteStaffFailed: "删除老师失败"
     },
     group: {
         searchName: "班级名字",

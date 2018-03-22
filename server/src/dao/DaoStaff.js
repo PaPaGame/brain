@@ -45,11 +45,11 @@ StaffDao.prototype.addStaff = async (userinfo, callback) => {
 }
 
 StaffDao.prototype.deleteStaff = async userinfo => {
-    let s = await StaffModel.findOne({ "name": userinfo.username });
-    console.log(s);
+
+    let s = await StaffModel.findOne({ "name": userinfo.name });
     let uid = s._id;
 
-    await StaffModel.deleteOne({ "name": userinfo.username });
+    await StaffModel.deleteOne({ "name": userinfo.name });
 
     return await UserModel.deleteOne({ "uid": uid });
 }

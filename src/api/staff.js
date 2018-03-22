@@ -20,6 +20,13 @@ const staff = {
             method: "post",
             data: info
         });
+    },
+    deleteStaff(info) {
+        return ajax({
+            url: "/staff/delete",
+            method: "post",
+            data: info
+        })
     }
 };
 

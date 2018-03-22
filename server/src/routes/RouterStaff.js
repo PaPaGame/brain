@@ -10,7 +10,8 @@ childRouter.get("/staff/school/:school", StaffController.GetBySchool);
 childRouter.get("/staff/fuzzy/:name", StaffController.GetByFuzzyName);
 childRouter.post("/staff", StaffController.AddStaff);
 childRouter.put("/staff", StaffController.UpdateStaff);
-childRouter.delete("/staff", StaffController.DeleteStaff);
+// childRouter.delete("/staff", StaffController.DeleteStaff);
+childRouter.post("/staff/delete", StaffController.DeleteStaff);
 childRouter.get("/staff", StaffController.GetStaff);
 childRouter.post("/staff/getList", StaffController.GetStaffList);
 
