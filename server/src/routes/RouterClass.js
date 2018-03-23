@@ -5,8 +5,7 @@ const childRouter = new Router();
 
 // 注册路由
 childRouter.post("/class", ClassController.Create);
-childRouter.get("/class/:name", ClassController.Get);
-childRouter.get("/class", ClassController.Get);
+childRouter.post("/class/getAll", ClassController.GetClass);
 childRouter.put("/class", ClassController.Update);
 childRouter.delete("/class", ClassController.Delete);
 childRouter.post("/class/fuzzyGroup", ClassController.GetFuzzyGroups);

@@ -42,29 +42,30 @@ const Delete = async (ctx) => {
     if (result)
         ctx.body = { status: 200 };
 };
-const Get = async (ctx) => {
-    let name = ctx.params["name"];
-    if (!name) {
-        let classes = await classDao.getAll((err, data) => {
-            if (err)
-                console.log(err);
-        });
+const GetClass = async (ctx) => {
+    let info = ctx.request.body;
+    let message = {};
 
-        ctx.body = {
-            status: 200,
-            classInfos: classes
-        };
+    console.log(info);
+    let query;
+    if (info.school == "") {
+        query = {};
     } else {
-        let classInfo = await classDao.findOne({ name: name }, (err, data) => {
-            if (err)
-                console.log(err);
-        });
-
-        ctx.body = {
-            status: 200,
-            classInfo: classInfo
-        };
+        query = { school: info.school };
     }
+
+    let result = await classDao.getClassList(query);
+
+    if (!result) {
+        message.status = 400;
+        message.message = "查询班级失败";
+        ctx.body = message;
+        return;
+    }
+
+    message.status = 200;
+    message.class = result;
+    ctx.body = message;
 };
 
 const GetFuzzyGroups = async ctx => {
@@ -89,6 +90,6 @@ module.exports = {
     Create,
     Update,
     Delete,
-    Get,
+    GetClass,
     GetFuzzyGroups
 };

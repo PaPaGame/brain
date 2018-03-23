@@ -24,52 +24,43 @@
         <!-- 表单 -->
         <div>
             <el-table :data="list"
-                border
-                style="width:100%"
-                fit>
+                border>
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+                        <el-form label-position="left"
+                            inline>
+                            <el-form-item label="Hello"></el-form-item>
+                        </el-form>
+                    </template>
+                </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.name')"
                     width="210"
                     prop="master">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.name}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.school')"
                     width="150">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.school}}</span>
-                    </template>
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.staff')"
                     width="90"
-                    prop="name">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.staff && scope.row.staff['name']}}</span>
-                    </template>
+                    prop="staff['name']">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.studentCount')"
-                    width="60">
-                    <template slot-scope="scope">
-                        <span>{{(scope.row.student && scope.row.student['length']) || 0}}</span>
-                    </template>
+                    width="60"
+                    prop="(student['length']) || 0">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.createdAt')"
-                    width="120">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.createdAt}}</span>
-                    </template>
+                    width="120"
+                    prop="createdAt">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.updatedAt')"
-                    width="150">
-                    <template slot-scope="scope">
-                        <span>{{scope.row.updatedAt}}</span>
-                    </template>
+                    width="150"
+                    prop="updatedAt">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.operate')"
@@ -117,15 +108,37 @@
 <script>
 import groupService from "@/api/group";
 import ClassDetailPanel from "./detail";
+import table from "@/components/table";
+import { mapGetters, mapActions } from '../../../node_modules/.3.0.1@vuex';
+
 export default {
     components: {
-        ClassDetailPanel
+        ClassDetailPanel,
+        "edu-table": table
     },
     data() {
         return {
             dialogVisible: false,
             dialogTitle: null,
             dialogOperate: "",
+            tableColumns: [
+                { prop: "name", label: this.$t("student.username"), width: "190" },
+                { prop: "school", label: this.$t("student.school"), width: "90" },
+                { prop: "phone", label: this.$t("student.phone"), width: "140" },
+                { prop: "mail", label: this.$t("student.mail"), width: "140" },
+                { prop: "group", label: this.$t("student.group"), width: "140" },
+                {
+                    prop: "createdAt",
+                    label: this.$t("student.createdAt"),
+                    width: "230"
+                },
+                {
+                    prop: "updatedAt",
+                    label: this.$t("student.updatedAt"),
+                    width: "140"
+                },
+                { label: this.$t("student.operate"), slotName: "opBtns", width: "170" }
+            ],
             list: [],
             classInfo: {
                 name: String,
@@ -136,13 +149,14 @@ export default {
         };
     },
     created() {
-        this.getList();
+        this.getGroupList(this.commParams);
+        // this.getList();
     },
     methods: {
         getList() {
             groupService.fetchClass({}).then(res => {
                 this.list = res.classInfos;
-            })
+            });
         },
         btnSearchClickHandler() { },
         pageSizeChangeHandler() { },
@@ -151,7 +165,7 @@ export default {
             this.classInfo = row;
             switch (opt) {
                 case "create":
-                    this.classInfo = {}
+                    this.classInfo = {};
                     this.classInfo.name = "";
                     this.classInfo.teacher = "";
                     this.classInfo.students = "";
@@ -170,19 +184,33 @@ export default {
                         confirmButtonText: this.$t("group.confirm"),
                         cancelButtonText: this.$t("group.cancel"),
                         type: "warning"
-                    }).then(() => {
-                        groupService.deleteClass(row).then(res => {
-                            this.$message({ type: "success", message: this.$t("group.deleteSuccess") });
-                            this.getList();
+                    })
+                        .then(() => {
+                            groupService.deleteClass(row).then(res => {
+                                this.$message({
+                                    type: "success",
+                                    message: this.$t("group.deleteSuccess")
+                                });
+                                this.getList();
+                            });
+                        })
+                        .catch(() => {
+                            this.$message({
+                                type: "info",
+                                message: this.$t("group.deleteCancel")
+                            });
                         });
-                    }).catch(() => {
-                        this.$message({ type: "info", message: this.$t("group.deleteCancel") });
-                    });
                     break;
             }
+        },
+        ...mapActions(["getGroupList", "userinfo"])
+    },
+    computed: {
+        commParams() {
+            return { school: this.userinfo.school }
         }
     }
-}
+};
 </script>
 
 <style>

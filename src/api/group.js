@@ -3,8 +3,8 @@ import ajax from "@/utils/ajax";
 const group = {
     fetchClass(query) {
         return ajax({
-            url: "/class",
-            method: "get",
+            url: "/class/getAll",
+            method: "post",
             params: query
         });
     },

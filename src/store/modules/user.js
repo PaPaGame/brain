@@ -12,7 +12,7 @@ const state = {
         username: "",
         userId: "",
         role: "",
-        school: "BJTZ003"
+        school: "BJTZ001"
     }
 }
 
