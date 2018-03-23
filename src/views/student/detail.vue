@@ -17,7 +17,7 @@
             </el-form-item>
             <el-form-item :label="$t('student.schoolCode')"
                 prop="code">
-                <el-input v-model="dataModel.schoolCode"
+                <el-input v-model="dataModel.school"
                     clearable
                     :disabled="!canEditSchool"></el-input>
             </el-form-item>
@@ -61,6 +61,7 @@
 
 <script>
 import studentService from "@/api/student";
+import { mapActions, mapGetters } from "vuex";
 export default {
     name: "DetailPanel",
     props: {
@@ -81,7 +82,7 @@ export default {
             dataModel: {
                 username: "",
                 password: "",
-                schoolCode: "",
+                school: "",
                 phone: "",
                 mail: "",
                 status: 1,
@@ -99,7 +100,13 @@ export default {
         },
         btnCreateHandler() {
             studentService.addStudent(this.dataModel).then(res => {
-                console.log(res);
+                if (this.res.status == 200) {
+                    this.getStudentList(this.commParam);
+                    this.$message.success(this.$t('student.createSuccess'));
+                } else {
+                    this.$message.error(this.$t('student.createFailed'));
+                }
+                this.close();
             })
         },
         close() {
@@ -111,10 +118,11 @@ export default {
                     let info = res.info;
 
                     this.dataModel.username = info.username;
-                    this.dataModel.schoolCode = info.school;
+                    this.dataModel.school = info.school;
                 }
             })
-        }
+        },
+        ...mapActions(["getStudentList"])
     },
     computed: {
         canEditSchool() {
@@ -125,19 +133,17 @@ export default {
         userSchool() {
             console.log(this.$store.getters.userinfo.school);
             return this.$store.getters.userinfo.school;
-        }
+        },
+        commParam() {
+            return { school: this.userinfo.school }
+        },
+        ...mapGetters({
+            userinfo: "userinfo",
+        })
     },
     watch: {
         info(val) {
             console.log("info" + val);
-            // this.dataModel.username = val.username;
-            // this.dataModel.password = val.password;
-            // this.dataModel.school = this.canEditSchool ? val.school : this.userSchool;
-            // this.dataModel.phone = val.phone;
-            // this.dataModel.mail = val.mail;
-            // this.dataModel.status = val.status;
-            // this.dataModel.group = val.group;
-
             this.getKey(val._id);
         },
         userId(val) {

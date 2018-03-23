@@ -127,7 +127,9 @@ export default {
         addTitle: "添加学生",
         view: "查看",
         article: "文章级别",
-        groupCount: "拥有班级"
+        groupCount: "拥有班级",
+        createSuccess: "添加学生成功",
+        createFailed: "添加学生失败"
     },
     reading: {
         title: "阅读理解",

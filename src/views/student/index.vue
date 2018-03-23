@@ -123,8 +123,8 @@ export default {
             tableColumns: [
                 { prop: "username", label: this.$t('student.username'), width: '190' },
                 { prop: "school", label: this.$t('student.school'), width: '90' },
-                { prop: "phone", label: this.$t('student.phone'), width: '140' },
-                { prop: "mail", label: this.$t('student.mail'), width: '140' },
+                // { prop: "phone", label: this.$t('student.phone'), width: '140' },
+                // { prop: "mail", label: this.$t('student.mail'), width: '140' },
                 {                    prop: "articleLevel", label: this.$t('student.article'), width: '140',
                     template: (row) => {
                         return row.articleLevel.join(",");
