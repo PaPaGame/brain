@@ -1,9 +1,9 @@
 var DaoBase = require("./DaoBase");
-var ClassModel = require("../models").classModel;
+var ClassModel = require("../models").class;
 var util = require("util");
 
 var classModel;
-var ClassDao = function(classModel) {
+var ClassDao = function (classModel) {
     this.classModel = classModel || {};
     DaoBase.call(this, this.classModel);
 }

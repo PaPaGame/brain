@@ -23,7 +23,7 @@
         </div>
         <!-- 表单 -->
         <div>
-            <el-table :data="list"
+            <el-table :data="groupList"
                 border>
                 <el-table-column type="expand">
                     <template slot-scope="props">
@@ -36,21 +36,22 @@
                 <el-table-column align="center"
                     :label="$t('group.name')"
                     width="210"
-                    prop="master">
+                    prop="name">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.school')"
-                    width="150">
+                    width="150"
+                    prop="school">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.staff')"
                     width="90"
-                    prop="staff['name']">
+                    prop="staff.name">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.studentCount')"
                     width="60"
-                    prop="(student['length']) || 0">
+                    prop="student.length">
                 </el-table-column>
                 <el-table-column align="center"
                     :label="$t('group.createdAt')"
@@ -109,7 +110,7 @@
 import groupService from "@/api/group";
 import ClassDetailPanel from "./detail";
 import table from "@/components/table";
-import { mapGetters, mapActions } from '../../../node_modules/.3.0.1@vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     components: {
@@ -149,14 +150,11 @@ export default {
         };
     },
     created() {
-        this.getGroupList(this.commParams);
-        // this.getList();
+        this.getList();
     },
     methods: {
         getList() {
-            groupService.fetchClass({}).then(res => {
-                this.list = res.classInfos;
-            });
+            this.getGroupList(this.commParams);
         },
         btnSearchClickHandler() { },
         pageSizeChangeHandler() { },
@@ -203,12 +201,16 @@ export default {
                     break;
             }
         },
-        ...mapActions(["getGroupList", "userinfo"])
+        ...mapActions(["getGroupList"])
     },
     computed: {
         commParams() {
             return { school: this.userinfo.school }
-        }
+        },
+        ...mapGetters({
+            userinfo: "userinfo",
+            groupList: "groupList"
+        })
     }
 };
 </script>

@@ -12,9 +12,10 @@ const state = {
         username: "",
         userId: "",
         role: "",
-        school: "BJTZ001"
+        school: ""
     }
 }
+//BJTZ001
 
 const mutations = {
     [types.USER_UPDATE_INFO](state, { data }) {
