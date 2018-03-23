@@ -72,8 +72,8 @@ export default {
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
                         if (res.status == 200) {
-                            this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
                             this.getStaffList(this.userParam);
+                            this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
                         } else {
                             this.$message({ type: "error", message: this.$t("staff.deleteStaffFailed") });
                         }
@@ -94,7 +94,10 @@ export default {
                 { prop: "school", label: this.$t('staff.school'), width: '90' },
                 { prop: "phone", label: this.$t('staff.phone'), width: '140' },
                 { prop: "mail", label: this.$t('staff.mail'), width: '140' },
-                { prop: "group", label: this.$t('staff.group'), width: '140' },
+                {                    prop: "group", label: this.$t('staff.group'), width: '140',
+                    template: (row) => {
+                        return row.group.length + this.$t('staff.unit');
+                    }                },
                 { prop: "createdAt", label: this.$t('staff.createdAt'), width: '230' },
                 { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
                 { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }

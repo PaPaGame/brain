@@ -167,10 +167,18 @@ export default {
                     message: res.message
                 });
                 this.close();
+                this.getStaffList(this.userParam);
             });
-        }
+        }, ...mapActions(["getStaffList"])
     },
     computed: {
+        userParam() {
+            return {
+                school: this.userinfo.school
+            };
+        }, ...mapGetters({
+            userinfo: "userinfo"
+        })
     }
 }
 </script>

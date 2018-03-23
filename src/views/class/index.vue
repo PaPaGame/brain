@@ -127,7 +127,7 @@ export default {
                 { prop: "school", label: this.$t("student.school"), width: "90" },
                 { prop: "phone", label: this.$t("student.phone"), width: "140" },
                 { prop: "mail", label: this.$t("student.mail"), width: "140" },
-                { prop: "group", label: this.$t("student.group"), width: "140" },
+                { prop: "group", label: this.$t("student.groupCount"), width: "140" },
                 {
                     prop: "createdAt",
                     label: this.$t("student.createdAt"),

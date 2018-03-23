@@ -77,7 +77,7 @@ export default {
         groupStudentCount: "班级人数",
         deleteStaffSuccess: "删除老师成功",
         deleteStaffFailed: "删除老师失败",
-
+        unit: "个"
     },
     group: {
         searchName: "班级名字",
@@ -126,7 +126,8 @@ export default {
         createdAt: "创建日期",
         addTitle: "添加学生",
         view: "查看",
-        article: "文章级别"
+        article: "文章级别",
+        groupCount: "拥有班级"
     },
     reading: {
         title: "阅读理解",

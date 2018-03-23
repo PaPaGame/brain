@@ -173,8 +173,11 @@ const GetStaff = async (ctx) => {
 const GetStaffList = async ctx => {
     let message = {};
     let queryInfo = ctx.request.body;
-    console.log(queryInfo);
-    let result = await staffDao.getStaffList(queryInfo);
+    let query = {};
+    if (queryInfo.school != "") {
+        query.school = queryInfo.school;
+    }
+    let result = await staffDao.getStaffList(query);
     if (result) {
         message.status = 200;
         message.staffList = result;
