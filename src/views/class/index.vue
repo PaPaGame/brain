@@ -144,7 +144,7 @@ export default {
             classInfo: {
                 name: String,
                 school: String,
-                teacher: String,
+                staff: Object,
                 students: Array
             }
         };
@@ -165,9 +165,9 @@ export default {
                 case "create":
                     this.classInfo = {};
                     this.classInfo.name = "";
-                    this.classInfo.teacher = "";
+                    this.classInfo.staff = { id: "", name: "" };
                     this.classInfo.students = "";
-                    this.classInfo.school = "asdf";
+                    this.classInfo.school = this.userinfo.school;
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;
                     this.dialogOperate = opt;

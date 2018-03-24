@@ -103,7 +103,9 @@ export default {
         confirm: "确认",
         cancel: "取消",
         update: "更新",
-        noResult: "查无此人"
+        noResult: "查无此人",
+        updateSuccess: "信息更新成功",
+        updateFailed: "信息更新失败"
     },
     student: {
         inputGroupName: "请输入班级名称",
@@ -129,7 +131,9 @@ export default {
         article: "文章级别",
         groupCount: "拥有班级",
         createSuccess: "添加学生成功",
-        createFailed: "添加学生失败"
+        createFailed: "添加学生失败",
+        updatedAt: "更新时间",
+        operate: "操作"
     },
     reading: {
         title: "阅读理解",

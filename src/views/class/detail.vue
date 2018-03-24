@@ -11,12 +11,12 @@
             </el-form-item>
             <el-form-item :label="$t('group.school')">
                 <el-input v-model="info.school"
-                    disabled></el-input>
+                    :disabled="userinfo.school!=''"></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.staff')"
                 prop="code">
                 <el-input ref="tiTeacherName"
-                    v-model="info.teacher"
+                    v-model="info.staff && info.staff.name || ''"
                     clearable
                     @keyup.enter.native="searchStaffByName"></el-input>
                 <span v-if="findTeacherNothing">{{$t("group.noResult")}}</span>
@@ -49,6 +49,7 @@ import studentService from "@/api/student";
 // import { FetchTeacherByFuzzyName } from "@/api/staff";
 import staffService from "@/api/staff";
 import { deepClone } from "@/utils/index";
+import { mapGetters } from 'vuex';
 export default {
     name: "ClassDetailPanel",
     props: {
@@ -76,7 +77,13 @@ export default {
             this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
+            this.info.staff = { id: "123456", name: "Kiven.zhou" }
             groupService.updateClass(this.info).then(res => {
+                if (res.status = 200) {
+                    this.$message.success(this.$t('group.updateSuccess'));
+                } else {
+                    this.$message.failed(this.$t('group.updateFailed'));
+                }
                 this.close();
                 this.$emit("fetchClassInfo");
             });
@@ -110,6 +117,11 @@ export default {
                 }
             });
         }
+    },
+    computed: {
+        ...mapGetters({
+            userinfo: "userinfo"
+        })
     }
 }
 </script>

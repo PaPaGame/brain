@@ -8,7 +8,7 @@ var ArticleModel = require("../models").article;
 var courseModel;
 var CourseDao = function (cm) {
     courseModel = new cm();
-    DaoBase.call(this, this.course);
+    DaoBase.call(this, cm);
 }
 
 util.inherits(CourseDao, DaoBase);

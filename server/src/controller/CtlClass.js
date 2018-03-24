@@ -19,16 +19,22 @@ const Create = async (ctx) => {
 };
 const Update = async (ctx) => {
     let info = ctx.request.body;
-    if (!info)
+    let message = {};
+    if (!info) {
+        message.status = 400;
+        message.message = "参数信息不正确";
         return;
+    }
 
-    let result = await classDao.update({ _id: `${info._id}` }, { $set: info }, null, err => {
-        if (err)
-            console.log(err);
-    });
+    let result = await classDao.updateClassInfo(info);
 
-    if (result)
-        ctx.body = { status: 200 };
+    if (result) {
+        message.status = 200;
+    } else {
+        message.status = 400;
+    }
+
+    ctx.body = message;
 };
 const Delete = async (ctx) => {
     let info = ctx.request.body;

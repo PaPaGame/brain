@@ -6,8 +6,8 @@ var util = require("util");
 
 var school;
 var SchoolDao = function (school) {
-    this.school = school || {};
-    DaoBase.call(this, this.school);
+    school = new school();
+    DaoBase.call(this, school);
 }
 
 util.inherits(SchoolDao, DaoBase);

@@ -27,8 +27,8 @@ const group = {
 
     updateClass(info) {
         return ajax({
-            url: "/class",
-            method: "put",
+            url: "/class/update",
+            method: "post",
             data: info
         });
     },

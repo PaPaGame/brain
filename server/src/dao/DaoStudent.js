@@ -6,7 +6,7 @@ var util = require("util");
 var s;
 var StudentDao = function (stModel) {
     s = new stModel()
-    DaoBase.call(this, s);
+    DaoBase.call(this, stModel);
 }
 
 util.inherits(StudentDao, DaoBase);

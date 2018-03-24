@@ -39,6 +39,7 @@ DaoBase.prototype.delete = async function (query) {
 
 /** 更新*/
 DaoBase.prototype.update = async function (conditions, update, options) {
+    console.log(model, conditions, update, options);
     return await model.update(conditions, update, options);
 }
 
