@@ -36,12 +36,12 @@ GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios, audioIndex) 
     return div;
 }
 
-GenerHtml.prototype.generImages = (images) => {
+GenerHtml.prototype.generImages = (dirName, images) => {
     var img = document.createElement("img");
     // SL1I41333.jpg
     TODO: //解决路径问题
-    // img.src = process.env.PUBLIC_URL + "/" + images;
-    img.src = "https://goss2.vcg.com/creative/vcg/800/version23/VCG21gic11339855.jpg";
+    img.src = `http://${process.env.PUBLIC_PATH}/${dirName}/images/${images}`
+    // img.src = "https://goss2.vcg.com/creative/vcg/800/version23/VCG21gic11339855.jpg";
     img.style.cssText = "width:100%; height:100%";
     return img;
 }

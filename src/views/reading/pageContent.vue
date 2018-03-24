@@ -66,7 +66,7 @@ export default {
                     pdiv.removeChild(pdiv.firstChild);
                 }
                 var strategy = new Strategy();
-                strategy.setOrigin(res);
+                strategy.setOrigin(this.dirName,res);
                 let divs = strategy.getAllContentDiv();
                 this.divs = divs;
                 //追加内容

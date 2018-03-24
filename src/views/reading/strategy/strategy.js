@@ -17,10 +17,10 @@ var containers;
 var allSentenceAudios;
 var allSentenceIndex;
 /** 设置原始数据*/
-Strategy.prototype.setOrigin = o => {
+Strategy.prototype.setOrigin = (dir, o) => {
     origin = o;
     html = new HtmlGenerate();
-    analyser();
+    analyser(dir);
 }
 
 Strategy.prototype.getAllContainer = () => {
@@ -50,7 +50,7 @@ Strategy.prototype.getAllSentenceIndex = () => {
     return allSentenceIndex || [];
 }
 
-function analyser() {
+function analyser(dir) {
     let regions = origin.regions;
     wordAudios = {};
     imagesDiv = [];
@@ -66,7 +66,7 @@ function analyser() {
         // 如果是图片的
         if (ele.image) {
             // imagesDiv.push();
-            pdiv.appendChild(html.generImages(ele.image));
+            pdiv.appendChild(html.generImages(dir, ele.image));
             contentDiv.push(pdiv);
         } else {
             // 如果是文章内容的
