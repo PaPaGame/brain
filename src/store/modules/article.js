@@ -2,14 +2,19 @@ import * as types from "../mutation-type";
 import articleService from "@/api/article";
 
 const state = {
-    articleLevelList: new Array()
+    articleLevelList: [],
+    articleList: []
 }
 const getters = {
-    articleLevels: state => state.articleLevelList
+    articleLevels: state => state.articleLevelList,
+    articleList: state => state.articleList
 }
 const mutations = {
     [types.ARTICLE_LEVEL_LIST](state, { data }) {
         state.articleLevelList = data.sort();
+    },
+    [types.ARTICLE_LIST](state, { data }) {
+        state.articleList = data;
     }
 }
 const actions = {
@@ -23,7 +28,13 @@ const actions = {
         })
     },
     getArticleList({ commit, state }, payload) {
-        // articleService
+        articleService.fetchArticleList(payload).then(res => {
+            if (res.status == 200) {
+                commit(types.ARTICLE_LIST, { data: res.list });
+            } else {
+                this.$message.error(this.$t('article.getListFailed'));
+            }
+        });
     }
 }
 export default {

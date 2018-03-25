@@ -6,6 +6,13 @@ const article = {
             url: "/article/level",
             method: "post"
         });
+    },
+    fetchArticleList: (query) => {
+        return ajax({
+            url: "/article/list",
+            method: "post",
+            data: query
+        });
     }
 };
 export default article;

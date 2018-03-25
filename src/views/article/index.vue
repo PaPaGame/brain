@@ -1,30 +1,35 @@
 <template>
     <section>
         <span>文章管理</span>
-        <el-table>
+        <el-table :data="articleList">
             <el-table-column align="center"
                 :label="$t('article.id')"
-                width="80"></el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.title')"
-                min-width="300px"></el-table-column>
+                width="80"
+                prop="id"></el-table-column>
+            <el-table-column :label="$t('article.title')"
+                min-width="300px"
+                prop="fullTitle"></el-table-column>
             <el-table-column align="center"
                 :label="$t('article.level')"
-                width="80">
+                width="80"
+                prop="level">
             </el-table-column>
             <el-table-column align="center"
                 :label="$t('article.lexile')"
-                width="90">
+                width="90"
+                prop="lexile">
             </el-table-column>
             <el-table-column align="center"
                 :label="$t('article.status')"
-                width="100"></el-table-column>
+                width="100"
+                prop="status"></el-table-column>
             <el-table-column align="center"
                 :label="$t('article.layout')"
-                width="90"></el-table-column>
+                width="90"
+                prop="layoutType"></el-table-column>
             <el-table-column align="center"
                 :label="$t('article.operate')"
-                width="120">
+                min-width="200px">
                 <template slot-scope="scope">
                     <el-button v-if="scope.row.edit"
                         type="success"
@@ -55,13 +60,18 @@ export default {
         if (this.articleLevelList.length === 0) {
             this.getArticleLevelList();
         }
+
+        this.getArticleList(this.queryModel);
     },
     components: {
         "edu-table": table
     },
     data() {
         return {
-
+            queryModel: {
+                currentPage: 0,
+                pageSize: 10
+            }
         }
     },
     methods: {
@@ -69,7 +79,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            articleLevelList: "articleLevels"
+            articleLevelList: "articleLevels",
+            articleList: "articleList"
         })
     }
 }

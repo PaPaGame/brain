@@ -23,4 +23,10 @@ ArticleDao.prototype.getLevelList = async () => {
     return await article.distinct("level").sort();
 }
 
+ArticleDao.prototype.getArticleList = async (query) => {
+    let pageSize = query.pageSize;
+    let pageId = query.currentPage;
+    return await article.find({}).limit(pageSize).skip(pageSize * pageId);
+}
+
 module.exports = ArticleDao;

@@ -166,6 +166,7 @@ export default {
         edit: "编辑",
         comfirm: "确认",
         cancel: "取消",
-        getLevelFailed: "获取文章等级列表失败"
+        getLevelFailed: "获取文章等级列表失败",
+        getListFailed: "获取文章列表失败"
     }
 }
