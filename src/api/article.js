@@ -4,7 +4,7 @@ const article = {
     fetchArticleLevelList: () => {
         return ajax({
             url: "/article/level",
-            methods: "get"
+            method: "post"
         });
     }
 };

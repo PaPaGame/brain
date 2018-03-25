@@ -20,7 +20,7 @@ ArticleDao.prototype.getByLevel = async level => {
 }
 
 ArticleDao.prototype.getLevelList = async () => {
-    return await article.distinct("level");
+    return await article.distinct("level").sort();
 }
 
 module.exports = ArticleDao;

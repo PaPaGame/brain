@@ -154,5 +154,18 @@ export default {
         takequiz: "Take Quiz",
         takequizagain: "Take Quiz Again",
         commit: "提交"
+    },
+    article: {
+        id: "编号",
+        level: "文章等级",
+        lexile: "蓝思等级",
+        status: "状态",
+        layout: "布局类型",
+        title: "标题",
+        operate: "操作",
+        edit: "编辑",
+        comfirm: "确认",
+        cancel: "取消",
+        getLevelFailed: "获取文章等级列表失败"
     }
 }

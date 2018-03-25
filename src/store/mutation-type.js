@@ -24,3 +24,9 @@ export const STAFF_SCHOOL_LIST = STAFF + "school_list";
 /***********************    学生相关    *****************************/
 const STUDENT = APP + "student_";
 export const STUDENT_ALL_LIST = STUDENT + "student_all_list";
+
+
+/***********************    文章相关    *****************************/
+const ARTICLE = APP + "article_";
+export const ARTICLE_LEVEL_LIST = ARTICLE + "level_list";
+export const ARTICLE_LIST = ARTICLE + "list";
