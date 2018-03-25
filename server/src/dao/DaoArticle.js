@@ -4,9 +4,9 @@ var util = require("util");
 
 var article;
 
-var ArticleDao = function(article) {
-    this.article = article;
-    DaoBase.call(this, this.article);
+var ArticleDao = function (art) {
+    article = art;
+    DaoBase.call(this, article);
 }
 
 util.inherits(ArticleDao, DaoBase);
@@ -17,6 +17,10 @@ ArticleDao.prototype.getById = async id => {
 
 ArticleDao.prototype.getByLevel = async level => {
     return await ArticleModel.find({ level: level });
+}
+
+ArticleDao.prototype.getLevelList = async () => {
+    return await article.distinct("level");
 }
 
 module.exports = ArticleDao;

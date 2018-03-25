@@ -14,5 +14,6 @@ childRouter.get("/article/id/:id", ArticleController.GetByID);
 childRouter.get("/article/level/:level", ArticleController.GetByLevel);
 childRouter.put("/article/:id", ArticleController.Update);
 childRouter.delete("/article/:id", ArticleController.Delete);
+childRouter.get("/article/level", ArticleController.GetLevelList);
 
 module.exports = childRouter;

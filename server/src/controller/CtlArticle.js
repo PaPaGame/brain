@@ -46,10 +46,26 @@ const GetByLevel = async (ctx) => {
     }
 }
 
+const GetLevelList = async ctx => {
+    let message = {};
+    let result = await articleDao.getLevelList();
+
+    if (result) {
+        message.status = 200;
+        message.list = result;
+    } else {
+        message.status = 400;
+        message.message = "获取文章级别列表失败";
+    }
+
+    ctx.body = message;
+}
+
 module.exports = {
     Create,
     Update,
     Delete,
     GetByID,
-    GetByLevel
+    GetByLevel,
+    GetLevelList
 };

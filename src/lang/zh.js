@@ -28,7 +28,7 @@ export default {
         data: '数据中心',
         school: '校区管理',
         group: '班级管理',
-        article: "阅读内容"
+        readArticle: "阅读内容"
     },
     school: {
         searchName: "学校名称",
