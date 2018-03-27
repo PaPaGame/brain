@@ -1,17 +1,10 @@
 <template>
     <section>
-        <span>文章管理</span>
+        <span>Article Manager</span>
         <el-table :data="articles">
-            <el-table-column align="center"
-                :label="$t('article.id')"
-                width="80"
-                prop="id"></el-table-column>
-            <el-table-column :label="$t('article.title')"
-                min-width="300px"
-                prop="fullTitle"></el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.level')"
-                width="100">
+            <el-table-column align="center" :label="$t('article.id')" width="80" prop="id"></el-table-column>
+            <el-table-column :label="$t('article.title')" min-width="300px" prop="fullTitle"></el-table-column>
+            <el-table-column align="center" :label="$t('article.level')" width="100">
                 <template slot-scope="scope">
                     <!-- <template v-if="scope.row.edit">
                         <el-select v-model="scope.row.level"
@@ -24,15 +17,12 @@
                         </el-select>
                     </template> -->
                     <template v-if="scope.row.edit">
-                        <el-input size="small"
-                            v-model="scope.row.level"></el-input>
+                        <el-input size="small" v-model="scope.row.level"></el-input>
                     </template>
                     <span v-else>{{scope.row.level}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.lexile')"
-                width="110">
+            <el-table-column align="center" :label="$t('article.lexile')" width="110">
                 <template slot-scope="scope">
                     <template v-if="scope.row.edit">
                         <el-input clearable></el-input>
@@ -40,47 +30,20 @@
                     <span v-else>{{scope.row.lexile}}</span>
                 </template>
             </el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.status')"
-                width="100"
-                prop="status"></el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.layout')"
-                width="90"
-                prop="layoutType"></el-table-column>
-            <el-table-column align="center"
-                :label="$t('article.operate')"
-                min-width="200px">
+            <el-table-column align="center" :label="$t('article.status')" width="100" prop="status"></el-table-column>
+            <el-table-column align="center" :label="$t('article.layout')" width="90" prop="layoutType"></el-table-column>
+            <el-table-column align="center" :label="$t('article.operate')" min-width="200px">
                 <template slot-scope="scope">
-                    <el-button v-show="!scope.row.edit"
-                        type="success"
-                        @click="edit(scope.row)"
-                        size="small"
-                        icon="el-icon-circle-check-outline">{{$t('article.edit')}}</el-button>
+                    <el-button v-show="!scope.row.edit" type="success" @click="edit(scope.row)" size="small" icon="el-icon-circle-check-outline">{{$t('article.edit')}}</el-button>
                     <span v-show="scope.row.edit">
-                        <el-button type="primary"
-                            @click='confirmEdit(scope.row)'
-                            size="small"
-                            icon="el-icon-edit">{{$t('article.comfirm')}}</el-button>
-                        <el-button @click='cancelEdit(scope.row)'
-                            size="small"
-                            icon="el-icon-edit">{{$t('article.cancel')}}</el-button>
+                        <el-button type="primary" @click='confirmEdit(scope.row)' size="small" icon="el-icon-edit">{{$t('article.comfirm')}}</el-button>
+                        <el-button @click='cancelEdit(scope.row)' size="small" icon="el-icon-edit">{{$t('article.cancel')}}</el-button>
                     </span>
                 </template>
-                <!-- <template slot-scope="scope">
-                    <el-button v-if="scope.row.edit"
-                        type="success"
-                        @click="confirmEdit(scope.row)"
-                        size="small"
-                        icon="el-icon-circle-check-outline">Ok</el-button>
-                    <el-button v-else
-                        type="primary"
-                        @click='scope.row.edit=!scope.row.edit'
-                        size="small"
-                        icon="el-icon-edit">Edit</el-button>
-                </template> -->
             </el-table-column>
         </el-table>
+        <el-pagination layout="prev, pager, next" :total="150" @current-change="pageChangeHandler">
+        </el-pagination>
     </section>
 </template>
 
@@ -125,6 +88,12 @@ export default {
         },
         edit(row) {
             row.edit = true;
+        },
+        pageChangeHandler(p) {
+            console.log("翻页啦" + p);
+            this.queryModel.pageSize = 10;
+            this.queryModel.currentPage = p - 1;
+            this.getArticleList(this.queryModel);
         },
         ...mapActions(["getArticleLevelList", "getArticleList"])
     },

@@ -4,7 +4,7 @@ var util = require("util");
 
 var article;
 
-var ArticleDao = function (art) {
+var ArticleDao = function(art) {
     article = art;
     DaoBase.call(this, article);
 }
@@ -24,8 +24,8 @@ ArticleDao.prototype.getLevelList = async () => {
 }
 
 ArticleDao.prototype.getArticleList = async (query) => {
-    let pageSize = query.pageSize;
-    let pageId = query.currentPage;
+    let pageSize = parseInt(query.pageSize);
+    let pageId = parseInt(query.currentPage);
     return await article.find({}).limit(pageSize).skip(pageSize * pageId);
 }
 

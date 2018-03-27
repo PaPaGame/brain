@@ -11,7 +11,7 @@ const article = {
         return ajax({
             url: "/article/list",
             method: "post",
-            data: query
+            params: query
         });
     }
 };
