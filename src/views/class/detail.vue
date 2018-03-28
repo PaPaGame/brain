@@ -1,18 +1,18 @@
 <template>
     <div>
         <el-form :model="info" :rules="rules" label-position="left" label-width="85px">
-            <el-form-item :label="$t('group.name')" prop="code">
+            <el-form-item :label="$t('group.name')">
                 <el-input v-model="info.name" clearable></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.school')">
                 <el-input v-model="info.school" :disabled="userinfo.school!=''"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('group.staff')" prop="code">
+            <el-form-item :label="$t('group.staff')">
                 <!-- <el-input ref="tiTeacherName" v-model="info.staff && info.staff.name || ''" clearable @keyup.enter.native="searchStaffByName"></el-input> -->
-                <el-autocomplete :placeholder="$t('group.fuzzyStaffList')" :fetch-suggestions="querySearchStaffAsync" @select="staffSelectHandler" style="width: 100%;"></el-autocomplete>
+                <el-autocomplete :value="info.staff.name" :placeholder="$t('group.fuzzyStaffList')" :fetch-suggestions="querySearchStaffAsync" @select="staffSelectHandler" style="width: 100%;"></el-autocomplete>
                 <span v-if="findTeacherNothing">{{$t("group.noResult")}}</span>
             </el-form-item>
-            <el-form-item :label="$t('group.students')" prop="phone">
+            <el-form-item :label="$t('group.students')">
                 <el-input ref="tiStudentName" v-model="info.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
                 <span v-if="findStudentNothing">{{$t("group.noResult")}}</span>
             </el-form-item>
@@ -49,6 +49,7 @@ export default {
         return {
             findStudentNothing: false,
             findTeacherNothing: false,
+            queryModel: {},
             staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
@@ -60,7 +61,8 @@ export default {
             this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
-            this.info.staff = { id: "123456", name: "Kiven.zhou" }
+            // this.info.staff = { id: "123456", name: "Kiven.zhou" }
+            console.log(this.info);
             groupService.updateClass(this.info).then(res => {
                 if (res.status = 200) {
                     this.$message.success(this.$t('group.updateSuccess'));
@@ -105,13 +107,15 @@ export default {
                     })
                 };
 
+                this.findTeacherNothing = staffList.length === 0;
                 callback(staffList);
             } catch (e) {
 
             }
         },
         staffSelectHandler(e) {
-
+            this.info.staff = e;
+            console.log(e);
         }
     },
     computed: {

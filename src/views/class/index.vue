@@ -19,7 +19,7 @@
                         </el-form>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.name')" width="210" prop="name">
+                <el-table-column align="center" :label="$t('group.name')" width="250" prop="name">
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.school')" width="150" prop="school">
                 </el-table-column>

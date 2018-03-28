@@ -19,13 +19,17 @@ const Create = async (ctx) => {
 };
 const Update = async (ctx) => {
     let info = ctx.request.body;
+    console.log(info);
     let message = {};
     if (!info) {
         message.status = 400;
         message.message = "参数信息不正确";
         return;
     }
-
+    if (info.staff) {
+        let staff = { id: info.staff.id, name: info.staff.name };
+        info.staff = staff;
+    }
     let result = await classDao.updateClassInfo(info);
 
     if (result) {
