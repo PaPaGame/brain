@@ -1,61 +1,33 @@
 <template>
-    <edu-dialog :isShow="dialogVisible"
-        @close="close">
+    <edu-dialog :isShow="dialogVisible" @close="close">
         <el-form :model="selectedItem">
-            <el-form-item :label="$t('staff.username')"
-                label-width="100px">
-                <el-input v-model="selectedItem.name"
-                    auto-complete="off"
-                    :placeholder="$t('staff.placeholderName')"></el-input>
+            <el-form-item :label="$t('staff.username')" label-width="100px">
+                <el-input v-model="selectedItem.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.password')"
-                label-width="100px">
-                <el-input auto-complete="off"
-                    v-model="selectedItem.password"
-                    type="password"
-                    :placeholder="$t('staff.placeholderPassword')"></el-input>
+            <el-form-item :label="$t('staff.password')" label-width="100px">
+                <el-input auto-complete="off" v-model="selectedItem.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.school')"
-                label-width="100px">
-                <el-autocomplete v-model="selectedItem.school"
-                    :placeholder="$t('staff.placeholderSchoolCode')"
-                    :fetch-suggestions="querySearchSchoolAsync"
-                    @select="schoolSelectHandler"
-                    style="width: 100%;"></el-autocomplete>
+            <el-form-item :label="$t('staff.school')" label-width="100px">
+                <el-autocomplete v-model="selectedItem.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;"></el-autocomplete>
             </el-form-item>
-            <el-form-item :label="$t('staff.phone')"
-                label-width="100px">
-                <el-input v-model="selectedItem.phone"
-                    auto-complete="off"
-                    :placeholder="$t('staff.placeholderPhone')"></el-input>
+            <el-form-item :label="$t('staff.phone')" label-width="100px">
+                <el-input v-model="selectedItem.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.mail')"
-                label-width="100px">
-                <el-input v-model="selectedItem.mail"
-                    auto-complete="off"
-                    :placeholder="$t('staff.placeholderMail')"></el-input>
+            <el-form-item :label="$t('staff.mail')" label-width="100px">
+                <el-input v-model="selectedItem.mail" auto-complete="off" :placeholder="$t('staff.placeholderMail')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.groupName')"
-                label-width="100px">
-                <el-autocomplete :placeholder="$t('staff.placeholderGroupName')"
-                    :fetch-suggestions="querySearchGroupAsync"
-                    @select="groupSelectHandler"
-                    style="width: 100%;"></el-autocomplete>
+            <el-form-item :label="$t('staff.groupName')" label-width="100px">
+                <el-autocomplete :placeholder="$t('staff.placeholderGroupName')" :fetch-suggestions="querySearchGroupAsync" @select="groupSelectHandler" style="width: 100%;"></el-autocomplete>
             </el-form-item>
         </el-form>
-        <edu-table :tableColumns="tableColumns"
-            :tableData="groupList"
-            ref="grouptable">
-            <template slot="opBtns"
-                slot-scope="scope">
-                <el-button size="mini"
-                    @click="operateHandler(scope.row,'deleteGroup')">删除</el-button>
+        <edu-table :tableColumns="tableColumns" :tableData="groupList" ref="grouptable">
+            <template slot="opBtns" slot-scope="scope">
+                <el-button size="mini" @click="operateHandler(scope.row,'deleteGroup')">删除</el-button>
             </template>
         </edu-table>
         <div style="float:right">
             <el-button @click="close()">取 消</el-button>
-            <el-button type="primary"
-                @click="addStaff">确 定</el-button>
+            <el-button type="primary" @click="addStaff">确 定</el-button>
         </div>
     </edu-dialog>
 </template>

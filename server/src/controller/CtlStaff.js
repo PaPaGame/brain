@@ -2,6 +2,7 @@ import jwt from "koa-jwt";
 import StaffDao from "../dao/DaoStaff";
 
 var StaffModel = require("../models").staff;
+var SchoolModel = require("../models").school;
 
 var staffDao = new StaffDao(StaffModel);
 
@@ -101,19 +102,19 @@ const GetBySchool = async (ctx) => {
 };
 
 const GetByFuzzyName = async (ctx) => {
-    let name = ctx.params["name"];
+    let queryInfo = ctx.request.body;
+    let message = {};
     // 正则忽略大小写  i
-    let infos = await staffDao.getByQuery({ "name": { $regex: name, $options: 'i' } }, null, null, (err, data) => {
-        if (err)
-            console.log(err);
-    });
-
-    if (infos) {
-        ctx.body = {
-            infos: infos,
-            status: 200
-        };
+    let infos = await StaffModel.find({ "name": { $regex: queryInfo.name + "", $options: 'i' } });
+    if (!infos) {
+        message.status = 400;
+        message.message = "查询失败";
+    } else {
+        message.status = 200;
+        message.staff = infos;
     }
+
+    ctx.body = message;
 };
 
 
@@ -137,10 +138,6 @@ const AddStaff = async (ctx) => {
     }
 
     ctx.body = message;
-}
-
-const UpdateStaff = async (ctx) => {
-
 }
 
 const DeleteStaff = async (ctx) => {
@@ -199,7 +196,6 @@ module.exports = {
     GetBySchool,
     GetByFuzzyName,
     AddStaff,
-    UpdateStaff,
     DeleteStaff,
     GetStaff,
     GetStaffList

@@ -3,8 +3,9 @@ import ajax from "@/utils/ajax";
 const staff = {
     fetchTeacherByFuzzyName(query) {
         return ajax({
-            url: "/staff/fuzzy/" + query,
-            method: "get"
+            url: "/staff/fuzzy",
+            method: "post",
+            data: query
         });
     },
     fetchStaffList(query) {

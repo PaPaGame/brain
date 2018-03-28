@@ -105,7 +105,8 @@ export default {
         update: "更新",
         noResult: "查无此人",
         updateSuccess: "信息更新成功",
-        updateFailed: "信息更新失败"
+        updateFailed: "信息更新失败",
+        fuzzyStaffList: "支持模糊搜索老师名字"
     },
     student: {
         inputGroupName: "请输入班级名称",

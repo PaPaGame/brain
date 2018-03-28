@@ -39,8 +39,9 @@ export const ajax = (options) => {
     };
     options = Object.assign(_options, options);
     options.url = serverUrl + options.url
-
+    console.log(options);
     if (_options.method.toLowerCase() == 'post') {
+        console.log(options);
         if (_options.params) {
             if (Object.prototype.toString.call(_options.params) == '[object FormData]') {
                 _options.data = _options.params
