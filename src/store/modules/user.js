@@ -72,12 +72,28 @@ const actions = {
             if (res.status === 200) {
                 console.log("登录成功");
                 commit(types.USER_UPDATE, { data: res.userinfo });
+                sessionStorage.setItem("loginStatus", true);
+                sessionStorage.setItem("userinfo", res.userinfo);
                 router.push({ path: '/' });
             } else {
+                sessionStorage.setItem("loginStatus", false);
+                sessionStorage.setItem("userinfo", null);
                 router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
             }
         });
     }
+    // ,
+
+    // doLogout({commit, state}, payload) {
+    //     // router.push({ path: '/login' });
+    //     // userService.logout(payload).then(res=> {
+
+    //     // }).finally(()=>{
+    //     //     sessionStorge.setItem("loginStatus", false);
+    //     //     sessionStorge.setItem("userinfo", null);
+    //     //     router.push({ path: '/login' });
+    //     // });
+    // }
 }
 
 export default {

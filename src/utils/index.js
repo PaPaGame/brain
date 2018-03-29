@@ -1,4 +1,5 @@
 import ajax from "./ajax";
+// import "./extend";
 // const deepClone = function deepClonE(source) {
 //     if (!source && typeof source !== 'object') {
 //         throw new Error('error arguments', 'shallowClone')
