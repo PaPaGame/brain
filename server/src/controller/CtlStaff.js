@@ -1,4 +1,3 @@
-import jwt from "koa-jwt";
 import StaffDao from "../dao/DaoStaff";
 
 var StaffModel = require("../models").staff;

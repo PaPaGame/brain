@@ -7,9 +7,11 @@ import bodyParser from "koa-bodyparser";
 import resource from "koa-static";
 import path from "path";
 import http from "http";
+import session from "koa-session";
 
 import routers from "./routes";
 import config from "../config/config";
+import sessionConfig from "../config/sessionConfig";
 import { connectDatabase } from "./models/index";
 
 //实例化koa
@@ -24,6 +26,8 @@ app.use(convert(logger()));
 app.use(bodyParser());
 // 设置静态资源路径
 app.use(resource(path.join(__dirname, "../public")));
+
+app.use(session(sessionConfig, app));
 
 // 日志输出 请求URL
 app.use(async (ctx, next) => {
@@ -42,7 +46,7 @@ app.on("error", (error, ctx) => {
 });
 
 // 创建服务并监听配置的端口
-http.createServer(app.callback()).listen(config.port).on('listening', function () {
+http.createServer(app.callback()).listen(config.port).on('listening', function() {
     console.log("[server start]");
     console.log('listen port:' + config.port);
 });

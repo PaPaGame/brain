@@ -21,8 +21,10 @@ var fs = require("fs");
 //     // });
 // });
 
+
 export function connectDatabase(uri) {
     return new Promise((resolve, reject) => {
+        mongoose.Promise = global.Promise;
         mongoose.connection
             .on("error", error => {
                 console.log("[DB] connect error, " + error);

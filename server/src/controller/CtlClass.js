@@ -1,4 +1,3 @@
-import jwt from "koa-jwt";
 import ClassDao from "../dao/DaoClass";
 
 var ClassModel = require("../models").class;

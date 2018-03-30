@@ -1,4 +1,3 @@
-import jwt from "koa-jwt";
 import UserDao from "../dao/DaoUser";
 
 var UserModel = require("../models").user;
