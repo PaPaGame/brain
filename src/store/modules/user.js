@@ -74,6 +74,7 @@ const actions = {
                 commit(types.USER_UPDATE, { data: res.userinfo });
                 sessionStorage.setItem("loginStatus", true);
                 sessionStorage.setItem("userinfo", res.userinfo);
+                localStorage.setItem('brain_token', res.token);
                 router.push({ path: '/' });
             } else {
                 sessionStorage.setItem("loginStatus", false);

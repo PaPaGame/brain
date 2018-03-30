@@ -1,4 +1,7 @@
 import UserDao from "../dao/DaoUser";
+const jwt = require("jsonwebtoken");
+// const config = require("../../config/config");
+import config from "../../config/config";
 
 var UserModel = require("../models").user;
 
@@ -55,7 +58,7 @@ const Delete = async (ctx) => {
 }
 
 var user;
-const Get = async function(ctx) {
+const Get = async function (ctx) {
     // let code = ctx.params['code'];
     let result = await userDao.getAll((err, data) => {
 
@@ -69,7 +72,7 @@ const Get = async function(ctx) {
     }
 }
 
-const Login = async function(ctx) {
+const Login = async function (ctx) {
     let message = {};
     let userInfo = ctx.request.body;
 
@@ -90,9 +93,13 @@ const Login = async function(ctx) {
     }
 
     if (UserModel.authenticate(result.hash_password, userInfo.password)) {
+        delete userInfo.hash_password;
+        let userToken = {};
+        const token = jwt.sign(userToken, config.tokenSecret, { expiresIn: '1d' });
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
         message.status = 200;
         message.userinfo = result;
+        message.token = token;
     } else {
         message.message = "密码不正确";
         message.status = 400;

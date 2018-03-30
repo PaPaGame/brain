@@ -15,12 +15,14 @@ module.exports = {
         target: 'http://localhost:9050',
         changeOrigin: true,
         pathRewrite: {
+          '^/': '/'
         }
       },
-      'dist/': {
+      '/dist': {
         target: 'http://localhost:9050/',
         changeOrigin: true,
         pathRewrite: {
+          '^/dist': '/dist'
         }
       }
     },

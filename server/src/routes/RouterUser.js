@@ -1,16 +1,24 @@
-
+import jwt from "../middleware/jwt";
 const Router = require("koa-router");
 const userController = require("../controller/CtlUser.js");
 
-const childRouter = new Router();
+const childRouter = new Router({
+    prefix: '/user'
+});
 
-childRouter.put("/user", userController.Create);
-childRouter.post("/user/login", userController.Login);
-childRouter.post("/user/exist", userController.Exist);
-childRouter.get("/user", userController.Get);
-childRouter.delete("/user", userController.Delete);
-childRouter.post("/user/info", userController.GetUserInfo);
-childRouter.post("/user/logout", userController.Logout);
-childRouter.post("/user/password", userController.ChangePassword);
+childRouter.use(jwt({
+    path: [/^\/api\/user\/login/]
+}));
+
+///^\/backapi\/admin\/login/
+
+childRouter.put("/add", userController.Create);
+childRouter.post("/login", userController.Login);
+childRouter.post("/exist", userController.Exist);
+childRouter.get("", userController.Get);
+childRouter.delete("", userController.Delete);
+childRouter.post("/info", userController.GetUserInfo);
+childRouter.post("/logout", userController.Logout);
+childRouter.post("/password", userController.ChangePassword);
 
 module.exports = childRouter;

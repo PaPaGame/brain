@@ -5,4 +5,6 @@ export default {
     hostName: 'http://localhost:' + port,
     serveStatic: true,
     assetHost: '',
+    tokenSecret: 'test',
+    accessControlAllowOrigin: 'http://localhost:8080/'
 }

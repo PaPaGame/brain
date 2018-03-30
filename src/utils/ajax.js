@@ -19,7 +19,6 @@ axios.interceptors.response.use(response => {
     return Promise.resolve(error.response)
 });
 
-
 const serverUrl = process.env.API_PATH;
 
 // const ajax = axios.create({
@@ -39,9 +38,8 @@ export const ajax = (options) => {
     };
     options = Object.assign(_options, options);
     options.url = serverUrl + options.url
-    console.log(options);
+
     if (_options.method.toLowerCase() == 'post') {
-        console.log(options);
         if (_options.params) {
             if (Object.prototype.toString.call(_options.params) == '[object FormData]') {
                 _options.data = _options.params
@@ -51,7 +49,8 @@ export const ajax = (options) => {
             delete _options.params;
             if (!_options.headers) {
                 _options.headers = {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Authorization': 'Bearer ' + localStorage.getItem("brain_token")
                 }
             }
         }
