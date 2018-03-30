@@ -16,6 +16,9 @@ import { connectDatabase } from "./models/index";
 
 //实例化koa
 const app = new Koa();
+
+app.keys = ['brain'];
+
 // 错误处理
 onerror(app);
 // 跨域
@@ -27,10 +30,10 @@ app.use(bodyParser());
 // 设置静态资源路径
 app.use(resource(path.join(__dirname, "../public")));
 
-app.use(session(sessionConfig, app));
-
 // 日志输出 请求URL
 app.use(async (ctx, next) => {
+    if (ctx.path === '/favicon.ico')
+        return;
     const start = new Date();
     await next();
     const ms = new Date() - start;
@@ -52,5 +55,7 @@ http.createServer(app.callback()).listen(config.port).on('listening', function()
 });
 
 connectDatabase("mongodb://solszl:sol870627@ds245277.mlab.com:45277/readmap");
+
+app.use(session(sessionConfig, app));
 
 export default app;
