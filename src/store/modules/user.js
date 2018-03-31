@@ -58,30 +58,38 @@ const getters = {
 
 const actions = {
     getUserInfo({ commit, state }, payload) {
-        console.log("获取用户信息", commit, state, payload);
-        userService.getUserInfo(payload).then(res => {
-            if (res.status === 200) {
-                commit(types.USER_UPDATE_INFO, { data: res.userinfo });
-            } else {
-
-            }
+        return new Promise((resolve, reject) => {
+            userService.getUserInfo(payload).then(res => {
+                if (res.status === 200) {
+                    commit(types.USER_UPDATE_INFO, { data: res.userinfo });
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
         })
     },
 
     doLogin({ commit, state }, payload) {
-        userService.login(payload).then(res => {
-            if (res.status === 200) {
-                console.log("登录成功");
-                commit(types.USER_UPDATE, { data: res.userinfo });
-                localStorage.setItem('brain_token', res.token);
-                localStorage.setItem("brain_userinfo", res.userinfo);
-                router.push({ path: '/' });
-            } else {
-                localStorage.setItem('brain_token', "");
-                localStorage.setItem("brain_userinfo", null);
-                router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
-            }
-        });
+        return new Promise((resolve, reject) => {
+            userService.login(payload).then(res => {
+                if (res.status === 200) {
+                    console.log("登录成功");
+                    commit(types.USER_UPDATE, { data: res.userinfo });
+                    localStorage.setItem('brain_token', res.token);
+                    localStorage.setItem("brain_userinfo", JSON.stringify(res.userinfo));
+                    // this.$store.dispatch("GenerateRoutes", res.userinfo);
+                    resolve(res.userinfo);
+
+                } else {
+                    localStorage.setItem('brain_token', "");
+                    localStorage.setItem("brain_userinfo", null);
+                    router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
+                    reject();
+                }
+            });
+        })
+
     },
 
     doLogout({ commit, state }, payload) {

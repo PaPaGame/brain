@@ -1,28 +1,15 @@
 <template>
     <div>
-        <el-form :model="form"
-            :rules="rules2"
-            ref="form"
-            label-position="left"
-            label-width="0px"
-            class="demo-ruleForm card-box loginform">
+        <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
             <h3 class="title">{{$t("signin.title")}}</h3>
             <el-form-item prop="username">
-                <el-input type="text"
-                    v-model="form.username"
-                    auto-complete="off"
-                    :placeholder="$t('signin.username')"></el-input>
+                <el-input type="text" v-model="form.username" auto-complete="off" :placeholder="$t('signin.username')"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="password"
-                    v-model="form.password"
-                    auto-complete="off"
-                    :placeholder="$t('signin.password')"></el-input>
+                <el-input type="password" v-model="form.password" auto-complete="off" :placeholder="$t('signin.password')"></el-input>
             </el-form-item>
             <el-form-item style="width:100%;">
-                <el-button type="primary"
-                    style="width:100%;"
-                    @click.native.prevent="handleSubmit2('form')">{{$t("signin.login")}}</el-button>
+                <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2('form')">{{$t("signin.login")}}</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -55,10 +42,17 @@ export default {
                 if (valid) {
                     let data = {}
 
-                    data.username = this.form.username
-                    data.password = this.form.password
+                    data.username = this.form.username;
+                    data.password = this.form.password;
+                    this.doLogin(data).then(res => {
+                        this.$store.dispatch("GenerateRoutes", res.role).then(() => {
+                            console.log("动态路由规划完毕");
+                            console.log(this.$store.getters.addRouters);
+                            this.$router.addRoutes(this.$store.getters.addRouters);
+                            this.$router.push({ path: "/" });
 
-                    this.doLogin(data);
+                        });
+                    });
                 } else {
                     return false
                 }

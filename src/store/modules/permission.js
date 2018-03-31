@@ -14,10 +14,13 @@ function hasPermission(roles, router) {
     }
 }
 
-function filterAsyncRouter(asyncRouterMap, roles) {
-    var accessRouters = asyncRouterMap;
-
-    return accessRouters;
+function filterAsyncRouter(asyncRouters, role) {
+    console.log("准备开始筛选路由");
+    let arr = asyncRouters.map(route => {
+        return route.meta && route.meta.roles && route.meta.roles.indexOf(role);
+    });
+    console.log("map:::::", arr);
+    return arr;
 }
 
 const permission = {
@@ -33,14 +36,15 @@ const permission = {
     },
     actions: {
         GenerateRoutes({ commit }, data) {
+            console.log("开始构建 动态路由");
             return new Promise(resolve => {
-                let roles = data;
                 let accessRouters;
-                var arr = [];
-                if (roles.indexOf('admin') >= 0) {
+                console.log("当前角色：", data);
+                console.log("异步路由列表：", asyncRouterMap);
+                if (data === "1000") {
                     accessRouters = asyncRouterMap;
                 } else {
-                    accessRouters = filterAsyncRouter(asyncRouterMap, roles);
+                    accessRouters = filterAsyncRouter(asyncRouterMap, data);
                 }
                 commit("SET_ROUTERS", accessRouters);
                 resolve();
