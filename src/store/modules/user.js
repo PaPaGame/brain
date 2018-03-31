@@ -58,6 +58,7 @@ const getters = {
 
 const actions = {
     getUserInfo({ commit, state }, payload) {
+        console.log("获取用户信息", commit, state, payload);
         userService.getUserInfo(payload).then(res => {
             if (res.status === 200) {
                 commit(types.USER_UPDATE_INFO, { data: res.userinfo });

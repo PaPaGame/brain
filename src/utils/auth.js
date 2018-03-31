@@ -1,15 +1,13 @@
-import { Cookies } from "js-cookie";
-
-const TokenKey = 'admin-token';
+const TOKEN_NAME = 'brain_token';
 
 export function getToken() {
-    return Cookies.get(TokenKey);
+    return localStorage.getItem(TOKEN_NAME);
 }
 
-export function setToken(key, token) {
-    Cookies.set(key, token);
+export function setToken(token) {
+    localStorage.setItem(TOKEN_NAME, token);
 }
 
 export function removeToken() {
-    Cookies.remove(TokenKey);
+    localStorage.removeItem(TOKEN_NAME);
 }

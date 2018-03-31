@@ -1,41 +1,59 @@
 import router from './router'
 import store from './store'
+import { getToken } from "@/utils/auth";
+import { Store } from 'vuex';
+import * as RoleType from "@/router/roleType";
 
 const whiteList = ['/login', '/authredirect'];
 
 function hasPermission(role, permissionRoles) {
-    return Math.random() < 0.999 ? true : false;
+    return permissionRoles.indexOf(role) >= 0;
 }
 
-var roles = [];
+var roles = [RoleType.STUDENT, RoleType.STAFF, RoleType.MASTER, RoleType.ADMIN];
 router.beforeEach((to, from, next) => {
 
-    console.log(to, from);
+    console.log("from: ", from);
+    console.log("to: ", to);
 
+    console.log(getToken());
     // 如果有token 已经登录了
-    if (true) {
+    if (getToken()) {
         // 已经登录的情况下 再次访问登录页跳转dashboard
         if (to.path === '/login') {
-            // next({ path: '/' });
-            next();
+            next({ path: '/' });
         } else {
             // 已经登录，查看是否有人物信息
-            if (roles.length === 0) {
-                //没有的话，获取人物信息
-                // store.dispatch("GetUserInfo").then(res => {
-                roles = ["admin"];
-                store.dispatch("GenerateRoutes", roles).then(() => {
-                    router.addRoutes(store.getters.addRouters);
-                    next({ ...to, replace: true });
-                });
-                // })
+            let userinfo = store.getters.userinfo;
+            console.log(userinfo);
+            if (userinfo.role === "" || userinfo.userId === "") {
+                store.dispatch("getUserInfo", {}).then(res => {
+                    console.log(res);
+                })
             } else {
-                if (hasPermission("", "")) {
+                if (hasPermission(userinfo.role, to.meta.roles)) {
                     next();
                 } else {
                     next({ path: '/401', replace: true, query: { noGoBack: true } });
                 }
             }
+            // if (roles.indexOf(role) == -1) {
+            //     //没有的话，获取人物信息
+            //     store.dispatch("GenerateRoutes", roles).then(() => {
+            //         router.addRoutes(store.getters.addRouters);
+            //         next({ ...to, replace: true });
+            //     });
+            // } else {
+            //     if (hasPermission(role, to.meta.roles)) {
+            //         next();
+            //     } else {
+            //         next({ path: '/401', replace: true, query: { noGoBack: true } });
+            //     }
+            // }
+
+            // if (hasPermission(role, to.meta.roles)) {
+            //     next();
+            // }
         }
     } else {
         // 如果没登录，但是在白名单内，直接走下一步

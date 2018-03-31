@@ -93,9 +93,10 @@ const Login = async function (ctx) {
     }
 
     if (UserModel.authenticate(result.hash_password, userInfo.password)) {
-        delete userInfo.hash_password;
-        let userToken = {};
-        const token = jwt.sign(userToken, config.tokenSecret, { expiresIn: '1d' });
+        let newtoken = {}
+        newtoken.id = result._id;
+        newtoken.role = result.role;
+        const token = jwt.sign(newtoken, config.tokenSecret, { expiresIn: '1d' });
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
         message.status = 200;
         message.userinfo = result;
@@ -109,6 +110,10 @@ const Login = async function (ctx) {
 }
 
 const GetUserInfo = async (ctx) => {
+    // console.log(ctx.request.header);
+    let token = ctx.header.authorization;
+    let obj = jwt.decode(token.split(' ')[1]);
+    console.log(obj);
     let user = ctx.request.body;
     console.log("获取用户信息", user);
     let result = await userDao.findByUsername(user, (err, data) => {
@@ -126,8 +131,7 @@ const GetUserInfo = async (ctx) => {
 
 
 const Logout = async (ctx) => {
-    ctx.session = null;
-    await ctx.redirect('/');
+    await ctx.redirect('/login');
 }
 
 //  修改密码

@@ -9,8 +9,6 @@ module.exports = () => {
         try {
             // 获取token
             const token = ctx.header.authorization;
-            // console.log('token', token);
-            console.log(ctx.header);
             if (token) {
                 try {
                     console.log("verify");
