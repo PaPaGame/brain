@@ -96,6 +96,7 @@ const Login = async function (ctx) {
         let newtoken = {}
         newtoken.id = result._id;
         newtoken.role = result.role;
+        newtoken.school = result.school;
         const token = jwt.sign(newtoken, config.tokenSecret, { expiresIn: '1d' });
         // 如果验证通过了的话，把token啊 什么的 都传给客户端
         message.status = 200;

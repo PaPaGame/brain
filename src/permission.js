@@ -25,11 +25,15 @@ router.beforeEach((to, from, next) => {
         } else {
             // 已经登录，查看是否有人物信息
             let userinfo = store.getters.userinfo;
-            console.log(userinfo);
             if (userinfo.role === "" || userinfo.userId === "") {
-                store.dispatch("getUserInfo", {}).then(res => {
-                    console.log(res);
-                })
+                userinfo = localStorage.getItem("brain_userinfo")
+                if (userinfo) {
+                    next();
+                } else {
+                    store.dispatch("getUserInfo", {}).then(res => {
+                        next();
+                    })
+                }
             } else {
                 if (hasPermission(userinfo.role, to.meta.roles)) {
                     next();

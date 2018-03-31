@@ -14,6 +14,13 @@ const user = {
             method: "post",
             params: data
         })
+    },
+    logout(data) {
+        return ajax({
+            url: "/user/logout",
+            method: "post",
+            params: data
+        })
     }
 };
 

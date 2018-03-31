@@ -7,7 +7,10 @@ const childRouter = new Router({
 });
 
 childRouter.use(jwt({
-    path: [/^\/api\/user\/login/]
+    path: [
+        /^\/api\/user\/login/,
+        /^\/api\/user\/logout/
+    ]
 }));
 
 ///^\/backapi\/admin\/login/

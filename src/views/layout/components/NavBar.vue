@@ -27,9 +27,9 @@ export default {
     methods: {
         logout() {
             console.log("logout from navbar");
-            // this.doLogout();
+            this.doLogout();
         },
-        // ...mapActions(["doLogout"])
+        ...mapActions(["doLogout"])
     }
 };
 </script>
