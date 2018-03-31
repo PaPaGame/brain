@@ -51,7 +51,7 @@ export default {
     },
     watch: {
         routes(val) {
-            console.log("watch routes: " + JSON.stringify(val));
+            // console.log("watch routes: " + JSON.stringify(val));
         }
     }
 }

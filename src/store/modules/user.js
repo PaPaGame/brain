@@ -2,7 +2,14 @@ import userService from "@/api/user";
 import * as types from "../mutation-type";
 import router from '@/router'
 
-const state = {
+let localUserInfo = localStorage.getItem("brain_userinfo");
+
+let localUserObj = {};
+if (localUserInfo) {
+    localUserObj = JSON.parse(localUserInfo);
+    localUserObj.userinfo = JSON.parse(localUserInfo);
+}
+const state = Object.assign({
     username: "",
     userId: "",
     token: '',
@@ -14,7 +21,7 @@ const state = {
         role: "",
         school: ""
     }
-}
+}, localUserObj);
 //BJTZ001
 
 const mutations = {
@@ -83,7 +90,7 @@ const actions = {
 
                 } else {
                     localStorage.setItem('brain_token', "");
-                    localStorage.setItem("brain_userinfo", null);
+                    localStorage.setItem("brain_userinfo", "");
                     router.app.$alert(res.message, '提示', { confirmButtonText: '知道了' }).catch(() => { });
                     reject();
                 }
@@ -98,7 +105,7 @@ const actions = {
 
         }).finally(() => {
             localStorage.setItem("brain_token", "");
-            localStorage.setItem("brain_userinfo", null);
+            localStorage.setItem("brain_userinfo", "");
             router.push({ path: '/login' });
         });
     }

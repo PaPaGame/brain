@@ -117,10 +117,7 @@ const GetUserInfo = async (ctx) => {
     console.log(obj);
     let user = ctx.request.body;
     console.log("获取用户信息", user);
-    let result = await userDao.findByUsername(user, (err, data) => {
-        if (err)
-            console.log(err);
-    });
+    let result = await UserModel.findOne({ "_id": obj.id });//await userDao.findByUsername(user, (err, data) =>{});
 
     if (result) {
         ctx.body = {
