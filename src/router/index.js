@@ -21,8 +21,9 @@ export const constantRouterMap = [
             component: _import('dashboard/index'),
             name: 'dashboard',
             meta: {
-                title: 'dashboard', icon: 'dashboard', noCache: true,
-                roles: [role.STUDENT, role.MASTER, role.STAFF, role.ADMIN]
+                title: 'dashboard', noCache: true,
+                roles: [role.STUDENT, role.MASTER, role.STAFF, role.ADMIN],
+                icon: "dashboard"
             }
         }]
     }
@@ -38,14 +39,15 @@ export const asyncRouterMap = [
     {
         path: "",
         component: Layout,
-        children: [{ path: "/school", component: _import("school/index"), name: 'school', meta: { title: "school", roles: [role.ADMIN] } }]
+        children: [{ path: "/school", component: _import("school/index"), name: 'school', meta: { title: "school", roles: [role.ADMIN], icon: "school" } }]
     }, {
         path: "",
         component: Layout,
         children: [{
             path: "/article", component: _import("article/index"), name: 'article', meta: {
                 title: "article",
-                roles: [role.MASTER, role.STAFF, role.ADMIN]
+                roles: [role.MASTER, role.STAFF, role.ADMIN],
+                icon: "tai"
             }
         }]
     }, {
@@ -54,7 +56,8 @@ export const asyncRouterMap = [
         children: [{
             path: "/marking", component: _import("school/index"), name: 'marking', meta: {
                 title: "marking",
-                roles: [role.MASTER, role.STAFF, role.ADMIN]
+                roles: [role.MASTER, role.STAFF, role.ADMIN],
+                icon: "mark"
             }
         }]
     }, {
@@ -63,7 +66,8 @@ export const asyncRouterMap = [
         children: [{
             path: "/staff", component: _import("staff/index"), name: "staff", meta: {
                 title: "staff",
-                roles: [role.MASTER, role.ADMIN]
+                roles: [role.MASTER, role.ADMIN],
+                icon: "master"
             }
         }]
     }, {
@@ -72,7 +76,8 @@ export const asyncRouterMap = [
         children: [{
             path: "/class", component: _import("class/index"), name: "group", meta: {
                 title: "group",
-                roles: [role.MASTER, role.STAFF, role.ADMIN]
+                roles: [role.MASTER, role.STAFF, role.ADMIN],
+                icon: "group"
             }
         }]
     }, {
@@ -81,7 +86,8 @@ export const asyncRouterMap = [
         children: [{
             path: "/student", component: _import("student/index"), name: "student", meta: {
                 title: "student",
-                roles: [role.MASTER, role.STAFF, role.ADMIN]
+                roles: [role.MASTER, role.STAFF, role.ADMIN],
+                icon: "student"
             }
         }]
     }, {
@@ -90,7 +96,8 @@ export const asyncRouterMap = [
         children: [{
             path: "", component: _import("reading/index"), name: "reading", meta: {
                 title: "reading",
-                roles: [role.STUDENT, role.MASTER, role.STAFF, role.ADMIN]
+                roles: [role.STUDENT, role.MASTER, role.STAFF, role.ADMIN],
+                icon: "reading"
             }
         }]
     }

@@ -4,10 +4,8 @@
             <span class="display_name">{{name}}</span>
         </div>
         <el-input ref="tiUsername"></el-input>
-        <el-button type="primary"
-            @click="getUserInfos">获取用户信息</el-button>
-        <el-button type="primary"
-            @click="printUserinfo">输出用户信息</el-button>
+        <el-button type="primary" @click="getUserInfos" class="iconfont icon-chart">获取用户信息</el-button>
+        <el-button type="primary" @click="printUserinfo">输出用户信息</el-button>
         <course-card></course-card>
     </div>
 </template>
