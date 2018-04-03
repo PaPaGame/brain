@@ -2,8 +2,10 @@ import UserDao from "../dao/DaoUser";
 const jwt = require("jsonwebtoken");
 // const config = require("../../config/config");
 import config from "../../config/config";
+import Role from "../constants/RoleType";
 
 var UserModel = require("../models").user;
+var SchoolModel = require("../models").school;
 
 var userDao = new UserDao(UserModel);
 
@@ -152,6 +154,55 @@ const ChangePassword = async ctx => {
     ctx.body = message;
 }
 
+const DashboardInfoData = async ctx => {
+    let user = ctx.request.body;
+    let message = {};
+
+    if (!user) {
+        message.status = 400;
+        message.message = "用户信息错误";
+        ctx.body = message;
+        return;
+    }
+
+    let userinfo = await UserModel.findOne({ "_id": user._id });
+
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "用户信息不存在";
+        ctx.body = message;
+        return;
+    }
+
+    switch (userinfo.role) {
+        case Role.STUDENT:
+            break;
+        case Role.STAFF:
+            break;
+        case Role.MASTER:
+            break;
+        case Role.ADMIN:
+            // 查找学校数量
+            let schoolCount = await SchoolModel.distinct("code").count();
+            let staffCount = await UserModel.count({ "role": { $ne: Role.STUDENT } });
+            let studentCount = await UserModel.count({ "role": Role.STUDENT });
+            let newStudentCount = await UserModel.count({
+                "role": Role.STUDENT, createdAt: {
+                    "$lt": new Date(),
+                    "$gt": new Date(new Date() - 15 * 24 * 3600 * 1000)
+                }
+            });
+
+            message.status = 200;
+            message.info = [schoolCount, staffCount, studentCount, newStudentCount];
+            // console.log(`school:${schoolCount}, staff:${staffCount},student:${studentCount},newStudent:${newStudentCount}`);
+            break;
+    }
+
+    ctx.body = message;
+
+}
+
 module.exports = {
     Create,
     Update,
@@ -161,5 +212,6 @@ module.exports = {
     Exist,
     GetUserInfo,
     Logout,
-    ChangePassword
+    ChangePassword,
+    DashboardInfoData
 };

@@ -9,7 +9,7 @@
                     </div>
                     <div class="info-desc">
                         <div class="info-title">{{value.title}}</div>
-                        <div class="info-value">{{value.count}}</div>
+                        <div class="info-value">{{info[index]}}</div>
                     </div>
                 </div>
             </el-col>
@@ -21,7 +21,8 @@
 export default {
     name: "InfoGroup",
     props: {
-        infoColumns: Array
+        infoColumns: Array,
+        info: Array
     }
 }
 </script>

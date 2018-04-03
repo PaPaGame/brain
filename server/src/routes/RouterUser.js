@@ -6,12 +6,12 @@ const childRouter = new Router({
     prefix: '/user'
 });
 
-childRouter.use(jwt({
-    path: [
-        /^\/api\/user\/login/,
-        /^\/api\/user\/logout/
-    ]
-}));
+// childRouter.use(jwt({
+//     path: [
+//         /^\/api\/user\/login/,
+//         /^\/api\/user\/logout/
+//     ]
+// }));
 
 ///^\/backapi\/admin\/login/
 
@@ -23,5 +23,6 @@ childRouter.delete("", userController.Delete);
 childRouter.post("/info", userController.GetUserInfo);
 childRouter.post("/logout", userController.Logout);
 childRouter.post("/password", userController.ChangePassword);
+childRouter.post("/dashboard", userController.DashboardInfoData);
 
 module.exports = childRouter;

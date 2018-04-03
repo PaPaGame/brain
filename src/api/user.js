@@ -21,6 +21,13 @@ const user = {
             method: "post",
             params: data
         })
+    },
+    dashboard(data) {
+        return ajax({
+            url: "/user/dashboard",
+            method: "post",
+            params: data
+        })
     }
 };
 

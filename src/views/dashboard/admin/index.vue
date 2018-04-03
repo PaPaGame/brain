@@ -3,7 +3,7 @@
         <div class="clearfix">
             <span class="display_name">{{name}}</span>
         </div>
-        <info-group :infoColumns="infoColumns"></info-group>
+        <info-group :infoColumns="infoColumns" :info="info"></info-group>
         <el-input ref="tiUsername"></el-input>
         <el-button type="primary" @click="getUserInfos" class="iconfont icon-chart">获取用户信息</el-button>
         <el-button type="primary" @click="printUserinfo">输出用户信息</el-button>
@@ -15,6 +15,7 @@
 import { mapActions, mapGetters } from "vuex";
 import CourseCard from "@/components/courseCard";
 import InfoGroup from "@/components/InfoGroup";
+import userServices from "@/api/user";
 export default {
     components: {
         CourseCard,
@@ -23,6 +24,7 @@ export default {
     data() {
         return {
             name: "admin",
+            info: [0, 0, 0, 0],
             infoColumns: [{ icon: "school", title: this.$t('dashboard.schoolCount'), count: "123" },
             { icon: "mark", title: this.$t('dashboard.staffCount'), count: "777" },
             { icon: "master", title: this.$t('dashboard.studentCount'), count: "188823" },
@@ -37,20 +39,23 @@ export default {
             this.getUserInfo(query);
         },
         printUserinfo() {
-            // console.log(this.comParams);
-            // console.log(this.userinfo, userinfo);
             console.log(this.$store.getters.userinfo);
+            userServices.dashboard(this.comParams).then(res => {
+                if (res.status === 200) {
+                    this.info = res.info;
+                }
+            });
         },
         ...mapActions(["getUserInfo"])
     },
     computed: {
         comParams() {
             return this.userinfo;
-        }
+        }, ...mapGetters([
+            "userinfo"
+        ])
     },
-    ...mapGetters({
-        userinfo: "userinfo"
-    })
+
 }
 </script>
 
