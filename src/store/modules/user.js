@@ -11,13 +11,13 @@ if (localUserInfo) {
 }
 const state = Object.assign({
     username: "",
-    userId: "",
+    id: "",
     token: '',
     role: "",
     school: "",
     userinfo: {
         username: "",
-        userId: "",
+        id: "",
         role: "",
         school: ""
     }
@@ -27,12 +27,12 @@ const state = Object.assign({
 const mutations = {
     [types.USER_UPDATE_INFO](state, { data }) {
         state.username = data.username;
-        state.userId = data._id;
+        state.id = data._id;
         state.role = data.role;
         state.school = data.school;
         state.userinfo = {
             username: data.username,
-            userId: data._id,
+            id: data._id,
             role: data.role,
             school: data.school
         };
@@ -41,7 +41,7 @@ const mutations = {
     },
     [types.USER_UPDATE](state, { data }) {
         state.username = data.username;
-        state.userId = data._id;
+        state.id = data._id;
         state.school = data.school;
         state.phone = data.phone;
         state.mail = data.mail;
@@ -50,7 +50,7 @@ const mutations = {
         state.status = data.status;
         state.userinfo = {
             username: data.username,
-            userId: data._id,
+            id: data._id,
             role: data.role,
             school: data.school
         };
@@ -82,7 +82,7 @@ const actions = {
             userService.login(payload).then(res => {
                 if (res.status === 200) {
                     console.log("登录成功");
-                    commit(types.USER_UPDATE, { data: res.userinfo });
+                    commit(types.USER_UPDATE_INFO, { data: res.userinfo });
                     localStorage.setItem('brain_token', res.token);
                     localStorage.setItem("brain_userinfo", JSON.stringify(res.userinfo));
                     // this.$store.dispatch("GenerateRoutes", res.userinfo);
@@ -106,6 +106,7 @@ const actions = {
         }).finally(() => {
             localStorage.setItem("brain_token", "");
             localStorage.setItem("brain_userinfo", "");
+            commit(types.USER_UPDATE, { data: {} });
             router.push({ path: '/login' });
         });
     }

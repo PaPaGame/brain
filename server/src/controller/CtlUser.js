@@ -6,6 +6,8 @@ import Role from "../constants/RoleType";
 
 var UserModel = require("../models").user;
 var SchoolModel = require("../models").school;
+var ClassModel = require("../models").class;
+var StudentModel = require("../models").student;
 
 var userDao = new UserDao(UserModel);
 
@@ -165,7 +167,7 @@ const DashboardInfoData = async ctx => {
         return;
     }
 
-    let userinfo = await UserModel.findOne({ "_id": user._id });
+    let userinfo = await UserModel.findOne({ "_id": user.id });
 
     if (!userinfo) {
         message.status = 400;
@@ -175,13 +177,47 @@ const DashboardInfoData = async ctx => {
     }
 
     switch (userinfo.role) {
-        case Role.STUDENT:
+        case Role.STUDENT: {
+            message.status = 200;
+            message.info = [1, 2, 3, 4];
             break;
-        case Role.STAFF:
+        }
+        case Role.STAFF: {
+            message.status = 200;
+            message.info = [5, 6, 7, 8];
             break;
-        case Role.MASTER:
+        }
+        case Role.MASTER: {
+            let school = user.school;
+            if (school === "") {
+                message.status = 400;
+                message.message = "学校码不对";
+                break;
+            }
+
+            let id = user.id;
+            let classCount = await ClassModel.find({ "school": school }).distinct("name").count();
+            let studentCount = await UserModel.count({ "school": school });
+            let newStudentCount = await UserModel.count({
+                "role": Role.STUDENT, createdAt: {
+                    "$lt": new Date(),
+                    "$gt": new Date(new Date() - 15 * 24 * 3600 * 1000)
+                },
+                "school": school
+            });
+            // let dieStudentCount = await StudentModel.count({
+            //     "role": Role.STUDENT, createdAt: {
+            //         "$lt": new Date(),
+            //         "$gt": new Date(new Date() - 15 * 24 * 3600 * 1000)
+            //     },
+            //     "school":school
+            // });
+            let dieStudentCount = 0;
+            message.status = 200;
+            message.info = [classCount, studentCount, newStudentCount, dieStudentCount];
             break;
-        case Role.ADMIN:
+        }
+        case Role.ADMIN: {
             // 查找学校数量
             let schoolCount = await SchoolModel.distinct("code").count();
             let staffCount = await UserModel.count({ "role": { $ne: Role.STUDENT } });
@@ -197,6 +233,7 @@ const DashboardInfoData = async ctx => {
             message.info = [schoolCount, staffCount, studentCount, newStudentCount];
             // console.log(`school:${schoolCount}, staff:${staffCount},student:${studentCount},newStudent:${newStudentCount}`);
             break;
+        }
     }
 
     ctx.body = message;

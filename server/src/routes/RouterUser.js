@@ -6,12 +6,12 @@ const childRouter = new Router({
     prefix: '/user'
 });
 
-// childRouter.use(jwt({
-//     path: [
-//         /^\/api\/user\/login/,
-//         /^\/api\/user\/logout/
-//     ]
-// }));
+childRouter.use(jwt({
+    path: [
+        /^\/api\/user\/login/,
+        /^\/api\/user\/logout/
+    ]
+}));
 
 ///^\/backapi\/admin\/login/
 

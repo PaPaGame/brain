@@ -47,11 +47,11 @@ export const ajax = (options) => {
                 _options.data = qs.stringify(_options.params);
             }
             delete _options.params;
-            if (!_options.headers) {
-                _options.headers = {
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Authorization': 'Bearer ' + localStorage.getItem("brain_token")
-                }
+        }
+        if (!_options.headers) {
+            _options.headers = {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                'Authorization': 'Bearer ' + localStorage.getItem("brain_token")
             }
         }
     }

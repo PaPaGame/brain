@@ -39,7 +39,7 @@ export default {
             this.getUserInfo(query);
         },
         printUserinfo() {
-            console.log(this.$store.getters.userinfo);
+            console.log(this.userinfo);
             userServices.dashboard(this.comParams).then(res => {
                 if (res.status === 200) {
                     this.info = res.info;
