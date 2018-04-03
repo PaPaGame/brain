@@ -1,4 +1,4 @@
-    <template>
+<template>
     <div class="dashboard-student-container">
         <div class="clearfix">
             <span class="display_name">{{name}}</span>
@@ -6,17 +6,17 @@
     </div>
 </template>
 
-    <script>
+<script>
 export default {
     data() {
         return {
-            name: "student"
+            name: "staff"
         }
     }
 }
 </script>
 
-    <style lang="scss" scoped>
+<style lang="scss" scoped>
 .dashboard-student-container {
   background-color: #e3e3e3;
   top: 0px;

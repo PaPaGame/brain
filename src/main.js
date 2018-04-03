@@ -10,6 +10,7 @@ import '@/styles/index.scss'
 import '@/permission'
 import store from '@/store'
 import "./styles/iconfont/iconfont.css";
+import "./styles/iconfont/iconfont.js";
 
 Vue.config.productionTip = false
 
