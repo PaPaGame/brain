@@ -16,13 +16,14 @@
 <script>
 import CourseCard from "@/components/courseCard";
 import CourseService from "@/api/course";
+import { mapGetters } from 'vuex';
 export default {
     components: {
         CourseCard
     },
     beforeMount() {
         let query = {};
-        query.uid = "5aa10052eed4971a84c1666c";
+        query.uid = this.userinfo.id;
         CourseService.fetchAllCourse(query).then(res => {
             console.log(res);
             if (res.status != 200) {
@@ -42,6 +43,9 @@ export default {
         rebuildData(origin) {
             this.courses = origin;
         }
+    },
+    computed: {
+        ...mapGetters(["userinfo"])
     }
 }
 </script>

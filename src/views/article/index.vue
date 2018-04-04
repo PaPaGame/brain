@@ -6,26 +6,22 @@
             <el-table-column :label="$t('article.title')" min-width="300px" prop="fullTitle"></el-table-column>
             <el-table-column align="center" :label="$t('article.level')" width="100">
                 <template slot-scope="scope">
-                    <!-- <template v-if="scope.row.edit">
-                        <el-select v-model="scope.row.level"
-                            @change="onLevelSelect(scope.row,$event)">
-                            <el-option v-for="item in articleLevelList"
-                                :key="item"
-                                :label="item"
-                                :value="item">
+                    <template v-if="scope.row.edit">
+                        <el-select v-model="scope.row.level" @change="onLevelSelect(scope.row,$event)">
+                            <el-option v-for="item in articleLevelList" :key="item" :label="item" :value="item">
                             </el-option>
                         </el-select>
-                    </template> -->
-                    <template v-if="scope.row.edit">
-                        <el-input size="small" v-model="scope.row.level"></el-input>
                     </template>
+                    <!-- <template v-if="scope.row.edit">
+                        <el-input size="small" v-model="scope.row.level"></el-input>
+                    </template> -->
                     <span v-else>{{scope.row.level}}</span>
                 </template>
             </el-table-column>
             <el-table-column align="center" :label="$t('article.lexile')" width="110">
                 <template slot-scope="scope">
                     <template v-if="scope.row.edit">
-                        <el-input clearable></el-input>
+                        <el-input v-model="scope.row.lexile" clearable></el-input>
                     </template>
                     <span v-else>{{scope.row.lexile}}</span>
                 </template>
@@ -34,7 +30,7 @@
             <el-table-column align="center" :label="$t('article.layout')" width="90" prop="layoutType"></el-table-column>
             <el-table-column align="center" :label="$t('article.operate')" min-width="200px">
                 <template slot-scope="scope">
-                    <el-button v-show="!scope.row.edit" type="success" @click="edit(scope.row)" size="small" icon="el-icon-circle-check-outline">{{$t('article.edit')}}</el-button>
+                    <el-button v-show="!scope.row.edit" @click="edit(scope.row)" size="small">{{$t('article.edit')}}</el-button>
                     <span v-show="scope.row.edit">
                         <el-button type="primary" @click='confirmEdit(scope.row)' size="small" icon="el-icon-edit">{{$t('article.comfirm')}}</el-button>
                         <el-button @click='cancelEdit(scope.row)' size="small" icon="el-icon-edit">{{$t('article.cancel')}}</el-button>
@@ -50,6 +46,7 @@
 <script>
 import table from "@/components/table";
 import { mapActions, mapGetters } from 'vuex';
+import articleService from "@/api/article";
 export default {
     created() {
         if (this.articleLevelList.length === 0) {
@@ -63,6 +60,7 @@ export default {
     },
     data() {
         return {
+            articleList: [],
             queryModel: {
                 currentPage: 0,
                 pageSize: 10
@@ -95,7 +93,20 @@ export default {
             this.queryModel.currentPage = p - 1;
             this.getArticleList(this.queryModel);
         },
-        ...mapActions(["getArticleLevelList", "getArticleList"])
+        getArticleList(query) {
+            articleService.fetchArticleList(query).then(res => {
+                if (res.status == 200) {
+                    this.articleList = res.list;
+                } else {
+                    this.$message.error(this.$t('article.getListFailed'));
+                }
+            });
+        },
+        onLevelSelect(row, e) {
+            row.level = e;
+            row.edit = true;
+        },
+        ...mapActions(["getArticleLevelList"])//, "getArticleList"
     },
     computed: {
         articles() {
@@ -115,7 +126,7 @@ export default {
         },
         ...mapGetters({
             articleLevelList: "articleLevels",
-            articleList: "articleList"
+            // articleList: "articleList"
         })
     }
 }
