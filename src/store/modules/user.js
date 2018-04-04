@@ -27,12 +27,12 @@ const state = Object.assign({
 const mutations = {
     [types.USER_UPDATE_INFO](state, { data }) {
         state.username = data.username;
-        state.id = data._id;
+        state.id = data.id;
         state.role = data.role;
         state.school = data.school;
         state.userinfo = {
             username: data.username,
-            id: data._id,
+            id: data.id,
             role: data.role,
             school: data.school
         };
@@ -41,20 +41,15 @@ const mutations = {
     },
     [types.USER_UPDATE](state, { data }) {
         state.username = data.username;
-        state.id = data._id;
+        state.id = data.id;
         state.school = data.school;
-        state.phone = data.phone;
-        state.mail = data.mail;
-        state.lastLoginTime = data.lastLoginTime;
         state.role = data.role;
-        state.status = data.status;
         state.userinfo = {
             username: data.username,
-            id: data._id,
+            id: data.id,
             role: data.role,
             school: data.school
         };
-        // user.uid =
     }
 }
 
@@ -82,10 +77,15 @@ const actions = {
             userService.login(payload).then(res => {
                 if (res.status === 200) {
                     console.log("登录成功");
-                    commit(types.USER_UPDATE_INFO, { data: res.userinfo });
+                    let user = {};
+                    user.id = res.userinfo._id;
+                    user.school = res.userinfo.school;
+                    user.role = res.userinfo.role;
+                    user.username = res.userinfo.username;
+                    console.log(" dologin:::", user);
+                    commit(types.USER_UPDATE_INFO, { data: user });
                     localStorage.setItem('brain_token', res.token);
-                    localStorage.setItem("brain_userinfo", JSON.stringify(res.userinfo));
-                    // this.$store.dispatch("GenerateRoutes", res.userinfo);
+                    localStorage.setItem("brain_userinfo", JSON.stringify(user));
                     resolve(res.userinfo);
 
                 } else {

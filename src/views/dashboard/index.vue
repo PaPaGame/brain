@@ -7,7 +7,9 @@
 <script>
 import { mapGetters } from "vuex";
 import adminDashboard from "@/views/dashboard/admin";
-import editorDashboard from "@/views/dashboard/editor";
+import masterDashboard from "@/views/dashboard/master";
+import staffDashboard from "@/views/dashboard/staff";
+import studentDashboard from "@/views/dashboard/student";
 import * as Role from "@/router/roleType";
 import SvgIcon from "@/components/SvgIcon";
 import Vue from "vue";
@@ -17,7 +19,9 @@ export default {
     name: 'dashboard',
     components: {
         adminDashboard,
-        editorDashboard
+        masterDashboard,
+        staffDashboard,
+        studentDashboard
     },
     data() {
         return {
@@ -30,15 +34,17 @@ export default {
         ])
     },
     created() {
-        if (!this.roles.includes('admin')) {
-            this.currentRole = "adminDashboard";
-        }
         switch (this.userinfo.role) {
             case Role.STUDENT:
+                this.currentRole = "studentDashboard";
                 break;
-            case Role.STAFF: break;
-            case Role.MASTER: break;
-            case Role.ADMIN: break;
+            case Role.STAFF:
+                this.currentRole = "staffDashboard";
+                break;
+            case Role.MASTER: this.currentRole = "masterDashboard";
+                break;
+            case Role.ADMIN: this.currentRole = "adminDashboard";
+                break;
         }
     }
 
