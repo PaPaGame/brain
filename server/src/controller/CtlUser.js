@@ -201,7 +201,7 @@ const DashboardInfoData = async ctx => {
             let newStudentCount = await UserModel.count({
                 "role": Role.STUDENT, createdAt: {
                     "$lt": new Date(),
-                    "$gt": new Date(new Date() - 15 * 24 * 3600 * 1000)
+                    "$gt": new Date(new Date() - 7 * 24 * 3600 * 1000)
                 },
                 "school": school
             });

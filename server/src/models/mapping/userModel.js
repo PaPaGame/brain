@@ -22,7 +22,12 @@ var userSchema = new Schema({
     lastLoginIP: String,
     school: String,
     uid: { type: [SchemaTypes.ObjectId], index: true }
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 userSchema.virtual("password").set(function (password) {
     this.hash_password = encryptoPassword(password);

@@ -6,11 +6,24 @@ var classDao = new ClassDao(ClassModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
-    console.log(info);
-    let result = await classDao.create(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
+    let message = {};
+    console.log("创建班级，班级信息为：", info);
+    let existClass = await ClassModel.findOne({ name: info.name });
+
+    if (existClass) {
+        message.status = 400;
+        message.message = "班级名称已经存在，重新录入";
+        ctx.body = message;
+        return;
+    }
+
+    let originStaffInfo = info.staff;
+    let staffInfo = {
+        id: originStaffInfo._id,
+        name: originStaffInfo.name
+    }
+    info.staff = staffInfo;
+    let result = await ClassModel.create(info);;
 
     if (result) {
         ctx.body = { status: 200 };
@@ -18,13 +31,15 @@ const Create = async (ctx) => {
 };
 const Update = async (ctx) => {
     let info = ctx.request.body;
-    console.log(info);
+
     let message = {};
     if (!info) {
         message.status = 400;
         message.message = "参数信息不正确";
         return;
     }
+
+    console.log("更新班级，班级信息为：", info);
     if (info.staff) {
         let staff = { id: info.staff.id, name: info.staff.name };
         info.staff = staff;

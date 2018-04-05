@@ -8,7 +8,12 @@ var studentSchema = new Schema({
     school: String,
     validateTime: Date,
     articleLevel: Array
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 studentSchema.virtual("validateT").set(function (validate) {
     // 给创建时间 添加一个月份

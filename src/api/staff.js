@@ -5,7 +5,7 @@ const staff = {
         return ajax({
             url: "/staff/fuzzy",
             method: "post",
-            data: query
+            params: query
         });
     },
     fetchStaffList(query) {

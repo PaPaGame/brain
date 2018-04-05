@@ -33,6 +33,11 @@ var courseSchema = new Schema({
     courseState: { type: Number, default: 0 },
     quizCount: { type: Number, default: 0 },
     quizAnswer: { type: Array, default: [] }
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 mongoose.model("course", courseSchema, "course");

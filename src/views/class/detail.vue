@@ -1,19 +1,19 @@
 <template>
     <div>
-        <el-form :model="info" :rules="rules" label-position="left" label-width="85px">
+        <el-form :model="queryModel" :rules="rules" label-position="left" label-width="85px">
             <el-form-item :label="$t('group.name')">
-                <el-input v-model="info.name" clearable></el-input>
+                <el-input v-model="queryModel.name" clearable></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.school')">
-                <el-input v-model="info.school" :disabled="userinfo.school!=''"></el-input>
+                <el-input v-model="queryModel.school" :disabled="userinfo.school!=''"></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.staff')">
                 <!-- <el-input ref="tiTeacherName" v-model="info.staff && info.staff.name || ''" clearable @keyup.enter.native="searchStaffByName"></el-input> -->
-                <el-autocomplete :value="info.staff.name" :placeholder="$t('group.fuzzyStaffList')" :fetch-suggestions="querySearchStaffAsync" @select="staffSelectHandler" style="width: 100%;"></el-autocomplete>
+                <el-autocomplete :value="queryModel.staff && queryModel.staff.name" :placeholder="$t('group.fuzzyStaffList')" :fetch-suggestions="querySearchStaffAsync" @select="staffSelectHandler" style="width: 100%;"></el-autocomplete>
                 <span v-if="findTeacherNothing">{{$t("group.noResult")}}</span>
             </el-form-item>
             <el-form-item :label="$t('group.students')">
-                <el-input ref="tiStudentName" v-model="info.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
+                <el-input ref="tiStudentName" v-model="queryModel.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
                 <span v-if="findStudentNothing">{{$t("group.noResult")}}</span>
             </el-form-item>
         </el-form>
@@ -49,11 +49,17 @@ export default {
         return {
             findStudentNothing: false,
             findTeacherNothing: false,
-            queryModel: {},
+            queryModel: {
+                id: "",
+                name: "",
+                staff: { id: "", name: "" },
+                school: "",
+                student: []
+            },
             staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
-            }
+            },
         }
     },
     methods: {
@@ -61,9 +67,7 @@ export default {
             this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
-            // this.info.staff = { id: "123456", name: "Kiven.zhou" }
-            console.log(this.info);
-            groupService.updateClass(this.info).then(res => {
+            groupService.updateClass(this.queryModel).then(res => {
                 if (res.status = 200) {
                     this.$message.success(this.$t('group.updateSuccess'));
                 } else {
@@ -74,7 +78,8 @@ export default {
             });
         },
         btnCreateHandler() {
-            groupService.createClass(this.info).then(res => {
+
+            groupService.createClass(this.queryModel).then(res => {
                 this.$emit("fetchClassInfo");
                 this.close();
             });
@@ -114,7 +119,7 @@ export default {
             }
         },
         staffSelectHandler(e) {
-            this.info.staff = e;
+            this.queryModel.staff = e;
             console.log(e);
         }
     },
@@ -122,6 +127,15 @@ export default {
         ...mapGetters({
             userinfo: "userinfo"
         })
+    },
+    watch: {
+        info(val) {
+            this.queryModel.id = val._id;
+            this.queryModel.name = val.name;
+            this.queryModel.student = val.student;
+            this.queryModel.staff = val.staff;
+            this.queryModel.school = val.school;
+        }
     }
 }
 </script>

@@ -21,7 +21,7 @@ const group = {
         return ajax({
             url: "/class",
             method: "post",
-            data: info
+            params: info
         });
     },
 
@@ -29,7 +29,7 @@ const group = {
         return ajax({
             url: "/class/update",
             method: "post",
-            data: info
+            params: info
         });
     },
     getFuzzyGroup(query) {

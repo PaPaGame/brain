@@ -9,6 +9,11 @@ var schoolSchema = new Schema({
     code: String,
     status: String,
     staff: SchemaTypes.ObjectId,
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 mongoose.model("school", schoolSchema, "school");

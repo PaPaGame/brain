@@ -12,13 +12,7 @@
         <!-- 表单 -->
         <div>
             <el-table :data="groupList" border>
-                <el-table-column type="expand">
-                    <template slot-scope="props">
-                        <el-form label-position="left" inline>
-                            <el-form-item label="Hello"></el-form-item>
-                        </el-form>
-                    </template>
-                </el-table-column>
+
                 <el-table-column align="center" :label="$t('group.name')" width="250" prop="name">
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.school')" width="150" prop="school">
@@ -95,7 +89,7 @@ export default {
                 school: String,
                 staff: Object,
                 students: Array
-            }
+            },
         };
     },
     created() {
@@ -110,6 +104,7 @@ export default {
         pageCurrentChangeHandler() { },
         operateHandler(row, opt) {
             this.classInfo = row;
+            console.log(row);
             switch (opt) {
                 case "create":
                     this.classInfo = {};

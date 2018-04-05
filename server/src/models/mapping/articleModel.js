@@ -10,6 +10,11 @@ var articleSchema = new Schema({
     lexile: Number,
     layoutType: String,
     status: String
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 mongoose.model("article", articleSchema, "article");

@@ -13,7 +13,12 @@ var recordSchema = new Schema({
     cid: SchemaTypes.ObjectId,
     uid: SchemaTypes.ObjectId,
     recordName: String
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 
 mongoose.model("record", recordSchema, "record");

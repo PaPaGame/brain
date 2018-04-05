@@ -103,6 +103,7 @@ const GetBySchool = async (ctx) => {
 const GetByFuzzyName = async (ctx) => {
     let queryInfo = ctx.request.body;
     let message = {};
+    console.log(queryInfo);
     // 正则忽略大小写  i
     let infos = await StaffModel.find({ "name": { $regex: queryInfo.name + "", $options: 'i' } });
     if (!infos) {

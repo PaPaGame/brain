@@ -12,6 +12,11 @@ var staffSchema = new Schema({
     school: String,
     group: Array,
     status: String
-}, { timestamps: true });
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 mongoose.model("staff", staffSchema, "staff");

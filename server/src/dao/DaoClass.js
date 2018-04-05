@@ -15,7 +15,7 @@ ClassDao.prototype.getClassList = async query => {
 }
 
 ClassDao.prototype.updateClassInfo = async (info) => {
-    return await ClassModel.update({ _id: info._id }, { $set: info });
+    return await ClassModel.update({ _id: info.id }, { $set: info });
 }
 
 module.exports = ClassDao;

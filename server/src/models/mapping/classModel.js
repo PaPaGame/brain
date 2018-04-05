@@ -8,7 +8,12 @@ var classSchema = new Schema({
     name: String,
     school: String,
     staff: Object,
-    student: Object
-}, { timestamps: true });
+    student: Array
+}, {
+        timestamps: {
+            type: Number,
+            default: new Date().getTime()
+        }
+    });
 
 mongoose.model("class", classSchema, "class");
