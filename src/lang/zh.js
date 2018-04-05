@@ -106,7 +106,8 @@ export default {
         noResult: "查无此人",
         updateSuccess: "信息更新成功",
         updateFailed: "信息更新失败",
-        fuzzyStaffList: "支持模糊搜索老师名字"
+        fuzzyStaffList: "支持模糊搜索老师名字",
+        fuzzyStudentList: "支持模糊搜索学生名字"
     },
     student: {
         inputGroupName: "请输入班级名称",
@@ -171,18 +172,18 @@ export default {
         getListFailed: "获取文章列表失败",
         cancelEditMessage: "取消编辑编号"
     },
-    dashboard:{
-        schoolCount:"校区数量",
-        staffCount:"老师数量",
-        studentCount:"学生总数",
-        newStudentCount:"周新增学生",
-        groupCount:"班级数量",
-        dieStudentCount:"到期学生",
-        haveGroupCount:"名下班级数量",
-        needMarkCount:"需要批改数量",
-        totalCount:"总授权课文数量",
-        ingCount:"进行中课文数量",
-        unstartCount:"未开始课文数量",
-        overCount:"已完成课文数量"
+    dashboard: {
+        schoolCount: "校区数量",
+        staffCount: "老师数量",
+        studentCount: "学生总数",
+        newStudentCount: "周新增学生",
+        groupCount: "班级数量",
+        dieStudentCount: "到期学生",
+        haveGroupCount: "名下班级数量",
+        needMarkCount: "需要批改数量",
+        totalCount: "总授权课文数量",
+        ingCount: "进行中课文数量",
+        unstartCount: "未开始课文数量",
+        overCount: "已完成课文数量"
     }
 }

@@ -17,9 +17,17 @@ const GetStudent = async (ctx) => {
 }
 
 const GetFuzzyByName = async (ctx) => {
-    let name = ctx.params["name"];
+    let info = ctx.request.body;
+    let message = {};
+    if (!info) {
+        message.status = 400;
+        message.message = "查询参数有误";
+        ctx.body = message;
+        return;
+    }
+
     // 正则忽略大小写  i
-    let infos = await studentDao.getByQuery({ "firstName": { $regex: name, $options: 'i' } }, null, null);
+    let infos = await studentDao.findFuzzyName(info.name, info.school);
 
     if (infos) {
         ctx.body = {

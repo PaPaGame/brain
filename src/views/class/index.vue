@@ -12,7 +12,6 @@
         <!-- 表单 -->
         <div>
             <el-table :data="groupList" border>
-
                 <el-table-column align="center" :label="$t('group.name')" width="250" prop="name">
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.school')" width="150" prop="school">
@@ -99,6 +98,7 @@ export default {
             ],
             list: [],
             classInfo: {
+                id: String,
                 name: String,
                 school: String,
                 staff: Object,
@@ -118,13 +118,13 @@ export default {
         pageCurrentChangeHandler() { },
         operateHandler(row, opt) {
             this.classInfo = row;
-            console.log(row);
+            console.log(this.classInfo);
             switch (opt) {
                 case "create":
                     this.classInfo = {};
                     this.classInfo.name = "";
                     this.classInfo.staff = { id: "", name: "" };
-                    this.classInfo.students = "";
+                    this.classInfo.students = [];
                     this.classInfo.school = this.userinfo.school;
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;

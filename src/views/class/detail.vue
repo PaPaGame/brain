@@ -13,8 +13,14 @@
                 <span v-if="findTeacherNothing">{{$t("group.noResult")}}</span>
             </el-form-item>
             <el-form-item :label="$t('group.students')">
-                <el-input ref="tiStudentName" v-model="queryModel.students" clearable @keyup.enter.native="searchStudentByName"></el-input>
+                <!-- <el-input ref="tiStudentName" v-model="queryModel.students" clearable @keyup.enter.native="searchStudentByName"></el-input> -->
+                <el-autocomplete :placeholder="$t('group.fuzzyStudentList')" :fetch-suggestions="querySearchStudentAsync" @select="studentSelectHandler" style="width: 100%;"></el-autocomplete>
                 <span v-if="findStudentNothing">{{$t("group.noResult")}}</span>
+                <div v-if="students.length">
+                    <el-checkbox-group v-model="students">
+                        <el-checkbox v-for="(student, index) in students" :label="student.name" :key="student._id" checked></el-checkbox>
+                    </el-checkbox-group>
+                </div>
             </el-form-item>
         </el-form>
         <div slot="footer">
@@ -60,6 +66,7 @@ export default {
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
             },
+            students: []
         }
     },
     methods: {
@@ -78,7 +85,6 @@ export default {
             });
         },
         btnCreateHandler() {
-
             groupService.createClass(this.queryModel).then(res => {
                 this.$emit("fetchClassInfo");
                 this.close();
@@ -89,7 +95,6 @@ export default {
         },
         searchStudentByName() {
             let name = this.$refs.tiStudentName.value
-
             studentService.fetchStudentByFuzzyName(name).then(res => {
                 // 如果没有找到人 显示，否则呈现列表插入
                 let result = res.infos;
@@ -97,7 +102,6 @@ export default {
             });
         },
         async querySearchStaffAsync(queryStr, callback) {
-
             if (queryStr === "")
                 return;
 
@@ -120,7 +124,28 @@ export default {
         },
         staffSelectHandler(e) {
             this.queryModel.staff = e;
-            console.log(e);
+        },
+        async querySearchStudentAsync(queryStr, callback) {
+            if (queryStr === "")
+                return;
+            try {
+                let query = { "name": queryStr, "school": this.userinfo.school };
+                let studentInfos = await studentService.fetchStudentByFuzzyName(query);
+                let studentList = studentInfos.infos;
+                if (studentList instanceof Array) {
+                    studentList.map(student => {
+                        student.value = student.username;
+                        return student;
+                    })
+                }
+
+                this.findStudentNothing = studentList.length === 0;
+                callback(studentList);
+            } catch (e) {
+
+            }
+        },
+        studentSelectHandler(e) {
         }
     },
     computed: {
@@ -135,6 +160,10 @@ export default {
             this.queryModel.student = val.student;
             this.queryModel.staff = val.staff;
             this.queryModel.school = val.school;
+            this.students = val.student;
+            console.log("val.student", val.student);
+            console.log("watch:::::", this.students);
+
         }
     }
 }

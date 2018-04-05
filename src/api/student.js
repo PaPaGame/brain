@@ -3,8 +3,9 @@ import ajax from "@/utils/ajax";
 const student = {
     fetchStudentByFuzzyName(query) {
         return ajax({
-            url: "/student/fuzzy/" + query,
-            method: "get"
+            url: "/student/fuzzy",
+            method: "post",
+            params: query
         });
     },
 

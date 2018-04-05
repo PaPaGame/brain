@@ -87,4 +87,17 @@ StudentDao.prototype.getAllStudent = async info => {
     }
 }
 
+StudentDao.prototype.findFuzzyName = async (name, school) => {
+
+    let condition = {};
+    condition.username = { $regex: name + "", $options: 'i' };
+    if (school) {
+        condition.school = school;
+    }
+
+    console.log(condition);
+    return await StudentModel.find(
+        condition
+    );
+}
 module.exports = StudentDao;
