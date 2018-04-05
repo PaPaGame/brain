@@ -20,6 +20,20 @@
                 <el-table-column align="center" :label="$t('group.staff')" width="90" prop="staff.name">
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.studentCount')" width="60" prop="student.length">
+                    <template slot-scope="scope">
+                        <el-popover trigger="hover" placement="top" v-if="scope.row.student && scope.row.student.length">
+                            <ul v-for="(role,index) in scope.row.student">
+                                <li>
+                                    <p>姓名: {{ role.name }}</p>
+                                </li>
+                            </ul>
+
+                            <div slot="reference" class="name-wrapper">
+                                <el-tag size="medium">{{ scope.row.student.length }}</el-tag>
+                            </div>
+                        </el-popover>
+                        <span v-else>0</span>
+                    </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.createdAt')" width="120" prop="createdAt">
                 </el-table-column>
