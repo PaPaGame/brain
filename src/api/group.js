@@ -11,9 +11,9 @@ const group = {
 
     deleteClass(query) {
         return ajax({
-            url: "/class",
-            method: "delete",
-            data: query
+            url: "/class/delete",
+            method: "post",
+            params: query
         });
     },
 

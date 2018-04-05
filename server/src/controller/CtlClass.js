@@ -7,6 +7,7 @@ var classDao = new ClassDao(ClassModel);
 const Create = async (ctx) => {
     let info = ctx.request.body;
     let message = {};
+    await classDao.create(info);
     console.log("创建班级，班级信息为：", info);
     let existClass = await ClassModel.findOne({ name: info.name });
 
@@ -17,13 +18,7 @@ const Create = async (ctx) => {
         return;
     }
 
-    let originStaffInfo = info.staff;
-    let staffInfo = {
-        id: originStaffInfo._id,
-        name: originStaffInfo.name
-    }
-    info.staff = staffInfo;
-    let result = await ClassModel.create(info);;
+    let result = await classDao.create(info);
 
     if (result) {
         ctx.body = { status: 200 };
@@ -56,12 +51,15 @@ const Update = async (ctx) => {
 };
 const Delete = async (ctx) => {
     let info = ctx.request.body;
-    if (!info)
+    let message = {};
+    if (!info) {
+        message.status = 400;
+        message.message = "参数不正确";
+        ctx.body = message;
         return;
-    let result = await classDao.delete({ _id: `${info._id}` }, (err, data) => {
-        if (err)
-            console.log(err);
-    })
+    }
+    console.log(info);
+    let result = await classDao.delete(info.id);
 
     if (result)
         ctx.body = { status: 200 };

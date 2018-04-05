@@ -128,7 +128,8 @@ export default {
                         type: "warning"
                     })
                         .then(() => {
-                            groupService.deleteClass(row).then(res => {
+                            let query = { id: row._id };
+                            groupService.deleteClass(query).then(res => {
                                 this.$message({
                                     type: "success",
                                     message: this.$t("group.deleteSuccess")

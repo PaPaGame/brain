@@ -10,6 +10,20 @@ var ClassDao = function (classModel) {
 
 util.inherits(ClassDao, DaoBase);
 
+ClassDao.prototype.create = async info => {
+    let originStaffInfo = info.staff;
+    let staffInfo = {
+        id: originStaffInfo._id,
+        name: originStaffInfo.name
+    }
+    info.staff = staffInfo;
+    return await ClassModel.create(info);
+}
+
+ClassDao.prototype.delete = async id => {
+    return await ClassModel.remove({ "_id": id });
+}
+
 ClassDao.prototype.getClassList = async query => {
     return await ClassModel.find(query);
 }
