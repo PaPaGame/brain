@@ -1,14 +1,7 @@
 <template>
     <div class="classList">
-        <el-autocomplete popper-class="my-autocomplete"
-            v-model="state3"
-            :fetch-suggestions="querySearch"
-            :placeholder="$t('student.inputGroupName')"
-            :trigger-on-focus="false"
-            @select="handleSelect">
-            <i class="el-icon-edit el-input__icon"
-                slot="suffix"
-                @click="handleIconClick">
+        <el-autocomplete popper-class="my-autocomplete" v-model="state3" :fetch-suggestions="querySearch" :placeholder="$t('student.inputGroupName')" :trigger-on-focus="false" @select="handleSelect">
+            <i class="el-icon-edit el-input__icon" slot="suffix" @click="handleIconClick">
             </i>
             <template slot-scope="props">
                 <div class="name">{{ props.item.name }}({{props.item.student.length}})</div>
@@ -18,9 +11,7 @@
         <ul class="classBox">
             <template v-for="group in groups">
                 <li class="group">
-                    <label class="groupName"
-                        v-text="group.name"
-                        @click="groupItemClickHandler(group)"></label>
+                    <label class="groupName" v-text="group.name" @click="groupItemClickHandler(group)"></label>
                     <label v-text="(group.student.length)"></label>
                 </li>
             </template>
@@ -73,27 +64,8 @@ export default {
         ...mapActions(["getGroupList"])
     },
     created() {
-        // this.getGroupList();
     },
     computed: mapGetters({ groups: "groupList" })
-    // beforeMount() {
-    //     // console.log("get data");
-    //     fetchClass({}).then(res => {
-    //         console.log(res);
-    //         this.groups = [];
-    //         let classInfos = res.classInfos;
-    //         if (classInfos.length <= 0)
-    //             return;
-    //         let total = 0;
-    //         classInfos.forEach(info => {
-    //             let count = info.student.length
-    //             total += count;
-    //             this.groups.push({ id: info._id, name: info.name, count: count });
-    //         });
-
-    //         this.groups.unshift({ id: "{}", name: "ALL", count: total });
-    //     });
-    // }
 }
 </script>
 

@@ -17,7 +17,7 @@
 
 <script>
 import { mapActions } from "vuex";
-
+import router from "../../router"
 export default {
     data() {
         return {
@@ -48,8 +48,8 @@ export default {
                         this.$store.dispatch("GenerateRoutes", res.role).then(() => {
                             console.log("动态路由规划完毕");
                             console.log(this.$store.getters.addRouters);
-                            this.$router.addRoutes(this.$store.getters.addRouters);
-                            this.$router.push({ path: "/" });
+                            router.addRoutes(this.$store.getters.addRouters);
+                            router.push({ path: "/" });
 
                         });
                     });

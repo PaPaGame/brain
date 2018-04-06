@@ -16,9 +16,9 @@
                 <!-- <el-input ref="tiStudentName" v-model="queryModel.students" clearable @keyup.enter.native="searchStudentByName"></el-input> -->
                 <el-autocomplete :placeholder="$t('group.fuzzyStudentList')" :fetch-suggestions="querySearchStudentAsync" @select="studentSelectHandler" style="width: 100%;"></el-autocomplete>
                 <span v-if="findStudentNothing">{{$t("group.noResult")}}</span>
-                <div v-if="students.length">
-                    <el-checkbox-group v-model="students">
-                        <el-checkbox v-for="(student, index) in students" :label="student.name" :key="student._id" checked></el-checkbox>
+                <div v-if="queryModel.student.length">
+                    <el-checkbox-group @change="checkgroupChange" v-model="students">
+                        <el-checkbox v-for="(student, index) in queryModel.student" :label="student.name" :key="index" checked></el-checkbox>
                     </el-checkbox-group>
                 </div>
             </el-form-item>
@@ -42,7 +42,7 @@ import { mapGetters } from 'vuex';
 export default {
     name: "ClassDetailPanel",
     props: {
-        info: {
+        classInfo: {
             type: Object,
             default: null
         },
@@ -102,8 +102,10 @@ export default {
             });
         },
         async querySearchStaffAsync(queryStr, callback) {
-            if (queryStr === "")
+            if (queryStr === "") {
+                callback([]);
                 return;
+            }
 
             try {
                 let query = { "name": queryStr };
@@ -126,8 +128,11 @@ export default {
             this.queryModel.staff = e;
         },
         async querySearchStudentAsync(queryStr, callback) {
-            if (queryStr === "")
+            if (queryStr === "") {
+                callback([]);
                 return;
+            }
+
             try {
                 let query = { "name": queryStr, "school": this.userinfo.school };
                 let studentInfos = await studentService.fetchStudentByFuzzyName(query);
@@ -146,6 +151,9 @@ export default {
             }
         },
         studentSelectHandler(e) {
+        },
+        checkgroupChange(v) {
+            console.log(v);
         }
     },
     computed: {
@@ -154,15 +162,19 @@ export default {
         })
     },
     watch: {
-        info(val) {
+        classInfo(val) {
             this.queryModel.id = val._id;
             this.queryModel.name = val.name;
             this.queryModel.student = val.student;
             this.queryModel.staff = val.staff;
             this.queryModel.school = val.school;
-            this.students = val.student;
+            // this.students = val.student;
+            this.students = [];
+            val.student.forEach(student => {
+                this.students.push(student);
+            });
             console.log("val.student", val.student);
-            console.log("watch:::::", this.students);
+            // console.log("watch:::::", this.students);
 
         }
     }

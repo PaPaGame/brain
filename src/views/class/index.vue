@@ -18,15 +18,16 @@
                 </el-table-column>
                 <el-table-column align="center" :label="$t('group.staff')" width="90" prop="staff.name">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.studentCount')" width="60" prop="student.length">
+                <el-table-column align="center" :label="$t('group.studentCount')" width="60">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top" v-if="scope.row.student && scope.row.student.length">
+                            <span>{{scope.row}}</span>
+                            <span>姓名: </span>
                             <ul v-for="(role,index) in scope.row.student">
                                 <li>
-                                    <p>姓名: {{ role.name }}</p>
+                                    <p>{{ role }}</p>
                                 </li>
                             </ul>
-
                             <div slot="reference" class="name-wrapper">
                                 <el-tag size="medium">{{ scope.row.student.length }}</el-tag>
                             </div>
@@ -56,7 +57,7 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <class-detail-panel :info="classInfo" v-on:closeDialog="dialogVisible=false" :operate="dialogOperate" v-on:fetchClassInfo="getList()"></class-detail-panel>
+                <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" @fetchClassInfo="getList()"></class-detail-panel>
             </el-dialog>
         </div>
     </div>
@@ -102,7 +103,7 @@ export default {
                 name: String,
                 school: String,
                 staff: Object,
-                students: Array
+                student: Array
             },
         };
     },
@@ -110,6 +111,10 @@ export default {
         this.getList();
     },
     methods: {
+        close() {
+            this.dialogVisible = false;
+            console.log(this.groupList);
+        },
         getList() {
             this.getGroupList(this.commParams);
         },
@@ -118,13 +123,14 @@ export default {
         pageCurrentChangeHandler() { },
         operateHandler(row, opt) {
             this.classInfo = row;
-            console.log(this.classInfo);
+            console.log("allData", this.groupList);
+            console.log("operate", this.classInfo);
             switch (opt) {
                 case "create":
                     this.classInfo = {};
                     this.classInfo.name = "";
                     this.classInfo.staff = { id: "", name: "" };
-                    this.classInfo.students = [];
+                    this.classInfo.student = [];
                     this.classInfo.school = this.userinfo.school;
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;
@@ -134,6 +140,7 @@ export default {
                     this.dialogTitle = this.$t("group.edit");
                     this.dialogVisible = true;
                     this.dialogOperate = opt;
+                    console.log("edit handler", this.classInfo.student);
                     break;
                 case "delete":
                     this.$confirm(this.$t("group.deleteMsg"), this.$t("group.delete"), {

@@ -4,69 +4,33 @@
         <!-- 过滤器 -->
         <div>
             <div class="filter-container">
-                <el-input ref="tiSearch"
-                    type="input"
-                    :placeholder="$t('student.searchName')"
-                    class="filter-item"
-                    style="width:200px"
-                    clearable></el-input>
-                <el-button type="primary"
-                    icon="el-icon-search"
-                    class="filter-item"
-                    @click="btnSearchClickHandler">{{$t('student.search')}}</el-button>
-                <el-button type="primary"
-                    icon="el-icon-edit"
-                    class="filter-item"
-                    style="margin-left: 10px;"
-                    @click="operateHandler(null,'create')">{{$t('student.add')}}</el-button>
+                <el-input ref="tiSearch" type="input" :placeholder="$t('student.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+                <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('student.search')}}</el-button>
+                <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('student.add')}}</el-button>
             </div>
         </div>
         <div class="leftContainer">
             <class-list v-on:groupListClick="classListClick"></class-list>
         </div>
         <div class="rightContainer">
-            <edu-table :tableColumns="tableColumns"
-                :tableData="allStudent"
-                :totalCount="totalCount"
-                :pageSize="studentModel.pagesize"
-                @pageChange="pageChange"
-                ref="table">
-                <template slot="opBtns"
-                    slot-scope="scope">
-                    <el-button size="mini"
-                        @click="operateHandler(scope.row,'editpwd')">修改密码</el-button>
-                    <el-button size="mini"
-                        @click="operateHandler(scope.row,'edit')">修改信息</el-button>
-                    <el-button size="mini"
-                        @click="operateHandler(scope.row,'delete')"
-                        type="danger">删除</el-button>
+            <edu-table :tableColumns="tableColumns" :tableData="allStudent" :totalCount="totalCount" :pageSize="studentModel.pagesize" @pageChange="pageChange" ref="table">
+                <template slot="opBtns" slot-scope="scope">
+                    <el-button size="mini" @click="operateHandler(scope.row,'editpwd')">修改密码</el-button>
+                    <el-button size="mini" @click="operateHandler(scope.row,'edit')">修改信息</el-button>
+                    <el-button size="mini" @click="operateHandler(scope.row,'delete')" type="danger">删除</el-button>
                 </template>
             </edu-table>
         </div>
 
-        <el-dialog :visible.sync="dialogVisible"
-            :title="dialogTitle"
-            center>
-            <detail-panel :info="studentInfo"
-                :operate="dialogOperate"
-                :userId="currentUserId"
-                v-on:closeDialog="dialogVisible=false"></detail-panel>
+        <el-dialog :visible.sync="dialogVisible" :title="dialogTitle" center>
+            <detail-panel :info="studentInfo" :operate="dialogOperate" :userId="currentUserId" v-on:closeDialog="dialogVisible=false"></detail-panel>
         </el-dialog>
 
         <!-- 修改密码 -->
-        <el-dialog :visible.sync="dialogPassword"
-            width="600px"
-            top="0"
-            center
-            custom-class="edu-fix share center"
-            title="修改密码"
-            :userId="currentUserId"
-            :username="currentUsername">
+        <el-dialog :visible.sync="dialogPassword" width="600px" top="0" center custom-class="edu-fix share center" title="修改密码" :userId="currentUserId" :username="currentUsername">
             <pass-word></pass-word>
-            <span slot="footer"
-                class="dialog-footer">
-                <el-button type="primary"
-                    @click="dialogPassword = false">关闭</el-button>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="dialogPassword = false">关闭</el-button>
             </span>
         </el-dialog>
     </div>
@@ -88,7 +52,6 @@ export default {
         PassWord
     },
     created() {
-        // this.getGroupList();
     },
     mounted() {
         console.log(this.userinfo.school);
