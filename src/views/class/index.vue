@@ -21,11 +21,10 @@
                 <el-table-column align="center" :label="$t('group.studentCount')" width="60">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top" v-if="scope.row.student && scope.row.student.length">
-                            <span>{{scope.row}}</span>
                             <span>姓名: </span>
                             <ul v-for="(role,index) in scope.row.student">
                                 <li>
-                                    <p>{{ role }}</p>
+                                    <p>{{ role.name }}</p>
                                 </li>
                             </ul>
                             <div slot="reference" class="name-wrapper">

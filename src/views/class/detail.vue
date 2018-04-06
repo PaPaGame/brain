@@ -16,9 +16,9 @@
                 <!-- <el-input ref="tiStudentName" v-model="queryModel.students" clearable @keyup.enter.native="searchStudentByName"></el-input> -->
                 <el-autocomplete :placeholder="$t('group.fuzzyStudentList')" :fetch-suggestions="querySearchStudentAsync" @select="studentSelectHandler" style="width: 100%;"></el-autocomplete>
                 <span v-if="findStudentNothing">{{$t("group.noResult")}}</span>
-                <div v-if="queryModel.student.length">
-                    <el-checkbox-group @change="checkgroupChange" v-model="students">
-                        <el-checkbox v-for="(student, index) in queryModel.student" :label="student.name" :key="index" checked></el-checkbox>
+                <div v-if="students.length">
+                    <el-checkbox-group @change="checkgroupChange" v-model="checkedList">
+                        <el-checkbox v-for="(student, index) in students" :key="student.id" :label="student.name" checked></el-checkbox>
                     </el-checkbox-group>
                 </div>
             </el-form-item>
@@ -66,7 +66,8 @@ export default {
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
             },
-            students: []
+            students: [],
+            checkedList: []
         }
     },
     methods: {
@@ -128,7 +129,7 @@ export default {
             this.queryModel.staff = e;
         },
         async querySearchStudentAsync(queryStr, callback) {
-            if (queryStr === "") {
+            if (!queryStr) {
                 callback([]);
                 return;
             }
@@ -151,6 +152,10 @@ export default {
             }
         },
         studentSelectHandler(e) {
+            let student = {};
+            student.id = e._id;
+            student.name = e.username;
+            this.students.push(student);
         },
         checkgroupChange(v) {
             console.log(v);
@@ -170,12 +175,9 @@ export default {
             this.queryModel.school = val.school;
             // this.students = val.student;
             this.students = [];
-            val.student.forEach(student => {
-                this.students.push(student);
+            val.student.forEach(stu => {
+                this.students.push(stu);
             });
-            console.log("val.student", val.student);
-            // console.log("watch:::::", this.students);
-
         }
     }
 }
