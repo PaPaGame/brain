@@ -75,6 +75,21 @@ export default {
             this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
         },
         btnUpdateHandler() {
+            //每次保存之前遍历一下列表，找到所有学生，再存
+            let queryResult = [];
+
+            if (this.checkedList.length > 0) {
+                this.checkedList.forEach(checkItem => {
+                    for (let i = 0; i < this.students.length; i++) {
+                        const student = this.students[i];
+                        if (checkItem === student.name) {
+                            queryResult.push({ id: student.id, name: student.name });
+                            break;
+                        }
+                    }
+                });
+            }
+            this.queryModel.student = queryResult;
             groupService.updateClass(this.queryModel).then(res => {
                 if (res.status = 200) {
                     this.$message.success(this.$t('group.updateSuccess'));
@@ -118,7 +133,6 @@ export default {
                         return staff;
                     })
                 };
-
                 this.findTeacherNothing = staffList.length === 0;
                 callback(staffList);
             } catch (e) {
@@ -144,7 +158,6 @@ export default {
                         return student;
                     })
                 }
-
                 this.findStudentNothing = studentList.length === 0;
                 callback(studentList);
             } catch (e) {

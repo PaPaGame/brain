@@ -112,7 +112,6 @@ export default {
     methods: {
         close() {
             this.dialogVisible = false;
-            console.log(this.groupList);
         },
         getList() {
             this.getGroupList(this.commParams);
@@ -122,8 +121,6 @@ export default {
         pageCurrentChangeHandler() { },
         operateHandler(row, opt) {
             this.classInfo = row;
-            console.log("allData", this.groupList);
-            console.log("operate", this.classInfo);
             switch (opt) {
                 case "create":
                     this.classInfo = {};
@@ -139,7 +136,6 @@ export default {
                     this.dialogTitle = this.$t("group.edit");
                     this.dialogVisible = true;
                     this.dialogOperate = opt;
-                    console.log("edit handler", this.classInfo.student);
                     break;
                 case "delete":
                     this.$confirm(this.$t("group.deleteMsg"), this.$t("group.delete"), {

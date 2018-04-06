@@ -39,6 +39,10 @@ const Update = async (ctx) => {
         let staff = { id: info.staff.id, name: info.staff.name };
         info.staff = staff;
     }
+
+    if (!info.student) {
+        info.student = [];
+    }
     let result = await classDao.updateClassInfo(info);
 
     if (result) {
