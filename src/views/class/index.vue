@@ -58,7 +58,12 @@
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
                 <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" @fetchClassInfo="getList()" @openInnerDialog="innerVisible = true"></class-detail-panel>
                 <el-dialog width="40%" :title="$t('group.authorLabel')" :visible.sync="innerVisible" append-to-body>
+                    <span>{{articleSelectedList}}</span>
                     <el-transfer :button-texts="[$t('group.remove'), $t('group.add')]" :titles="[$t('group.source'), $t('group.target')]" v-model="articleSelectedList" :data="transferSource"></el-transfer>
+                    <span slot="footer">
+                        <el-button @click="innerVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="innerVisible = false">确 定</el-button>
+                    </span>
                 </el-dialog>
             </el-dialog>
         </div>
@@ -101,14 +106,15 @@ export default {
             ],
             list: [],
             classInfo: {
-                id: String,
-                name: String,
-                school: String,
-                staff: Object,
-                student: Array
+                id: "",
+                name: "",
+                school: "",
+                staff: {},
+                student: [],
+                articleLevel: []
             },
             innerVisible: false,
-            articleSelectedList: [],
+            articleSelectedList: []
         };
     },
     created() {
@@ -140,6 +146,7 @@ export default {
                     this.classInfo.staff = { id: "", name: "" };
                     this.classInfo.student = [];
                     this.classInfo.school = this.userinfo.school;
+                    this.classInfo.articleLevel = [];
                     this.dialogTitle = this.$t("group.add");
                     this.dialogVisible = true;
                     this.dialogOperate = opt;
@@ -148,6 +155,11 @@ export default {
                     this.dialogTitle = this.$t("group.edit");
                     this.dialogVisible = true;
                     this.dialogOperate = opt;
+
+                    this.articleSelectedList = [];
+                    this.classInfo.articleLevel.forEach(level => {
+                        this.articleSelectedList.push(this.articleLevelList.indexOf(level));
+                    })
                     break;
                 case "delete":
                     this.$confirm(this.$t("group.deleteMsg"), this.$t("group.delete"), {
