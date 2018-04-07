@@ -56,7 +56,10 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" @fetchClassInfo="getList()"></class-detail-panel>
+                <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" @fetchClassInfo="getList()" @openInnerDialog="innerVisible = true"></class-detail-panel>
+                <el-dialog width="40%" :title="$t('group.authorLabel')" :visible.sync="innerVisible" append-to-body>
+                    <el-transfer :button-texts="[$t('group.remove'), $t('group.add')]" :titles="[$t('group.source'), $t('group.target')]" v-model="articleSelectedList" :data="transferSource"></el-transfer>
+                </el-dialog>
             </el-dialog>
         </div>
     </div>
@@ -104,10 +107,19 @@ export default {
                 staff: Object,
                 student: Array
             },
+            innerVisible: false,
+            articleSelectedList: [],
         };
     },
     created() {
         this.getList();
+        if (this.articleLevelList.length === 0) {
+            this.getArticleLevelList().then(res => {
+                this.transferSource;
+            });
+        } else {
+            this.transferSource;
+        }
     },
     methods: {
         close() {
@@ -162,15 +174,26 @@ export default {
                     break;
             }
         },
-        ...mapActions(["getGroupList"])
+        ...mapActions(["getGroupList", "getArticleLevelList"])
     },
     computed: {
+        transferSource() {
+            let source = [];
+            this.articleLevelList.forEach((level, index) => {
+                source.push({
+                    key: index,
+                    label: level.toString()
+                });
+            });
+            return source;
+        },
         commParams() {
             return { school: this.userinfo.school }
         },
         ...mapGetters({
             userinfo: "userinfo",
-            groupList: "groupList"
+            groupList: "groupList",
+            articleLevelList: "articleLevels",
         })
     }
 };

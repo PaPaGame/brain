@@ -19,13 +19,15 @@ const mutations = {
 }
 const actions = {
     getArticleLevelList({ commit, state }, payload) {
-        articleService.fetchArticleLevelList().then(res => {
-            if (res.status == 200) {
-                commit(types.ARTICLE_LEVEL_LIST, { data: res.list });
-            } else {
-                this.$message.error(this.$t('article.getLevelFailed'));
-            }
-        })
+        return new Promise((resolve, reject) => {
+            articleService.fetchArticleLevelList().then(res => {
+                if (res.status == 200) {
+                    commit(types.ARTICLE_LEVEL_LIST, { data: res.list });
+                } else {
+                    this.$message.error(this.$t('article.getLevelFailed'));
+                }
+            })
+        });
     },
     getArticleList({ commit, state }, payload) {
         articleService.fetchArticleList(payload).then(res => {

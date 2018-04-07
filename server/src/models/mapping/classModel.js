@@ -8,7 +8,8 @@ var classSchema = new Schema({
     name: String,
     school: String,
     staff: Object,
-    student: Array
+    student: Array,
+    articleLevel: Array
 }, {
         timestamps: {
             type: Number,

@@ -107,7 +107,12 @@ export default {
         updateSuccess: "信息更新成功",
         updateFailed: "信息更新失败",
         fuzzyStaffList: "支持模糊搜索老师名字",
-        fuzzyStudentList: "支持模糊搜索学生名字"
+        fuzzyStudentList: "支持模糊搜索学生名字",
+        authorLabel: "授权课程",
+        author: "授权",
+        remove: "移除",
+        source: "源列表",
+        target: "目标列表"
     },
     student: {
         inputGroupName: "请输入班级名称",

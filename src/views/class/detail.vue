@@ -22,6 +22,9 @@
                     </el-checkbox-group>
                 </div>
             </el-form-item>
+            <el-form-item :label="$t('group.authorLabel')">
+                <el-button @click="openInnerDialog">{{$t('group.author')}}</el-button>
+            </el-form-item>
         </el-form>
         <div slot="footer">
             <el-button @click="btnUpdateHandler" type="primary" v-if="operate === 'edit'">{{$t("group.update")}}</el-button>
@@ -172,11 +175,15 @@ export default {
         },
         checkgroupChange(v) {
             console.log(v);
+        },
+        openInnerDialog() {
+            this.$emit('openInnerDialog');
         }
     },
     computed: {
         ...mapGetters({
-            userinfo: "userinfo"
+            userinfo: "userinfo",
+            articleLevelList: "articleLevels",
         })
     },
     watch: {
