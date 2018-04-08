@@ -12,7 +12,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "css-loader": "^0.28.11",
-    "element-ui": "^2.0.11",
+    "element-ui": "^2.3.3",
     "vue": "^2.5.2",
     "vue-gemini-scrollbar": "^2.0.0",
     "vue-router": "^3.0.1"

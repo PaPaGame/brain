@@ -56,10 +56,10 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" @fetchClassInfo="getList()" @openInnerDialog="innerVisible = true"></class-detail-panel>
+                <class-detail-panel :classInfo="classInfo" @closeDialog="close" :operate="dialogOperate" :selectedLevel="rightSelectedList" @fetchClassInfo="getList()" @openInnerDialog="innerVisible = true"></class-detail-panel>
                 <el-dialog width="40%" :title="$t('group.authorLabel')" :visible.sync="innerVisible" append-to-body>
                     <span>{{articleSelectedList}}</span>
-                    <el-transfer :button-texts="[$t('group.remove'), $t('group.add')]" :titles="[$t('group.source'), $t('group.target')]" v-model="articleSelectedList" :data="transferSource"></el-transfer>
+                    <el-transfer :button-texts="[$t('group.remove'), $t('group.add')]" :titles="[$t('group.source'), $t('group.target')]" v-model="articleSelectedList" :data="transferSource" @change="transferChangeHandler" @right-check-change="rightCheckChangeHandler"></el-transfer>
                     <span slot="footer">
                         <el-button @click="innerVisible = false">取 消</el-button>
                         <el-button type="primary" @click="innerVisible = false">确 定</el-button>
@@ -114,7 +114,10 @@ export default {
                 articleLevel: []
             },
             innerVisible: false,
-            articleSelectedList: []
+            // 右侧列表所有选项，包括未选中的
+            articleSelectedList: [],
+            // 右侧列表所有选中的
+            rightSelectedList: []
         };
     },
     created() {
@@ -137,6 +140,14 @@ export default {
         btnSearchClickHandler() { },
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
+        transferChangeHandler(value, direction, movedKeys) {
+            console.log(this.transferSource);
+            console.log(value, direction, movedKeys);
+        },
+        rightCheckChangeHandler(selVal) {
+            // [1.2, 1.1]
+            this.rightSelectedList = selVal;
+        },
         operateHandler(row, opt) {
             this.classInfo = row;
             switch (opt) {
@@ -157,9 +168,9 @@ export default {
                     this.dialogOperate = opt;
 
                     this.articleSelectedList = [];
-                    this.classInfo.articleLevel.forEach(level => {
-                        this.articleSelectedList.push(this.articleLevelList.indexOf(level));
-                    })
+                    // this.classInfo.articleLevel.forEach(level => {
+                    //     this.articleSelectedList.push(this.articleLevelList.indexOf(level));
+                    // })
                     break;
                 case "delete":
                     this.$confirm(this.$t("group.deleteMsg"), this.$t("group.delete"), {
@@ -193,7 +204,7 @@ export default {
             let source = [];
             this.articleLevelList.forEach((level, index) => {
                 source.push({
-                    key: index,
+                    key: level,
                     label: level.toString()
                 });
             });

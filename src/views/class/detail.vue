@@ -52,6 +52,10 @@ export default {
         operate: {
             type: String,
             default: ""
+        },
+        selectedLevel: {
+            type: Array,
+            default: []
         }
     },
     data() {
@@ -63,7 +67,8 @@ export default {
                 name: "",
                 staff: { id: "", name: "" },
                 school: "",
-                student: []
+                student: [],
+                articleLevel: []
             },
             staffs: [],
             rules: {
@@ -93,6 +98,7 @@ export default {
                 });
             }
             this.queryModel.student = queryResult;
+            this.queryModel.articleLevel = this.selectedLevel;
             groupService.updateClass(this.queryModel).then(res => {
                 if (res.status = 200) {
                     this.$message.success(this.$t('group.updateSuccess'));
