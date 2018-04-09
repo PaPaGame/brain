@@ -100,4 +100,20 @@ StudentDao.prototype.findFuzzyName = async (name, school) => {
         condition
     );
 }
+
+StudentDao.prototype.updateStudentsLevels = async (students, levels) => {
+    let sids = [];
+    students.forEach(student => {
+        sids.push(student.id);
+    })
+
+    console.log(sids)
+    return await StudentModel.update({
+        "_id": { $in: sids }
+    }, {
+            "articleLevel": levels
+        }, {
+            upsert: true
+        });
+}
 module.exports = StudentDao;

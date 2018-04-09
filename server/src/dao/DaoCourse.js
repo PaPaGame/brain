@@ -20,9 +20,9 @@ CourseDao.prototype.addCourse = async userinfo => {
 
     let student = await StudentModel.findOne({ "_id": userinfo["id"] });
     let articleLevel = student.articleLevel;
-    console.log(student, articleLevel);
-    // console.log(articleLevel);
-    let articles = await ArticleModel.find({ "articleLevel": { $in: articleLevel } });
+    // console.log(student, articleLevel);
+    let articles = await ArticleModel.find({ "level": { $in: articleLevel } });
+    console.log(articles);
 
     var courses = [];
 
@@ -40,12 +40,7 @@ CourseDao.prototype.addCourse = async userinfo => {
         return await CourseModel.insertMany(courses);
     } else {
         courses.forEach(async ele => {
-            let result = await CourseModel.findOne({ cid: ele.cid, uid: ele.uid }, (err, data) => {
-                // if (data == null) {
-                //     // console.log("缺失数据，id:", ele.cid);
-                //     return CourseModel.create(ele);
-                // }
-            });
+            let result = await CourseModel.findOne({ cid: ele.cid, uid: ele.uid });
 
             if (!result) {
                 return await CourseModel.create(ele);
@@ -128,5 +123,21 @@ CourseDao.prototype.getCourse = async userinfo => {
             "quizAccuracy": -1
         }
     }]);
+}
+
+
+CourseDao.prototype.updateCourses = async (students, articles) => {
+    // return await CourseModel.update({}, { uid: { $in: students } });
+    let uids = [];
+    return await students.forEach(s => {
+        // uids.push(s.id);
+        addCourse(s);
+    })
+
+    let aids = [];
+    articles.forEach(a => {
+        aids.push(a._id);
+    })
+    // return await CourseModel.create({ cid: { $in: aids } });//uid: { $in: uids }, 
 }
 module.exports = CourseDao;

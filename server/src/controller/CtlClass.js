@@ -1,8 +1,17 @@
 import ClassDao from "../dao/DaoClass";
+import CourseDao from "../dao/DaoCourse";
+import ArticleDao from "../dao/DaoArticle";
+import StudentDao from "../dao/DaoStudent";
 
 var ClassModel = require("../models").class;
+var CourseModel = require("../models").course;
+var ArticleModel = require("../models").article;
+var StudentModel = require("../models").student;
 
 var classDao = new ClassDao(ClassModel);
+var courseDao = new CourseDao(CourseModel);
+var articleDao = new ArticleDao(ArticleModel);
+var studentDao = new StudentDao(StudentModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
@@ -43,9 +52,23 @@ const Update = async (ctx) => {
     if (!info.student) {
         info.student = [];
     }
+    // 更新班级信息
     let result = await classDao.updateClassInfo(info);
+    // 找到所有匹配的文章信息
+    let students = info.student;
+    let levels = info.articleLevel;
+    // let articles = await articleDao.getByLevels(levels);
+    // 更新学生表
+    let studentResult = await studentDao.updateStudentsLevels(students, levels);
+    // console.log("难度：", levels, "列表：", articles);
+    // 更新课程表
+    console.log("现在准备更新课程表了！！！学生", students);
+    let courseResult = await students.forEach(s => {
+        courseDao.addCourse(s);
+    });
+    // let courseResult = await courseDao.updateCourses(students, articles);
 
-    if (result) {
+    if (courseResult) {
         message.status = 200;
     } else {
         message.status = 400;
