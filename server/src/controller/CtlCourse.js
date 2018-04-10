@@ -1,8 +1,11 @@
 import CourseDao from "../dao/DaoCourse";
+import UserDao from "../dao/DaoUser";
 
 var CourseModel = require("../models").course;
+var UserModel = require("../models").user;
 
 var courseDao = new CourseDao(CourseModel);
+var userDao = new UserDao(UserModel);
 
 // 根据学生id 找到 对应的文章等级列表再去文章表找到所有的文章，再插入到课程表内
 const AddCourse = async ctx => {
@@ -82,7 +85,11 @@ const GetCourse = async ctx => {
         return;
     }
 
-    let result = await courseDao.getCourse(userinfo);
+    console.log(userinfo);
+    // user表信息
+    let user = await userDao.getUserInfo(userinfo.uid);
+    console.log("user:", user);
+    let result = await courseDao.getCourse({ uid: user.uid });
     if (result) {
         message.status = 200;
         message.message = "获取成功";

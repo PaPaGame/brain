@@ -4,7 +4,7 @@ var UserModel = require("../models").user;
 var util = require("util");
 
 var s;
-var StudentDao = function (stModel) {
+var StudentDao = function(stModel) {
     s = new stModel()
     DaoBase.call(this, stModel);
 }
@@ -27,24 +27,24 @@ StudentDao.prototype.addStudent = async (userinfo) => {
 
     let result = await StudentModel.create(student);
 
-    var user;
     if (result) {
         let uid = result._id;
-        user = new UserModel({
-            username: userinfo.username,
-            password: userinfo.password,
-            status: userinfo.status,
-            role: "1",
-            phone: userinfo.phone,
-            mail: userinfo.mail,
-            lastLoginTime: new Date().toISOString(),
-            lastLoginIP: "",
-            school: userinfo.school,
-            uid: uid
-        });
+        userinfo.uid = uid;
+        // user = new UserModel({
+        //     username: userinfo.username,
+        //     password: userinfo.password,
+        //     status: userinfo.status,
+        //     role: "1",
+        //     phone: userinfo.phone,
+        //     mail: userinfo.mail,
+        //     lastLoginTime: new Date().toISOString(),
+        //     lastLoginIP: "",
+        //     school: userinfo.school,
+        //     uid: uid
+        // });
     }
 
-    return await UserModel.create(user);
+    return await UserModel.create(userinfo);
 }
 
 StudentDao.prototype.deleteByUserName = async userinfo => {
@@ -115,5 +115,9 @@ StudentDao.prototype.updateStudentsLevels = async (students, levels) => {
         }, {
             upsert: true
         });
+}
+
+StudentDao.prototype.getById = async id => {
+    return StudentModel.findOne({ "_id": id });
 }
 module.exports = StudentDao;

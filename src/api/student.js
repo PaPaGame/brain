@@ -20,7 +20,7 @@ const student = {
         return ajax({
             url: "/student",
             method: "post",
-            data: user
+            params: user
         });
     },
 
@@ -28,7 +28,7 @@ const student = {
         return ajax({
             url: "/student/id",
             method: "post",
-            data: id
+            params: id
         })
     },
 
@@ -36,7 +36,7 @@ const student = {
         return ajax({
             url: "/student/all",
             method: "post",
-            data: query
+            params: query
         });
     }
 

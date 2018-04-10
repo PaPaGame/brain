@@ -6,7 +6,7 @@ var util = require("util");
 var StudentModel = require("../models").student;
 var ArticleModel = require("../models").article;
 var courseModel;
-var CourseDao = function (cm) {
+var CourseDao = function(cm) {
     courseModel = new cm();
     DaoBase.call(this, cm);
 }
@@ -105,24 +105,37 @@ CourseDao.prototype.answerQuiz = async userinfo => {
 
 CourseDao.prototype.getCourse = async userinfo => {
     let uid = userinfo.uid;
-    return await CourseModel.aggregate([{
-        $match: {
-            "uid": new mongoose.Types.ObjectId(uid)
-        }
-    }, {
-        $lookup: {
-            from: "article",
-            localField: "cid",
-            foreignField: "_id",
-            as: "article"
-        }
-    }, {
-        $sort: {
-            "courseState": -1,
-            "cid": -1,
-            "quizAccuracy": -1
-        }
-    }]);
+    // return await CourseModel.aggregate([{
+    //     $match: {
+    //         "uid": uid
+    //     }
+    // }, {
+    //     $lookup: {
+    //         from: "article",
+    //         localField: "cid",
+    //         foreignField: "_id",
+    //         as: "article"
+    //     }
+    // }, {
+    //     $sort: {
+    //         "courseState": -1,
+    //     }
+    // }]);
+    console.log("查询所有课程！！");
+    let courses = await CourseModel.find({
+        uid: uid
+    });
+    console.log("课程", courses);
+    let cids = [];
+    courses.forEach(c => {
+        cids.push(c.cid);
+    })
+    console.log("课程id", cids);
+    let articles = await ArticleModel.find({
+        "_id": { $in: cids }
+    });
+    console.log("文章id", articles);
+    return articles;
 }
 
 

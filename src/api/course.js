@@ -5,7 +5,7 @@ const course = {
         return ajax({
             url: "/course/get",
             method: "post",
-            data: query
+            params: query
         });
     }
 };

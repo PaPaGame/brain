@@ -41,7 +41,7 @@ const GetFuzzyByName = async (ctx) => {
 const AddStudent = async (ctx) => {
     let userinfo = ctx.request.body;
     let message = {};
-    let result = studentDao.addStudent(userinfo);
+    let result = await studentDao.addStudent(userinfo);
 
     if (result) {
         message.status = 200;
@@ -76,15 +76,19 @@ const DeleteStudent = async (ctx) => {
 
 const GetById = async (ctx) => {
     let userinfo = ctx.request.body;
+    let message = {};
     // console.log(userinfo);
     let result = await studentDao.getById(userinfo.id);
 
     if (result) {
-        ctx.body = {
-            status: 200,
-            info: result
-        };
+        message.status = 200;
+        message.info = result;
+    } else {
+        message.status = 400;
+        message.message = `未找到id为${userinfo.id}的学生`;
     }
+
+    ctx.body = message;
 }
 
 const UpdateArticleLevel = async ctx => {

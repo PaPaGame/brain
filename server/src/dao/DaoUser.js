@@ -7,7 +7,7 @@ var util = require("util");
 var mongoose = require("mongoose");
 
 var u;
-var UsersDAO = function (um) {
+var UsersDAO = function(um) {
     u = new um();
     DaoBase.call(this, um);
 };
@@ -37,4 +37,7 @@ UsersDAO.prototype.changePassword = async passwordInfo => {
     return await UserModel.update({ "_id": uid }, { $set: { "hash_password": u.hash_password } });
 }
 
+UsersDAO.prototype.getUserInfo = async id => {
+    return await UserModel.findOne({ "_id": id });
+}
 module.exports = UsersDAO;

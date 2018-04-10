@@ -11,7 +11,7 @@ module.exports = () => {
             const token = ctx.header.authorization;
             if (token) {
                 try {
-                    console.log("verify");
+                    console.log("verify", token.split(' ')[1], config);
                     let payload = verify(token.split(' ')[1], config.tokenSecret);
                     ctx.user = {
                         name: payload.name,
