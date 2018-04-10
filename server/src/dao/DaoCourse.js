@@ -105,36 +105,18 @@ CourseDao.prototype.answerQuiz = async userinfo => {
 
 CourseDao.prototype.getCourse = async userinfo => {
     let uid = userinfo.uid;
-    // return await CourseModel.aggregate([{
-    //     $match: {
-    //         "uid": uid
-    //     }
-    // }, {
-    //     $lookup: {
-    //         from: "article",
-    //         localField: "cid",
-    //         foreignField: "_id",
-    //         as: "article"
-    //     }
-    // }, {
-    //     $sort: {
-    //         "courseState": -1,
-    //     }
-    // }]);
-    console.log("查询所有课程！！");
     let courses = await CourseModel.find({
         uid: uid
     });
-    console.log("课程", courses);
     let cids = [];
     courses.forEach(c => {
         cids.push(c.cid);
     })
-    console.log("课程id", cids);
     let articles = await ArticleModel.find({
         "_id": { $in: cids }
     });
-    console.log("文章id", articles);
+
+    console.log(`用户：${uid} 的课程总数为${cids.length}`);
     return articles;
 }
 

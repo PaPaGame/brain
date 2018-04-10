@@ -85,10 +85,8 @@ const GetCourse = async ctx => {
         return;
     }
 
-    console.log(userinfo);
     // user表信息
     let user = await userDao.getUserInfo(userinfo.uid);
-    console.log("user:", user);
     let result = await courseDao.getCourse({ uid: user.uid });
     if (result) {
         message.status = 200;
