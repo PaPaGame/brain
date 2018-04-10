@@ -101,20 +101,19 @@ StudentDao.prototype.findFuzzyName = async (name, school) => {
     );
 }
 
-StudentDao.prototype.updateStudentsLevels = async (students, levels) => {
+StudentDao.prototype.updateStudents = async (students, levels, groupInfo) => {
+    // groupInfo = {id:"",name:""}
     let sids = [];
     students.forEach(student => {
         sids.push(student.id);
     })
 
     console.log(sids)
-    return await StudentModel.update({
-        "_id": { $in: sids }
-    }, {
-            "articleLevel": levels
-        }, {
-            upsert: true
-        });
+    return await StudentModel.update(
+        { "_id": { $in: sids } },
+        { "articleLevel": levels, "group": groupInfo },
+        { upsert: true }
+    );
 }
 
 StudentDao.prototype.getById = async id => {

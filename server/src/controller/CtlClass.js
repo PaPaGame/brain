@@ -57,9 +57,8 @@ const Update = async (ctx) => {
     // 找到所有匹配的文章信息
     let students = info.student;
     let levels = info.articleLevel;
-    // let articles = await articleDao.getByLevels(levels);
     // 更新学生表
-    let studentResult = await studentDao.updateStudentsLevels(students, levels);
+    let studentResult = await studentDao.updateStudents(students, levels, { id: info.id, name: info.name });
     // console.log("难度：", levels, "列表：", articles);
     // 更新课程表
     console.log("现在准备更新课程表了！！！学生", students);
