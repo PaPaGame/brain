@@ -5,8 +5,8 @@
         </span>
         <div>
             <ul>
-                <template v-for="(course,index) in courses">
-                    <course-card :courseInfo="{course}"></course-card>
+                <template v-for="(courseInfo,index) in courses">
+                    <course-card :courseInfo="courseInfo"></course-card>
                 </template>
             </ul>
         </div>

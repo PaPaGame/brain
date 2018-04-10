@@ -1,25 +1,19 @@
 <template>
     <section>
-        <el-card :body-style="{ padding: '0px' }"
-            class="boxCard">
+        <el-card :body-style="{ padding: '0px' }" class="boxCard">
             <div>
-                <img src="@/assets/logo.png"
-                    class="bgImage clearfix">
+                <img src="@/assets/logo.png" class="bgImage clearfix">
             </div>
-            <el-tooltip :content="this.courseModel.title"
-                placement="top"
-                effect="light">
-                {{this.courseModel.title}}
+            <!-- {{courseInfo.course.fullTitle}} -->
+            <el-tooltip :content="courseInfo.fullTitle" placement="top" effect="light">
                 <span class="title">
-                    {{this.courseModel.title.length >= 16 ? this.courseModel.title.substring(0,18) : this.courseModel.title}}
+                    {{courseInfo.fullTitle.length >= 16 ? courseInfo.fullTitle.substring(0,18) : courseInfo.fullTitle}}
+                    <!-- {{courseInfo.fullTitle}} -->
                 </span>
             </el-tooltip>
             <div style="width:160px;">
-                <div class="btn-go"
-                    @click="btnGoClick">Go</div>
-                <div class="btn-go"
-                    v-if="false"
-                    @click="btnGoAgainClcik">Go&nbsp;Again</div>
+                <div class="btn-go" @click="btnGoClick">Go</div>
+                <div class="btn-go" v-if="false" @click="btnGoAgainClcik">Go&nbsp;Again</div>
             </div>
         </el-card>
     </section>
@@ -41,20 +35,8 @@ export default {
     },
     data() {
         return {
-            courseModel: {
-                title: "",
-                cid: ""
-            }
+
         };
-    },
-    watch: {
-        courseInfo(val) {
-            // console.log("watch::::", val);
-            let c = val.course;
-            let a = val.course.article[0];
-            this.courseModel.title = a.fullTitle;
-            this.courseModel.cid = c.cid;
-        }
     }
 }
 </script>
