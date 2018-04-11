@@ -7,7 +7,7 @@
         <el-input ref="tiUsername"></el-input>
         <el-button type="primary" @click="getUserInfos" class="iconfont icon-chart">获取用户信息</el-button>
         <el-button type="primary" @click="printUserinfo">输出用户信息</el-button>
-        <course-card style="display:inline-block;"></course-card>
+        <!-- <course-card style="display:inline-block;"></course-card> -->
     </div>
 </template>
 

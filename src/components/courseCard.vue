@@ -23,8 +23,9 @@
 export default {
     methods: {
         btnGoClick() {
+            console.log("课程信息：", this.courseInfo);
             // 开始阅读
-            this.$router.push({ name: "readArticle", params: { info: this.courseInfo.course } });
+            this.$router.push({ name: "readArticle", params: { info: this.courseInfo } });
         },
         btnGoAgainClcik() {
 

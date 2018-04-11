@@ -1,23 +1,17 @@
 <template>
     <section>
         <el-row class="title-wapper">
-            <el-col :span="2"
-                class="title">{{$t('reading.title')}}</el-col>
-            <el-col :span="2"
-                :offset="20"
-                class="back"
-                @click.native="goBack">
+            <el-col :span="2" class="title">{{$t('reading.title')}}</el-col>
+            <el-col :span="2" :offset="20" class="back" @click.native="goBack">
                 <i class="el-icon-d-arrow-left"></i>{{$t("reading.back")}}</el-col>
         </el-row>
         <!-- <span>{{contentModel}}</span> -->
-        <el-tabs tab-position="top"
-            style="height: 150px;">
+        <el-tabs tab-position="top" style="height: 150px;">
             <!-- <el-tab-pane :label="$t('reading.alphabet')">
                 <step-preview></step-preview>
             </el-tab-pane> -->
             <el-tab-pane :label="$t('reading.reading')">
-                <step-read v-on:startReading="startReading"
-                    v-on:stopReading="stopReading"></step-read>
+                <step-read v-on:startReading="startReading" v-on:stopReading="stopReading"></step-read>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.record')">
                 <step-record></step-record>
@@ -26,11 +20,9 @@
                 <step-quiz></step-quiz>
             </el-tab-pane>
         </el-tabs>
-        <page-content :currentSentenceIndex="sentenceIndex"
-            ref="pageContent">
+        <page-content :currentSentenceIndex="sentenceIndex" ref="pageContent">
         </page-content>
-        <audio autoplay
-            ref="articleAudio"></audio>
+        <audio autoplay ref="articleAudio"></audio>
     </section>
 
     <!-- :title="course.title"
@@ -65,7 +57,7 @@ export default {
             this.$router.go(-1);
         },
         loadRemoteJSON() {
-            let f = this.contentModel.article[0].dirName;
+            let f = this.contentModel.dirName;
             this.getArticleInfo(f);
         },
         startReading() {
@@ -85,6 +77,7 @@ export default {
     }),
     watch: {
         contentModel(val) {
+            console.log("reading", val)
             this.contentModel = val;
             if (!this.contentModel) {
                 return;
