@@ -24,6 +24,21 @@
         <!-- <pop-up :PopUpIsShow="taiVisible">
             <tai-container @closePopUp="taiVisible = false"></tai-container>
         </pop-up> -->
+
+        <div>
+            <template v-for="(content,index) in contents">
+                <!-- 普通句子 -->
+                <template v-if="content.type == 1">
+
+                </template>
+                <!-- 灯泡句子 -->
+                <template v-else-if="content.type == 2">
+
+                </template>
+                <!-- 图片 -->
+                <template v-else-if="content.type===3"></template>
+            </template>
+        </div>
     </section>
 </template>
 
@@ -50,7 +65,8 @@ export default {
             currentPlayState: 0,
             sentenceIndexs: 1,
             taiVisible: false,
-            taiId: ""
+            taiId: "",
+            contents: []
         };
     },
     methods: {
@@ -66,7 +82,7 @@ export default {
                     pdiv.removeChild(pdiv.firstChild);
                 }
                 var strategy = new Strategy();
-                strategy.setOrigin(this.dirName,res);
+                strategy.setOrigin(this.dirName, res);
                 let divs = strategy.getAllContentDiv();
                 this.divs = divs;
                 //追加内容
