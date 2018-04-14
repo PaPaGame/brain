@@ -58,7 +58,9 @@ export default {
         },
         loadRemoteJSON() {
             let f = this.contentModel.dirName;
-            this.getArticleInfo(f);
+            this.getArticleInfo(f).then(res => {
+                console.log("加载成功");
+            });
         },
         startReading() {
             this.$refs.pageContent.start();
@@ -76,15 +78,6 @@ export default {
         tais: "tais"
     }),
     watch: {
-        contentModel(val) {
-            console.log("reading", val)
-            this.contentModel = val;
-            if (!this.contentModel) {
-                return;
-            }
-
-            this.loadRemoteJSON();
-        },
         '$route'(to, from) {
             this.contentModel = this.$route.params.info;
         }

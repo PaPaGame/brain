@@ -44,35 +44,40 @@ const actions = {
     },
 
     getArticleInfo({ commit, state }, payload) {
-        let folder = payload;
-        let fileName = folder + ".json";
-        var analyze = new ArticleAnalyze();
-        var obj = {};
-        async.series({
-            one: callback => {
-                loader({
-                    url: `/${folder}/${fileName}`
-                }).then(res => {
-                    this.articleInfos = Object.assign(obj, analyze.startBasicInfo(res));
-                    callback(null, this.articleInfos);
-                });
-            },
-            two: callback => {
-                let quizName = "quizzes.json";
-                loader({
-                    url: `/${folder}/${quizName}`
-                }).then(res => {
-                    let obj2 = analyze.startQuizs(res);
-                    obj.quizs = obj2;
-                    this.articleInfos = obj;
-                    callback(null, this.articleInfos);
-                });
-            }
-        }, (err, result) => {
-            this.articleInfos.dirName = folder;
-            console.log("final", this.articleInfos);
-            commit(types.COURSE_UPDATE_INFO, { data: this.articleInfos });
-        });
+        return new Promise((resolve, reject) => {
+
+
+            let folder = payload;
+            let fileName = folder + ".json";
+            var analyze = new ArticleAnalyze();
+            var obj = {};
+            async.series({
+                one: callback => {
+                    loader({
+                        url: `/${folder}/${fileName}`
+                    }).then(res => {
+                        this.articleInfos = Object.assign(obj, analyze.startBasicInfo(res));
+                        callback(null, this.articleInfos);
+                    });
+                },
+                two: callback => {
+                    let quizName = "quizzes.json";
+                    loader({
+                        url: `/${folder}/${quizName}`
+                    }).then(res => {
+                        let obj2 = analyze.startQuizs(res);
+                        obj.quizs = obj2;
+                        this.articleInfos = obj;
+                        callback(null, this.articleInfos);
+                    });
+                }
+            }, (err, result) => {
+                this.articleInfos.dirName = folder;
+                console.log("final", this.articleInfos);
+                commit(types.COURSE_UPDATE_INFO, { data: this.articleInfos });
+                resolve();
+            });
+        })
     },
 
     getTaiInfo({ commit, state }, payload) {
