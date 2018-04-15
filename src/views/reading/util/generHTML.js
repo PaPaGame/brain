@@ -20,8 +20,9 @@ GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios, audioIndex) 
     div.style.fontStyle.bold = fontStyle.bold;
     div.style.fontStyle.fontcolor = "#" + fontStyle.front_color;
     div.style.fontStyle.italic = fontStyle.italic;
-    // div.style.fontStyle. = fontStyle.name;
-    div.style.fontsize = fontStyle.size + "px";
+    div.style.fontFamily = fontStyle.name;
+    div.style.fontSize = fontStyle.size + "px";
+    // div.style.fontsize = fontStyle.size + "px";
     div.style.fontStyle.underline = fontStyle.underline == "true";
     words.forEach(word => {
         if (word.indexOf("~!tai") >= 0) {
