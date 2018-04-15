@@ -91,13 +91,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title {
-  font-size: 18px;
-  color: #393939;
-  font-weight: 600;
-}
-.back {
-  cursor: pointer;
-  font-size: 14px;
-}
+@import "./article.scss";
 </style>

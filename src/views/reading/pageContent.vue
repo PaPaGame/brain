@@ -187,29 +187,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.pageContent {
-  min-width: 850px;
-  min-height: 475px;
-  margin: 0 auto;
-  width: 100%;
-  height: 100%;
-  position: relative;
-  .contentContainer {
-    background-color: #f00;
-    position: relative;
-    left: 50%;
-    width: 100%;
-    height: 100%;
-    transform: translateX(-20%);
-  }
-}
-.ti {
-  color: red;
-  text-align: center;
-  width: 100%;
-  left: 50%;
-}
-.active {
-  background-color: yellowgreen;
-}
+@import "./pageContent.scss";
 </style>
