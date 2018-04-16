@@ -5,25 +5,22 @@
         <div class="pageContent">
             <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
             <div class="contentContainer" ref="contentContainer">
+
+            </div>
+            <span class="pagenumber leftPage">1</span>
+            <span class="pagenumber rightPage">2</span>
+            <!-- 翻页部分 -->
+            <div class="test">
+                <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton prevPage el-icon-arrow-left"></el-button>
+                <el-button size="mini" @click="btnPageChange(currentPage=0)" class="pageButton firstPage el-icon-d-arrow-left"></el-button>
+            </div>
+            <div>
+                <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right"></el-button>
+                <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
             </div>
         </div>
-        <!-- 翻页部分 -->
-        <div style="float:left;width:60px;text-align:right;">
-            <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)">上一页</el-button>
-            <el-button size="mini" @click="btnPageChange(currentPage=0)">首页</el-button>
-        </div>
-        <div style="float:right;width:60px;text-align:right;margin:'0 auto';">
-            <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)">下一页</el-button>
-            <el-button size="mini" @click="btnPageChange(totalPage-1)">末页</el-button>
-        </div>
+
         <tai-dialog :isShow="taiVisible" @close="onClose" :questionId="taiId"></tai-dialog>
-        <!-- <edu-dialog :isShow="taiVisible"
-            @close="taiVisible = false">
-            <span>Hello world</span>
-        </edu-dialog> -->
-        <!-- <pop-up :PopUpIsShow="taiVisible">
-            <tai-container @closePopUp="taiVisible = false"></tai-container>
-        </pop-up> -->
 
         <div>
             <template v-for="(content,index) in contents">
