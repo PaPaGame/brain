@@ -1,8 +1,8 @@
 <template>
     <section>
-        <label class="ti">{{this.title}}</label>
         <!-- 文章具体内容 -->
         <div class="pageContent">
+            <span class="ti">{{this.title}}</span>
             <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
             <div class="contentContainer" ref="contentContainer">
 
