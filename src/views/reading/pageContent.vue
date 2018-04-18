@@ -1,25 +1,27 @@
 <template>
-    <section>
-        <!-- 文章具体内容 -->
-        <div class="pageContent">
-            <span class="ti">{{this.title}}</span>
-            <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
-            <div class="contentContainer" ref="contentContainer">
+    <section class="story">
+        <div class="story-panel">
+            <!-- 文章具体内容 -->
+            <div class="pageContent">
+                <div class="title">{{this.title}}</div>
+                <!-- 翻页部分 -->
+                <div class="back-page">
+                    <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton el-icon-arrow-left"></el-button>
+                    <el-button size="mini" @click="btnPageChange(currentPage=0)" class="pageButton el-icon-d-arrow-left"></el-button>
+                </div>
+                <div class="forward-page">
+                    <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right"></el-button>
+                    <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
+                </div>
+                <div id="opened-book" ref="contentContainer">
 
-            </div>
-            <span class="pagenumber leftPage">1</span>
-            <span class="pagenumber rightPage">2</span>
-            <!-- 翻页部分 -->
-            <div class="test">
-                <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton prevPage el-icon-arrow-left"></el-button>
-                <el-button size="mini" @click="btnPageChange(currentPage=0)" class="pageButton firstPage el-icon-d-arrow-left"></el-button>
-            </div>
-            <div>
-                <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right"></el-button>
-                <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
+                </div>
+                <span class="pagenumber leftnumber">1</span>
+                <span class="pagenumber rightnumber">2</span>
+
+                <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
             </div>
         </div>
-
         <tai-dialog :isShow="taiVisible" @close="onClose" :questionId="taiId"></tai-dialog>
 
         <div>

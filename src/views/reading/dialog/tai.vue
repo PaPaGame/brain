@@ -1,22 +1,19 @@
 <template>
-    <edu-dialog :isShow="dialogVisible"
-        @close="close"
-        :title="this.question.question">
-        <el-radio-group v-model="radioLabel"
-            @change="onRadioChange(radioLabel)">
-            <el-radio v-for="(option,index) in question.answers"
-                :key="index"
-                :label="option.answer"></el-radio>
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.question.question" class="tai-dialog-panel">
+        <el-radio-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
+            <el-radio v-for="(option,index) in question.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
-        <el-button @click="submitAnswer">
-            <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         <transition name="list">
-            <div v-show="hits!=''">{{hits}}</div>
+            <div class="question_hint" v-show="hits!=''">
+                <p class="hint_text">{{hits}}</p>
+            </div>
         </transition>
+        <div class="question_button">
+            <el-button @click="submitAnswer" class="btn-submit">
+                <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+        </div>
 
-        <audio ref="taiAudio"
-            autoplay
-            @ended="playend"></audio>
+        <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
 
@@ -104,6 +101,49 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.el-dialog {
+  width: 100%;
+  .tai-dialog-panel {
+    width: 415px;
+  }
+}
 
+.el-dialog__title {
+  line-height: 24px;
+  font-size: 13px;
+  color: #ff0000;
+}
+
+.radio-item {
+  width: 300px;
+  line-height: 20px;
+  padding: 4px 30px 4px 26px;
+  margin-left: 0px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #333;
+}
+.question_button {
+  text-align: right;
+  margin-top: 3px;
+  padding-right: 23px;
+  .btn-submit {
+    width: 87px;
+    border-radius: 8px;
+  }
+}
+
+.question_hint {
+  min-height: 50px;
+  width: 100%;
+  background-color: #cbe3f9;
+  margin: 11px 0 0 9px;
+  .hint_text {
+    font-family: Arial;
+    font-size: 13px;
+    padding: 14px 15px 16px 10px;
+  }
+}
 </style>

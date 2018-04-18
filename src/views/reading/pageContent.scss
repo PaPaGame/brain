@@ -1,61 +1,66 @@
-.pageContent {
-    // min-width: 850px;// min-height: 475px;
+.story {
+    width: 944px;
     margin: 0 auto;
-    width: 905px;
-    height: 540px;
-    position: relative;
-    background-image: url("../../assets/bg.png");
-    background-repeat: no-repeat;
-    .contentContainer {
+    .story-panel {
         position: relative;
-        left: 13%;
-        top: 6%;
+        .pageContent {
+            // min-width: 850px;// min-height: 475px;
+            overflow: hidden;
+            color: #333;
+            margin: 0 auto;
+            width: 848px;
+            height: 600px;
+            background-image: url("../../assets/bg.png");
+            #opened-book {
+                position: relative;
+                height: 475px;
+                left: 13%;
+            }
+        }
+        .title {
+            width: 424px;
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        .back-page {
+            position: absolute;
+            top: 50%;
+        }
+        .pageButton {
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            display: block;
+        }
+        .nextPage {
+            right: 0px;
+            top: 45%;
+        }
+        .lastPage {
+            right: 0px;
+            top: 55%;
+        }
+        .pagenumber {
+            font-size: 12px;
+            bottom: 90px;
+        }
+        .leftnumber {
+            position: absolute;
+            left: 262px;
+        }
+        .rightnumber {
+            position: absolute;
+            right: 262px;
+        }
     }
-}
-
-.ti {
-    color: green;
-    display: inherit;
 }
 
 .active {
     background-color: yellowgreen;
 }
-
-.pageButton {
-    position: absolute;
-    height: 40px;
-    width: 40px;
-    cursor: pointer;
-    border-radius: 20px;
-    margin-left: 0px;
-}
-
-.nextPage {
-    right: 0px;
-    top: 45%;
-}
-
-.prevPage {
-    left: -30px;
-    top: 45%;
-}
-
-.firstPage {
-    left: -30px;
-    top: 55%;
-}
-
-.lastPage {
-    right: 0px;
-    top: 55%;
-}
-
-.pagenumber {
-    font-size: 12px;
-    bottom: 0px;
-}
-
-.leftPage {}
-
-.rightPage {}
