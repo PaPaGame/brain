@@ -9,7 +9,8 @@ var articleSchema = new Schema({
     level: Number,
     lexile: Number,
     layoutType: String,
-    status: String
+    status: String,
+    cover:String
 }, {
         timestamps: {
             type: Number,
