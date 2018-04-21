@@ -5,12 +5,12 @@ var articleSchema = new Schema({
     id: String,
     fullTitle: String,
     dirName: String,
-    part: String,
-    level: Number,
+    // part: String,
+    level: String,
     lexile: Number,
     layoutType: String,
     status: String,
-    cover:String
+    cover: String
 }, {
         timestamps: {
             type: Number,

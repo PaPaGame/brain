@@ -6,7 +6,7 @@ var util = require("util");
 var StudentModel = require("../models").student;
 var ArticleModel = require("../models").article;
 var courseModel;
-var CourseDao = function(cm) {
+var CourseDao = function (cm) {
     courseModel = new cm();
     DaoBase.call(this, cm);
 }
@@ -22,7 +22,7 @@ CourseDao.prototype.addCourse = async userinfo => {
     let articleLevel = student.articleLevel;
     // console.log(student, articleLevel);
     let articles = await ArticleModel.find({ "level": { $in: articleLevel } });
-    console.log(articles);
+    // console.log("查询出来的文章为：", articles);
 
     var courses = [];
 

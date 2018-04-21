@@ -2,7 +2,7 @@
     <section>
         <el-card :body-style="{ padding: '0px' }" class="boxCard">
             <div>
-                <img src="@/assets/logo.png" class="bgImage clearfix">
+                <img :src="coverURL" class="bgImage clearfix">
             </div>
             <!-- {{courseInfo.course.fullTitle}} -->
             <el-tooltip :content="courseInfo.fullTitle" placement="top" effect="light">
@@ -38,6 +38,11 @@ export default {
         return {
 
         };
+    },
+    computed: {
+        coverURL() {
+            return `//${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
+        }
     }
 }
 </script>
