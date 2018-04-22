@@ -4,6 +4,10 @@
             <!-- 文章具体内容 -->
             <div class="pageContent">
                 <div class="title">{{this.title}}</div>
+
+                <div id="opened-book" ref="contentContainer">
+
+                </div>
                 <!-- 翻页部分 -->
                 <div class="back-page">
                     <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton el-icon-arrow-left"></el-button>
@@ -12,9 +16,6 @@
                 <div class="forward-page">
                     <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right"></el-button>
                     <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
-                </div>
-                <div id="opened-book" ref="contentContainer">
-
                 </div>
                 <span class="pagenumber leftnumber">1</span>
                 <span class="pagenumber rightnumber">2</span>
@@ -139,7 +140,7 @@ export default {
             this.currentPlayMode = 1;
             this.currentPlayState = 1;
             var audioName = this.sentences[this.currentSentenceIndex];
-            this.$refs.audio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
+            this.$refs.audio.src = `//${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
             this.$refs.audio.play();
         },
         stop() {

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login-container">
         <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
             <h3 class="title">{{$t("signin.title")}}</h3>
             <el-form-item prop="username">
@@ -70,7 +70,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .verify-pos {
   position: absolute;
   right: 100px;
@@ -89,13 +89,15 @@ export default {
   width: 400px;
   border: 2px solid #8492a6;
 }
-.title {
-  margin: 0px auto 40px auto;
-  text-align: center;
-  color: #505458;
-}
-.loginform {
-  width: 350px;
-  padding: 35px 35px 15px 35px;
+.login-container {
+  .title {
+    margin: 0px auto 40px auto;
+    text-align: center;
+    color: #505458;
+  }
+  .loginform {
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+  }
 }
 </style>
