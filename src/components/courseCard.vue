@@ -62,7 +62,7 @@ export default {
   }
   .btn-go {
     height: 32px;
-    line-height: 32px;
+    line-height: 25px;
     padding: 0;
     border: 4px solid #fff;
     box-shadow: 3px 3px 10px #888;
@@ -87,6 +87,7 @@ export default {
     line-height: 20px;
     height: 20px;
     width: 100%;
+    color: #000;
   }
 }
 </style>
