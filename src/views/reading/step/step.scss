@@ -1,0 +1,19 @@
+    
+    .el-progress-bar__inner {
+        background: -webkit-gradient(linear, right 0, 0 0, from(#409eff), to(rgba(64,158,255,0.5)));
+        -webkit-transition: all .3s linear;
+        transition: all .3s linear;
+    }
+    .desc {
+        color: #fff;
+        margin-bottom:20px;
+        display: inline-block;
+
+    }
+    .btn-group {
+        margin-top: 20px;
+    }
+    .switch {
+        padding-left: 20px; 
+        color:#fff;
+    }

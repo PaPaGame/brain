@@ -64,5 +64,11 @@ export default {
   background-color: #e3e3e3;
   padding: 32px;
 }
+/*全局样式*/
+
+html,body {
+    padding: 0;
+    margin: 0;
+}
 </style>
 

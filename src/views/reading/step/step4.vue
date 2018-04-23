@@ -1,13 +1,15 @@
 <template>
     <div>
         <div>
-            <span>{{$t("reading.desc4")}}</span>
+            <span class='desc'>{{$t("reading.desc4")}}</span>
         </div>
         <el-progress :text-inside="true"
-            :stroke-width="18"
+            :stroke-width="28"
             :percentage="70"></el-progress>
+        <div class='btn-group'>
         <el-button>{{$t('reading.takequiz')}}</el-button>
         <el-button>{{$t('reading.takequizagain')}}</el-button>
+        </div>
     </div>
 </template>
 
@@ -17,6 +19,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "./step.scss";
 </style>

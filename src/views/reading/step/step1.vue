@@ -10,6 +10,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "./step.scss";
 </style>

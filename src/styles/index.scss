@@ -190,3 +190,8 @@ code {
 .multiselect--active {
     z-index: 1000 !important;
 }
+body,html {
+    padding:0;
+    margin:0;
+    overflow:hidden;
+}
