@@ -25,10 +25,10 @@
             font-weight: bold;
             margin-top: 30px;
         }
-        .back-page {
+        /*.back-page {
             position: absolute;
             top: 50%;
-        }
+        }*/
         .pageButton {
             position: absolute;
             height: 40px;
@@ -37,14 +37,14 @@
             border-radius: 20px;
             display: block;
         }
-        .nextPage {
+        /*.nextPage {
             right: 0px;
             top: 45%;
         }
         .lastPage {
             right: 0px;
             top: 55%;
-        }
+        }*/
         .pagenumber {
             font-size: 12px;
             bottom: 90px;
@@ -56,6 +56,34 @@
         .rightnumber {
             position: absolute;
             right: 262px;
+        }
+        .page-btn {
+            position: absolute;
+            top:50%;
+            left: 0px;
+            width:40px;
+            height: 40px;
+            margin-top:-20px;
+            text-align: center;
+            line-height: 40px;
+            &.forward-page {
+                left: auto;
+                right: 10px;
+            }
+            button {
+                margin: 0;
+                &:before {
+                    width: 40px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    text-align: center;
+                    line-height: 40px;
+                };
+            }
+        }
+        .btn-next {
+            bottom: 50px;
         }
     }
 }

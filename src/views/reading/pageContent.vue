@@ -9,12 +9,12 @@
 
                 </div>
                 <!-- 翻页部分 -->
-                <div class="back-page">
-                    <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton el-icon-arrow-left"></el-button>
+                <div class="page-btn back-page">
+                    <el-button size="medium" :v-show="currentPage!=0" @click="btnPageChange(--currentPage)" class="pageButton el-icon-arrow-left btn-next"></el-button>
                     <el-button size="mini" @click="btnPageChange(currentPage=0)" class="pageButton el-icon-d-arrow-left"></el-button>
                 </div>
-                <div class="forward-page">
-                    <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right"></el-button>
+                <div class="page-btn forward-page">
+                    <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right btn-next"></el-button>
                     <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
                 </div>
                 <span class="pagenumber leftnumber">1</span>
