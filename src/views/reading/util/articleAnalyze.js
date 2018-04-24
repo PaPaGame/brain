@@ -33,7 +33,7 @@ ArticleAnalyze.prototype.startBasicInfo = (originData) => {
 ArticleAnalyze.prototype.startQuizs = (originData) => {
     let result = [];
     originData.forEach(ele => {
-        result.push(ele.id);
+        result.push(ele.id.toString());
     })
     return result;
 }

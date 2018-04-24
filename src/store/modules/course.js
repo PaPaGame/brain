@@ -93,7 +93,7 @@ const actions = {
     getQuizInfo({ commit, state }, payload) {
         let { dirName, quizId } = payload;
         loader({
-            url: `/${dirname}/question/${quizId}.json`
+            url: `/${dirName}/question/${quizId}.json`
         }).then(res => {
             commit(types.COURSE_UPDATE_QUIZ, { data: res });
         })

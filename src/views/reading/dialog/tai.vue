@@ -9,8 +9,7 @@
             </div>
         </transition>
         <div class="question_button">
-            <el-button @click="submitAnswer" class="btn-submit">
-                <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button @click="submitAnswer" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
