@@ -91,3 +91,9 @@
 .active {
     background-color: yellowgreen;
 }
+#opened-book {
+    a.active{
+        background: #409eff;
+        color:#fff;
+    }
+}
