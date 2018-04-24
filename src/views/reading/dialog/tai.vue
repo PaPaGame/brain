@@ -40,6 +40,7 @@ export default {
             this.dialogVisible = this.isShow;
         },
         questionId() {
+            console.log(this.question)
             this.getTaiInfo({ dirName: this.dirName, taiId: this.questionId });
         }
     },

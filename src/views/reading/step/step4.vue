@@ -10,7 +10,7 @@
         <el-button @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
         <el-button>{{$t('reading.takequizagain')}}</el-button>
         </div>
-        <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId'></quiz-dialog>
+        <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' :questionArr='quizs'></quiz-dialog>
     </div>
 </template>
 
@@ -36,6 +36,7 @@ export default {
         takeQuiz(id) {
             this.dialogVisible = true;
             this.quizId = this.quizs[0];
+            console.log(this.quizs);
         },
         onClose() {
             this.dialogVisible = false;
