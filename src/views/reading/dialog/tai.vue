@@ -9,8 +9,7 @@
             </div>
         </transition>
         <div class="question_button">
-            <el-button @click="submitAnswer" class="btn-submit">
-                <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button @click="submitAnswer" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
@@ -41,6 +40,7 @@ export default {
             this.dialogVisible = this.isShow;
         },
         questionId() {
+            console.log(this.question)
             this.getTaiInfo({ dirName: this.dirName, taiId: this.questionId });
         }
     },

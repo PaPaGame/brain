@@ -66,7 +66,8 @@ export default {
             sentenceIndexs: 1,
             taiVisible: false,
             taiId: "",
-            contents: []
+            contents: [],
+            wordNode:[]
         };
     },
     methods: {
@@ -103,6 +104,7 @@ export default {
         },
         // 单词点击
         divClick(e) {
+
             // 如果正在播放原文，不能听单独的单词
             if (this.currentPlayMode == 1) {
                 return;
@@ -113,6 +115,17 @@ export default {
                 this.currentPlayMode = 0;
                 var audioName = node.getAttribute("_audio");
                 this.$refs.audio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
+
+                this.wordNode = document.getElementById('opened-book').getElementsByTagName('a');
+                for(var i = 0; i < this.wordNode.length; i ++) {
+                    // this.wordNode[i].setAttribute('class','');
+                    this.wordNode[i].style.background = 'inherit';
+                    this.wordNode[i].style.color = 'inherit';
+                }
+                // node.setAttribute('class', 'active');
+                node.style.background = '#409eff';
+                node.style.color = '#fff';
+                
             } else if (node.tagName.toLowerCase() == "i") {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
