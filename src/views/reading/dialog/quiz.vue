@@ -1,11 +1,11 @@
 <template>
     <edu-dialog :isShow="dialogVisible" @close="close" :title="this.quiz.question" class="tai-dialog-panel">
-        <el-radio-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
+        <el-checkbox-group v-if='this.quiz.question_type == "MultipleChecks"' v-model="checkArray" @change="onCheckChange(checkArray)">
+            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index)"></el-checkbox>
+        </el-checkbox-group>
+        <el-radio-group v-else v-model="radioLabel" @change="onRadioChange(radioLabel)">
                 <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
-        <!-- <el-checkbox-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
-            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" ></el-checkbox>
-        </el-checkbox-group> -->
         <div class="question_button">
             <el-button @click="submitAnswer(idx)" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         </div>
@@ -13,7 +13,6 @@
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
-
 <script>
 import eduDialog from "@/components/Dialog/dialog";
 import { mapActions, mapGetters } from 'vuex';
@@ -26,13 +25,13 @@ export default {
             dialogVisible: false,
             findAnswer: null,
             radioLabel: "",
+            checkArray:[],
             idx:''
         }
     },
     props: {
         isShow: { type: Boolean, default: false },
-        questionId: { type: String, default: "" },
-        questionArr: {type:Array, default:[]}
+        questionId: { type: String, default: "" }
     },
     watch: {
         isShow() {
@@ -43,13 +42,12 @@ export default {
             // console.log(this.quizs);
             this.getQuizInfo({ dirName: this.dirName, quizId: this.questionId });
             this.idx = parseInt(this.questionId) + 1;
-        },
-        questionArr() {
-            console.log(this.quizs);
+
         }
     },
     methods: {
-        onRadioChange(lbl) {
+        onRadioChange(lbl,idx) {
+            // console.log(lbl);
             let ans = this.quiz.answers;
             for (let i = 0; i < ans.length; i++) {
                 let answer = ans[i];
@@ -58,11 +56,25 @@ export default {
                     break;
                 }
             }
-
-            if (!this.findAnswer)
-                return;
-
-            this.playSound(this.findAnswer.audio);
+            // if (!this.findAnswer)
+            //     return;
+            if(typeof(idx) == 'number') {
+                if(this.checkArray.length == 0) {
+                    this.playSound(this.findAnswer.audio);
+                    console.log('reading')
+                } else if(this.checkArray.toString().search(lbl) > -1) {
+                    this.playSound(this.findAnswer.audio);
+                    console.log('reading')
+                }
+            } else {
+                this.playSound(this.findAnswer.audio);
+                console.log('reading')
+            }
+        },
+        onCheckChange(arr) {
+            // console.log(arr);
+            this.checkArray = arr;
+            // this.playSound(this.findAnswer.audio);
         },
         close() {
             this.dialogVisible = false;
@@ -82,15 +94,16 @@ export default {
             // }
         },
         submitAnswer(idx) {
-            console.log(idx);
-            console.log(this.questionArr);
+            // console.log(idx);
+
             // let 
             // if (!this.findAnswer) {
             //     return;
             // }
             // this.questionId += 1;
-            if(this.questionArr.toString().search(idx) > -1) {
-                this.questionId = this.questionArr[idx];
+            if(this.quizs.toString().search(idx) > -1) {
+                this.$emit('changeId',idx);
+                
             } else {
                 //发送数据
             }
