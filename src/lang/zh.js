@@ -160,7 +160,9 @@ export default {
         playmyreading: "Play My Reading",
         takequiz: "Take Quiz",
         takequizagain: "Take Quiz Again",
-        commit: "提交"
+        commit: "提交",
+        eglossary: "翻译",
+        ediduknow: "你知道吗？"
     },
     article: {
         id: "编号",
