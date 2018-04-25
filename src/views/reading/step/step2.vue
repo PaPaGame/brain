@@ -5,10 +5,10 @@
         </div>
         <el-progress :text-inside="true" :stroke-width="28" :percentage="70"></el-progress>
         <div class='btn-group'>
-            <el-button @click="start">{{$t('reading.readtome')}}</el-button>
-            <el-button @click="pause">{{$t('reading.pause')}}</el-button>
-            <span class='switch'>{{$t('reading.glossary')}}
-                <el-switch></el-switch>
+            <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>
+            <el-button type="warning" @click="pause">{{$t('reading.pause')}}</el-button>
+            <span class='switch'>
+                <el-switch v-model="switchVal"></el-switch> {{$t('reading.glossary')}}
             </span>
         </div>
     </div>
@@ -16,6 +16,11 @@
 
 <script>
 export default {
+    data(){
+        return {
+            switchVal:false
+        }
+    },
     methods: {
         start() {
             this.$emit("startReading");

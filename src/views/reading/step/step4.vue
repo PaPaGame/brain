@@ -7,10 +7,10 @@
             :stroke-width="28"
             :percentage="70"></el-progress>
         <div class='btn-group'>
-        <el-button @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
-        <el-button>{{$t('reading.takequizagain')}}</el-button>
+        <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
+        <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
         </div>
-        <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' :questionArr='quizs'></quiz-dialog>
+        <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' @changeId='changeId'></quiz-dialog>
     </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
         // quizDialog
     },
     props: {
-        isShow: { type: Boolean, default: false }
+        isShow: { type: Boolean, default: false },
     },
     data() {
         return {
@@ -36,12 +36,15 @@ export default {
         takeQuiz(id) {
             this.dialogVisible = true;
             this.quizId = this.quizs[0];
-            console.log(this.quizs);
+            // console.log(this.quizs);
         },
         onClose() {
             this.dialogVisible = false;
             // this.hits = "";
             this.$emit("close");
+        },
+        changeId(idx) {
+            this.quizId = idx.toString();
         },
         ...mapActions(["getQuizInfo"])
     },

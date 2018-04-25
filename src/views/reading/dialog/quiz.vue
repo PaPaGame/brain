@@ -1,19 +1,18 @@
 <template>
     <edu-dialog :isShow="dialogVisible" @close="close" :title="this.quiz.question" class="tai-dialog-panel">
-        <el-radio-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
+        <el-checkbox-group v-if='this.quiz.question_type == "MultipleChecks"' v-model="checkArray" @change="onCheckChange(checkArray)">
+            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index,$event)"></el-checkbox>
+        </el-checkbox-group>
+        <el-radio-group v-else v-model="radioLabel" @change="onRadioChange(radioLabel)">
                 <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
-        <!-- <el-checkbox-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
-            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" ></el-checkbox>
-        </el-checkbox-group> -->
         <div class="question_button">
-            <el-button @click="submitAnswer(idx)" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit"><!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
-
 <script>
 import eduDialog from "@/components/Dialog/dialog";
 import { mapActions, mapGetters } from 'vuex';
@@ -26,13 +25,13 @@ export default {
             dialogVisible: false,
             findAnswer: null,
             radioLabel: "",
+            checkArray:[],
             idx:''
         }
     },
     props: {
         isShow: { type: Boolean, default: false },
-        questionId: { type: String, default: "" },
-        questionArr: {type:Array, default:[]}
+        questionId: { type: String, default: "" }
     },
     watch: {
         isShow() {
@@ -43,13 +42,11 @@ export default {
             // console.log(this.quizs);
             this.getQuizInfo({ dirName: this.dirName, quizId: this.questionId });
             this.idx = parseInt(this.questionId) + 1;
-        },
-        questionArr() {
-            console.log(this.quizs);
+
         }
     },
     methods: {
-        onRadioChange(lbl) {
+        onRadioChange(lbl,idx,e) {
             let ans = this.quiz.answers;
             for (let i = 0; i < ans.length; i++) {
                 let answer = ans[i];
@@ -58,11 +55,21 @@ export default {
                     break;
                 }
             }
-
-            if (!this.findAnswer)
-                return;
-
-            this.playSound(this.findAnswer.audio);
+            // if (!this.findAnswer)
+            //     return;
+            if(typeof(idx) == 'number') {
+                if(e) {
+                    this.playSound(this.findAnswer.audio);
+                }
+            } else {
+                this.playSound(this.findAnswer.audio);
+                console.log('reading')
+            }
+        },
+        onCheckChange(arr) {
+            // console.log(arr);
+            this.checkArray = arr;
+            // this.playSound(this.findAnswer.audio);
         },
         close() {
             this.dialogVisible = false;
@@ -82,15 +89,16 @@ export default {
             // }
         },
         submitAnswer(idx) {
-            console.log(idx);
-            console.log(this.questionArr);
+            // console.log(idx);
+
             // let 
             // if (!this.findAnswer) {
             //     return;
             // }
             // this.questionId += 1;
-            if(this.questionArr.toString().search(idx) > -1) {
-                this.questionId = this.questionArr[idx];
+            if(this.quizs.toString().search(idx) > -1) {
+                this.$emit('changeId',idx);
+                
             } else {
                 //发送数据
             }
@@ -116,6 +124,34 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.tai-dialog-panel {
+    .el-dialog {
+        width:auto;
+        max-width: 500px;
+    }
+    .el-checkbox,.el-radio {
+        display: block;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .question_button {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .el-button--medium.is-round {
+        padding: 10px 30px;
+    }
+    .el-dialog__title {
+        color: #3a8ee6;
+        font-weight: bold;
+    }
+    .el-dialog__headerbtn {
+        top:10px;
+        right: 10px;
+        i {
+            font-weight: bold;
+        }
+    }
+}
 </style>
