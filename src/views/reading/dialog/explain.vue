@@ -6,7 +6,7 @@
                     <i class="iconfont icon-laba"></i>{{word.definition}}
                 </div>
                 <div v-if="word.image">
-                    <image :src="imageUrl" />
+                    <img :src="imageUrl" />
                 </div>
                 <div>
                     {{word.context}}
