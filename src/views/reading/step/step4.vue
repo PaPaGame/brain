@@ -7,8 +7,8 @@
             :stroke-width="28"
             :percentage="70"></el-progress>
         <div class='btn-group'>
-        <el-button @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
-        <el-button>{{$t('reading.takequizagain')}}</el-button>
+        <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
+        <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
         </div>
         <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' @changeId='changeId'></quiz-dialog>
     </div>

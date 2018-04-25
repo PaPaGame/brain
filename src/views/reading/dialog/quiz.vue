@@ -7,7 +7,7 @@
                 <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
         <div class="question_button">
-            <el-button @click="submitAnswer(idx)" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit"><!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
@@ -47,7 +47,6 @@ export default {
     },
     methods: {
         onRadioChange(lbl,idx,e) {
-            console.log(e);
             let ans = this.quiz.answers;
             for (let i = 0; i < ans.length; i++) {
                 let answer = ans[i];
@@ -61,7 +60,6 @@ export default {
             if(typeof(idx) == 'number') {
                 if(e) {
                     this.playSound(this.findAnswer.audio);
-                    console.log('reading')
                 }
             } else {
                 this.playSound(this.findAnswer.audio);
@@ -126,6 +124,34 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.tai-dialog-panel {
+    .el-dialog {
+        width:auto;
+        max-width: 500px;
+    }
+    .el-checkbox,.el-radio {
+        display: block;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .question_button {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .el-button--medium.is-round {
+        padding: 10px 30px;
+    }
+    .el-dialog__title {
+        color: #3a8ee6;
+        font-weight: bold;
+    }
+    .el-dialog__headerbtn {
+        top:10px;
+        right: 10px;
+        i {
+            font-weight: bold;
+        }
+    }
+}
 </style>

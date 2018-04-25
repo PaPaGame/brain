@@ -4,8 +4,8 @@
             <span class='desc'>{{$t("reading.desc3")}}</span>
         </div>
         <div class='btn-group'>
-        <el-button>{{$t('reading.record2')}}</el-button>
-        <el-button>{{$t('reading.playmyreading')}}</el-button>
+        <el-button type="primary">{{$t('reading.record2')}}</el-button>
+        <el-button type="warning">{{$t('reading.playmyreading')}}</el-button>
         </div>
     </div>
 </template>
