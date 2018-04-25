@@ -1,7 +1,7 @@
 <template>
     <edu-dialog :isShow="dialogVisible" @close="close" :title="this.quiz.question" class="tai-dialog-panel">
         <el-checkbox-group v-if='this.quiz.question_type == "MultipleChecks"' v-model="checkArray" @change="onCheckChange(checkArray)">
-            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index)"></el-checkbox>
+            <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index,$event)"></el-checkbox>
         </el-checkbox-group>
         <el-radio-group v-else v-model="radioLabel" @change="onRadioChange(radioLabel)">
                 <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
@@ -46,8 +46,8 @@ export default {
         }
     },
     methods: {
-        onRadioChange(lbl,idx) {
-            // console.log(lbl);
+        onRadioChange(lbl,idx,e) {
+            console.log(e);
             let ans = this.quiz.answers;
             for (let i = 0; i < ans.length; i++) {
                 let answer = ans[i];
@@ -59,10 +59,7 @@ export default {
             // if (!this.findAnswer)
             //     return;
             if(typeof(idx) == 'number') {
-                if(this.checkArray.length == 0) {
-                    this.playSound(this.findAnswer.audio);
-                    console.log('reading')
-                } else if(this.checkArray.toString().search(lbl) > -1) {
+                if(e) {
                     this.playSound(this.findAnswer.audio);
                     console.log('reading')
                 }
