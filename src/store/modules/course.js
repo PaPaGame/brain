@@ -9,7 +9,8 @@ const state = {
     title: "",
     pages: [],
     question: {},
-    quiz: {}
+    quiz: {},
+    glossaries: {}
 }
 
 const getters = {
@@ -19,7 +20,8 @@ const getters = {
     title: state => state.title,
     pages: state => state.pages,
     question: state => state.question,
-    quiz: state => state.quiz
+    quiz: state => state.quiz,
+    glossaries: state => state.glossaries
 }
 
 const mutations = {
@@ -29,6 +31,7 @@ const mutations = {
         state.tais = data.tais;
         state.quizs = data.quizs;
         state.pages = data.pages;
+        state.glossaries = data.glossaries;
     },
     [types.COURSE_UPDATE_QUESTION](state, { data }) {
         state.question = data;

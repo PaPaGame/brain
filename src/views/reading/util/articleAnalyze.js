@@ -26,6 +26,14 @@ ArticleAnalyze.prototype.startBasicInfo = (originData) => {
         result.tais.push(ele.id);
     });
 
+    // 解析名词解释
+    result.glossaries = {};
+    let glossaries = originData.glossaries;
+    glossaries.forEach(ele => {
+        let word = ele.word;
+        result.glossaries[word] = ele;
+    });
+
     return result;
 }
 
