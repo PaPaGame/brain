@@ -1,0 +1,50 @@
+.dialog-panel {
+    .el-dialog {
+        width:auto;
+        max-width: 500px;
+    }
+    .el-checkbox,.el-radio {
+        display: block;
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+    .question_button {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .el-button--medium.is-round {
+        padding: 10px 30px;
+    }
+    .el-dialog__title {
+        color: #3a8ee6;
+        font-weight: bold;
+    }
+    .el-dialog__headerbtn {
+        top:10px;
+        right: 10px;
+        i {
+            font-weight: bold;
+        }
+    }
+    .tabs {
+        img {
+            display: block;
+            margin:  20px auto;
+            border-radius: 10px;
+            box-shadow: rgb(58, 142, 230) 0px 0px 23px 1px;
+        }
+    }
+}
+.dialog-panel-explain {
+    .el-dialog__title {
+        font-size: 30px;
+    }
+    .def {
+        color:#e6a23c;
+        i {
+            padding-right: 10px;
+            position: relative;
+            top: 2px;
+        }
+    }
+}

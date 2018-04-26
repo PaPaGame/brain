@@ -1,8 +1,8 @@
 <template>
-    <edu-dialog :isShow="dialogVisible" @close="close" :title="wordSpell">
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="wordSpell" class='dialog-panel dialog-panel-explain'>
         <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
-            <el-tab-pane :label="$t('reading.eglossary')" name="first">
-                <div>
+            <el-tab-pane :label="$t('reading.eglossary')" name="first" class='tabs'>
+                <div class='def'>
                     <i class="iconfont icon-laba"></i>{{word.definition}}
                 </div>
                 <div v-if="word.image">
@@ -12,7 +12,7 @@
                     {{word.context}}
                 </div>
             </el-tab-pane>
-            <el-tab-pane :label="$t('reading.ediduknow')" name="second" v-if="word.fact">
+            <el-tab-pane :label="$t('reading.ediduknow')" name="second" v-if="word.fact" class='tabs'>
                 <div>
                     {{word.fact}}
                 </div>
@@ -77,5 +77,5 @@ export default {
 </script>
 
 <style>
-
+@import "./dialog.scss";
 </style>

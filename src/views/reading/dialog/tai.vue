@@ -1,5 +1,5 @@
 <template>
-    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.question.question" class="tai-dialog-panel">
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.question.question" class="tai-dialog-panel dialog-panel">
         <el-radio-group v-model="radioLabel" @change="onRadioChange(radioLabel)">
             <el-radio v-for="(option,index) in question.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
