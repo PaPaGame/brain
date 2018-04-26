@@ -1,11 +1,12 @@
 import Router from "koa-router";
 import { CourseController } from "../controller/index";
-const childRouter = new Router();
-
-childRouter.post("/course/add", CourseController.AddCourse);
-childRouter.post("/course/remove", CourseController.RemoveCourseByLevel);
-childRouter.post("/course/tai", CourseController.AnswerTai);
-childRouter.post("/course/quiz", CourseController.AnswerQuiz);
-childRouter.post("/course/get", CourseController.GetCourse);
+const childRouter = new Router({
+    prefix: '/course'
+});
+childRouter.post("/add", CourseController.AddCourse);
+childRouter.post("/remove", CourseController.RemoveCourseByLevel);
+childRouter.post("/tai", CourseController.AnswerTai);
+childRouter.post("/quiz", CourseController.AnswerQuiz);
+childRouter.post("/get", CourseController.GetCourse);
 
 module.exports = childRouter;
