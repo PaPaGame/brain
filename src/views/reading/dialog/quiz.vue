@@ -10,7 +10,7 @@
             <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit"><!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
         </div>
 
-        <audio ref="taiAudio" autoplay @ended="playend"></audio>
+        <audio ref="quizAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
 <script>
@@ -76,7 +76,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.taiAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
+            this.$refs.quizAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
         },
         playend() {
             // if (!this.findAnswer)

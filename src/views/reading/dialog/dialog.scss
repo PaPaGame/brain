@@ -40,11 +40,16 @@
         font-size: 30px;
     }
     .def {
+        cursor: pointer;
         color:#e6a23c;
         i {
             padding-right: 10px;
             position: relative;
             top: 2px;
+        }
+        &.active {
+            color:#3a8ee6;
+            font-weight: bold;
         }
     }
 }

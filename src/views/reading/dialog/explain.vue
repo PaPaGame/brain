@@ -2,7 +2,7 @@
     <edu-dialog :isShow="dialogVisible" @close="close" :title="wordSpell" class='dialog-panel dialog-panel-explain'>
         <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
             <el-tab-pane :label="$t('reading.eglossary')" name="first" class='tabs'>
-                <div class='def'>
+                <div class='def' @click='playSound(word.word)' v-bind:class='{ active:isReading }'>
                     <i class="iconfont icon-laba"></i>{{word.definition}}
                 </div>
                 <div v-if="word.image">
@@ -32,7 +32,8 @@ export default {
     data() {
         return {
             activeName2: 'first',
-            dialogVisible: false
+            dialogVisible: false,
+            isReading:false
         };
     },
     props: {
@@ -44,12 +45,18 @@ export default {
             console.log(tab, event);
         },
         playend() {
+            this.isReading = false;
         },
         close() {
             // this.word = {};
             this.activeName2 = "first";
             this.dialogVisible = false;
             this.$emit("close");
+        },
+        playSound(word) {
+            this.isReading = true;
+            console.log(this.glossaries[word].definition_audio)
+            this.$refs.glossaryAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${this.glossaries[word].definition_audio}`;
         }
     },
     watch: {
@@ -70,7 +77,8 @@ export default {
             return `${process.env.PUBLIC_PATH}/${this.dirName}/images/${this.word.image}`;
         },
         ...mapGetters({
-            dirName: "dirName"
+            dirName: "dirName",
+            glossaries:"glossaries"
         })
     }
 }
