@@ -1,5 +1,5 @@
 <template>
-    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.quiz.question" class="tai-dialog-panel">
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="this.quiz.question" class="tai-dialog-panel dialog-panel">
         <el-checkbox-group v-if='this.quiz.question_type == "MultipleChecks"' v-model="checkArray" @change="onCheckChange(checkArray)">
             <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index,$event)"></el-checkbox>
         </el-checkbox-group>
@@ -10,7 +10,7 @@
             <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit"><!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
         </div>
 
-        <audio ref="taiAudio" autoplay @ended="playend"></audio>
+        <audio ref="quizAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
 <script>
@@ -76,7 +76,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.taiAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
+            this.$refs.quizAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
         },
         playend() {
             // if (!this.findAnswer)
@@ -125,33 +125,5 @@ export default {
 </script>
 
 <style lang="scss">
-.tai-dialog-panel {
-    .el-dialog {
-        width:auto;
-        max-width: 500px;
-    }
-    .el-checkbox,.el-radio {
-        display: block;
-        margin-left: 0px;
-        margin-bottom: 10px;
-    }
-    .question_button {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .el-button--medium.is-round {
-        padding: 10px 30px;
-    }
-    .el-dialog__title {
-        color: #3a8ee6;
-        font-weight: bold;
-    }
-    .el-dialog__headerbtn {
-        top:10px;
-        right: 10px;
-        i {
-            font-weight: bold;
-        }
-    }
-}
+@import "./dialog.scss";
 </style>
