@@ -6,7 +6,7 @@ var util = require("util");
 var StudentModel = require("../models").student;
 var ArticleModel = require("../models").article;
 var courseModel;
-var CourseDao = function (cm) {
+var CourseDao = function(cm) {
     courseModel = new cm();
     DaoBase.call(this, cm);
 }
@@ -61,11 +61,15 @@ CourseDao.prototype.removeByLevel = async userinfo => {
     return await CourseModel.deleteMany({ "uid": uid, "cid": { $in: filterArticle } });
 }
 
-CourseDao.prototype.answerTai = async userinfo => {
-    let uid = userinfo.uid;
+CourseDao.prototype.answerTai = async (uid, userinfo) => {
     let cid = userinfo.cid;
-    let accuracy = userinfo.accuracy;
+    let { id, result } = userinfo.answer;
+    console.log(uid, cid, id, result);
     return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid }, { "taiAccuracy": accuracy, "taiState": 1 });
+}
+
+CourseDao.prototype.getCourseByUidAndCid = async (uid, cid) => {
+    return await CourseModel.find({ "uid": uid, "cid": cid });
 }
 
 CourseDao.prototype.answerQuiz = async userinfo => {

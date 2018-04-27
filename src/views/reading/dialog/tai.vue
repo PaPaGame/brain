@@ -9,7 +9,8 @@
             </div>
         </transition>
         <div class="question_button">
-            <el-button @click="submitAnswer" class="btn-submit"><i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button @click="submitAnswer" class="btn-submit">
+                <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
@@ -18,6 +19,7 @@
 
 <script>
 import eduDialog from "@/components/Dialog/dialog";
+import courseService from "@/api/course";
 import { mapActions, mapGetters } from 'vuex';
 export default {
     components: {
@@ -71,6 +73,15 @@ export default {
             this.hits = hit.text;
             this.playSound(hit.audio);
             // TODO: 发送数据
+
+            let query = {};
+            query.cid = this.cid; // 课程id
+            query.taiCount = this.tais.length; // 灯泡数量
+            query.answer = { "id": this.questionId, "result": this.findAnswer.correct };//灯泡id 回答对了还是错了
+            // console.log(query);
+            courseService.answerTai(query).then(res => {
+                // 答题的回调
+            });
         },
         close() {
             this.dialogVisible = false;
@@ -78,7 +89,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.taiAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
+            this.$refs.taiAudio.src = `${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
         },
         playend() {
             if (!this.findAnswer)
@@ -95,7 +106,9 @@ export default {
     computed: {
         ...mapGetters({
             dirName: "dirName",
-            question: "question"
+            question: "question",
+            cid: "cid",
+            tais: "tais"
         })
     }
 }
