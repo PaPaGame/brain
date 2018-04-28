@@ -14,7 +14,7 @@
                 <step-preview></step-preview>
             </el-tab-pane> -->
             <el-tab-pane :label="$t('reading.reading')">
-                <step-read v-on:startReading="startReading" v-on:stopReading="stopReading" ></step-read>
+                <step-read v-on:startReading="startReading" v-on:stopReading="stopReading"  @taiprogress='taiprogress'></step-read>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.record')">
                 <step-record></step-record>
@@ -66,10 +66,12 @@ export default {
         },
         startReading() {
             this.$refs.pageContent.start();
-            this.$emit('test11');
         },
         stopReading() {
             this.$refs.pageContent.stop();
+        },
+        taiprogress(idx) {
+            debugger;
         },
         ...mapActions(["getArticleInfo"])
 

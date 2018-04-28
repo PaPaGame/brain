@@ -12,7 +12,6 @@
             <el-button @click="submitAnswer" class="btn-submit">
                 <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
         </div>
-
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
 </template>
@@ -30,8 +29,9 @@ export default {
             dialogVisible: false,
             radioLabel: "",
             findAnswer: null,
-            hits: ""
-        };
+            hits: "",
+            answered:0 //已经达过(并且答对)的数量
+        }
     },
     props: {
         isShow: { type: Boolean, default: false },
@@ -42,7 +42,7 @@ export default {
             this.dialogVisible = this.isShow;
         },
         questionId() {
-            console.log(this.question)
+            // console.log(this.question)
             this.getTaiInfo({ dirName: this.dirName, taiId: this.questionId });
         }
     },
@@ -66,12 +66,12 @@ export default {
             if (!this.findAnswer) {
                 return;
             }
-
             let hits = this.findAnswer.hints;
             let rndIdx = Math.floor(Math.random() * 2);
             let hit = hits[rndIdx];
             this.hits = hit.text;
             this.playSound(hit.audio);
+
             // TODO: 发送数据
 
             let query = {};
@@ -82,6 +82,12 @@ export default {
             courseService.answerTai(query).then(res => {
                 // 答题的回调
             });
+            
+            //如果答对则 增加学习条进度
+            if(this.findAnswer.correct) {
+              this.answered = this.answered + 1;
+              this.$emit('taiprogress', this.answered);
+            }
         },
         close() {
             this.dialogVisible = false;

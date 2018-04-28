@@ -17,3 +17,16 @@
         padding-left: 20px; 
         color:#fff;
     }
+    .tool-box {
+        display:-webkit-flex;
+        display:-moz-flex;
+        display:-ms-flex;
+        display:flex;
+        .progress-box {
+
+        }
+        .btn-group {
+            margin-top:0;
+            min-width: 345px;
+        }
+    }

@@ -12,25 +12,28 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			// taiprogress:0
+			progress:0
 		}
 	},
 	props:{
-		totalCount:{ type: Number, default: 0 }
+		totalCount:{ type: Number, default: 0 },
+		taiprogress:{ type: Number, default: 0 }
 	},
 	watch:{
 		totalCount() {
 			console.log(this.totalCount +'总题目数');
 			console.log(this.taiprogress);
-			debugger;
+			this.progress = this.taiprogress/this.totalCount;
+			console.log(this.progress)
 			for(let i =0 ; i < this.totalCount; i++) {
 				let dom = document.createElement('span');
 				document.getElementsByClassName('progress-scale')[0].appendChild(dom);
 
 			}
 		},
-		taiprogress() {
-			debugger;
+		taiprogress(idx) {
+			console.log(this.taiprogress + '当前答题数目');
+			document.getElementsByClassName('progress-track')[0].style.width = this.progress*100 +'%';
 			// console.log(this.taiprogress +'当前已答对题目数');
 		}
 	},
@@ -43,9 +46,10 @@ export default {
 		// }
 	},
     computed: {
-        ...mapGetters({
-            taiprogress: "taiprogress"
-        })
+        // ...mapGetters({
+        //     taiprogress: "taiprogress",
+        //     tais:'tais'
+        // })
     }
 }
 </script>
@@ -64,7 +68,7 @@ export default {
 			top:0;
 			left: 0;
 			height: 100%;
-			width: 80%;
+			width: 0%;
 			-webkit-transition:all .3s ease-in-out;
 			-o-transition:all .3s ease-in-out;
 			transition:all .3s ease-in-out;

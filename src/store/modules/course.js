@@ -11,7 +11,8 @@ const state = {
     question: {},
     quiz: {},
     glossaries: {},
-    cid: ""
+    cid: "",
+    taiprogress:''
 }
 
 const getters = {
@@ -23,7 +24,8 @@ const getters = {
     question: state => state.question,
     quiz: state => state.quiz,
     glossaries: state => state.glossaries,
-    cid: state => state.cid
+    cid: state => state.cid,
+    taiprogress: state => state.taiprogress
 }
 
 const mutations = {
@@ -34,6 +36,7 @@ const mutations = {
         state.quizs = data.quizs;
         state.pages = data.pages;
         state.glossaries = data.glossaries;
+        state.taiprogress = data.taiprogress;
     },
     [types.COURSE_UPDATE_QUESTION](state, { data }) {
         state.question = data;
