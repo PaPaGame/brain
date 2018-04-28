@@ -42,7 +42,6 @@ const AnswerTai = async ctx => {
     let message = {};
     let userinfo = ctx.request.body;
 
-    console.log(ctx.state);
     let uid = ctx.state.user.id;
     // userinfo: user._id; 课程id, 正确率
     if (!userinfo || !uid) {
@@ -54,17 +53,19 @@ const AnswerTai = async ctx => {
 
     let course = await courseDao.getCourseByUidAndCid(uid, userinfo.cid);
 
-    let answers = course.answers;
+    // console.log("查询结果", course);
+    let answers = course.taiAnswer;
     let answer = userinfo.answer;
     if (answers.length == 0) {
         answers.push(answer);
     } else {
         for (let i = 0; i < answers.length; i++) {
             if (answers[i].id == answer.id) {
+                answers[i].result = answer.result;
             }
         }
     }
-    let result = await courseDao.answerTai(uid, userinfo);
+    let result = await courseDao.answerTai(course.uid, userinfo.cid, answers, userinfo.taiCount);
     if (result) {
         message.status = 200;
         message.message = "tai修改成功";
