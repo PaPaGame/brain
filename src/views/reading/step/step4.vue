@@ -3,9 +3,10 @@
         <div>
             <span class='desc'>{{$t("reading.desc4")}}</span>
         </div>
-        <el-progress :text-inside="true"
+        <!-- <el-progress :text-inside="true"
             :stroke-width="28"
-            :percentage="70"></el-progress>
+            :percentage="70"></el-progress> -->
+        <edu-progress :totalCount='totalCount' :currCount='currCount'></edu-progress>
         <div class='btn-group'>
         <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
         <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
@@ -15,13 +16,13 @@
 </template>
 
 <script>
-// import quizDialog from "@/components/Dialog/dialog";
+import eduProgress from "../dialog/progress";
 import QuizDialog from "../dialog/quiz";
 import { mapActions, mapGetters } from 'vuex';
 export default {
     components: {
-        QuizDialog
-        // quizDialog
+        QuizDialog,
+        eduProgress
     },
     props: {
         isShow: { type: Boolean, default: false },
@@ -29,7 +30,9 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            quizId:''//this.quizs[0]
+            quizId:'',//this.quizs[0]
+            totalCount:10,
+            currCount:5
         }
     },
     methods: {
@@ -37,6 +40,7 @@ export default {
             this.dialogVisible = true;
             this.quizId = this.quizs[0];
             // console.log(this.quizs);
+
         },
         onClose() {
             this.dialogVisible = false;
