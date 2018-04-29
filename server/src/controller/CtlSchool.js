@@ -42,15 +42,31 @@ const Delete = async (ctx) => {
 var school;
 const Get = async function (ctx) {
     let code = ctx.params['code'];
+    // let message = {};
+
+    // // console.log(ctx.state);
+    // let schoolCode = ctx.state.user.school;
+    // let schools;
+    // if (schoolCode === "") {
+    //     console.log("获取全部学校详情");
+    //     schools = await schoolDao.findAllSchool();
+    //     console.log("all school", schools);
+    // } else {
+    //     schools = await schoolDao.getByQuery({ code: `${schoolCode}` }, null, null, (err, data) => {
+    //         if (!!err)
+    //             console.log(`${err}`);
+    //     });
+    // }
+
+    // message.status = 200;
+    // message.schools = schools;
+    // ctx.body = message;
+
+
 
     if (!code) {
         console.log("获取全部学校详情");
-        let school = await schoolDao.findAllSchool((err, data) => {
-            if (!!err)
-                console.log(`${err}`);
-
-            // console.log(data);
-        });
+        let school = await schoolDao.findAllSchool();
 
         ctx.body = { schools: school };
     } else {
@@ -62,6 +78,10 @@ const Get = async function (ctx) {
 
         ctx.body = { schools: school };
     }
+}
+
+const GetAll = async ctx => {
+    console.log(ctx.state);
 }
 
 const FuzzyList = async ctx => {
@@ -84,5 +104,6 @@ module.exports = {
     Update,
     Delete,
     Get,
+    GetAll,
     FuzzyList
 };

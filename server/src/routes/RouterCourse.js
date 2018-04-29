@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import jwt from "../middleware/jwt";
 import { CourseController } from "../controller/index";
+
 const childRouter = new Router({
     prefix: '/course'
 });

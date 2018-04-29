@@ -18,21 +18,23 @@ util.inherits(SchoolDao, DaoBase);
  * 
  */
 SchoolDao.prototype.findAllSchool = async (ctx) => {
-    return await mongoose.model("school").aggregate([{
-        $lookup: {
-            from: "staff",
-            localField: "masterId",
-            foreignField: "_id",
-            as: "master"
-        }
-    }, {
-        $lookup: {
-            from: "staff",
-            localField: "staffId",
-            foreignField: "_id",
-            as: "staff"
-        }
-    }]);
+    // return await mongoose.model("school").aggregate([{
+    //     $lookup: {
+    //         from: "staff",
+    //         localField: "masterId",
+    //         foreignField: "_id",
+    //         as: "master"
+    //     }
+    // }, {
+    //     $lookup: {
+    //         from: "staff",
+    //         localField: "staffId",
+    //         foreignField: "_id",
+    //         as: "staff"
+    //     }
+    // }]);
+
+    return await SchoolModel.find({});
 };
 
 module.exports = SchoolDao;
