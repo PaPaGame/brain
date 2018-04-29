@@ -1,5 +1,5 @@
 <template>
-    <section class='reading-section'>
+    <section class='reading-section' >
         <el-row class="title-wapper">
             <el-col :span="10" class="title">{{$t('reading.title')}}</el-col>
             <el-col :span="2" :offset="12" style='float: right;'>
@@ -14,7 +14,7 @@
                 <step-preview></step-preview>
             </el-tab-pane> -->
             <el-tab-pane :label="$t('reading.reading')">
-                <step-read v-on:startReading="startReading" v-on:stopReading="stopReading"></step-read>
+                <step-read v-on:startReading="startReading" v-on:stopReading="stopReading"  @taiprogress='taiprogress'></step-read>
             </el-tab-pane>
             <el-tab-pane :label="$t('reading.record')">
                 <step-record></step-record>
@@ -62,7 +62,6 @@ export default {
         loadRemoteJSON() {
             let f = this.contentModel.dirName;
             this.getArticleInfo(f).then(res => {
-                console.log("加载成功");
             });
         },
         startReading() {
@@ -70,6 +69,9 @@ export default {
         },
         stopReading() {
             this.$refs.pageContent.stop();
+        },
+        taiprogress(idx) {
+            debugger;
         },
         ...mapActions(["getArticleInfo"])
 

@@ -104,6 +104,8 @@ export default {
                 if (this.currentPlayMode == 1) {
                     this.start();
                 }
+
+
             })
         },
         // 单词点击
@@ -159,7 +161,7 @@ export default {
             }
 
             this.currentPage = page;
-            console.log(this.currentPage);
+            console.log(this.currentPage +'当前页码');
             this.loadPage(this.pages[this.currentPage]);
         },
         start() {

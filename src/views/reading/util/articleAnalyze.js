@@ -33,7 +33,9 @@ ArticleAnalyze.prototype.startBasicInfo = (originData) => {
         let word = ele.word;
         result.glossaries[word] = ele;
     });
-
+    //灯泡进度
+    let taiprogress = 2;
+    result.taiprogress = taiprogress;
     return result;
 }
 
