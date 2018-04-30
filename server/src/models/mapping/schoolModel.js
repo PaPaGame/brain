@@ -8,7 +8,8 @@ var schoolSchema = new Schema({
     name: String,
     code: String,
     status: String,
-    staff: SchemaTypes.ObjectId,
+    masterId: SchemaTypes.ObjectId,
+    staffId: Array,
 }, {
         timestamps: {
             type: Number,

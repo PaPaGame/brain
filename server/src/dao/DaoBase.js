@@ -10,6 +10,7 @@ function DaoBase(m) {
 var model;
 /** 创建*/
 DaoBase.prototype.create = async function (doc) {
+    console.log("Base 创建", model);
     return await model.create(doc);
 };
 

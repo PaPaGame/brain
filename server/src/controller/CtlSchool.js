@@ -6,10 +6,10 @@ var schoolDao = new SchoolDao(SchoolModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
-    let result = schoolDao.create(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
+    console.log("创建", info, SchoolModel);
+
+    let result = await SchoolModel.create(info);
+    // let result = await schoolDao.create(info);
 
     if (result)
         ctx.body = { status: 200 };
@@ -39,8 +39,7 @@ const Delete = async (ctx) => {
 
 }
 
-var school;
-const Get = async function (ctx) {
+const Get = async ctx => {
     let code = ctx.params['code'];
     // let message = {};
 
@@ -81,7 +80,25 @@ const Get = async function (ctx) {
 }
 
 const GetAll = async ctx => {
-    console.log(ctx.state);
+    let message = {};
+    let schoolCode = ctx.state.user.school;
+    let schools;
+    if (schoolCode === "") {
+        schools = await schoolDao.findAllSchool();
+    } else {
+        schools = await schoolDao.getByQuery({ code: `${code}` });
+    }
+
+    if (!schools) {
+        message.status = 400;
+        message.message = " 获取学校列表失败";
+        ctx.body = message;
+        return;
+    }
+
+    message.status = 200;
+    message.schools = schools;
+    ctx.body = message;
 }
 
 const FuzzyList = async ctx => {

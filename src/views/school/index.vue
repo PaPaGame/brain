@@ -28,12 +28,12 @@
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.master')" width="100">
                     <template slot-scope="scope">
-                        <span>{{scope.row.master}}</span>
+                        <span>{{scope.row.master[0].name}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.phone')" width="120">
                     <template slot-scope="scope">
-                        <span>{{scope.row.phone}}</span>
+                        <span>{{scope.row.master[0].phone}}</span>
                     </template>
                 </el-table-column>
                 <el-table-column align="center" :label="$t('school.createdTime')" width="150">

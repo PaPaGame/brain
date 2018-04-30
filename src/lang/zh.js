@@ -49,7 +49,9 @@ export default {
         create: "创建",
         edit: "编辑",
         staff: "老师",
-        requiredCode: "校区编码必须填写"
+        requiredCode: "校区编码必须填写",
+        fuzzyMasterList: "支持模糊搜索校长名字",
+        noResult: "无结果"
     },
     staff: {
         searchName: "老师名字",
