@@ -116,11 +116,28 @@ const FuzzyList = async ctx => {
     ctx.body = message;
 }
 
+const isExist = async ctx => {
+    let message = {};
+    let code = ctx.request.body.code;
+    let result = await schoolDao.isExist(code);
+    if (!code) {
+        message.status = 400;
+        message.message = "学校码不正确";
+        ctx.body = message;
+        return;
+    }
+
+    message.status = 200;
+    message.exist = result != null;
+    ctx.body = message;
+}
+
 module.exports = {
     Create,
     Update,
     Delete,
     Get,
     GetAll,
-    FuzzyList
+    FuzzyList,
+    isExist
 };

@@ -94,7 +94,14 @@ export default {
             this.queryModel.code = this.queryModel.code.toUpperCase();
         },
         onSchoolCodeBlurHandler(e) {
-
+            let query = {};
+            query.code = this.queryModel.code;
+            console.log(query.code, this.queryModel);
+            schoolService.isExist(query).then(res => {
+                if (res.exist) {
+                    this.$message.error(this.$t("school.exist").replace("${0}", query.code));
+                }
+            })
         },
         async querySearchMasterAsync(queryStr, callback) {
             if (queryStr === "") {

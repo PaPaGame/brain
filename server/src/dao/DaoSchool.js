@@ -35,4 +35,8 @@ SchoolDao.prototype.findAllSchool = async (ctx) => {
     }]);
 };
 
+SchoolDao.prototype.isExist = async code => {
+    return await SchoolModel.findOne({ "code": code });
+}
+
 module.exports = SchoolDao;

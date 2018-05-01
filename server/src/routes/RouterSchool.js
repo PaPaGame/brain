@@ -14,5 +14,6 @@ childRouter.post("/all", SchoolController.GetAll);
 childRouter.post("/update", SchoolController.Update);
 childRouter.post("/delete", SchoolController.Delete);
 childRouter.post("/fuzzyList", SchoolController.FuzzyList);
+childRouter.post("/exist", SchoolController.isExist);
 
 module.exports = childRouter;

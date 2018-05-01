@@ -51,7 +51,8 @@ export default {
         staff: "老师",
         requiredCode: "校区编码必须填写",
         fuzzyMasterList: "支持模糊搜索校长名字",
-        noResult: "无结果"
+        noResult: "无结果",
+        exist: "学校${0}已存在"
     },
     staff: {
         searchName: "老师名字",

@@ -39,6 +39,14 @@ const school = {
             method: "post",
             params: fuzzy
         })
+    },
+
+    isExist(query) {
+        return ajax({
+            url: "/school/exist",
+            method: "post",
+            params: query
+        })
     }
 };
 export default school;
