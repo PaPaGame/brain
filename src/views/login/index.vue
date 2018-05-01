@@ -13,6 +13,34 @@
             </el-form-item>
         </el-form>
     </div>
+    <!-- <section class="login-form account-form">
+        <div class="form-aligner">
+            <div class="innerBox">
+                <div class="left-box">
+                    <h1>Log in to System</h1>
+                    <img src="//s3-us-west-2.amazonaws.com/static-css-assets/bg/background-school-signup.svg">
+                </div>
+                <div class="right-box">
+                    <div class="row">
+                        <div class="login-field">
+                            <div class="group">
+                                <label>Username</label>
+                                <el-input></el-input>
+                            </div>
+                            <div class="group">
+                                <label>Password</label>
+                                <el-input></el-input>
+                            </div>
+                        </div>
+                        <div class="account-form-button-container">
+                            <el-button>Log in to System</el-button>
+                        </div>
+                    </div>
+                    <div class="footer"></div>
+                </div>
+            </div>
+        </div>
+    </section> -->
 </template>
 
 <script>
@@ -70,7 +98,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+ <style lang="scss" scoped>
 .verify-pos {
   position: absolute;
   right: 100px;
@@ -78,7 +106,6 @@ export default {
 }
 .card-box {
   padding: 20px;
-  /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
   -webkit-border-radius: 5px;
   border-radius: 5px;
   -moz-border-radius: 5px;
@@ -100,4 +127,6 @@ export default {
     padding: 35px 35px 15px 35px;
   }
 }
+
+// @import "./login.scss";
 </style>
