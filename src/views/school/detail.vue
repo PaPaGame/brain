@@ -12,9 +12,6 @@
                 <el-autocomplete class="searchBar" v-model="queryModel.masterName" :placeholder="$t('school.fuzzyMasterList')" :fetch-suggestions="querySearchMasterAsync" @select="masterSelectHandler"></el-autocomplete>
                 <span v-if="findMasterNothing">{{$t("school.noResult")}}</span>
             </el-form-item>
-            <el-form-item :label="$t('school.phone')" prop="phone">
-                <el-input v-model="queryModel.phone" clearable></el-input>
-            </el-form-item>
             <el-form-item :label="$t('school.status')">
                 <el-radio-group v-model="queryModel.status">
                     <el-radio label="1">开启</el-radio>
@@ -26,7 +23,7 @@
                 <el-button icon="el-icon-search" type="primary"></el-button>
                 <div>
                     <span>小坦克{{Math.random()}}</span>
-                    <el-button type="primary" icon="el-icon-plus" size="mini" @click="add"></el-button>
+                    <!-- <el-button type="primary" icon="el-icon-plus" size="mini" @click="add"></el-button> -->
                 </div>
                 <ul>
                     <li v-for="staff in staffs">
@@ -83,7 +80,14 @@ export default {
         },
         btnCreateHandler() {
             this.queryModel.staffId = this.staffs;
-            schoolService.createData(this.queryModel);
+            schoolService.createData(this.queryModel).then(res => {
+                if (res.status === 200) {
+                    this.$emit("fetchData");
+                } else {
+                    this.$message.error(this.$t("school.createError"));
+                }
+                this.close();
+            });
         },
         masterSelectHandler(e) {
             console.log("选择auto", e._id, e.name);

@@ -66,7 +66,7 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <detail-panel :info="schoolInfo" v-on:closeDialog="dialogVisible=false" :currentMode="dialogMode"></detail-panel>
+                <detail-panel :info="schoolInfo" @closeDialog="dialogVisible=false" @fetchData="getList" :currentMode="dialogMode"></detail-panel>
             </el-dialog>
         </div>
     </div>

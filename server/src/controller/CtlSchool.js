@@ -6,8 +6,6 @@ var schoolDao = new SchoolDao(SchoolModel);
 
 const Create = async (ctx) => {
     let info = ctx.request.body;
-    console.log("创建", info, SchoolModel);
-
     let result = await SchoolModel.create(info);
     // let result = await schoolDao.create(info);
 
@@ -27,16 +25,19 @@ const Update = async (ctx) => {
 }
 
 const Delete = async (ctx) => {
+    let message = {};
     let data = ctx.request.body;
-    let result = schoolDao.delete({ _id: `${data.id}` }, err => {
-        if (!!err)
-            console.log(`${err}`);
-    });
+    let result = await schoolDao.delete({ _id: `${data.id}` });
 
-    if (result) {
-        ctx.body = { status: 200 };
-    }
+    console.log("from controller school:::", schoolDao.getModel().modelName);
+    // console.log("get Model::", schoolDao.getModel());
+    // console.log("self Model:", SchoolModel);
+    // console.log("equal::", schoolDao.getModel === SchoolModel);
+    // await SchoolModel.remove({ _id: `${data.id}` });
 
+    // if (result) {
+    //     ctx.body = { status: 200 };
+    // }
 }
 
 const Get = async ctx => {

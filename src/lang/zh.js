@@ -31,7 +31,7 @@ export default {
         readArticle: "阅读内容"
     },
     school: {
-        searchName: "学校名称",
+        searchName: "学校编码",
         search: "搜索",
         add: "添加",
         code: "校区编码",
@@ -52,7 +52,8 @@ export default {
         requiredCode: "校区编码必须填写",
         fuzzyMasterList: "支持模糊搜索校长名字",
         noResult: "无结果",
-        exist: "学校${0}已存在"
+        exist: "学校${0}已存在",
+        createError: "创建学校失败"
     },
     staff: {
         searchName: "老师名字",

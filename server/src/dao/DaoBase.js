@@ -5,6 +5,7 @@
  */
 function DaoBase(m) {
     model = m;
+    console.log("实例化注册:", m.modelName);
 }
 
 var model;
@@ -35,6 +36,7 @@ DaoBase.prototype.getAll = async function () {
 
 /** 删除*/
 DaoBase.prototype.delete = async function (query) {
+    console.log("BASE", model.modelName);
     return await model.remove(query);
 }
 
@@ -42,6 +44,10 @@ DaoBase.prototype.delete = async function (query) {
 DaoBase.prototype.update = async function (conditions, update, options) {
     console.log(model, conditions, update, options);
     return await model.update(conditions, update, options);
+}
+
+DaoBase.prototype.getModel = () => {
+    return model;
 }
 
 module.exports = DaoBase;

@@ -3,10 +3,10 @@ var StaffModel = require("../models").staff;
 var UserModel = require("../models").user;
 var util = require("util");
 
-var staff;
-var StaffDao = function (staff) {
-    staff = new staff();
-    DaoBase.call(this, staff);
+var staffModel;
+var StaffDao = function (sm) {
+    staffModel = sm;
+    DaoBase.call(this, staffModel);
 }
 
 util.inherits(StaffDao, DaoBase);
