@@ -7,7 +7,7 @@ var util = require("util");
 var mongoose = require("mongoose");
 
 var u;
-var UsersDAO = function(um) {
+function UsersDAO(um) {
     u = new um();
     DaoBase.call(this, um);
 };

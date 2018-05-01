@@ -4,50 +4,51 @@
  * @param {any} m 
  */
 function DaoBase(m) {
-    model = m;
-    console.log("实例化注册:", m.modelName);
+    //http://www.davidmclifton.com/2011/07/21/javascript-objects-and-inheritance/
+    // 在这找到的解决方案， 不一定是最佳的
+    // @date 2018-05-01 23:36:38
+    this.model = m;
 }
 
-var model;
 /** 创建*/
 DaoBase.prototype.create = async function (doc) {
     console.log("Base 创建", model);
-    return await model.create(doc);
+    return await this.model.create(doc);
 };
 
 /** 根据id查找*/
 DaoBase.prototype.getById = async function (id) {
-    return await model.findOne({ _id: id });
+    return await this.model.findOne({ _id: id });
 };
 
 /** 数量*/
 DaoBase.prototype.countByQuery = async function (query) {
-    return await model.find(query);
+    return await this.model.find(query);
 };
 
 /** 查找内容，不一定是全部的集合*/
 DaoBase.prototype.getByQuery = async function (query, fileds, opt) {
-    return await model.find(query, fileds, opt);
+    return await this.model.find(query, fileds, opt);
 };
 
 DaoBase.prototype.getAll = async function () {
-    return await model.find({}, null, { sort: { "createdAt": -1 } });
+    return await this.model.find({}, null, { sort: { "createdAt": -1 } });
 };
 
 /** 删除*/
 DaoBase.prototype.delete = async function (query) {
-    console.log("BASE", model.modelName);
-    return await model.remove(query);
+    console.log("BASE", this.model.modelName);
+    return await this.model.remove(query);
 }
 
 /** 更新*/
 DaoBase.prototype.update = async function (conditions, update, options) {
     console.log(model, conditions, update, options);
-    return await model.update(conditions, update, options);
+    return await this.model.update(conditions, update, options);
 }
 
 DaoBase.prototype.getModel = () => {
-    return model;
+    return this.model;
 }
 
 module.exports = DaoBase;

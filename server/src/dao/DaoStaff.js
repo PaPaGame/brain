@@ -4,7 +4,7 @@ var UserModel = require("../models").user;
 var util = require("util");
 
 var staffModel;
-var StaffDao = function (sm) {
+function StaffDao(sm) {
     staffModel = sm;
     DaoBase.call(this, staffModel);
 }

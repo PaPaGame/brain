@@ -3,9 +3,9 @@ var StudentModel = require("../models").student;
 var UserModel = require("../models").user;
 var util = require("util");
 
-var s;
-var StudentDao = function(stModel) {
-    s = new stModel()
+var studentModel;
+function StudentDao(stModel) {
+    studentModel = stModel;
     DaoBase.call(this, stModel);
 }
 

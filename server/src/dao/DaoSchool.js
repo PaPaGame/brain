@@ -4,8 +4,8 @@ var DaoBase = require("./DaoBase");
 // var SchoolModel = require("../models").school;
 var util = require("util");
 
-var schoolModel;
-var SchoolDao = function (sch) {
+var schoolModel
+function SchoolDao(sch) {
     schoolModel = sch;
     DaoBase.call(this, sch);
 }

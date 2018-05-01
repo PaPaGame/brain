@@ -4,7 +4,7 @@ var util = require("util");
 
 var article;
 
-var ArticleDao = function (art) {
+function ArticleDao(art) {
     article = art;
     DaoBase.call(this, article);
 }

@@ -3,7 +3,7 @@ var ClassModel = require("../models").class;
 var util = require("util");
 
 var classModel;
-var ClassDao = function (cm) {
+function ClassDao(cm) {
     classModel = cm;
     DaoBase.call(this, cm);
 }
