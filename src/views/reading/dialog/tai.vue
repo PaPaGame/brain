@@ -9,8 +9,9 @@
             </div>
         </transition>
         <div class="question_button">
-            <el-button @click="submitAnswer" class="btn-submit">
-                <i class="iconfont icon-laba"></i>{{$t('reading.commit')}}</el-button>
+            <el-button @click="submitAnswer" type="primary" round class="btn-submit">
+                {{$t('reading.commit')}}</el-button>
+            <!-- <i class="iconfont icon-laba"></i> -->
         </div>
         <audio ref="taiAudio" autoplay @ended="playend"></audio>
     </edu-dialog>
@@ -30,7 +31,7 @@ export default {
             radioLabel: "",
             findAnswer: null,
             hits: "",
-            answered:0 //已经达过(并且答对)的数量
+            answered: 0 //已经达过(并且答对)的数量
         }
     },
     props: {
@@ -82,11 +83,11 @@ export default {
             courseService.answerTai(query).then(res => {
                 // 答题的回调
             });
-            
+
             //如果答对则 增加学习条进度
-            if(this.findAnswer.correct) {
-              this.answered = this.answered + 1;
-              this.$emit('taiprogress', this.answered);
+            if (this.findAnswer.correct) {
+                this.answered = this.answered + 1;
+                this.$emit('taiprogress', this.answered);
             }
         },
         close() {
@@ -120,49 +121,50 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.el-dialog {
-  width: 100%;
-  .tai-dialog-panel {
-    width: 415px;
-  }
-}
+<style lang="scss">
+@import "./dialog.scss";
+// .el-dialog {
+//   width: 100%;
+//   .tai-dialog-panel {
+//     width: 415px;
+//   }
+// }
 
-.el-dialog__title {
-  line-height: 24px;
-  font-size: 13px;
-  color: #ff0000;
-}
+// .el-dialog__title {
+//   line-height: 24px;
+//   font-size: 13px;
+//   color: #ff0000;
+// }
 
-.radio-item {
-  width: 300px;
-  line-height: 20px;
-  padding: 4px 30px 4px 26px;
-  margin-left: 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 500;
-  font-size: 13px;
-  color: #333;
-}
-.question_button {
-  text-align: right;
-  margin-top: 3px;
-  padding-right: 23px;
-  .btn-submit {
-    width: 87px;
-    border-radius: 8px;
-  }
-}
+// .radio-item {
+//   width: 300px;
+//   line-height: 20px;
+//   padding: 4px 30px 4px 26px;
+//   margin-left: 0px;
+//   font-family: Arial, Helvetica, sans-serif;
+//   font-weight: 500;
+//   font-size: 13px;
+//   color: #333;
+// }
+// .question_button {
+//   text-align: right;
+//   margin-top: 3px;
+//   padding-right: 23px;
+//   .btn-submit {
+//     width: 87px;
+//     border-radius: 8px;
+//   }
+// }
 
-.question_hint {
-  min-height: 50px;
-  width: 100%;
-  background-color: #cbe3f9;
-  margin: 11px 0 0 9px;
-  .hint_text {
-    font-family: Arial;
-    font-size: 13px;
-    padding: 14px 15px 16px 10px;
-  }
-}
+// .question_hint {
+//   min-height: 50px;
+//   width: 100%;
+//   background-color: #cbe3f9;
+//   margin: 11px 0 0 9px;
+//   .hint_text {
+//     font-family: Arial;
+//     font-size: 13px;
+//     padding: 14px 15px 16px 10px;
+//   }
+// }
 </style>

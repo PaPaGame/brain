@@ -4,10 +4,11 @@
             <el-checkbox v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" @change="onRadioChange(option.answer,index,$event)"></el-checkbox>
         </el-checkbox-group>
         <el-radio-group v-else v-model="radioLabel" @change="onRadioChange(radioLabel)">
-                <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
+            <el-radio v-for="(option,index) in quiz.answers" :key="index" :label="option.answer" class="radio-item"></el-radio>
         </el-radio-group>
         <div class="question_button">
-            <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit"><!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
+            <el-button type="primary" round @click="submitAnswer(idx)" class="btn-submit">
+                <!-- <i class="iconfont icon-laba"></i> -->{{$t('reading.commit')}}</el-button>
         </div>
 
         <audio ref="quizAudio" autoplay @ended="playend"></audio>
@@ -25,8 +26,8 @@ export default {
             dialogVisible: false,
             findAnswer: null,
             radioLabel: "",
-            checkArray:[],
-            idx:''
+            checkArray: [],
+            idx: ''
         }
     },
     props: {
@@ -46,7 +47,7 @@ export default {
         }
     },
     methods: {
-        onRadioChange(lbl,idx,e) {
+        onRadioChange(lbl, idx, e) {
             let ans = this.quiz.answers;
             for (let i = 0; i < ans.length; i++) {
                 let answer = ans[i];
@@ -57,8 +58,8 @@ export default {
             }
             // if (!this.findAnswer)
             //     return;
-            if(typeof(idx) == 'number') {
-                if(e) {
+            if (typeof (idx) == 'number') {
+                if (e) {
                     this.playSound(this.findAnswer.audio);
                 }
             } else {
@@ -96,9 +97,9 @@ export default {
             //     return;
             // }
             // this.questionId += 1;
-            if(this.quizs.toString().search(idx) > -1) {
-                this.$emit('changeId',idx);
-                
+            if (this.quizs.toString().search(idx) > -1) {
+                this.$emit('changeId', idx);
+
             } else {
                 //发送数据
             }
