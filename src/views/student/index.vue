@@ -90,6 +90,9 @@ export default {
                 // { prop: "mail", label: this.$t('student.mail'), width: '140' },
                 {                    prop: "articleLevel", label: this.$t('student.article'), width: '140',
                     template: (row) => {
+                        if (!row.articleLevel) {
+                            return "";
+                        }
                         return row.articleLevel.join(",");
                     }
                 },

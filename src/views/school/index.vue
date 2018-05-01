@@ -66,7 +66,7 @@
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
-                <detail-panel :info="schoolInfo" v-on:closeDialog="dialogVisible=false"></detail-panel>
+                <detail-panel :info="schoolInfo" v-on:closeDialog="dialogVisible=false" :currentMode="dialogMode"></detail-panel>
             </el-dialog>
         </div>
     </div>
@@ -84,6 +84,7 @@ export default {
             list: null,
             dialogVisible: false,
             dialogTitle: null,
+            dialogMode: "",
             schoolInfo: {
                 code: null,
                 status: 0,
@@ -109,7 +110,9 @@ export default {
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
         operateHandler(row, op) {
+            console.log(row, op);
             this.schoolInfo = row;
+            this.dialogMode = op;
             switch (op) {
                 case "edit":
                     this.dialogVisible = true;

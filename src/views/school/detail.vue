@@ -2,7 +2,7 @@
     <div>
         <el-form :model="queryModel" :rules="rules" label-position="left" label-width="85px">
             <el-form-item :label="$t('school.code')" prop="code">
-                <el-input v-model="queryModel.code" clearable></el-input>
+                <el-input v-model="queryModel.code" clearable @change="onSchoolCodeChange" @blur="onSchoolCodeBlurHandler" :disabled="this.currentMode == 'edit'"></el-input>
             </el-form-item>
             <el-form-item :label="$t('school.name')" prop="code">
                 <el-input v-model="queryModel.name" clearable></el-input>
@@ -52,7 +52,8 @@ export default {
         info: {
             type: Object,
             default: null
-        }
+        },
+        currentMode: String
     },
     data() {
         return {
@@ -62,6 +63,7 @@ export default {
                 code: [{ required: true, message: this.$t("school.requiredCode"), trigger: 'change' }]
             },
             queryModel: {
+                code: "",
                 masterId: "",
                 staffId: []
             }
@@ -87,6 +89,12 @@ export default {
             console.log("选择auto", e._id, e.name);
             this.queryModel.masterId = e._id;
             this.queryModel.masterName = e.name;
+        },
+        onSchoolCodeChange(e) {
+            this.queryModel.code = this.queryModel.code.toUpperCase();
+        },
+        onSchoolCodeBlurHandler(e) {
+
         },
         async querySearchMasterAsync(queryStr, callback) {
             if (queryStr === "") {
