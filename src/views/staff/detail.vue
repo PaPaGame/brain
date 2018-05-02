@@ -1,5 +1,5 @@
 <template>
-    <edu-dialog :isShow="dialogVisible" @close="close">
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="dialogTitle">
         <el-form :model="staffModel">
             <el-form-item :label="$t('staff.username')" label-width="100px">
                 <el-input v-model="staffModel.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
@@ -59,6 +59,8 @@ export default {
     },
     props: {
         isShow: { type: Boolean, default: false },
+        dialogTitle: { type: String, default: "" },
+        staffInfo: { type: Object, default: null }
     },
     watch: {
         isShow() {

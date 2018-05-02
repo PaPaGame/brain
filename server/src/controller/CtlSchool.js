@@ -110,7 +110,7 @@ const FuzzyList = async ctx => {
         message.message = "参数错误";
     }
 
-    let result = await SchoolModel.find({ "code": { $regex: info.code, $options: 'i' } });
+    let result = await SchoolModel.find({ "code": { $regex: info.code + "", $options: 'i' } });
 
     message.status = 200;
     message.school = result ? result : [];

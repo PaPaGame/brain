@@ -18,7 +18,7 @@
         </edu-table>
         <!-- 弹框 -->
         <div></div>
-        <detail-dialog :title="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo"></detail-dialog>
+        <detail-dialog :dialogTitle="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo"></detail-dialog>
     </div>
 </template>
 
@@ -50,9 +50,10 @@ export default {
                     this.dialogVisible = true;
                     break;
                 case "edit":
+                    this.staffInfo = row;
                     this.dialogTitle = this.$t('staff.edit');
                     this.dialogVisible = true;
-                    this.staffInfo = row;
+                    console.log("页面点击", this.staffInfo);
                     break;
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
