@@ -18,7 +18,7 @@
         </edu-table>
         <!-- 弹框 -->
         <div></div>
-        <detail-dialog :dialogTitle="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo"></detail-dialog>
+        <detail-dialog :dialogTitle="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo" :status="editStatus" @fetchStaffList="fetchList"></detail-dialog>
     </div>
 </template>
 
@@ -41,9 +41,14 @@ export default {
             this.getStaffList(this.queryModel);
         },
         btnSearchClickHandler() { },
+        fetchList() {
+            this.queryModel.school = this.userParam.school;
+            this.getStaffList(this.queryModel);
+        },
         operateHandler(row, opt) {
             let role = {};
             role.school = "";
+            this.editStatus = opt;
             switch (opt) {
                 case "create":
                     this.dialogTitle = this.$t('staff.createTitle');
@@ -53,13 +58,11 @@ export default {
                     this.staffInfo = row;
                     this.dialogTitle = this.$t('staff.edit');
                     this.dialogVisible = true;
-                    console.log("页面点击", this.staffInfo);
                     break;
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
                         if (res.status == 200) {
-                            this.queryModel.school = this.userParam.school;
-                            this.getStaffList(this.queryModel);
+                            this.fetchList();
                             this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
                         } else {
                             this.$message({ type: "error", message: this.$t("staff.deleteStaffFailed") });
@@ -71,8 +74,7 @@ export default {
         ...mapActions(["getStaffList"])
     },
     created() {
-        this.queryModel.school = this.userParam.school;
-        this.getStaffList(this.queryModel);
+        this.fetchList();
     },
     data() {
         return {
@@ -96,7 +98,8 @@ export default {
             },
             dialogTitle: "",
             dialogVisible: false,
-            staffInfo: {}
+            staffInfo: {},
+            editStatus: ""
         }
     },
     computed: {

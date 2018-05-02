@@ -27,7 +27,8 @@
         </edu-table>
         <div style="float:right">
             <el-button @click="close()">取 消</el-button>
-            <el-button type="primary" @click="addStaff">确 定</el-button>
+            <el-button type="primary" @click="addStaff" v-if="status === 'create'">确 定</el-button>
+            <el-button type="primary" @click="updateStaff" v-else-if="status === 'edit'">确 定</el-button>
         </div>
     </edu-dialog>
 </template>
@@ -60,7 +61,8 @@ export default {
     props: {
         isShow: { type: Boolean, default: false },
         dialogTitle: { type: String, default: "" },
-        staffInfo: { type: Object, default: null }
+        staffInfo: { type: Object, default: null },
+        status: { type: String, default: "" }
     },
     watch: {
         isShow() {
@@ -146,7 +148,16 @@ export default {
                 this.close();
                 this.getStaffList(this.userParam);
             });
-        }, ...mapActions(["getStaffList"])
+        },
+        updateStaff() {
+            staffService.updateStaff(this.staffModel).then(res => {
+                if (res.status === 200) {
+                    this.close();
+                    this.$emit("fetchStaffList");
+                }
+            });
+        },
+        ...mapActions(["getStaffList"])
     },
     computed: {
         userParam() {

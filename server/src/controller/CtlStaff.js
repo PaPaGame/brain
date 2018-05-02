@@ -20,10 +20,7 @@ const Create = async (ctx) => {
 
 const Update = async (ctx) => {
     let info = ctx.request.body;
-    let result = staffDao.update({ id: `${info._id}` }, { $set, info }, null, err => {
-        if (err)
-            console.log(err);
-    });
+    let result = staffDao.update({ id: `${info._id}` }, { $set, info }, null);
 
     if (result) {
         ctx.body = { status: 200 };

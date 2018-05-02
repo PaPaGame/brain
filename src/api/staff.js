@@ -30,6 +30,14 @@ const staff = {
         })
     },
 
+    updateStaff(info) {
+        return ajax({
+            url: "/staff/update",
+            medthod: "post",
+            params: info
+        })
+    },
+
     getTotalStaffCount() {
         return ajax({
             url: "/staff/count",
