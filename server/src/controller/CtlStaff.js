@@ -170,6 +170,7 @@ const GetStaff = async (ctx) => {
 const GetStaffList = async ctx => {
     let message = {};
     let queryInfo = ctx.request.body;
+    console.log("获取学校老师列表", queryInfo);
     let query = {};
     if (queryInfo.school != "") {
         query.school = queryInfo.school;

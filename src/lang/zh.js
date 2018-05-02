@@ -81,7 +81,8 @@ export default {
         groupStudentCount: "班级人数",
         deleteStaffSuccess: "删除老师成功",
         deleteStaffFailed: "删除老师失败",
-        unit: "个"
+        unit: "个",
+        edit: "编辑"
     },
     group: {
         searchName: "班级名字",

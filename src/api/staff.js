@@ -12,21 +12,21 @@ const staff = {
         return ajax({
             url: "/staff/getList",
             method: "post",
-            data: query
+            params: query
         })
     },
     addStaff(info) {
         return ajax({
             url: "/staff",
             method: "post",
-            data: info
+            params: info
         });
     },
     deleteStaff(info) {
         return ajax({
             url: "/staff/delete",
             method: "post",
-            data: info
+            params: info
         })
     }
 };

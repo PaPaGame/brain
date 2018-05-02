@@ -1,20 +1,20 @@
 <template>
     <edu-dialog :isShow="dialogVisible" @close="close">
-        <el-form :model="selectedItem">
+        <el-form :model="staffModel">
             <el-form-item :label="$t('staff.username')" label-width="100px">
-                <el-input v-model="selectedItem.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
+                <el-input v-model="staffModel.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.password')" label-width="100px">
-                <el-input auto-complete="off" v-model="selectedItem.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
+                <el-input auto-complete="off" v-model="staffModel.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.school')" label-width="100px">
-                <el-autocomplete v-model="selectedItem.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;"></el-autocomplete>
+                <el-autocomplete v-model="staffModel.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;"></el-autocomplete>
             </el-form-item>
             <el-form-item :label="$t('staff.phone')" label-width="100px">
-                <el-input v-model="selectedItem.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
+                <el-input v-model="staffModel.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.mail')" label-width="100px">
-                <el-input v-model="selectedItem.mail" auto-complete="off" :placeholder="$t('staff.placeholderMail')"></el-input>
+                <el-input v-model="staffModel.mail" auto-complete="off" :placeholder="$t('staff.placeholderMail')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.groupName')" label-width="100px">
                 <el-autocomplete :placeholder="$t('staff.placeholderGroupName')" :fetch-suggestions="querySearchGroupAsync" @select="groupSelectHandler" style="width: 100%;"></el-autocomplete>
@@ -47,7 +47,7 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            selectedItem: {},
+            staffModel: {},
             groupList: [],
             tableColumns: [
                 { prop: "name", label: this.$t('staff.groupName'), width: '250' },
@@ -63,6 +63,9 @@ export default {
     watch: {
         isShow() {
             this.dialogVisible = this.isShow;
+        },
+        staffInfo(val) {
+            this.staffModel = val;
         }
     },
     methods: {
@@ -129,11 +132,11 @@ export default {
             this.groupList.forEach(group => {
                 ids.push(group._id);
             })
-            this.selectedItem.group = ids;
-            this.selectedItem.status = 0;
-            this.selectedItem.role = 1;
-            console.log(this.selectedItem);
-            staffService.addStaff(this.selectedItem).then(res => {
+            this.staffModel.group = ids;
+            this.staffModel.status = 0;
+            this.staffModel.role = 1;
+            console.log(this.staffModel);
+            staffService.addStaff(this.staffModel).then(res => {
                 this.$message({
                     type: 'success',
                     message: res.message

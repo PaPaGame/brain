@@ -4,43 +4,21 @@
         <!-- 过滤器 -->
         <div>
             <div class="filter-container">
-                <el-input ref="tiSearch"
-                    type="input"
-                    :placeholder="$t('staff.searchName')"
-                    class="filter-item"
-                    style="width:200px"
-                    clearable></el-input>
-                <el-button type="primary"
-                    icon="el-icon-search"
-                    class="filter-item"
-                    @click="btnSearchClickHandler">{{$t('staff.search')}}</el-button>
-                <el-button type="primary"
-                    icon="el-icon-edit"
-                    class="filter-item"
-                    style="margin-left: 10px;"
-                    @click="operateHandler(null,'create')">{{$t('staff.add')}}</el-button>
+                <el-input ref="tiSearch" type="input" :placeholder="$t('staff.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+                <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('staff.search')}}</el-button>
+                <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('staff.add')}}</el-button>
             </div>
         </div>
         <!-- 表单 -->
-        <edu-table :tableColumns="tableColumns"
-            :tableData="staffList"
-            :totalCount="totalCount"
-            :pageSize="staffModel.pagesize"
-            @pageChange="pageChange"
-            ref="table">
-            <template slot="opBtns"
-                slot-scope="scope">
-                <el-button size="mini"
-                    @click="operateHandler(scope.row,'edit')">修改</el-button>
-                <el-button size="mini"
-                    @click="operateHandler(scope.row,'delete')">删除</el-button>
+        <edu-table :tableColumns="tableColumns" :tableData="staffList" :totalCount="totalCount" :pageSize="staffModel.pagesize" @pageChange="pageChange" ref="table">
+            <template slot="opBtns" slot-scope="scope">
+                <el-button size="mini" @click="operateHandler(scope.row,'edit')">修改</el-button>
+                <el-button size="mini" @click="operateHandler(scope.row,'delete')">删除</el-button>
             </template>
         </edu-table>
         <!-- 弹框 -->
         <div></div>
-        <detail-dialog :title="dialogTitle"
-            :isShow="dialogVisible"
-            @close="dialogVisible = false"></detail-dialog>
+        <detail-dialog :title="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo"></detail-dialog>
     </div>
 </template>
 
@@ -68,6 +46,9 @@ export default {
                     this.dialogVisible = true;
                     break;
                 case "edit":
+                    this.dialogTitle = this.$t('staff.edit');
+                    this.dialogVisible = true;
+                    this.staffInfo = row;
                     break;
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
@@ -93,7 +74,7 @@ export default {
                 { prop: "name", label: this.$t('staff.username'), width: '190' },
                 { prop: "school", label: this.$t('staff.school'), width: '90' },
                 { prop: "phone", label: this.$t('staff.phone'), width: '140' },
-                { prop: "mail", label: this.$t('staff.mail'), width: '140' },
+                { prop: "mail", label: this.$t('staff.mail'), width: '180' },
                 {                    prop: "group", label: this.$t('staff.group'), width: '140',
                     template: (row) => {
                         return row.group.length + this.$t('staff.unit');
@@ -109,7 +90,8 @@ export default {
             },
             totalCount: 0,
             dialogTitle: "",
-            dialogVisible: false
+            dialogVisible: false,
+            staffInfo: {}
         }
     },
     computed: {
