@@ -88,7 +88,7 @@ export default {
                 { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
                 { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
             ],
-            // showPage: true,
+            showPage: true,
             queryModel: {
                 currentPage: 1,
                 pageSize: 10,
