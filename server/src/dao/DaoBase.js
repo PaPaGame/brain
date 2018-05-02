@@ -23,7 +23,7 @@ DaoBase.prototype.getById = async function (id) {
 
 /** 数量*/
 DaoBase.prototype.countByQuery = async function (query) {
-    return await this.model.find(query);
+    return await this.model.count(query);
 };
 
 /** 查找内容，不一定是全部的集合*/

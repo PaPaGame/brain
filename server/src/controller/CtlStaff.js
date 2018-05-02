@@ -171,11 +171,7 @@ const GetStaffList = async ctx => {
     let message = {};
     let queryInfo = ctx.request.body;
     console.log("获取学校老师列表", queryInfo);
-    let query = {};
-    if (queryInfo.school != "") {
-        query.school = queryInfo.school;
-    }
-    let result = await staffDao.getStaffList(query);
+    let result = await staffDao.getStaffList(queryInfo);
     if (result) {
         message.status = 200;
         message.staffList = result;
@@ -184,6 +180,14 @@ const GetStaffList = async ctx => {
         message.message = "查询失败";
     }
 
+    ctx.body = message;
+}
+
+const GetStaffCount = async ctx => {
+    let message = {};
+    let result = await staffDao.countByQuery({});
+    message.status = 200;
+    message.count = result;
     ctx.body = message;
 }
 
@@ -199,5 +203,6 @@ module.exports = {
     AddStaff,
     DeleteStaff,
     GetStaff,
-    GetStaffList
+    GetStaffList,
+    GetStaffCount
 }

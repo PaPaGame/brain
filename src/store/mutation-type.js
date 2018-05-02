@@ -20,6 +20,7 @@ export const COURSE_SET_COURSE_ID = COURSE + "set_course_id"; // 设置课程id
 /***********************    老师相关    *****************************/
 const STAFF = APP + "staff_";
 export const STAFF_SCHOOL_LIST = STAFF + "school_list";
+export const STAFF_TOTAL_COUNT = STAFF + "total_count";
 
 
 /***********************    学生相关    *****************************/

@@ -55,7 +55,10 @@ StaffDao.prototype.deleteStaff = async userinfo => {
 }
 
 StaffDao.prototype.getStaffList = async queryinfo => {
-    return await StaffModel.find(queryinfo);
+    let pageSize = parseInt(queryinfo.pageSize);
+    let pageId = Math.max(parseInt(queryinfo.currentPage) - 1, 0);
+    let condition = queryinfo.school === "" ? {} : { "school": queryinfo.school }
+    return await StaffModel.find(condition).limit(pageSize).skip(pageSize * pageId);;
 }
 
 module.exports = StaffDao;

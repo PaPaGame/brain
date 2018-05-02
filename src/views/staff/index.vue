@@ -10,7 +10,7 @@
             </div>
         </div>
         <!-- 表单 -->
-        <edu-table :tableColumns="tableColumns" :tableData="staffList" :totalCount="totalCount" :pageSize="staffModel.pagesize" @pageChange="pageChange" ref="table">
+        <edu-table :tableColumns="tableColumns" :tableData="staffList" :totalCount="staffCount" :pageSize="queryModel.pagesize" @pageChange="pageChange" ref="table" :showPage="showPage">
             <template slot="opBtns" slot-scope="scope">
                 <el-button size="mini" @click="operateHandler(scope.row,'edit')">修改</el-button>
                 <el-button size="mini" @click="operateHandler(scope.row,'delete')">删除</el-button>
@@ -35,7 +35,11 @@ export default {
     methods: {
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
-        pageChange() { },
+        pageChange(e) {
+            // console.log(e);
+            this.queryModel.currentPage = e;
+            this.getStaffList(this.queryModel);
+        },
         btnSearchClickHandler() { },
         operateHandler(row, opt) {
             let role = {};
@@ -53,7 +57,8 @@ export default {
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
                         if (res.status == 200) {
-                            this.getStaffList(this.userParam);
+                            this.queryModel.school = this.userParam.school;
+                            this.getStaffList(this.queryModel);
                             this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
                         } else {
                             this.$message({ type: "error", message: this.$t("staff.deleteStaffFailed") });
@@ -65,8 +70,8 @@ export default {
         ...mapActions(["getStaffList"])
     },
     created() {
-        console.log(this.userParam);
-        this.getStaffList(this.userParam);
+        this.queryModel.school = this.userParam.school;
+        this.getStaffList(this.queryModel);
     },
     data() {
         return {
@@ -83,12 +88,11 @@ export default {
                 { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
                 { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
             ],
-            staffModel: {
-                curr_page: 1,
-                pagesize: 10,
-                type: "page"
+            // showPage: true,
+            queryModel: {
+                currentPage: 1,
+                pageSize: 10,
             },
-            totalCount: 0,
             dialogTitle: "",
             dialogVisible: false,
             staffInfo: {}
@@ -102,7 +106,8 @@ export default {
         },
         ...mapGetters({
             userinfo: "userinfo",
-            staffList: "staffList"
+            staffList: "staffList",
+            staffCount: "staffCount"
         })
     }
 }

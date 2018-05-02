@@ -28,6 +28,13 @@ const staff = {
             method: "post",
             params: info
         })
+    },
+
+    getTotalStaffCount() {
+        return ajax({
+            url: "/staff/count",
+            method: "post"
+        })
     }
 };
 
