@@ -33,7 +33,7 @@ const staff = {
     updateStaff(info) {
         return ajax({
             url: "/staff/update",
-            medthod: "post",
+            method: "post",
             params: info
         })
     },

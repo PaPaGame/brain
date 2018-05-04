@@ -19,6 +19,7 @@ const Create = async (ctx) => {
 }
 
 const Update = async (ctx) => {
+    let message = {};
     let info = ctx.request.body;
     let result = staffDao.update({ id: `${info._id}` }, { $set, info }, null);
 
