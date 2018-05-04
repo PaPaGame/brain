@@ -6,7 +6,7 @@ var util = require("util");
 var staffModel;
 function StaffDao(sm) {
     staffModel = sm;
-    DaoBase.call(this, staffModel);
+    DaoBase.call(this, sm);
 }
 
 util.inherits(StaffDao, DaoBase);

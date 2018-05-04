@@ -21,11 +21,12 @@ const Create = async (ctx) => {
 const Update = async (ctx) => {
     let message = {};
     let info = ctx.request.body;
-    let result = staffDao.update({ id: `${info._id}` }, { $set, info }, null);
+    let result = await staffDao.update({ "_id": `${info._id}` }, { $set: info }, null);
 
     if (result) {
-        ctx.body = { status: 200 };
+        message.status = 200;
     }
+    ctx.body = message;
 }
 
 const Get = async (ctx) => {
