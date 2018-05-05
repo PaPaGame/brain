@@ -1,6 +1,7 @@
 import StudentDao from "../dao/DaoStudent";
 
 var StudentModel = require("../models").student;
+var UserModel = require("../models").user;
 var studentDao = new StudentDao(StudentModel);
 
 const GetStudent = async (ctx) => {
@@ -41,6 +42,16 @@ const GetFuzzyByName = async (ctx) => {
 const AddStudent = async (ctx) => {
     let userinfo = ctx.request.body;
     let message = {};
+
+    // 先查询是否有这个用户名
+    let checkResult = await UserModel.findOne({ "username": userinfo.username });
+    if (checkResult) {
+        message.status = 400;
+        message.message = "账号已存在";
+        ctx.body = message;
+
+    }
+
     let result = await studentDao.addStudent(userinfo);
 
     if (result) {
@@ -127,11 +138,12 @@ const GetAllStudent = async ctx => {
         return;
     }
 
-    let query = info.school == "" ? {} : { school: info.school };
-    let result = await studentDao.getAllStudent(query);
+    let result = await studentDao.getAllStudent(info);
+    let count = await studentDao.countByQuery({});
     if (result) {
         message.status = 200;
         message.students = result;
+        message.count = count;
     } else {
         message.status = 400;
         message.message = "查询失败";

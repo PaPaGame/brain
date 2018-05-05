@@ -9,7 +9,7 @@ const childRouter = new Router({
 childRouter.use(jwt({}));
 
 childRouter.post("/fuzzy", StudentController.GetFuzzyByName);
-childRouter.post("", StudentController.AddStudent);
+childRouter.post("/add", StudentController.AddStudent);
 childRouter.put("", StudentController.UpdateStudent);
 childRouter.delete("", StudentController.DeleteStudent);
 // childRouter.get("", StudentController.GetStudent);

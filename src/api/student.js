@@ -18,7 +18,7 @@ const student = {
 
     addStudent(user) {
         return ajax({
-            url: "/student",
+            url: "/student/add",
             method: "post",
             params: user
         });
