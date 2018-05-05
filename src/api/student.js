@@ -38,6 +38,14 @@ const student = {
             method: "post",
             params: query
         });
+    },
+
+    removeStudent(query) {
+        return ajax({
+            url: "/student/remove",
+            method: "post",
+            params: query
+        })
     }
 
 

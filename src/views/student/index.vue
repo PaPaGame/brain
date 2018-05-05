@@ -139,6 +139,23 @@ export default {
                     this.dialogPassword = true;
                     break;
                 case "delete":
+                    if (row.group !== "") {
+                        this.$alert(this.$t('student.groupNotNull'), this.$t("student.deleteTitle"), {
+                            confirmButtonText: this.$t("student.deleteConfirm")
+                        });
+                        return;
+                    }
+                    console.log(row);
+                    let studentInfo = {};
+                    studentInfo.id = row._id;
+                    studentService.removeStudent(studentInfo).then(res => {
+                        if (res.status === 200) {
+                            this.$message.success(res.message);
+                            this.fetchStuidentList();
+                        } else {
+                            this.$message.error(res.message);
+                        }
+                    })
                     break;
             }
         },

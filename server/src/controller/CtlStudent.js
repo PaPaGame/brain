@@ -70,19 +70,25 @@ const UpdateStudent = async (ctx) => {
 }
 
 const DeleteStudent = async (ctx) => {
-    let userinfo = ctx.request.body;
     let message = {};
-    let result = await studentDao.deleteByUserName(userinfo);
-    if (result) {
-        message.status = 200;
-        message.message = "删除成功";
+    let userinfo = ctx.request.body;
+    // 传进来的是student 表里的id  记录下来， 删除成功后再去user表里删除
+    let studentResult = await studentDao.delete({ "_id": userinfo.id });
+
+    if (studentResult) {
+        let userResult = await UserModel.remove({ "uid": userinfo.id });
+        if (userResult) {
+            message.status = 200;
+            message.message = "删除成功";
+        } else {
+            message.status = 400;
+            message.message = "删除失败";
+        }
     } else {
         message.status = 400;
         message.message = "删除失败";
     }
-
     ctx.body = message;
-
 }
 
 const GetById = async (ctx) => {

@@ -145,7 +145,10 @@ export default {
         createSuccess: "添加学生成功",
         createFailed: "添加学生失败",
         updatedAt: "更新时间",
-        operate: "操作"
+        operate: "操作",
+        groupNotNull: "请先在班级中移除该学生，方可进行删除",
+        deleteTitle: "删除",
+        deleteConfirm: "确认"
     },
     reading: {
         title: "阅读理解",
