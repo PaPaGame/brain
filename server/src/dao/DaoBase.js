@@ -37,7 +37,6 @@ DaoBase.prototype.getAll = async function () {
 
 /** 删除*/
 DaoBase.prototype.delete = async function (query) {
-    console.log("BASE", this.model.modelName);
     return await this.model.remove(query);
 }
 

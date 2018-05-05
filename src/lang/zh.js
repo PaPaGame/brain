@@ -117,7 +117,10 @@ export default {
         author: "授权",
         remove: "移除",
         source: "源列表",
-        target: "目标列表"
+        target: "目标列表",
+        alreadyHasGroup: "所选学生已经有所属班级，需取消之前班级再添加",
+        alertConfirmButtonText: "确定",
+        alertTitle: "提示"
     },
     student: {
         inputGroupName: "请输入班级名称",
