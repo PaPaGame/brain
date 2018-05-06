@@ -54,6 +54,14 @@ const student = {
             method: "post",
             params: query
         })
+    },
+
+    getStudentByClassId(query) {
+        return ajax({
+            url: "/student/getbyclassid",
+            method: "post",
+            params: query
+        })
     }
 
 

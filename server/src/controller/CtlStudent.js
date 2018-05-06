@@ -192,6 +192,31 @@ const GetAllStudent = async ctx => {
     ctx.body = message;
 }
 
+const GetStudentByClassId = async ctx => {
+    let message = {};
+    let userinfo = ctx.request.body;
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+
+    console.log("班级id", userinfo.id);
+    let result = await studentDao.getByQuery({ "group.id": userinfo.id });
+    let count = await studentDao.countByQuery({ "group.id": userinfo.id });
+    if (result) {
+        message.status = 200;
+        message.students = result;
+        message.count = count;
+    } else {
+        message.status = 400;
+        message.message = "查询失败";
+    }
+
+    ctx.body = message;
+}
+
 module.exports = {
     GetFuzzyByName,
     AddStudent,
@@ -200,5 +225,6 @@ module.exports = {
     // GetStudent,
     GetById,
     UpdateArticleLevel,
-    GetAllStudent
+    GetAllStudent,
+    GetStudentByClassId
 }

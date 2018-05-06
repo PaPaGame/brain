@@ -11,7 +11,7 @@
         </div>
         <el-row :gutter="8">
             <el-col :xs="{span: 12}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 8}" :xl="{span: 6}">
-                <class-list @groupListClick="classListClick"></class-list>
+                <class-list @classSelected="classListClick"></class-list>
             </el-col>
             <el-col :xs="{span: 24}" :sm="{span: 24}" :md="{span: 24}" :lg="{span: 16}" :xl="{span: 10}">
                 <edu-table :tableColumns="tableColumns" :tableData="allStudent" :totalCount="allStudentCount" :pageSize="studentQueryModel.pageSize" @pageChange="pageChange" ref="table">
@@ -109,8 +109,16 @@ export default {
             this.studentQueryModel.currentPage = e;
             this.fetchStuidentList();
         },
-        classListClick(info) {
-            console.log("需要获取新数据，id为", info._id);
+        classListClick(id) {
+            let query = {};
+            query.id = id;
+            this.getStudentByClassId(query);
+            // studentService.getStudentByClassId(query).then(res => {
+            //     if (res.status === 200) {
+            //         this.allStudent = res.students;
+            //         this.allStudentCount = res.count;
+            //     }
+            // })
         },
         operateHandler(row, opt) {
             this.studentInfo = row;
@@ -166,7 +174,7 @@ export default {
             this.studentQueryModel.school = this.commParam.school;
             this.getStudentList(this.studentQueryModel);
         },
-        ...mapActions(["getGroupList", "getStudentList"])
+        ...mapActions(["getGroupList", "getStudentList", "getStudentByClassId"])
     },
     computed: {
         commParam() {

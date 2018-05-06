@@ -19,8 +19,17 @@ const mutations = {
 }
 
 const actions = {
-    getStudentList({ commit, state }, paylod) {
-        studentService.getAllStudent(paylod).then(res => {
+    getStudentList({ commit, state }, payload) {
+        studentService.getAllStudent(payload).then(res => {
+            if (res.status == 200) {
+                commit(types.STUDENT_ALL_LIST, { data: res });
+            } else {
+                this.$message.error("获取学生列表失败");
+            }
+        })
+    },
+    getStudentByClassId({ commit, state }, payload) {
+        studentService.getStudentByClassId(payload).then(res => {
             if (res.status == 200) {
                 commit(types.STUDENT_ALL_LIST, { data: res });
             } else {
