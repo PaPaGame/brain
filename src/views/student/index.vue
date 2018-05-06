@@ -29,10 +29,10 @@
         </el-dialog>
 
         <!-- 修改密码 -->
-        <el-dialog :visible.sync="dialogPassword" width="600px" top="0" center custom-class="edu-fix share center" title="修改密码" :userId="currentUserId" :username="currentUsername">
-            <pass-word></pass-word>
+        <el-dialog :visible.sync="dialogPassword" width="600px" top="0" center custom-class="edu-fix share center" :title="this.$t('student.changePassword')" :userInfo="studentInfo">
+            <password></password>
             <span slot="footer" class="dialog-footer">
-                <el-button type="primary" @click="dialogPassword = false">关闭</el-button>
+                <el-button type="primary" @click="dialogPassword = false">确认</el-button>
             </span>
         </el-dialog>
     </div>
@@ -45,13 +45,13 @@ import ClassList from "@/components/ClassList";
 import studentService from "@/api/student";
 import table from "@/components/table";
 import DetailPanel from "./detail";
-import PassWord from "@/components/Password";
+import Password from "@/components/Password";
 export default {
     components: {
         ClassList,
         "edu-table": table,
         DetailPanel,
-        PassWord
+        Password
     },
     mounted() {
         this.fetchStuidentList();
@@ -134,8 +134,6 @@ export default {
                     this.dialogOperate = opt;
                     break;
                 case "editpwd":
-                    this.currentUserId = this.studentInfo._id;
-                    this.currentUsername = this.studentInfo.username;
                     this.dialogPassword = true;
                     break;
                 case "edit":

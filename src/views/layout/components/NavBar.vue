@@ -3,7 +3,8 @@
         <div class="right-menu">
             <el-dropdown class="avatar-container right-menu-item" trigger="click">
                 <div class="avatar-wrapper">
-                    <img class="user-avatar el-icon-menu">
+                    <!-- <img class="user-avatar el-icon-menu">  -->
+                    <span class="user-avatar el-icon-menu">{{this.currentRole}}</span>
                     <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown">
@@ -22,7 +23,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import * as RoleType from "@/router/roleType";
 export default {
     methods: {
         logout() {
@@ -30,6 +32,25 @@ export default {
             this.doLogout();
         },
         ...mapActions(["doLogout"])
+    },
+    computed: {
+        currentRole() {
+            switch (this.userinfo.role) {
+                case RoleType.STUDENT:
+                    return "Student";
+                case RoleType.MASTER:
+                    return "Master";
+                case RoleType.ADMIN:
+                    return "Admin";
+                case RoleType.STAFF:
+                    return "Staff"
+                default:
+                    return "NO";
+            }
+        },
+        ...mapGetters({
+            userinfo: "userinfo"
+        })
     }
 };
 </script>
@@ -48,14 +69,14 @@ export default {
     }
     .avatar-container {
       height: 50px;
-      margin-right: 30px;
+      margin-right: 40px;
       .avatar-wrapper {
         cursor: pointer;
         margin-top: 5px;
         position: relative;
         .user-avatar {
-          width: 40px;
-          height: 40px;
+          width: 50px;
+          height: 50px;
           border-radius: 10px;
         }
         .el-icon-caret-bottom {

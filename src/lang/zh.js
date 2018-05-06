@@ -155,7 +155,8 @@ export default {
         freeze: "封停",
         normal: "解封",
         updateSuccess: "数据学生信息更新成功",
-        updateFailed: "数据学生信息更新失败"
+        updateFailed: "数据学生信息更新失败",
+        changePassword: "修改密码"
 
     },
     reading: {
