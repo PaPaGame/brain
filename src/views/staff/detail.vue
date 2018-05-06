@@ -4,11 +4,11 @@
             <el-form-item :label="$t('staff.username')" label-width="100px">
                 <el-input v-model="staffModel.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.password')" label-width="100px">
+            <el-form-item :label="$t('staff.password')" label-width="100px" v-if="status === 'create'">
                 <el-input auto-complete="off" v-model="staffModel.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.school')" label-width="100px">
-                <el-autocomplete v-model="staffModel.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;"></el-autocomplete>
+                <el-autocomplete v-model="staffModel.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;" :disabled="userinfo.role === '800'"></el-autocomplete>
             </el-form-item>
             <el-form-item :label="$t('staff.phone')" label-width="100px">
                 <el-input v-model="staffModel.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
@@ -48,7 +48,6 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            staffModel: {},
             groupList: [],
             tableColumns: [
                 { prop: "name", label: this.$t('staff.groupName'), width: '250' },
@@ -75,6 +74,7 @@ export default {
     methods: {
         close() {
             this.dialogVisible = false;
+            this.staffModel = {};
             this.$emit("close");
         },
         schoolSelectHandler(value) {
@@ -138,7 +138,9 @@ export default {
             })
             this.staffModel.group = ids;
             this.staffModel.status = 0;
-            this.staffModel.role = 1;
+            if (this.userinfo.school !== "") {
+                this.staffModel.school = this.userinfo.school;
+            }
             console.log(this.staffModel);
             staffService.addStaff(this.staffModel).then(res => {
                 this.$message({

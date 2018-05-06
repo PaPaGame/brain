@@ -5,19 +5,6 @@ var SchoolModel = require("../models").school;
 
 var staffDao = new StaffDao(StaffModel);
 
-const Create = async (ctx) => {
-    let info = ctx.request.body;
-    console.log(info);
-    let result = staffDao.create(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
-
-    if (result) {
-        ctx.body = { status: 200 };
-    }
-}
-
 const Update = async (ctx) => {
     let message = {};
     let info = ctx.request.body;
@@ -126,7 +113,8 @@ const AddStaff = async (ctx) => {
         ctx.body = message;
         return;
     }
-    let result = staffDao.addStaff(info);
+
+    let result = await staffDao.addStaff(info);
 
     if (result) {
         message.status = 200;
@@ -191,7 +179,6 @@ const GetStaffCount = async ctx => {
 }
 
 module.exports = {
-    Create,
     Update,
     Get,
     Delete,

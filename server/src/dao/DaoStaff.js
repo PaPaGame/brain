@@ -14,34 +14,17 @@ util.inherits(StaffDao, DaoBase);
 StaffDao.prototype.addStaff = async (userinfo, callback) => {
     if (!userinfo)
         return callback({ err: 'err parameter' });
-
-    let staff = new StaffModel({
-        name: userinfo.name,
-        mail: userinfo.mail,
-        status: userinfo.status,
-        group: userinfo.group,
-        phone: userinfo.phone,
-        school: userinfo.school
-    });
-
-    let staffResult = await StaffModel.create(staff);
+    let staffResult = await StaffModel.create(userinfo);
     var user;
     if (staffResult) {
-        let uid = staffResult._id;
-        user = new UserModel({
-            username: userinfo.name,
-            password: userinfo.password,
-            status: userinfo.status,
-            role: userinfo.role,
-            phone: userinfo.phone,
-            mail: userinfo.mail,
-            lastLoginTime: "",//new Date().toISOString(),
-            lastLoginIP: "",
-            school: userinfo.school,
-            uid: uid
-        });
+        userinfo.role = "400";
+        userinfo.uid = staffResult._id;
+        userinfo.username = userinfo.name;
+        userinfo.status = 1;
     }
-    return await UserModel.create(user);
+
+    console.log(userinfo);
+    return await UserModel.create(userinfo);
 }
 
 StaffDao.prototype.deleteStaff = async userinfo => {

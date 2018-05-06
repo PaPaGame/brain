@@ -156,7 +156,8 @@ export default {
         normal: "解封",
         updateSuccess: "数据学生信息更新成功",
         updateFailed: "数据学生信息更新失败",
-        changePassword: "修改密码"
+        changePassword: "修改密码",
+        fetchStudentListFailed: "获取学生列表失败"
 
     },
     reading: {

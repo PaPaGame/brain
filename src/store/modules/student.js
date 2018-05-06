@@ -24,7 +24,7 @@ const actions = {
             if (res.status == 200) {
                 commit(types.STUDENT_ALL_LIST, { data: res });
             } else {
-                this.$message.error("获取学生列表失败");
+                this.$message.error(this.$t("student.fetchStudentListFailed"));
             }
         })
     },
@@ -33,7 +33,7 @@ const actions = {
             if (res.status == 200) {
                 commit(types.STUDENT_ALL_LIST, { data: res });
             } else {
-                this.$message.error("获取学生列表失败");
+                this.$message.error(this.$t("student.fetchStudentListFailed"));
             }
         })
     }
