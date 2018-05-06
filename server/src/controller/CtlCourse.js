@@ -41,15 +41,31 @@ const RemoveCourseByLevel = async ctx => {
 const AnswerTai = async ctx => {
     let message = {};
     let userinfo = ctx.request.body;
+
+    let uid = ctx.state.user.id;
     // userinfo: user._id; 课程id, 正确率
-    if (!userinfo) {
+    if (!userinfo || !uid) {
         message.status = 400;
         message.message = "参数错误";
         ctx.body = message;
         return;
     }
 
-    let result = await courseDao.answerTai(userinfo);
+    let course = await courseDao.getCourseByUidAndCid(uid, userinfo.cid);
+
+    // console.log("查询结果", course);
+    let answers = course.taiAnswer;
+    let answer = userinfo.answer;
+    if (answers.length == 0) {
+        answers.push(answer);
+    } else {
+        for (let i = 0; i < answers.length; i++) {
+            if (answers[i].id == answer.id) {
+                answers[i].result = answer.result;
+            }
+        }
+    }
+    let result = await courseDao.answerTai(course.uid, userinfo.cid, answers, userinfo.taiCount);
     if (result) {
         message.status = 200;
         message.message = "tai修改成功";

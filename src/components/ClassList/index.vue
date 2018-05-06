@@ -35,13 +35,12 @@ export default {
             console.log(item);
         },
         groupItemClickHandler(itemInfo) {
-            this.$emit("groupListClick", itemInfo);
+            this.$emit("classSelected", itemInfo._id);
         },
         querySearch(queryString, cb) {
             var groups = this.groups;
             var result = queryString ? groups.filter(this.createFilter(queryString)) : groups;
 
-            console.log(result);
             cb(result);
 
             // var groups = this.groups;
@@ -57,6 +56,7 @@ export default {
         },
         handleSelect(item) {
             console.log(item);
+            this.$emit("classSelected", item._id);
         },
         handleIconClick(ev) {
             console.log(ev);
@@ -65,7 +65,9 @@ export default {
     },
     created() {
     },
-    computed: mapGetters({ groups: "groupList" })
+    computed: {
+        ...mapGetters({ groups: "groupList" })
+    }
 }
 </script>
 
@@ -88,6 +90,12 @@ export default {
     .highlighted .addr {
       color: #ddd;
     }
+  }
+}
+
+.group {
+  label {
+    font-size: 14px;
   }
 }
 </style>

@@ -5,29 +5,15 @@ var SchoolModel = require("../models").school;
 
 var staffDao = new StaffDao(StaffModel);
 
-const Create = async (ctx) => {
-    let info = ctx.request.body;
-    console.log(info);
-    let result = staffDao.create(info, (err, data) => {
-        if (err)
-            console.log(err);
-    });
-
-    if (result) {
-        ctx.body = { status: 200 };
-    }
-}
-
 const Update = async (ctx) => {
+    let message = {};
     let info = ctx.request.body;
-    let result = staffDao.update({ id: `${info._id}` }, { $set, info }, null, err => {
-        if (err)
-            console.log(err);
-    });
+    let result = await staffDao.update({ "_id": `${info._id}` }, { $set: info }, null);
 
     if (result) {
-        ctx.body = { status: 200 };
+        message.status = 200;
     }
+    ctx.body = message;
 }
 
 const Get = async (ctx) => {
@@ -127,7 +113,8 @@ const AddStaff = async (ctx) => {
         ctx.body = message;
         return;
     }
-    let result = staffDao.addStaff(info);
+
+    let result = await staffDao.addStaff(info);
 
     if (result) {
         message.status = 200;
@@ -170,11 +157,8 @@ const GetStaff = async (ctx) => {
 const GetStaffList = async ctx => {
     let message = {};
     let queryInfo = ctx.request.body;
-    let query = {};
-    if (queryInfo.school != "") {
-        query.school = queryInfo.school;
-    }
-    let result = await staffDao.getStaffList(query);
+    console.log("获取学校老师列表", queryInfo);
+    let result = await staffDao.getStaffList(queryInfo);
     if (result) {
         message.status = 200;
         message.staffList = result;
@@ -186,8 +170,15 @@ const GetStaffList = async ctx => {
     ctx.body = message;
 }
 
+const GetStaffCount = async ctx => {
+    let message = {};
+    let result = await staffDao.countByQuery({});
+    message.status = 200;
+    message.count = result;
+    ctx.body = message;
+}
+
 module.exports = {
-    Create,
     Update,
     Get,
     Delete,
@@ -198,5 +189,6 @@ module.exports = {
     AddStaff,
     DeleteStaff,
     GetStaff,
-    GetStaffList
+    GetStaffList,
+    GetStaffCount
 }

@@ -3,19 +3,36 @@
         <div>
             <span class='desc'>{{$t("reading.desc2")}}</span>
         </div>
-        <el-progress :text-inside="true" :stroke-width="28" :percentage="70"></el-progress>
-        <div class='btn-group'>
-            <el-button @click="start">{{$t('reading.readtome')}}</el-button>
-            <el-button @click="pause">{{$t('reading.pause')}}</el-button>
-            <span class='switch'>{{$t('reading.glossary')}}
-                <el-switch></el-switch>
-            </span>
+        <!-- <el-progress :text-inside="true" :stroke-width="28" :percentage="70"></el-progress> -->
+        <div class='tool-box'>
+            <div class='btn-group btn-box'>
+                <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>
+                <el-button type="warning" @click="pause">{{$t('reading.pause')}}</el-button>
+                <span class='switch'>
+                    <el-switch v-model="switchVal"></el-switch> {{$t('reading.glossary')}}
+                </span>
+            </div>
+            <edu-progress :totalCount="tais.length" :taiprogress='parseInt(this.taiprogress)'>progressbar</edu-progress>
         </div>
     </div>
 </template>
 
 <script>
+// import eduProgress from "../dialog/progress";
+import eduProgress from "@/components/progress";  
+import { mapActions, mapGetters } from 'vuex';
 export default {
+    components: {
+        eduProgress
+    },
+    data(){
+        return {
+            switchVal:false
+        }
+    },
+    props:{
+        
+    },
     methods: {
         start() {
             this.$emit("startReading");
@@ -23,6 +40,13 @@ export default {
         pause() {
             this.$emit("stopReading");
         }
+    },
+    computed: {
+        ...mapGetters({
+            tais: "tais",
+            taiprogress: "taiprogress"
+
+        })
     }
 }
 </script>

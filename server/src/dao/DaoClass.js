@@ -3,9 +3,9 @@ var ClassModel = require("../models").class;
 var util = require("util");
 
 var classModel;
-var ClassDao = function (classModel) {
-    classModel = new classModel();
-    DaoBase.call(this, classModel);
+function ClassDao(cm) {
+    classModel = cm;
+    DaoBase.call(this, cm);
 }
 
 util.inherits(ClassDao, DaoBase);

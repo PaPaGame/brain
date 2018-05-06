@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+}
+
+.account-form {
+    background-color: #F5F6F7;
+    min-height: 100%;
+    .form-aligner {
+        padding-top: 60px;
+        padding-bottom: 60px;
+        .innerBox {
+            width: 930px;
+            padding-left: 383px;
+            box-shadow: 0 9px 20px #e3e7ea;
+            position: relative;
+            .left-box {
+                position: absolute;
+                left: 0px;
+                z-index: 1000;
+                height: 576px;
+                width: 383px;
+                border-top-left-radius: 6px;
+                border-bottom-left-radius: 6px;
+                background-color: #1ea69a;
+                text-align: center;
+                padding: 40px 30px;
+                color: #fff;
+                h1 {
+                    font-size: 20px;
+                    font-weight: 800;
+                    line-height: 32px;
+                    letter-spacing: 1px;
+                }
+                img {
+                    bottom: 0;
+                    left: 0;
+                    position: absolute;
+                    border: 0;
+                }
+            }
+            .right-box {
+                .row {
+                    .login-field {}
+                    .account-form-button-container {}
+                }
+                .footer {}
+                label {
+                    margin: 0;
+                    display: inline-block;
+                    max-width: 100%;
+                    font-size: 13px;
+                }
+                .group {
+                    margin-bottom: 20px;
+                    label {
+                        font-weight: 500px;
+                        color: #47505e;
+                        line-height: 29px;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

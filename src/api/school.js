@@ -3,33 +3,33 @@ import ajax from "@/utils/ajax";
 const school = {
     fetchData(query) {
         return ajax({
-            url: "/school",
-            method: "get",
+            url: "/school/all",
+            method: "post",
             params: query
         });
     },
 
     deleteData(query) {
         return ajax({
-            url: "/school",
-            method: "delete",
-            data: query
+            url: "/school/delete",
+            method: "post",
+            params: query
         });
     },
 
     createData(info) {
         return ajax({
-            url: "/school",
+            url: "/school/create",
             method: "post",
-            data: info
+            params: info
         });
     },
 
     updateData(info) {
         return ajax({
-            url: "/school",
-            method: "put",
-            data: info
+            url: "/school/update",
+            method: "post",
+            params: info
         });
     },
 
@@ -37,7 +37,15 @@ const school = {
         return ajax({
             url: "/school/fuzzyList",
             method: "post",
-            data: fuzzy
+            params: fuzzy
+        })
+    },
+
+    isExist(query) {
+        return ajax({
+            url: "/school/exist",
+            method: "post",
+            params: query
         })
     }
 };

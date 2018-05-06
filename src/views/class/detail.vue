@@ -116,6 +116,8 @@ export default {
             });
         },
         close() {
+            this.checkedList = [];
+            this.students = [];
             this.$emit("closeDialog");
         },
         searchStudentByName() {
@@ -174,13 +176,25 @@ export default {
             }
         },
         studentSelectHandler(e) {
+            // 如果学生有班级，则不能添加
+            if (e.group !== "") {
+                this.$alert(this.$t("group.alreadyHasGroup"), this.$t("group.alertTitle"), {
+                    confirmButtonText: this.$t("group.alertConfirmButtonText")
+                })
+                return;
+            }
+
             let student = {};
             student.id = e._id;
             student.name = e.username;
             this.students.push(student);
         },
         checkgroupChange(v) {
-            console.log(v);
+            // console.log(v, this.checkedList, this.students);
+
+            // let uncheckedList = this.students.filter(s => this.checkedList.indexOf(s.name) < 0);
+            // console.log(this.checkedList, uncheckedList);
+
         },
         openInnerDialog() {
             this.$emit('openInnerDialog');
@@ -204,6 +218,8 @@ export default {
             val.student.forEach(stu => {
                 this.students.push(stu);
             });
+
+            console.log(this.students);
         }
     }
 }

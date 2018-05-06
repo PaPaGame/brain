@@ -24,7 +24,7 @@
             </div>
         </div>
         <tai-dialog :isShow="taiVisible" @close="onClose" :questionId="taiId"></tai-dialog>
-
+        <explain-dialog :isShow="explainVisible" @close="onExplainClose" :word="explainWord"></explain-dialog>
         <div>
             <template v-for="(content,index) in contents">
                 <!-- 普通句子 -->
@@ -46,6 +46,7 @@
 import Strategy from "./strategy/strategy";
 import loader from "@/utils/loader";
 import TaiDialog from "./dialog/tai";
+import ExplainDialog from "./dialog/explain";
 import EduDialog from "@/components/Dialog/dialog";
 import popUp from "@/components/Dialog/popUp";
 import { mapGetters, mapActions } from "vuex";
@@ -53,6 +54,7 @@ export default {
     components: {
         TaiDialog,
         EduDialog,
+        ExplainDialog,
         popUp
     },
     data() {
@@ -67,7 +69,9 @@ export default {
             taiVisible: false,
             taiId: "",
             contents: [],
-            wordNode:[]
+            wordNode: [],
+            explainVisible: false,
+            explainWord: {}
         };
     },
     methods: {
@@ -100,6 +104,8 @@ export default {
                 if (this.currentPlayMode == 1) {
                     this.start();
                 }
+
+
             })
         },
         // 单词点击
@@ -111,21 +117,30 @@ export default {
             }
             var node = e.target;
             if (node.tagName.toLowerCase() == "a") {
-                // 播放单词
-                this.currentPlayMode = 0;
-                var audioName = node.getAttribute("_audio");
-                this.$refs.audio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
 
-                this.wordNode = document.getElementById('opened-book').getElementsByTagName('a');
-                for(var i = 0; i < this.wordNode.length; i ++) {
-                    // this.wordNode[i].setAttribute('class','');
-                    this.wordNode[i].style.background = 'inherit';
-                    this.wordNode[i].style.color = 'inherit';
+                let spell = node.innerHTML;
+                // 点击的单词，如果在vuex里有， 并且是打开解释的时候 就弹框，否则就播放声音
+                if (this.glossaries[spell]) {
+                    console.log("单词表里有这个单词");
+                    this.explainWord = this.glossaries[spell];
+                    this.explainVisible = true;
+
+                } else {
+                    // 播放单词
+                    this.currentPlayMode = 0;
+                    var audioName = node.getAttribute("_audio");
+                    this.$refs.audio.src = `//${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
+
+                    this.wordNode = document.getElementById('opened-book').getElementsByTagName('a');
+                    for (var i = 0; i < this.wordNode.length; i++) {
+                        // this.wordNode[i].setAttribute('class','');
+                        this.wordNode[i].style.background = 'inherit';
+                        this.wordNode[i].style.color = 'inherit';
+                    }
+                    // node.setAttribute('class', 'active');
+                    node.style.background = '#409eff';
+                    node.style.color = '#fff';
                 }
-                // node.setAttribute('class', 'active');
-                node.style.background = '#409eff';
-                node.style.color = '#fff';
-                
             } else if (node.tagName.toLowerCase() == "i") {
                 // 播放灯泡
                 let taiId = node.getAttribute("_tai");
@@ -146,7 +161,7 @@ export default {
             }
 
             this.currentPage = page;
-            console.log(this.currentPage);
+            console.log(this.currentPage +'当前页码');
             this.loadPage(this.pages[this.currentPage]);
         },
         start() {
@@ -183,6 +198,10 @@ export default {
 
         onClose() {
             this.taiVisible = false;
+        },
+
+        onExplainClose() {
+            this.explainVisible = false;
         }
     },
     computed: {
@@ -193,7 +212,8 @@ export default {
             dirName: "dirName",
             quizs: "quizs",
             tais: "tais",
-            pages: "pages"
+            pages: "pages",
+            glossaries: "glossaries"
         })
     }
 }

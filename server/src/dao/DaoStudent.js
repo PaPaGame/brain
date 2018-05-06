@@ -3,9 +3,9 @@ var StudentModel = require("../models").student;
 var UserModel = require("../models").user;
 var util = require("util");
 
-var s;
-var StudentDao = function(stModel) {
-    s = new stModel()
+var studentModel;
+function StudentDao(stModel) {
+    studentModel = stModel;
     DaoBase.call(this, stModel);
 }
 
@@ -30,6 +30,7 @@ StudentDao.prototype.addStudent = async (userinfo) => {
     if (result) {
         let uid = result._id;
         userinfo.uid = uid;
+        userinfo.role = "10";
         // user = new UserModel({
         //     username: userinfo.username,
         //     password: userinfo.password,
@@ -76,12 +77,14 @@ StudentDao.prototype.updateArticleLevel = async articleInfo => {
 }
 
 StudentDao.prototype.getAllStudent = async info => {
-    let message = {};
-    console.log(info);
-    let student = await StudentModel.find(info);
+    let pageSize = parseInt(info.pageSize);
+    let pageId = Math.max(parseInt(info.currentPage) - 1, 0);
+    let condition = info.school === "" ? {} : { "school": info.school }
 
-    if (student) {
-        return student;
+    let students = await StudentModel.find(condition).limit(pageSize).skip(pageSize * pageId);
+
+    if (students) {
+        return students;
     } else {
         return [];
     }

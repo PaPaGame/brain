@@ -3,10 +3,10 @@ var StaffModel = require("../models").staff;
 var UserModel = require("../models").user;
 var util = require("util");
 
-var staff;
-var StaffDao = function (staff) {
-    staff = new staff();
-    DaoBase.call(this, staff);
+var staffModel;
+function StaffDao(sm) {
+    staffModel = sm;
+    DaoBase.call(this, sm);
 }
 
 util.inherits(StaffDao, DaoBase);
@@ -14,34 +14,17 @@ util.inherits(StaffDao, DaoBase);
 StaffDao.prototype.addStaff = async (userinfo, callback) => {
     if (!userinfo)
         return callback({ err: 'err parameter' });
-
-    let staff = new StaffModel({
-        name: userinfo.name,
-        mail: userinfo.mail,
-        status: userinfo.status,
-        group: userinfo.group,
-        phone: userinfo.phone,
-        school: userinfo.school
-    });
-
-    let staffResult = await StaffModel.create(staff);
+    userinfo.status = 1;
+    let staffResult = await StaffModel.create(userinfo);
     var user;
     if (staffResult) {
-        let uid = staffResult._id;
-        user = new UserModel({
-            username: userinfo.name,
-            password: userinfo.password,
-            status: userinfo.status,
-            role: userinfo.role,
-            phone: userinfo.phone,
-            mail: userinfo.mail,
-            lastLoginTime: "",//new Date().toISOString(),
-            lastLoginIP: "",
-            school: userinfo.school,
-            uid: uid
-        });
+        userinfo.role = "400";
+        userinfo.uid = staffResult._id;
+        userinfo.username = userinfo.name;
     }
-    return await UserModel.create(user);
+
+    console.log(userinfo);
+    return await UserModel.create(userinfo);
 }
 
 StaffDao.prototype.deleteStaff = async userinfo => {
@@ -55,7 +38,10 @@ StaffDao.prototype.deleteStaff = async userinfo => {
 }
 
 StaffDao.prototype.getStaffList = async queryinfo => {
-    return await StaffModel.find(queryinfo);
+    let pageSize = parseInt(queryinfo.pageSize);
+    let pageId = Math.max(parseInt(queryinfo.currentPage) - 1, 0);
+    let condition = queryinfo.school === "" ? {} : { "school": queryinfo.school }
+    return await StaffModel.find(condition).limit(pageSize).skip(pageSize * pageId);;
 }
 
 module.exports = StaffDao;

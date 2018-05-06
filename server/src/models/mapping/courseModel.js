@@ -24,6 +24,8 @@ var courseSchema = new Schema({
     uid: SchemaTypes.ObjectId,
     taiState: { type: String, default: "" },
     taiAccuracy: { type: Number, default: 0 },
+    taiAnswer: { type: Array, default: [] },
+    taiCount: { type: Number, default: 0 },
     quizState: { type: Number, default: 0 },
     quizCurrent: { type: Number, default: 0 },
     quizAccuracy: { type: Number, default: 0 },

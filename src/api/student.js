@@ -18,7 +18,7 @@ const student = {
 
     addStudent(user) {
         return ajax({
-            url: "/student",
+            url: "/student/add",
             method: "post",
             params: user
         });
@@ -38,6 +38,30 @@ const student = {
             method: "post",
             params: query
         });
+    },
+
+    removeStudent(query) {
+        return ajax({
+            url: "/student/remove",
+            method: "post",
+            params: query
+        })
+    },
+
+    updateStudent(query) {
+        return ajax({
+            url: "/student/update",
+            method: "post",
+            params: query
+        })
+    },
+
+    getStudentByClassId(query) {
+        return ajax({
+            url: "/student/getbyclassid",
+            method: "post",
+            params: query
+        })
     }
 
 

@@ -31,7 +31,7 @@ export default {
         readArticle: "阅读内容"
     },
     school: {
-        searchName: "学校名称",
+        searchName: "学校编码",
         search: "搜索",
         add: "添加",
         code: "校区编码",
@@ -49,7 +49,11 @@ export default {
         create: "创建",
         edit: "编辑",
         staff: "老师",
-        requiredCode: "校区编码必须填写"
+        requiredCode: "校区编码必须填写",
+        fuzzyMasterList: "支持模糊搜索校长名字",
+        noResult: "无结果",
+        exist: "学校${0}已存在",
+        createError: "创建学校失败"
     },
     staff: {
         searchName: "老师名字",
@@ -77,7 +81,8 @@ export default {
         groupStudentCount: "班级人数",
         deleteStaffSuccess: "删除老师成功",
         deleteStaffFailed: "删除老师失败",
-        unit: "个"
+        unit: "个",
+        edit: "编辑"
     },
     group: {
         searchName: "班级名字",
@@ -112,7 +117,10 @@ export default {
         author: "授权",
         remove: "移除",
         source: "源列表",
-        target: "目标列表"
+        target: "目标列表",
+        alreadyHasGroup: "所选学生已经有所属班级，需取消之前班级再添加",
+        alertConfirmButtonText: "确定",
+        alertTitle: "提示"
     },
     student: {
         inputGroupName: "请输入班级名称",
@@ -140,7 +148,17 @@ export default {
         createSuccess: "添加学生成功",
         createFailed: "添加学生失败",
         updatedAt: "更新时间",
-        operate: "操作"
+        operate: "操作",
+        groupNotNull: "请先在班级中移除该学生，方可进行删除",
+        deleteTitle: "删除",
+        deleteConfirm: "确认",
+        freeze: "封停",
+        normal: "解封",
+        updateSuccess: "数据学生信息更新成功",
+        updateFailed: "数据学生信息更新失败",
+        changePassword: "修改密码",
+        fetchStudentListFailed: "获取学生列表失败"
+
     },
     reading: {
         title: "阅读理解",
@@ -160,7 +178,9 @@ export default {
         playmyreading: "Play My Reading",
         takequiz: "Take Quiz",
         takequizagain: "Take Quiz Again",
-        commit: "提交"
+        commit: "提交",
+        eglossary: "翻译",
+        ediduknow: "你知道吗？"
     },
     article: {
         id: "编号",
@@ -189,6 +209,7 @@ export default {
         totalCount: "总授权课文数量",
         ingCount: "进行中课文数量",
         unstartCount: "未开始课文数量",
-        overCount: "已完成课文数量"
+        overCount: "已完成课文数量",
+        fetchError: "获取首页数据出错"
     }
 }

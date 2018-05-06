@@ -1,45 +1,29 @@
 <template>
     <div>
-        <el-form :model="info"
-            :rules="rules"
-            label-position="left"
-            label-width="85px">
-            <el-form-item :label="$t('school.code')"
-                prop="code">
-                <el-input v-model="info.code"
-                    clearable></el-input>
+        <el-form :model="queryModel" :rules="rules" label-position="left" label-width="85px">
+            <el-form-item :label="$t('school.code')" prop="code">
+                <el-input v-model="queryModel.code" clearable @change="onSchoolCodeChange" @blur="onSchoolCodeBlurHandler" :disabled="this.currentMode == 'edit'"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('school.name')"
-                prop="code">
-                <el-input v-model="info.name"
-                    clearable></el-input>
+            <el-form-item :label="$t('school.name')" prop="code">
+                <el-input v-model="queryModel.name" clearable></el-input>
             </el-form-item>
-            <el-form-item :label="$t('school.master')"
-                prop="code">
-                <el-input v-model="info.master"
-                    clearable></el-input>
-            </el-form-item>
-            <el-form-item :label="$t('school.phone')"
-                prop="phone">
-                <el-input v-model="info.phone"
-                    clearable></el-input>
+            <el-form-item :label="$t('school.master')" prop="code">
+                <!-- <el-input v-model="info.master" clearable></el-input> -->
+                <el-autocomplete class="searchBar" v-model="queryModel.masterName" :placeholder="$t('school.fuzzyMasterList')" :fetch-suggestions="querySearchMasterAsync" @select="masterSelectHandler"></el-autocomplete>
+                <span v-if="findMasterNothing">{{$t("school.noResult")}}</span>
             </el-form-item>
             <el-form-item :label="$t('school.status')">
-                <el-radio-group v-model="info.status">
+                <el-radio-group v-model="queryModel.status">
                     <el-radio label="1">开启</el-radio>
                     <el-radio label="0">关停</el-radio>
                 </el-radio-group>
             </el-form-item>
             <el-form-item :label="$t('school.staff')">
                 <el-input></el-input>
-                <el-button icon="el-icon-search"
-                    type="primary"></el-button>
+                <el-button icon="el-icon-search" type="primary"></el-button>
                 <div>
                     <span>小坦克{{Math.random()}}</span>
-                    <el-button type="primary"
-                        icon="el-icon-plus"
-                        size="mini"
-                        @click="add"></el-button>
+                    <!-- <el-button type="primary" icon="el-icon-plus" size="mini" @click="add"></el-button> -->
                 </div>
                 <ul>
                     <li v-for="staff in staffs">
@@ -58,31 +42,92 @@
 
 <script>
 import schoolService from "@/api/school";
+import staffService from "@/api/staff";
 export default {
     name: "DetailPanel",
     props: {
         info: {
             type: Object,
             default: null
-        }
+        },
+        currentMode: String
     },
     data() {
         return {
             staffs: [],
+            findMasterNothing: false,
             rules: {
                 code: [{ required: true, message: this.$t("school.requiredCode"), trigger: 'change' }]
+            },
+            queryModel: {
+                code: "",
+                masterId: "",
+                staffId: []
             }
+        }
+    },
+    watch: {
+        info(val) {
+            this.queryModel = val;
         }
     },
     methods: {
         add() {
-            this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
+            this.staffs.push({ id: Math.random() });
         },
         btnUpdateHandler() {
-            schoolService.updateData(this.info);
+            schoolService.updateData(this.queryModel);
         },
         btnCreateHandler() {
-            schoolService.createData(this.info);
+            this.queryModel.staffId = this.staffs;
+            schoolService.createData(this.queryModel).then(res => {
+                if (res.status === 200) {
+                    this.$emit("fetchData");
+                } else {
+                    this.$message.error(this.$t("school.createError"));
+                }
+                this.close();
+            });
+        },
+        masterSelectHandler(e) {
+            console.log("选择auto", e._id, e.name);
+            this.queryModel.masterId = e._id;
+            this.queryModel.masterName = e.name;
+        },
+        onSchoolCodeChange(e) {
+            this.queryModel.code = this.queryModel.code.toUpperCase();
+        },
+        onSchoolCodeBlurHandler(e) {
+            let query = {};
+            query.code = this.queryModel.code;
+            console.log(query.code, this.queryModel);
+            schoolService.isExist(query).then(res => {
+                if (res.exist) {
+                    this.$message.error(this.$t("school.exist").replace("${0}", query.code));
+                }
+            })
+        },
+        async querySearchMasterAsync(queryStr, callback) {
+            if (queryStr === "") {
+                callback([]);
+                return;
+            }
+
+            try {
+                let query = { "name": queryStr };
+                let staffInfos = await staffService.fetchTeacherByFuzzyName(query);
+                let staffList = staffInfos.staff;
+                if (staffList instanceof Array) {
+                    staffList.map(staff => {
+                        staff.value = staff.name;
+                        return staff;
+                    })
+                };
+                this.findMasterNothing = staffList.length === 0;
+                callback(staffList);
+            } catch (e) {
+
+            }
         },
         close() {
             this.$emit("closeDialog");
@@ -91,6 +136,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.searchBar {
+  width: 100%;
+}
 </style>

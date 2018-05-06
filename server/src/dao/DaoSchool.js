@@ -1,13 +1,13 @@
 var mongoose = require("mongoose");
 // mongoose.model("school")
 var DaoBase = require("./DaoBase");
-var SchoolModel = require("../models").school;
+// var SchoolModel = require("../models").school;
 var util = require("util");
 
-var school;
-var SchoolDao = function (school) {
-    school = new school();
-    DaoBase.call(this, school);
+var schoolModel
+function SchoolDao(sch) {
+    schoolModel = sch;
+    DaoBase.call(this, sch);
 }
 
 util.inherits(SchoolDao, DaoBase);
@@ -18,7 +18,7 @@ util.inherits(SchoolDao, DaoBase);
  * 
  */
 SchoolDao.prototype.findAllSchool = async (ctx) => {
-    return await mongoose.model("school").aggregate([{
+    return await schoolModel.aggregate([{
         $lookup: {
             from: "staff",
             localField: "masterId",
@@ -34,5 +34,9 @@ SchoolDao.prototype.findAllSchool = async (ctx) => {
         }
     }]);
 };
+
+SchoolDao.prototype.isExist = async code => {
+    return await schoolModel.findOne({ "code": code });
+}
 
 module.exports = SchoolDao;

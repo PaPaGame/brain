@@ -2,21 +2,15 @@
     <section>
         <div class="clearfix">
             <div class="clearfix label-box">
-                <span>用户名</span>
-                <input disabled="disabled"
-                    class="copy-text fl"
-                    type="text"></input>
-            </div>
-            <div class="clearfix label-box">
                 <span>密码</span>
-                <input class="copy-text fl"
-                    type="password"></input>
+                <input class="copy-text fl" type="password" ref="originPwd"></input>
+                <i class="el-icon-view" @mouseover="this.onMouseOver1()"></i>
             </div>
             <div class="clearfix label-box">
                 <span>再次输入</span>
-                <input class="copy-text fl"
-                    type="password"></input>
+                <input class="copy-text fl" type="password"></input>
             </div>
+            <!-- <el-button @click="updatePasswordHandler">确认</el-button> -->
         </div>
     </section>
 </template>
@@ -24,8 +18,17 @@
 <script>
 export default {
     props: {
-        uid: "",
-        username: ""
+        userInfo: Object
+    },
+    methods: {
+        updatePasswordHandler() {
+
+        },
+
+        onMouseOver1(e) {
+            console.log("over!!");
+            // this.$refs[originPwd].type = "text";
+        }
     }
 }
 </script>

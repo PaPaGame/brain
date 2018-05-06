@@ -20,16 +20,19 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     methods: {
         btnGoClick() {
             console.log("课程信息：", this.courseInfo);
+            this.setCourseInfo(this.courseInfo._id);
             // 开始阅读
             this.$router.push({ name: "readArticle", params: { info: this.courseInfo } });
         },
         btnGoAgainClcik() {
 
-        }
+        },
+        ...mapActions(["setCourseInfo"])
     },
     props: {
         courseInfo: Object

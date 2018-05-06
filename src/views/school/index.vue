@@ -3,94 +3,55 @@
         <h3>校区管理</h3>
         <!-- filter 容器 -->
         <div class="filter-container">
-            <el-input ref="tiSearch"
-                type="input"
-                :placeholder="$t('school.searchName')"
-                class="filter-item"
-                style="width:200px"
-                clearable></el-input>
-            <el-button type="primary"
-                icon="el-icon-search"
-                class="filter-item"
-                @click="btnSearchClickHandler">{{$t('school.search')}}</el-button>
-            <el-button type="primary"
-                icon="el-icon-edit"
-                class="filter-item"
-                style="margin-left: 10px;"
-                @click="operateHandler(null,'create')">{{$t('school.add')}}</el-button>
+            <el-input ref="tiSearch" type="input" :placeholder="$t('school.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+            <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('school.search')}}</el-button>
+            <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('school.add')}}</el-button>
         </div>
 
         <!-- 表单 -->
         <div>
-            <el-table :data="list"
-                border
-                style="width:100%"
-                fit>
-                <el-table-column align="center"
-                    :label="$t('school.code')"
-                    width="90"
-                    prop="master">
+            <el-table :data="list" border style="width:100%" fit>
+                <el-table-column align="center" :label="$t('school.code')" width="90" prop="master">
                     <template slot-scope="scope">
                         <span>{{scope.row.code}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.name')"
-                    width="90"
-                    prop="name">
+                <el-table-column align="center" :label="$t('school.name')" width="90" prop="name">
                     <template slot-scope="scope">
                         <span>{{scope.row.name}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.status')"
-                    width="60">
+                <el-table-column align="center" :label="$t('school.status')" width="60">
                     <template slot-scope="scope">
                         <span>{{scope.row.status}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.master')"
-                    width="100">
+                <el-table-column align="center" :label="$t('school.master')" width="100">
                     <template slot-scope="scope">
-                        <span>{{scope.row.master}}</span>
+                        <span>{{scope.row.master[0].name}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.phone')"
-                    width="120">
+                <el-table-column align="center" :label="$t('school.phone')" width="120">
                     <template slot-scope="scope">
-                        <span>{{scope.row.phone}}</span>
+                        <span>{{scope.row.master[0].phone}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.createdTime')"
-                    width="150">
+                <el-table-column align="center" :label="$t('school.createdTime')" width="150">
                     <template slot-scope="scope">
                         <span>{{scope.row.createdAt}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.updatedTime')"
-                    width="150">
+                <el-table-column align="center" :label="$t('school.updatedTime')" width="150">
                     <template slot-scope="scope">
                         <span>{{scope.row.updatedAt}}</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center"
-                    :label="$t('school.operate')"
-                    min-width="300">
+                <el-table-column align="center" :label="$t('school.operate')" min-width="300">
                     <template slot-scope="scope">
-                        <el-button size="mini"
-                            @click="operateHandler(scope.row,'edit')">{{$t('school.edit')}}</el-button>
-                        <el-button size="mini"
-                            @click="operateHandler(scope.row,'delete')">{{$t('school.delete')}}</el-button>
-                        <el-button size="mini"
-                            @click="operateHandler(scope.row,'freeze')"
-                            v-if="scope.row.status==1">{{$t('school.freeze')}}</el-button>
-                        <el-button size="mini"
-                            @click="operateHandler(scope.row,'unfreeze')"
-                            v-if="scope.row.status==0">{{$t('school.unfreeze')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'edit')">{{$t('school.edit')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'delete')">{{$t('school.delete')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'freeze')" v-if="scope.row.status==1">{{$t('school.freeze')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'unfreeze')" v-if="scope.row.status==0">{{$t('school.unfreeze')}}</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -98,23 +59,14 @@
 
         <!-- page -->
         <div class="pagination-container">
-            <el-pagination background
-                @size-change="pageSizeChangeHandler"
-                @current-change="pageCurrentChangeHandler"
-                :current-page="1"
-                :page-sizes="[5,10,20]"
-                :page-size="10"
-                :total="2"
-                layout="total, sizes, prev, pager, next, jumper">
+            <el-pagination background @size-change="pageSizeChangeHandler" @current-change="pageCurrentChangeHandler" :current-page="1" :page-sizes="[5,10,20]" :page-size="10" :total="2" layout="total, sizes, prev, pager, next, jumper">
             </el-pagination>
         </div>
 
         <!-- 弹框 -->
         <div>
-            <el-dialog :visible.sync="dialogVisible"
-                :title="dialogTitle">
-                <detail-panel :info="schoolInfo"
-                    v-on:closeDialog="dialogVisible=false"></detail-panel>
+            <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
+                <detail-panel :info="schoolInfo" @closeDialog="dialogVisible=false" @fetchData="getList" :currentMode="dialogMode"></detail-panel>
             </el-dialog>
         </div>
     </div>
@@ -132,6 +84,7 @@ export default {
             list: null,
             dialogVisible: false,
             dialogTitle: null,
+            dialogMode: "",
             schoolInfo: {
                 code: null,
                 status: 0,
@@ -157,7 +110,9 @@ export default {
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
         operateHandler(row, op) {
+            console.log(row, op);
             this.schoolInfo = row;
+            this.dialogMode = op;
             switch (op) {
                 case "edit":
                     this.dialogVisible = true;

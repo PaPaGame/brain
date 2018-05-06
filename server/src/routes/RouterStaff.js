@@ -13,5 +13,7 @@ childRouter.post("/staff/delete", StaffController.DeleteStaff);
 childRouter.get("/staff", StaffController.GetStaff);
 childRouter.post("/staff/getList", StaffController.GetStaffList);
 childRouter.post("/staff/fuzzy", StaffController.GetByFuzzyName);
+childRouter.post("/staff/count", StaffController.GetStaffCount);
+childRouter.post("/staff/update", StaffController.Update);
 
 module.exports = childRouter;

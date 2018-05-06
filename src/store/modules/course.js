@@ -9,7 +9,10 @@ const state = {
     title: "",
     pages: [],
     question: {},
-    quiz: {}
+    quiz: {},
+    glossaries: {},
+    cid: "",
+    taiprogress:''
 }
 
 const getters = {
@@ -19,7 +22,10 @@ const getters = {
     title: state => state.title,
     pages: state => state.pages,
     question: state => state.question,
-    quiz: state => state.quiz
+    quiz: state => state.quiz,
+    glossaries: state => state.glossaries,
+    cid: state => state.cid,
+    taiprogress: state => state.taiprogress
 }
 
 const mutations = {
@@ -29,12 +35,17 @@ const mutations = {
         state.tais = data.tais;
         state.quizs = data.quizs;
         state.pages = data.pages;
+        state.glossaries = data.glossaries;
+        state.taiprogress = data.taiprogress;
     },
     [types.COURSE_UPDATE_QUESTION](state, { data }) {
         state.question = data;
     },
     [types.COURSE_UPDATE_QUIZ](state, { data }) {
         state.quiz = data;
+    },
+    [types.COURSE_SET_COURSE_ID](state, { data }) {
+        state.cid = data;
     }
 }
 
@@ -97,6 +108,11 @@ const actions = {
         }).then(res => {
             commit(types.COURSE_UPDATE_QUIZ, { data: res });
         })
+    },
+
+    setCourseInfo({ commit, state }, payload) {
+        console.log("设置课程id", payload);
+        commit(types.COURSE_SET_COURSE_ID, { data: payload });
     }
 }
 

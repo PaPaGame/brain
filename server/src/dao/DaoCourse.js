@@ -1,13 +1,14 @@
 var mongoose = require("mongoose");
 var DaoBase = require("./DaoBase");
 var CourseModel = require("../models").course;
+var UserModel = require("../models").user
 var util = require("util");
 
 var StudentModel = require("../models").student;
 var ArticleModel = require("../models").article;
 var courseModel;
-var CourseDao = function (cm) {
-    courseModel = new cm();
+function CourseDao(cm) {
+    courseModel = cm;
     DaoBase.call(this, cm);
 }
 
@@ -61,11 +62,19 @@ CourseDao.prototype.removeByLevel = async userinfo => {
     return await CourseModel.deleteMany({ "uid": uid, "cid": { $in: filterArticle } });
 }
 
-CourseDao.prototype.answerTai = async userinfo => {
-    let uid = userinfo.uid;
-    let cid = userinfo.cid;
-    let accuracy = userinfo.accuracy;
-    return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid }, { "taiAccuracy": accuracy, "taiState": 1 });
+CourseDao.prototype.answerTai = async (uid, cid, answers, taiCount) => {
+    // let course = await CourseModel.findOne({ "uid": uid, "cid": cid });
+    return await CourseModel.findOneAndUpdate({ "uid": uid, "cid": cid },
+        {
+            "taiAnswer": answers,
+            "taiCount": taiCount
+        });
+}
+
+CourseDao.prototype.getCourseByUidAndCid = async (uid, cid) => {
+    console.log(uid, cid);
+    let user = await UserModel.findOne({ "_id": uid });
+    return await CourseModel.findOne({ "uid": user.uid, "cid": cid });
 }
 
 CourseDao.prototype.answerQuiz = async userinfo => {

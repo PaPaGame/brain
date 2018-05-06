@@ -4,43 +4,21 @@
         <!-- 过滤器 -->
         <div>
             <div class="filter-container">
-                <el-input ref="tiSearch"
-                    type="input"
-                    :placeholder="$t('staff.searchName')"
-                    class="filter-item"
-                    style="width:200px"
-                    clearable></el-input>
-                <el-button type="primary"
-                    icon="el-icon-search"
-                    class="filter-item"
-                    @click="btnSearchClickHandler">{{$t('staff.search')}}</el-button>
-                <el-button type="primary"
-                    icon="el-icon-edit"
-                    class="filter-item"
-                    style="margin-left: 10px;"
-                    @click="operateHandler(null,'create')">{{$t('staff.add')}}</el-button>
+                <el-input ref="tiSearch" type="input" :placeholder="$t('staff.searchName')" class="filter-item" style="width:200px" clearable></el-input>
+                <el-button type="primary" icon="el-icon-search" class="filter-item" @click="btnSearchClickHandler">{{$t('staff.search')}}</el-button>
+                <el-button type="primary" icon="el-icon-edit" class="filter-item" style="margin-left: 10px;" @click="operateHandler(null,'create')">{{$t('staff.add')}}</el-button>
             </div>
         </div>
         <!-- 表单 -->
-        <edu-table :tableColumns="tableColumns"
-            :tableData="staffList"
-            :totalCount="totalCount"
-            :pageSize="staffModel.pagesize"
-            @pageChange="pageChange"
-            ref="table">
-            <template slot="opBtns"
-                slot-scope="scope">
-                <el-button size="mini"
-                    @click="operateHandler(scope.row,'edit')">修改</el-button>
-                <el-button size="mini"
-                    @click="operateHandler(scope.row,'delete')">删除</el-button>
+        <edu-table :tableColumns="tableColumns" :tableData="staffList" :totalCount="staffCount" :pageSize="queryModel.pagesize" @pageChange="pageChange" ref="table" :showPage="showPage">
+            <template slot="opBtns" slot-scope="scope">
+                <el-button size="mini" @click="operateHandler(scope.row,'edit')">修改</el-button>
+                <el-button size="mini" @click="operateHandler(scope.row,'delete')">删除</el-button>
             </template>
         </edu-table>
         <!-- 弹框 -->
         <div></div>
-        <detail-dialog :title="dialogTitle"
-            :isShow="dialogVisible"
-            @close="dialogVisible = false"></detail-dialog>
+        <detail-dialog :dialogTitle="dialogTitle" :isShow="dialogVisible" @close="dialogVisible = false" :staffInfo="staffInfo" :status="editStatus" @fetchStaffList="fetchList"></detail-dialog>
     </div>
 </template>
 
@@ -57,22 +35,34 @@ export default {
     methods: {
         pageSizeChangeHandler() { },
         pageCurrentChangeHandler() { },
-        pageChange() { },
+        pageChange(e) {
+            // console.log(e);
+            this.queryModel.currentPage = e;
+            this.getStaffList(this.queryModel);
+        },
         btnSearchClickHandler() { },
+        fetchList() {
+            this.queryModel.school = this.userParam.school;
+            this.getStaffList(this.queryModel);
+        },
         operateHandler(row, opt) {
             let role = {};
             role.school = "";
+            this.editStatus = opt;
             switch (opt) {
                 case "create":
                     this.dialogTitle = this.$t('staff.createTitle');
                     this.dialogVisible = true;
                     break;
                 case "edit":
+                    this.staffInfo = row;
+                    this.dialogTitle = this.$t('staff.edit');
+                    this.dialogVisible = true;
                     break;
                 case "delete":
                     staffService.deleteStaff(row).then(res => {
                         if (res.status == 200) {
-                            this.getStaffList(this.userParam);
+                            this.fetchList();
                             this.$message({ type: "success", message: this.$t("staff.deleteStaffSuccess") });
                         } else {
                             this.$message({ type: "error", message: this.$t("staff.deleteStaffFailed") });
@@ -84,8 +74,7 @@ export default {
         ...mapActions(["getStaffList"])
     },
     created() {
-        console.log(this.userParam);
-        this.getStaffList(this.userParam);
+        this.fetchList();
     },
     data() {
         return {
@@ -93,7 +82,7 @@ export default {
                 { prop: "name", label: this.$t('staff.username'), width: '190' },
                 { prop: "school", label: this.$t('staff.school'), width: '90' },
                 { prop: "phone", label: this.$t('staff.phone'), width: '140' },
-                { prop: "mail", label: this.$t('staff.mail'), width: '140' },
+                { prop: "mail", label: this.$t('staff.mail'), width: '180' },
                 {                    prop: "group", label: this.$t('staff.group'), width: '140',
                     template: (row) => {
                         return row.group.length + this.$t('staff.unit');
@@ -102,14 +91,15 @@ export default {
                 { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
                 { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
             ],
-            staffModel: {
-                curr_page: 1,
-                pagesize: 10,
-                type: "page"
+            showPage: true,
+            queryModel: {
+                currentPage: 1,
+                pageSize: 10,
             },
-            totalCount: 0,
             dialogTitle: "",
-            dialogVisible: false
+            dialogVisible: false,
+            staffInfo: {},
+            editStatus: ""
         }
     },
     computed: {
@@ -120,7 +110,8 @@ export default {
         },
         ...mapGetters({
             userinfo: "userinfo",
-            staffList: "staffList"
+            staffList: "staffList",
+            staffCount: "staffCount"
         })
     }
 }

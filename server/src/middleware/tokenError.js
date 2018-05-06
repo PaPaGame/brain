@@ -5,6 +5,7 @@ const verify = util.promisify(jwt.verify);
 
 module.exports = () => {
     return async (ctx, next) => {
+        console.log("这里是 token error js");
         let message = {};
         try {
             // 获取token

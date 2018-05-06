@@ -9,12 +9,13 @@ const childRouter = new Router({
 childRouter.use(jwt({}));
 
 childRouter.post("/fuzzy", StudentController.GetFuzzyByName);
-childRouter.post("", StudentController.AddStudent);
-childRouter.put("", StudentController.UpdateStudent);
-childRouter.delete("", StudentController.DeleteStudent);
+childRouter.post("/add", StudentController.AddStudent);
+childRouter.post("/update", StudentController.UpdateStudent);
+childRouter.post("/remove", StudentController.DeleteStudent);
 // childRouter.get("", StudentController.GetStudent);
 childRouter.post("/id", StudentController.GetById);
 childRouter.post("/article", StudentController.UpdateArticleLevel);
 childRouter.post("/all", StudentController.GetAllStudent);
+childRouter.post("/getbyclassid", StudentController.GetStudentByClassId);
 
 module.exports = childRouter;

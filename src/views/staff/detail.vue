@@ -1,20 +1,20 @@
 <template>
-    <edu-dialog :isShow="dialogVisible" @close="close">
-        <el-form :model="selectedItem">
+    <edu-dialog :isShow="dialogVisible" @close="close" :title="dialogTitle">
+        <el-form :model="staffModel">
             <el-form-item :label="$t('staff.username')" label-width="100px">
-                <el-input v-model="selectedItem.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
+                <el-input v-model="staffModel.name" auto-complete="off" :placeholder="$t('staff.placeholderName')"></el-input>
             </el-form-item>
-            <el-form-item :label="$t('staff.password')" label-width="100px">
-                <el-input auto-complete="off" v-model="selectedItem.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
+            <el-form-item :label="$t('staff.password')" label-width="100px" v-if="status === 'create'">
+                <el-input auto-complete="off" v-model="staffModel.password" type="password" :placeholder="$t('staff.placeholderPassword')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.school')" label-width="100px">
-                <el-autocomplete v-model="selectedItem.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;"></el-autocomplete>
+                <el-autocomplete v-model="staffModel.school" :placeholder="$t('staff.placeholderSchoolCode')" :fetch-suggestions="querySearchSchoolAsync" @select="schoolSelectHandler" style="width: 100%;" :disabled="userinfo.role === '800'"></el-autocomplete>
             </el-form-item>
             <el-form-item :label="$t('staff.phone')" label-width="100px">
-                <el-input v-model="selectedItem.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
+                <el-input v-model="staffModel.phone" auto-complete="off" :placeholder="$t('staff.placeholderPhone')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.mail')" label-width="100px">
-                <el-input v-model="selectedItem.mail" auto-complete="off" :placeholder="$t('staff.placeholderMail')"></el-input>
+                <el-input v-model="staffModel.mail" auto-complete="off" :placeholder="$t('staff.placeholderMail')"></el-input>
             </el-form-item>
             <el-form-item :label="$t('staff.groupName')" label-width="100px">
                 <el-autocomplete :placeholder="$t('staff.placeholderGroupName')" :fetch-suggestions="querySearchGroupAsync" @select="groupSelectHandler" style="width: 100%;"></el-autocomplete>
@@ -27,7 +27,8 @@
         </edu-table>
         <div style="float:right">
             <el-button @click="close()">取 消</el-button>
-            <el-button type="primary" @click="addStaff">确 定</el-button>
+            <el-button type="primary" @click="addStaff" v-if="status === 'create'">确 定</el-button>
+            <el-button type="primary" @click="updateStaff" v-else-if="status === 'edit'">确 定</el-button>
         </div>
     </edu-dialog>
 </template>
@@ -47,7 +48,6 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            selectedItem: {},
             groupList: [],
             tableColumns: [
                 { prop: "name", label: this.$t('staff.groupName'), width: '250' },
@@ -59,15 +59,22 @@ export default {
     },
     props: {
         isShow: { type: Boolean, default: false },
+        dialogTitle: { type: String, default: "" },
+        staffInfo: { type: Object, default: null },
+        status: { type: String, default: "" }
     },
     watch: {
         isShow() {
             this.dialogVisible = this.isShow;
+        },
+        staffInfo(val) {
+            this.staffModel = val;
         }
     },
     methods: {
         close() {
             this.dialogVisible = false;
+            this.staffModel = {};
             this.$emit("close");
         },
         schoolSelectHandler(value) {
@@ -129,11 +136,13 @@ export default {
             this.groupList.forEach(group => {
                 ids.push(group._id);
             })
-            this.selectedItem.group = ids;
-            this.selectedItem.status = 0;
-            this.selectedItem.role = 1;
-            console.log(this.selectedItem);
-            staffService.addStaff(this.selectedItem).then(res => {
+            this.staffModel.group = ids;
+            this.staffModel.status = 0;
+            if (this.userinfo.school !== "") {
+                this.staffModel.school = this.userinfo.school;
+            }
+            console.log(this.staffModel);
+            staffService.addStaff(this.staffModel).then(res => {
                 this.$message({
                     type: 'success',
                     message: res.message
@@ -141,7 +150,16 @@ export default {
                 this.close();
                 this.getStaffList(this.userParam);
             });
-        }, ...mapActions(["getStaffList"])
+        },
+        updateStaff() {
+            staffService.updateStaff(this.staffModel).then(res => {
+                if (res.status === 200) {
+                    this.close();
+                    this.$emit("fetchStaffList");
+                }
+            });
+        },
+        ...mapActions(["getStaffList"])
     },
     computed: {
         userParam() {

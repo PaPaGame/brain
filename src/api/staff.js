@@ -12,21 +12,36 @@ const staff = {
         return ajax({
             url: "/staff/getList",
             method: "post",
-            data: query
+            params: query
         })
     },
     addStaff(info) {
         return ajax({
             url: "/staff",
             method: "post",
-            data: info
+            params: info
         });
     },
     deleteStaff(info) {
         return ajax({
             url: "/staff/delete",
             method: "post",
-            data: info
+            params: info
+        })
+    },
+
+    updateStaff(info) {
+        return ajax({
+            url: "/staff/update",
+            method: "post",
+            params: info
+        })
+    },
+
+    getTotalStaffCount() {
+        return ajax({
+            url: "/staff/count",
+            method: "post"
         })
     }
 };

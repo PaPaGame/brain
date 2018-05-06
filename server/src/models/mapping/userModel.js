@@ -21,7 +21,7 @@ var userSchema = new Schema({
     lastLoginTime: Date,
     lastLoginIP: String,
     school: String,
-    uid: { type: [SchemaTypes.ObjectId], index: true }
+    uid: { type: SchemaTypes.ObjectId, index: true }
 }, {
         timestamps: {
             type: Number,

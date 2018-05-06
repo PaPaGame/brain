@@ -8,6 +8,7 @@ var UserModel = require("../models").user;
 var SchoolModel = require("../models").school;
 var ClassModel = require("../models").class;
 var StudentModel = require("../models").student;
+var StaffModel = require("../models").staff;
 
 var userDao = new UserDao(UserModel);
 
@@ -184,7 +185,30 @@ const DashboardInfoData = async ctx => {
         }
         case Role.STAFF: {
             message.status = 200;
-            message.info = [5, 6, 7, 8];
+            message.info = [5, 6, 7];
+            let userInfoResult = await UserModel.findOne({ "_id": userinfo.id });
+            if (!userInfoResult) {
+                message.status = 400;
+                message.message = "查询用户信息出错";
+                ctx.body = message;
+                return;
+            }
+            let staffInfoResult = await StaffModel.findOne({ "_id": userinfo.uid });
+            console.log(staffInfoResult);
+            let staffGroupCount = staffInfoResult.group.length;
+            let studentCount = 0;
+            // 老师名下有班级，才有查的必要
+            if (staffGroupCount !== 0) {
+                let classes = await ClassModel.find({
+                    "staff.id": userinfo.id
+                });
+                classes.forEach(classInfo => {
+                    studentCount += classInfo.student.length;
+                })
+            }
+
+            message.status = 200;
+            message.info = [staffGroupCount, studentCount, -1];
             break;
         }
         case Role.MASTER: {

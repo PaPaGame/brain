@@ -45,6 +45,8 @@ export default {
                 break;
             case Role.ADMIN: this.currentRole = "adminDashboard";
                 break;
+            default:
+                break;
         }
     }
 
