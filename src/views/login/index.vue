@@ -1,5 +1,6 @@
 <template>
     <div class="login-container">
+        <img src="@/assets/logo.jpeg" class="logo" />
         <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
             <h3 class="title">{{$t("signin.title")}}</h3>
             <el-form-item prop="username">
@@ -126,6 +127,12 @@ export default {
     width: 350px;
     padding: 35px 35px 15px 35px;
   }
+}
+
+.logo {
+  margin: 10px auto;
+  width: 218px;
+  height: 76px;
 }
 
 // @import "./login.scss";
