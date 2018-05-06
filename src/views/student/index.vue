@@ -16,7 +16,7 @@
             <el-col :xs="{span: 24}" :sm="{span: 24}" :md="{span: 24}" :lg="{span: 16}" :xl="{span: 10}">
                 <edu-table :tableColumns="tableColumns" :tableData="allStudent" :totalCount="allStudentCount" :pageSize="studentQueryModel.pageSize" @pageChange="pageChange" ref="table">
                     <template slot="opBtns" slot-scope="scope">
-                        <el-button size="mini" @click="operateHandler(scope.row,'editpwd')">修改密码</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'editpwd')" v-if="userinfo.role === '800' || userinfo.role === '1000'">修改密码</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'edit')">修改信息</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'delete')" type="danger">删除</el-button>
                     </template>
