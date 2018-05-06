@@ -50,17 +50,19 @@ export const asyncRouterMap = [
                 icon: "tai"
             }
         }]
-    }, {
-        path: "",
-        component: Layout,
-        children: [{
-            path: "/marking", component: _import("school/index"), name: 'marking', meta: {
-                title: "marking",
-                roles: [role.MASTER, role.STAFF, role.ADMIN],
-                icon: "mark"
-            }
-        }]
-    }, {
+    },
+    // {
+    //     path: "",
+    //     component: Layout,
+    //     children: [{
+    //         path: "/marking", component: _import("school/index"), name: 'marking', meta: {
+    //             title: "marking",
+    //             roles: [role.MASTER, role.STAFF, role.ADMIN],
+    //             icon: "mark"
+    //         }
+    //     }]
+    // }, 
+    {
         path: "",
         component: Layout,
         children: [{
