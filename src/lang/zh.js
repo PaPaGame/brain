@@ -209,6 +209,7 @@ export default {
         totalCount: "总授权课文数量",
         ingCount: "进行中课文数量",
         unstartCount: "未开始课文数量",
-        overCount: "已完成课文数量"
+        overCount: "已完成课文数量",
+        fetchError: "获取首页数据出错"
     }
 }

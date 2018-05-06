@@ -14,13 +14,13 @@ util.inherits(StaffDao, DaoBase);
 StaffDao.prototype.addStaff = async (userinfo, callback) => {
     if (!userinfo)
         return callback({ err: 'err parameter' });
+    userinfo.status = 1;
     let staffResult = await StaffModel.create(userinfo);
     var user;
     if (staffResult) {
         userinfo.role = "400";
         userinfo.uid = staffResult._id;
         userinfo.username = userinfo.name;
-        userinfo.status = 1;
     }
 
     console.log(userinfo);
