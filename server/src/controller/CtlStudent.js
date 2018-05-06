@@ -66,7 +66,24 @@ const AddStudent = async (ctx) => {
 }
 
 const UpdateStudent = async (ctx) => {
+    let message = {};
+    let userinfo = ctx.request.body;
 
+    console.log("更新学生", userinfo);
+    let uid = userinfo._id;
+    let studentResult = await studentDao.update({ "_id": uid }, { $set: userinfo });
+
+    delete userinfo._id; // 需要删除“_id”属性， 否则在user中 会被认为重复属性
+    let userResult = await UserModel.update({ "uid": uid }, { $set: userinfo });
+
+    if (userResult) {
+        message.status = 200;
+        message.message = "数据更新成功";
+    } else {
+        message.status = 400;
+    }
+
+    ctx.body = message;
 }
 
 const DeleteStudent = async (ctx) => {
@@ -95,11 +112,28 @@ const GetById = async (ctx) => {
     let userinfo = ctx.request.body;
     let message = {};
     // console.log(userinfo);
+    let basicInfo = {};
     let result = await studentDao.getById(userinfo.id);
 
-    if (result) {
+    // basicInfo = result;
+
+    let userResult = await UserModel.findOne({ "uid": userinfo.id });
+    if (userResult) {
+        basicInfo.mail = userResult.mail;
+        basicInfo.phone = userResult.phone;
+        basicInfo.status = userResult.status;
+    }
+
+    basicInfo._id = result._id;
+    basicInfo.group = result.group;
+    basicInfo.articleLevel = result.articleLevel == null ? [] : result.articleLevel;
+    basicInfo.school = result.school;
+    basicInfo.status = result.status;
+    basicInfo.username = result.username;
+
+    if (basicInfo) {
         message.status = 200;
-        message.info = result;
+        message.info = basicInfo;
     } else {
         message.status = 400;
         message.message = `未找到id为${userinfo.id}的学生`;

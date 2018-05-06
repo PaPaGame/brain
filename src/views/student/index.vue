@@ -66,14 +66,14 @@ export default {
             currentUserId: "",
             currentUsername: "",
             studentInfo: {
-                _id: String,
-                username: String,
-                password: String,
-                schoolCode: String,
-                mail: String,
-                phone: String,
-                status: String,
-                createAt: String
+                // _id: "",
+                // username: "",
+                // password: "",
+                // schoolCode: "",
+                // mail: "",
+                // phone: "",
+                // status: 1,
+                // createAt: ""
             },
             studentQueryModel: {
                 currentPage: 1,
@@ -137,6 +137,11 @@ export default {
                     this.currentUserId = this.studentInfo._id;
                     this.currentUsername = this.studentInfo.username;
                     this.dialogPassword = true;
+                    break;
+                case "edit":
+                    this.dialogOperate = opt;
+                    this.dialogVisible = true;
+                    console.log(this.studentInfo);
                     break;
                 case "delete":
                     if (row.group !== "") {

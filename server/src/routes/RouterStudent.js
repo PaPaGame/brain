@@ -10,7 +10,7 @@ childRouter.use(jwt({}));
 
 childRouter.post("/fuzzy", StudentController.GetFuzzyByName);
 childRouter.post("/add", StudentController.AddStudent);
-childRouter.put("", StudentController.UpdateStudent);
+childRouter.post("/update", StudentController.UpdateStudent);
 childRouter.post("/remove", StudentController.DeleteStudent);
 // childRouter.get("", StudentController.GetStudent);
 childRouter.post("/id", StudentController.GetById);

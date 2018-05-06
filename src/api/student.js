@@ -46,6 +46,14 @@ const student = {
             method: "post",
             params: query
         })
+    },
+
+    updateStudent(query) {
+        return ajax({
+            url: "/student/update",
+            method: "post",
+            params: query
+        })
     }
 
 

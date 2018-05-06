@@ -151,7 +151,12 @@ export default {
         operate: "操作",
         groupNotNull: "请先在班级中移除该学生，方可进行删除",
         deleteTitle: "删除",
-        deleteConfirm: "确认"
+        deleteConfirm: "确认",
+        freeze: "封停",
+        normal: "解封",
+        updateSuccess: "数据学生信息更新成功",
+        updateFailed: "数据学生信息更新失败"
+
     },
     reading: {
         title: "阅读理解",
