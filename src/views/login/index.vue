@@ -104,6 +104,7 @@ export default {
   position: absolute;
   right: 100px;
   top: 0px;
+
 }
 .card-box {
   padding: 20px;
@@ -113,7 +114,7 @@ export default {
   background-clip: padding-box;
   margin-bottom: 20px;
   background-color: #f9fafc;
-  margin: 120px auto;
+  margin: 40px auto;
   width: 400px;
   border: 2px solid #8492a6;
 }
@@ -130,10 +131,13 @@ export default {
 }
 
 .logo {
-  margin: 10px auto;
-  width: 218px;
-  height: 76px;
+    display: block;
+    margin: 160px auto 0px auto;
+    width: 218px;
+    height: 76px;
 }
-
+body {
+    /*background:url('../../assets/loginbg.png');*/
+}
 // @import "./login.scss";
 </style>
