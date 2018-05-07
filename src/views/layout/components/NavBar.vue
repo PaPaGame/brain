@@ -4,7 +4,7 @@
             <el-dropdown class="avatar-container right-menu-item" trigger="click">
                 <div class="avatar-wrapper">
                     <!-- <img class="user-avatar el-icon-menu">  -->
-                    <span class="user-avatar el-icon-menu">{{this.currentRole}}</span>
+                    <span class="user-avatar el-icon-bell"></span>{{this.currentRole}}
                     <i class="el-icon-caret-bottom"></i>
                 </div>
                 <el-dropdown-menu slot="dropdown">
@@ -75,14 +75,15 @@ export default {
         margin-top: 5px;
         position: relative;
         .user-avatar {
-          width: 50px;
+          padding-right: 5px;
+         /* width: 50px;
           height: 50px;
-          border-radius: 10px;
+          border-radius: 10px;*/
         }
         .el-icon-caret-bottom {
           position: absolute;
-          right: -20px;
-          top: 25px;
+          right: -17px;
+          top: 20px;
           font-size: 12px;
         }
       }

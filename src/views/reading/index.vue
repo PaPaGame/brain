@@ -1,8 +1,5 @@
 <template>
     <div>
-        <span>
-            <h3>Here is Article List Page</h3>
-        </span>
         <div>
             <ul>
                 <template v-for="(courseInfo,index) in courses">

@@ -3,7 +3,7 @@
     	<div class='progress-scale'>
     		
     	</div>
-        <div class='progress-track' ></div>
+        <div class='progress-track ' :class="{'el-icon-star-on':star}"></div>
     </div>
 </template>
 
@@ -12,7 +12,8 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			progress:0
+			progress:0,
+			star:true
 		}
 	},
 	props:{
@@ -34,6 +35,9 @@ export default {
 		taiprogress(idx) {
 			console.log(this.taiprogress + '当前答题数目');
 			document.getElementsByClassName('progress-track')[0].style.width = this.progress*100 +'%';
+			if(this.progress >= 1) {
+				this.star = false;
+			}
 			// console.log(this.taiprogress +'当前已答对题目数');
 		}
 	},
@@ -72,6 +76,15 @@ export default {
 			-webkit-transition:all .3s ease-in-out;
 			-o-transition:all .3s ease-in-out;
 			transition:all .3s ease-in-out;
+			text-align: right;
+			&.el-icon-star-on:before {
+				position: absolute;
+				top: 0;
+				right: -15px;
+				font-size:30px;
+				content: "\E637";
+				color: #e6a23c;
+			}
 		}
 		.progress-scale {
 			display: -webkit-flex;

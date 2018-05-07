@@ -3,7 +3,7 @@
     	<div class='progress-scale'>
     		
     	</div>
-        <div class='progress-track' ></div>
+        <div class='progress-track' :class="{'el-icon-star-on':star}"></div>
     </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
 	data() {
 		return {
 			// taiprogress:0
+			star:true
 		}
 	},
 	props:{
@@ -22,7 +23,6 @@ export default {
 		totalCount() {
 			console.log(this.totalCount +'总题目数');
 			console.log(this.taiprogress);
-			debugger;
 			for(let i =0 ; i < this.totalCount; i++) {
 				let dom = document.createElement('span');
 				document.getElementsByClassName('progress-scale')[0].appendChild(dom);
@@ -30,7 +30,6 @@ export default {
 			}
 		},
 		taiprogress() {
-			debugger;
 			// console.log(this.taiprogress +'当前已答对题目数');
 		}
 	},
@@ -68,6 +67,14 @@ export default {
 			-webkit-transition:all .3s ease-in-out;
 			-o-transition:all .3s ease-in-out;
 			transition:all .3s ease-in-out;
+			&.el-icon-star-on:before {
+				position: absolute;
+				top: 0;
+				right: -15px;
+				font-size:30px;
+				content: "\E637";
+				color: #e6a23c;
+			}
 		}
 		.progress-scale {
 			display: -webkit-flex;
