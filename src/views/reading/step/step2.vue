@@ -20,6 +20,7 @@
 // import eduProgress from "../dialog/progress";
 import eduProgress from "@/components/progress";  
 import { mapActions, mapGetters } from 'vuex';
+import EventBus from "@/utils/eventBus";
 export default {
     components: {
         eduProgress
@@ -31,6 +32,11 @@ export default {
     },
     props:{
         
+    },
+    mounted(){
+        EventBus.$on("taiprogress",idx=>{
+            console.log("aaaaaaaaaaaaaaa",idx);
+        })
     },
     methods: {
         start() {

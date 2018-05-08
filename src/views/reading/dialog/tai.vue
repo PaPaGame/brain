@@ -21,6 +21,7 @@
 import eduDialog from "@/components/Dialog/dialog";
 import courseService from "@/api/course";
 import { mapActions, mapGetters } from 'vuex';
+import EventBus from "@/utils/eventBus";
 export default {
     components: {
         eduDialog
@@ -90,7 +91,7 @@ export default {
             if (this.findAnswer.correct) {
                 this.answered = this.answered + 1;
                 debugger;
-                this.$emit('taiprogress', this.answered);
+                EventBus.$emit('taiprogress', this.answered);
             }
         },
         close() {
