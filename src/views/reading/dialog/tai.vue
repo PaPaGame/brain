@@ -90,7 +90,6 @@ export default {
             //如果答对则 增加学习条进度
             if (this.findAnswer.correct) {
                 this.answered = this.answered + 1;
-                debugger;
                 EventBus.$emit('taiprogress', this.answered);
             }
         },

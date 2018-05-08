@@ -18,14 +18,15 @@ export default {
 	},
 	props:{
 		totalCount:{ type: Number, default: 0 },
-		taiprogress:{ type: Number, default: 0 }
+		taiprogress:{ type: Number, default: 0 },
+		quizCount:{ type: Number, default: 0 },
+		quizprogress:{ type: Number, default: 0 }
 	},
 	watch:{
 		totalCount() {
-			console.log(this.totalCount +'总题目数');
-			console.log(this.taiprogress);
-			this.progress = this.taiprogress/this.totalCount;
-			console.log(this.progress)
+			console.log(this.totalCount +'总灯泡数');
+			// console.log(this.taiprogress);
+			// console.log(this.progress)
 			for(let i =0 ; i < this.totalCount; i++) {
 				let dom = document.createElement('span');
 				document.getElementsByClassName('progress-scale')[0].appendChild(dom);
@@ -33,12 +34,30 @@ export default {
 			}
 		},
 		taiprogress(idx) {
-			console.log(this.taiprogress + '当前答题数目');
-			document.getElementsByClassName('progress-track')[0].style.width = this.progress*100 +'%';
+			console.log(this.taiprogress + '当前点击灯泡数');
+			document.getElementsByClassName('progress-track')[0].style.width = (this.taiprogress/this.totalCount)*100 +'%';
+			// console.log(this.taiprogress/this.totalCount);
+			this.progress = this.taiprogress/this.totalCount;
 			if(this.progress >= 1) {
 				this.star = false;
 			}
 			// console.log(this.taiprogress +'当前已答对题目数');
+		},
+		quizCount() {
+			console.log(this.quizCount +'总题目数');
+			for(let i =0 ; i < this.quizCount; i++) {
+				let dom = document.createElement('span');
+				document.getElementsByClassName('progress-scale')[1].appendChild(dom);
+			}
+		},
+		quizprogress() {
+			console.log(this.quizprogress + '当前答题数目');
+			document.getElementsByClassName('progress-track')[1].style.width = (this.quizprogress/this.quizCount)*100 +'%';
+			// console.log(this.quizprogress/this.quizCount);
+			this.progress = this.quizprogress/this.quizCount;
+			if(this.progress >= 1) {
+				this.star = false;
+			}
 		}
 	},
 	methods: {
