@@ -7,9 +7,9 @@
             <div class='btn-group btn-box'>
                 <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>
                 <el-button type="warning" @click="pause">{{$t('reading.pause')}}</el-button>
-                <span class='switch'>
+                <!-- <span class='switch'>
                     <el-switch v-model="switchVal"></el-switch> {{$t('reading.glossary')}}
-                </span>
+                </span> -->
             </div>
             <edu-progress :totalCount="tais.length" :taiprogress='taiprogress'>progressbar</edu-progress>
         </div>

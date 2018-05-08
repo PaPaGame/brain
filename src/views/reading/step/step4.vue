@@ -6,7 +6,7 @@
         <div class='tool-box'>
             <div class='btn-group btn-box'>
                 <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
-                <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
+                <!-- <el-button type="warning">{{$t('reading.takequizagain')}}</el-button> -->
             </div>
             <edu-progress :quizCount='quizs.length' :quizprogress='quizprogress'></edu-progress>
         </div>
