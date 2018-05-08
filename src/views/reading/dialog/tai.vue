@@ -70,8 +70,10 @@ export default {
             let hits = this.findAnswer.hints;
             let rndIdx = Math.floor(Math.random() * 2);
             let hit = hits[rndIdx];
-            this.hits = hit.text;
-            this.playSound(hit.audio);
+            if(typeof(hit) !='undefined') {
+                this.hits = hit.text;
+                this.playSound(hit.audio);
+            }
 
             // TODO: 发送数据
 
@@ -87,6 +89,7 @@ export default {
             //如果答对则 增加学习条进度
             if (this.findAnswer.correct) {
                 this.answered = this.answered + 1;
+                debugger;
                 this.$emit('taiprogress', this.answered);
             }
         },

@@ -12,7 +12,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			// taiprogress:0
+			// taiprogress:0,
 			star:true
 		}
 	},
@@ -30,7 +30,7 @@ export default {
 			}
 		},
 		taiprogress() {
-			// console.log(this.taiprogress +'当前已答对题目数');
+			console.log(this.taiprogress +'ttt');
 		}
 	},
 	methods: {
@@ -43,7 +43,7 @@ export default {
 	},
     computed: {
         ...mapGetters({
-            taiprogress: "taiprogress"
+            // taiprogress: "taiprogress"
         })
     }
 }

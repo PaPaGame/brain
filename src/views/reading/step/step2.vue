@@ -11,7 +11,7 @@
                     <el-switch v-model="switchVal"></el-switch> {{$t('reading.glossary')}}
                 </span>
             </div>
-            <edu-progress :totalCount="tais.length" :taiprogress='parseInt(this.taiprogress)'>progressbar</edu-progress>
+            <edu-progress :totalCount="tais.length" @taiprogress='taiprogress'>progressbar</edu-progress>
         </div>
     </div>
 </template>
@@ -38,12 +38,16 @@ export default {
         },
         pause() {
             this.$emit("stopReading");
+        },
+        taiprogress(idx) {
+            debugger;
+            console.log(idx)
         }
     },
     computed: {
         ...mapGetters({
-            tais: "tais",
-            taiprogress: "taiprogress"
+            tais: "tais"
+            // taiprogress: "taiprogress"
 
         })
     }
