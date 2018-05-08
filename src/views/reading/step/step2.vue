@@ -3,7 +3,6 @@
         <div>
             <span class='desc'>{{$t("reading.desc2")}}</span>
         </div>
-        <!-- <el-progress :text-inside="true" :stroke-width="28" :percentage="70"></el-progress> -->
         <div class='tool-box'>
             <div class='btn-group btn-box'>
                 <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>

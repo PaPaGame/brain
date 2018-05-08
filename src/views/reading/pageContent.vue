@@ -17,8 +17,8 @@
                     <el-button size="medium" :v-show="currentPage!=totalPage" @click="btnPageChange(++currentPage)" class="pageButton nextPage el-icon-arrow-right btn-next"></el-button>
                     <el-button size="mini" @click="btnPageChange(totalPage-1)" class="pageButton lastPage el-icon-d-arrow-right"></el-button>
                 </div>
-                <span class="pagenumber leftnumber">1</span>
-                <span class="pagenumber rightnumber">2</span>
+                <span class="pagenumber leftnumber" >{{leftnumber}}</span>
+                <span class="pagenumber rightnumber" >{{rightnumber}}</span>
 
                 <audio ref="audio" v-on:ended="playerOver" autoplay></audio>
             </div>
@@ -71,7 +71,9 @@ export default {
             contents: [],
             wordNode: [],
             explainVisible: false,
-            explainWord: {}
+            explainWord: {},
+            leftnumber:1,
+            rightnumber:2
         };
     },
     methods: {
@@ -162,6 +164,8 @@ export default {
 
             this.currentPage = page;
             console.log(this.currentPage +'当前页码');
+            this.leftnumber = this.currentPage*2 + 1;
+            this.rightnumber = this.currentPage*2 + 2;
             this.loadPage(this.pages[this.currentPage]);
         },
         start() {

@@ -3,13 +3,12 @@
         <div>
             <span class='desc'>{{$t("reading.desc4")}}</span>
         </div>
-        <!-- <el-progress :text-inside="true"
-            :stroke-width="28"
-            :percentage="70"></el-progress> -->
-        <edu-progress :totalCount='totalCount' :currCount='currCount'></edu-progress>
-        <div class='btn-group'>
-        <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
-        <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
+        <div class='tool-box'>
+            <div class='btn-group btn-box'>
+                <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
+                <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
+            </div>
+            <edu-progress :totalCount='totalCount' :currCount='currCount'></edu-progress>
         </div>
         <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' @changeId='changeId'></quiz-dialog>
     </div>
