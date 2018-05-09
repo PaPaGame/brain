@@ -1,5 +1,6 @@
 <template>
     <div class="menu-wrapper">
+        <div class='logo'><img src="@/assets/logo.jpeg" class="logo" /></div>
         <template v-for="item in routes" v-if="!item.hidden&&item.children">
 
             <router-link v-if="item.children.length===1 && !item.children[0].children&&!item.alwaysShow" :to="item.path+item.children[0].path" :key="item.children[0].name">
@@ -58,5 +59,10 @@ export default {
     }
 }
 </script>
+<style type="text/css">
+    .logo {
+        width: 100%;
+    }
+</style>
 
 

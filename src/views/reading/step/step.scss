@@ -18,14 +18,16 @@
         color:#fff;
     }
     .tool-box {
-        display:-webkit-flex;
+        /*display:-webkit-flex;
         display:-moz-flex;
         display:-ms-flex;
-        display:flex;
+        display:flex;*/
         .progress-box {
-
+            float: right;
+            top:10px;
         }
         .btn-group {
+            float: left;
             margin-top:0;
             min-width: 345px;
         }

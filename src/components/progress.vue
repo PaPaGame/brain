@@ -38,7 +38,7 @@ export default {
 			document.getElementsByClassName('progress-track')[0].style.width = (this.taiprogress/this.totalCount)*100 +'%';
 			// console.log(this.taiprogress/this.totalCount);
 			this.progress = this.taiprogress/this.totalCount;
-			if(this.progress >= 1) {
+			if(this.progress >= 1 ) {
 				this.star = false;
 			}
 			// console.log(this.taiprogress +'当前已答对题目数');
@@ -79,8 +79,8 @@ export default {
 
 <style lang="scss">
 	.progress-box {
-		width: 100%;
-		height: 30px;
+		width: 300px;
+		height: 20px;
 		position: relative;
 		border-radius: 30px;
 		overflow: hidden;
@@ -99,8 +99,8 @@ export default {
 			&.el-icon-star-on:before {
 				position: absolute;
 				top: 0;
-				right: -15px;
-				font-size:30px;
+				right: -10px;
+				font-size:20px;
 				content: "\E637";
 				color: #e6a23c;
 			}
@@ -117,7 +117,22 @@ export default {
 				-webkit-flex:1;
 				-moz-flex:1;
 				flex:1;
-				border-right: 1px solid black;
+				position: relative;
+				&:before {
+					content:'';
+					width: 20px;
+					height: 20px;
+					position: absolute;
+					border:1px solid #3a8ee6;
+					top:0;
+					right: -20px;
+					-webkit-transform:rotate(45deg);
+					-o-transform:rotate(45deg);
+					transform:rotate(45deg);
+					border-left: none;
+					border-bottom: none;
+					border-radius: 5px;
+				}
 			}
 		}
 	}
