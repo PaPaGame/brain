@@ -1,6 +1,6 @@
 <template>
     <div class="login-container">
-        <img src="@/assets/logo.jpeg" class="logo" />
+        <img src="../../../static/img/logo.jpeg" class="logo" />
         <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
             <h3 class="title">{{$t("signin.title")}}</h3>
             <el-form-item prop="username">
@@ -104,7 +104,6 @@ export default {
   position: absolute;
   right: 100px;
   top: 0px;
-
 }
 .card-box {
   padding: 20px;
@@ -131,13 +130,13 @@ export default {
 }
 
 .logo {
-    display: block;
-    margin: 160px auto 0px auto;
-    width: 218px;
-    height: 76px;
+  display: block;
+  margin: 160px auto 0px auto;
+  width: 218px;
+  height: 76px;
 }
 body {
-    /*background:url('../../assets/loginbg.png');*/
+  /*background:url('../../assets/loginbg.png');*/
 }
 // @import "./login.scss";
 </style>
