@@ -21,7 +21,6 @@
 import eduDialog from "@/components/Dialog/dialog";
 import courseService from "@/api/course";
 import { mapActions, mapGetters } from 'vuex';
-import EventBus from "@/utils/eventBus";
 export default {
     components: {
         eduDialog
@@ -71,10 +70,8 @@ export default {
             let hits = this.findAnswer.hints;
             let rndIdx = Math.floor(Math.random() * 2);
             let hit = hits[rndIdx];
-            if(typeof(hit) !='undefined') {
-                this.hits = hit.text;
-                this.playSound(hit.audio);
-            }
+            this.hits = hit.text;
+            this.playSound(hit.audio);
 
             // TODO: 发送数据
 
@@ -90,7 +87,7 @@ export default {
             //如果答对则 增加学习条进度
             if (this.findAnswer.correct) {
                 this.answered = this.answered + 1;
-                EventBus.$emit('taiprogress', this.answered);
+                this.$emit('taiprogress', this.answered);
             }
         },
         close() {

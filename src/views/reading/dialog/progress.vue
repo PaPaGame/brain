@@ -3,7 +3,7 @@
     	<div class='progress-scale'>
     		
     	</div>
-        <div class='progress-track ' :class="{'el-icon-star-on':star}"></div>
+        <div class='progress-track' :class="{'el-icon-star-on':star}"></div>
     </div>
 </template>
 
@@ -12,32 +12,24 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
 	data() {
 		return {
-			progress:0,
+			// taiprogress:0
 			star:true
 		}
 	},
 	props:{
-		totalCount:{ type: Number, default: 0 },
-		taiprogress:{ type: Number, default: 0 }
+		totalCount:{ type: Number, default: 0 }
 	},
 	watch:{
 		totalCount() {
 			console.log(this.totalCount +'总题目数');
 			console.log(this.taiprogress);
-			this.progress = this.taiprogress/this.totalCount;
-			console.log(this.progress)
 			for(let i =0 ; i < this.totalCount; i++) {
 				let dom = document.createElement('span');
 				document.getElementsByClassName('progress-scale')[0].appendChild(dom);
 
 			}
 		},
-		taiprogress(idx) {
-			console.log(this.taiprogress + '当前答题数目');
-			document.getElementsByClassName('progress-track')[0].style.width = this.progress*100 +'%';
-			if(this.progress >= 1) {
-				this.star = false;
-			}
+		taiprogress() {
 			// console.log(this.taiprogress +'当前已答对题目数');
 		}
 	},
@@ -50,10 +42,9 @@ export default {
 		// }
 	},
     computed: {
-        // ...mapGetters({
-        //     taiprogress: "taiprogress",
-        //     tais:'tais'
-        // })
+        ...mapGetters({
+            taiprogress: "taiprogress"
+        })
     }
 }
 </script>
@@ -72,11 +63,10 @@ export default {
 			top:0;
 			left: 0;
 			height: 100%;
-			width: 0%;
+			width: 80%;
 			-webkit-transition:all .3s ease-in-out;
 			-o-transition:all .3s ease-in-out;
 			transition:all .3s ease-in-out;
-			text-align: right;
 			&.el-icon-star-on:before {
 				position: absolute;
 				top: 0;

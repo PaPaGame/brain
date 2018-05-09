@@ -72,7 +72,7 @@ export default {
             this.$refs.pageContent.stop();
         },
         taiprogress(idx) {
-            // debugger;
+            debugger;
         },
         ...mapActions(["getArticleInfo"])
 

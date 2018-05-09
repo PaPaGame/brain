@@ -17,7 +17,6 @@
 <script>
 import eduDialog from "@/components/Dialog/dialog";
 import { mapActions, mapGetters } from 'vuex';
-import EventBus from "@/utils/eventBus";
 export default {
     components: {
         eduDialog
@@ -100,11 +99,10 @@ export default {
             // this.questionId += 1;
             if (this.quizs.toString().search(idx) > -1) {
                 this.$emit('changeId', idx);
-                
+
             } else {
                 //发送数据
             }
-            EventBus.$emit('quizprogress', this.quizs.indexOf((idx - 1).toString()) + 1);
             // let hits = this.findAnswer.hints;
             // let rndIdx = Math.floor(Math.random() * 2);
             // let hit = hits[rndIdx];
