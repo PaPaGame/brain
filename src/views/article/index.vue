@@ -1,6 +1,6 @@
 <template>
     <section>
-        <span>Article Manager</span>
+        <h3>文章管理</h3>
         <el-table :data="articles">
             <el-table-column align="center" :label="$t('article.id')" width="80" prop="id"></el-table-column>
             <el-table-column :label="$t('article.title')" min-width="300px" prop="fullTitle"></el-table-column>

@@ -17,6 +17,7 @@ export default { name: "AppMain" };
 	.app-main {
 		height: calc(100% - 50px);
 	    overflow-y: scroll;
+        padding: 0 50px;
 	}
 	#app .main-container {
 	    height: 100%;
