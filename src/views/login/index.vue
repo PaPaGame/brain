@@ -1,18 +1,25 @@
 <template>
     <div class="login-container">
-        <img src="@/assets/logo.jpeg" class="logo" />
-        <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
-            <h3 class="title">{{$t("signin.title")}}</h3>
-            <el-form-item prop="username">
-                <el-input type="text" v-model="form.username" auto-complete="off" :placeholder="$t('signin.username')"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-                <el-input type="password" v-model="form.password" auto-complete="off" :placeholder="$t('signin.password')"></el-input>
-            </el-form-item>
-            <el-form-item style="width:100%;">
-                <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2('form')">{{$t("signin.login")}}</el-button>
-            </el-form-item>
-        </el-form>
+        
+        <div class='login-box'>
+            <div class="login-bg">
+                <img src="@/assets/logo.jpeg" class="logo" />
+            </div>
+            <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
+                <!-- <h3 class="title">{{$t("signin.title")}}</h3> -->
+                <span class='type'>用户名</span>
+                <el-form-item prop="username">
+                    <el-input type="text" v-model="form.username" auto-complete="off" :placeholder="$t('signin.username')"></el-input>
+                </el-form-item>
+                <span class='type'>密码</span>
+                <el-form-item prop="password">
+                    <el-input type="password" v-model="form.password" auto-complete="off" :placeholder="$t('signin.password')"></el-input>
+                </el-form-item>
+                <el-form-item style="width:100%;">
+                    <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2('form')">{{$t("signin.login")}}</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
     </div>
     <!-- <section class="login-form account-form">
         <div class="form-aligner">
@@ -100,6 +107,17 @@ export default {
 </script>
 
  <style lang="scss" scoped>
+ .app-container {
+    position: relative;
+    background: #F5F6F7;
+    .login-container {
+        position: absolute;
+        top:50%;
+        margin-top: -250px;
+        left: 50%;
+        margin-left: -500px;
+    }
+ }
 .verify-pos {
   position: absolute;
   right: 100px;
@@ -125,16 +143,62 @@ export default {
     color: #505458;
   }
   .loginform {
-    width: 350px;
-    padding: 35px 35px 15px 35px;
+    width: 500px;
+    border:none;
+    margin: 0;
+    padding: 112px 35px 15px 35px;
+    .type {
+        color:#47505E;
+        font-size: 14px;
+    }
+    .el-form-item {
+        margin-top: 10px;
+        margin-bottom: 32px;
+    }
+    .el-form-item__error {
+    padding-top: 10px;
+    }
+    
   }
 }
 
+.el-button--primary {
+    background: #FF7F45;
+    border: none;
+    padding:16px 62px;
+    width: auto !important;
+    margin: 0 auto;
+    display: block;
+    border-radius: 200px;
+    span {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    &:hover {
+        background:#ff6d2c;
+    }
+}
 .logo {
     display: block;
     margin: 160px auto 0px auto;
     width: 218px;
     height: 76px;
+    border-radius: 20px;
+}
+.login-box {
+    display:-webkit-flex;
+    box-shadow: 0 8px 20px #e3e7ea;
+    height: 500px;
+    min-width: 1000px;
+    width: 1000px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    .login-bg {
+        background-color: #1EA69A;
+        height: 500px;
+        -webkit-flex:1;
+    }
 }
 body {
     /*background:url('../../assets/loginbg.png');*/

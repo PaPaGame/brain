@@ -80,7 +80,7 @@ export default {
 <style lang="scss">
 	.progress-box {
 		width: 300px;
-		height: 20px;
+		height: 15px;
 		position: relative;
 		border-radius: 30px;
 		overflow: hidden;
@@ -98,9 +98,9 @@ export default {
 			text-align: right;
 			&.el-icon-star-on:before {
 				position: absolute;
-				top: 0;
-				right: -10px;
-				font-size:20px;
+				top: -1px;
+				right: -9px;
+				font-size: 17px;
 				content: "\E637";
 				color: #e6a23c;
 			}
@@ -120,12 +120,12 @@ export default {
 				position: relative;
 				&:before {
 					content:'';
-					width: 20px;
-					height: 20px;
+					width: 15px;
+					height: 15px;
 					position: absolute;
 					border:1px solid #3a8ee6;
 					top:0;
-					right: -20px;
+					right: -0px;
 					-webkit-transform:rotate(45deg);
 					-o-transform:rotate(45deg);
 					transform:rotate(45deg);
