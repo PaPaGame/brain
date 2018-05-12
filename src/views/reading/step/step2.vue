@@ -3,7 +3,7 @@
         <div>
             <span class='desc'>{{$t("reading.desc2")}}</span>
         </div>
-        <div class='tool-box'>
+        <div class='tool-box clearfix'>
             <div class='btn-group btn-box'>
                 <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>
                 <el-button type="warning" @click="pause">{{$t('reading.pause')}}</el-button>

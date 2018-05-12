@@ -3,7 +3,7 @@
         <div>
             <span class='desc'>{{$t("reading.desc4")}}</span>
         </div>
-        <div class='tool-box'>
+        <div class='tool-box clearfix'>
             <div class='btn-group btn-box'>
                 <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
                 <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
