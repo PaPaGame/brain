@@ -10,7 +10,7 @@
             margin: 0 auto;
             width: 900px;
             height: 600px;
-            background-image: url("../../assets/bg.png");
+            background-image: url("../../../static/img/bg.png"); //../../assets/bg.png
             #opened-book {
                 position: relative;
                 height: 475px;
@@ -20,7 +20,7 @@
             width: 100%;
             text-align: left;
             color: #3a8ee6;
-            font-size: 15px;
+            font-size: 25px;
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             margin-top: 30px;
@@ -61,11 +61,11 @@
         }
         .page-btn {
             position: absolute;
-            top:50%;
+            top: 50%;
             left: 0px;
-            width:40px;
+            width: 40px;
             height: 40px;
-            margin-top:-20px;
+            margin-top: -20px;
             text-align: center;
             line-height: 40px;
             &.forward-page {
@@ -81,7 +81,8 @@
                     left: 0;
                     text-align: center;
                     line-height: 40px;
-                };
+                }
+                ;
             }
         }
         .btn-next {
@@ -93,9 +94,10 @@
 .active {
     background-color: yellowgreen;
 }
+
 #opened-book {
-    a.active{
+    a.active {
         background: #409eff;
-        color:#fff;
+        color: #fff;
     }
 }

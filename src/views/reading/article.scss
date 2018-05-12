@@ -5,69 +5,76 @@
 
 .reading-section {
     background: #ccc;
-    background-image: url("../../assets/wood.jpg");
+    background-image: url("../../../static/img/wood.jpg");
     background-repeat: repeat;
-    padding: 50px;
+    padding: 40px;
 }
-.app-container {
-	padding: 0;
-	margin: 0;
-	.reading-tab {
-		margin: 20px 0;
-		.el-tabs__nav-wrap.is-top {
-			padding: 20px 0;
-		}
-		.el-tabs__item {
-			width:100px;
-			background: #3a8ee6;
-			color:#fff;
-			-webkit-transition:all .3s ease-in-out;
-			transition:all .3s ease-in-out;
-			font-size: 16px;
-			font-weight: bold;
-			padding-left: 0;
-			text-align: center;
-			&:nth-of-type(2){
-				padding-left: 20px;
-			};
-			&:nth-of-type(3){
-				background: #e6a23c;
-				&:before{
-					border-left-color:#e6a23c;
-				};
-			};
-			&:nth-of-type(4){
-				background: #f56c6c;
-				&:before{
-					border-left-color:#f56c6c;
-				};
-			};
-			&.is-active {
-				width:200px;
-			}
-			&:before {
-				content:'';
-				width: 1px;
-				height: 1px;
-				position: absolute;
-				border:20px solid transparent;
-				top:0;
-				right: -40px;
-				z-index: 9;
-				border-left-color: #3a8ee6;;
-			};
-		}
-		.el-tabs__active-bar {
-			display: none;
-		}
-	}
 
+.app-container {
+    padding: 0;
+    margin: 0;
+    .reading-tab {
+        margin: 20px 0;
+        .el-tabs__nav-wrap.is-top {
+            padding: 20px 0;
+        }
+        .el-tabs__item {
+            width: 100px;
+            background: #3a8ee6;
+            color: #fff;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+            font-size: 16px;
+            font-weight: bold;
+            padding-left: 0;
+            text-align: center;
+            &:nth-of-type(2) {
+                padding-left: 20px;
+            }
+            ;
+            &:nth-of-type(3) {
+                background: #e6a23c;
+                &:before {
+                    border-left-color: #e6a23c;
+                }
+                ;
+            }
+            ;
+            &:nth-of-type(4) {
+                background: #f56c6c;
+                &:before {
+                    border-left-color: #f56c6c;
+                }
+                ;
+            }
+            ;
+            &.is-active {
+                width: 200px;
+            }
+            &:before {
+                content: '';
+                width: 1px;
+                height: 1px;
+                position: absolute;
+                border: 20px solid transparent;
+                top: 0;
+                right: -40px;
+                z-index: 9;
+                border-left-color: #3a8ee6;
+                ;
+            }
+            ;
+        }
+        .el-tabs__active-bar {
+            display: none;
+        }
+    }
     .title {
         font-size: 30px;
         color: #fff;
     }
     .back {
-    	/*color:#fff;
+        /*color:#fff;
     	text-align: right;
     	line-height: 40px;*/
     }

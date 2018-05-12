@@ -6,19 +6,18 @@
         <div class='tool-box clearfix'>
             <div class='btn-group btn-box'>
                 <el-button type="primary" @click="takeQuiz()">{{$t('reading.takequiz')}}</el-button>
-                <!-- <el-button type="warning">{{$t('reading.takequizagain')}}</el-button> -->
+                <el-button type="warning">{{$t('reading.takequizagain')}}</el-button>
             </div>
-            <edu-progress :quizCount='quizs.length' :quizprogress='quizprogress'></edu-progress>
+            <edu-progress :totalCount='totalCount' :currCount='currCount'></edu-progress>
         </div>
         <quiz-dialog :isShow="dialogVisible" @close="onClose" :questionId='quizId' @changeId='changeId'></quiz-dialog>
     </div>
 </template>
 
 <script>
-import eduProgress from "@/components/progress";
+import eduProgress from "../dialog/progress";
 import QuizDialog from "../dialog/quiz";
 import { mapActions, mapGetters } from 'vuex';
-import EventBus from "@/utils/eventBus";
 export default {
     components: {
         QuizDialog,
@@ -31,13 +30,9 @@ export default {
         return {
             dialogVisible: false,
             quizId:'',//this.quizs[0]
-            quizprogress:0
+            totalCount:10,
+            currCount:5
         }
-    },
-    mounted(){
-        EventBus.$on("quizprogress",idx=>{
-            this.quizprogress = idx;
-        })
     },
     methods: {
         takeQuiz(id) {
