@@ -1,9 +1,10 @@
 <template>
     <div class="login-container">
-        
+
         <div class='login-box'>
             <div class="login-bg">
-                <img src="@/assets/logo.jpeg" class="logo" />
+                <img src="../../../static/img/logo.jpeg" class="logo" />
+                <img src="//s3-us-west-2.amazonaws.com/static-css-assets/bg/background-school-signup.svg" class="school-svg">
             </div>
             <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
                 <!-- <h3 class="title">{{$t("signin.title")}}</h3> -->
@@ -107,22 +108,21 @@ export default {
 </script>
 
  <style lang="scss" scoped>
- .app-container {
-    position: relative;
-    background: #F5F6F7;
-    .login-container {
-        position: absolute;
-        top:50%;
-        margin-top: -250px;
-        left: 50%;
-        margin-left: -500px;
-    }
- }
+.app-container {
+  position: relative;
+  background: #f5f6f7;
+  .login-container {
+    position: absolute;
+    top: 50%;
+    margin-top: -250px;
+    left: 50%;
+    margin-left: -500px;
+  }
+}
 .verify-pos {
   position: absolute;
   right: 100px;
   top: 0px;
-
 }
 .card-box {
   padding: 20px;
@@ -144,64 +144,66 @@ export default {
   }
   .loginform {
     width: 500px;
-    border:none;
+    border: none;
     margin: 0;
     padding: 112px 35px 15px 35px;
     .type {
-        color:#47505E;
-        font-size: 14px;
+      color: #47505e;
+      font-size: 14px;
     }
     .el-form-item {
-        margin-top: 10px;
-        margin-bottom: 32px;
+      margin-top: 10px;
+      margin-bottom: 32px;
     }
     .el-form-item__error {
-    padding-top: 10px;
+      padding-top: 10px;
     }
-    
   }
 }
 
 .el-button--primary {
-    background: #FF7F45;
-    border: none;
-    padding:16px 62px;
-    width: auto !important;
-    margin: 0 auto;
-    display: block;
-    border-radius: 200px;
-    span {
-        font-weight: bold;
-        font-size: 20px;
-    }
-    &:hover {
-        background:#ff6d2c;
-    }
+  background: #ff7f45;
+  border: none;
+  padding: 16px 62px;
+  width: auto !important;
+  margin: 0 auto;
+  display: block;
+  border-radius: 200px;
+  span {
+    font-weight: bold;
+    font-size: 20px;
+  }
+  &:hover {
+    background: #ff6d2c;
+  }
 }
 .logo {
-    display: block;
-    margin: 160px auto 0px auto;
-    width: 218px;
-    height: 76px;
-    border-radius: 20px;
+  display: block;
+  margin: 80px auto 0px auto;
+  width: 218px;
+  height: 76px;
+  border-radius: 20px;
+}
+.school-svg {
+  width: 500px;
 }
 .login-box {
-    display:-webkit-flex;
-    box-shadow: 0 8px 20px #e3e7ea;
+  display: -webkit-flex;
+  box-shadow: 0 8px 20px #e3e7ea;
+  height: 500px;
+  min-width: 1000px;
+  width: 1000px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  .login-bg {
+    background-color: #1ea69a;
     height: 500px;
-    min-width: 1000px;
-    width: 1000px;
-    margin: 0 auto;
-    border-radius: 20px;
-    overflow: hidden;
-    .login-bg {
-        background-color: #1EA69A;
-        height: 500px;
-        -webkit-flex:1;
-    }
+    -webkit-flex: 1;
+  }
 }
 body {
-    /*background:url('../../assets/loginbg.png');*/
+  /*background:url('../../assets/loginbg.png');*/
 }
 // @import "./login.scss";
 </style>
