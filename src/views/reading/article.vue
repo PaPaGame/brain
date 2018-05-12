@@ -17,9 +17,9 @@
             <el-tab-pane :label="$t('reading.reading')">
                 <step-read v-on:startReading="startReading" v-on:stopReading="stopReading" @taiprogress='taiprogress'></step-read>
             </el-tab-pane>
-            <!-- <el-tab-pane :label="$t('reading.record')">
+            <el-tab-pane :label="$t('reading.record')">
                 <step-record></step-record>
-            </el-tab-pane> -->
+            </el-tab-pane>
             <el-tab-pane :label="$t('reading.quiz')">
                 <step-quiz></step-quiz>
             </el-tab-pane>
