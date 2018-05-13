@@ -77,7 +77,7 @@ export default {
             this.$emit("close");
         },
         playSound(id) {
-            this.$refs.quizAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
+            this.$refs.quizAudio.src = `${process.env.PUBLIC_PATH}/${this.dirName}/audio/${id}`;
         },
         playend() {
             // if (!this.findAnswer)

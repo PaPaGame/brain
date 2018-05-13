@@ -47,7 +47,7 @@ GenerHtml.prototype.generImages = (dirName, images) => {
     var img = document.createElement("img");
     // SL1I41333.jpg
     TODO: //解决路径问题
-    img.src = `//${process.env.PUBLIC_PATH}/${dirName}/images/${images}`
+    img.src = `${process.env.PUBLIC_PATH}/${dirName}/images/${images}`
     img.style.cssText = "width:100%; height:100%";
     return img;
 }
