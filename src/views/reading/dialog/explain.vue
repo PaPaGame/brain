@@ -33,7 +33,7 @@ export default {
         return {
             activeName2: 'first',
             dialogVisible: false,
-            isReading:false
+            isReading: false
         };
     },
     props: {
@@ -56,7 +56,7 @@ export default {
         playSound(word) {
             this.isReading = true;
             console.log(this.glossaries[word].definition_audio)
-            this.$refs.glossaryAudio.src = `http://${process.env.PUBLIC_PATH}/${this.dirName}/audio/${this.glossaries[word].definition_audio}`;
+            this.$refs.glossaryAudio.src = `${process.env.PUBLIC_PATH}/${this.dirName}/audio/${this.glossaries[word].definition_audio}`;
         }
     },
     watch: {
@@ -78,7 +78,7 @@ export default {
         },
         ...mapGetters({
             dirName: "dirName",
-            glossaries:"glossaries"
+            glossaries: "glossaries"
         })
     }
 }
