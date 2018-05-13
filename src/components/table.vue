@@ -1,8 +1,8 @@
 <template>
     <section>
         <el-table ref="eduTable" :data="tableData" @cell-click="cellClick" style="with:100%" class="edu-fix" border>
-            <el-table-column v-for="(value, index) in tableColumns" :key="index" :prop="value.prop" :label="value.label" :width="value.width ? value.width :''" :className="value.className">
-                <template slot-scope="scope">
+            <el-table-column v-for="(value, index) in tableColumns" :key="index" :prop="value.prop" :label="value.label" :width="value.width ? value.width :''" :className="value.className" >
+                <template slot-scope="scope" >
                     <div v-if="value.slotName">
                         <slot :name="value.slotName" :row="scope.row" />
                     </div>
@@ -11,7 +11,7 @@
             </el-table-column>
         </el-table>
         <section class="page-container" v-if="showPage && totalCount>pageSize">
-            <el-pagination layout="prev, pager, next" :page-size="pageSize" :total="totalCount" :current-page.sync="indexPage" @current-change="handleCurrentPageChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next" :page-size="pageSize" :total="totalCount" :current-page.sync="indexPage" @current-change="handleCurrentPageChange"></el-pagination>
         </section>
     </section>
 </template>
@@ -43,5 +43,4 @@ export default {
 </script>
 
 <style>
-
 </style>

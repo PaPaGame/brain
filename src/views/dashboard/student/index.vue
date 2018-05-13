@@ -49,7 +49,7 @@ export default {
   background-color: #e3e3e3;
   top: 0px;
   bottom: 0px;
-  padding: 100px 60px 0px;
+  padding:60px;
 }
 </style>
 

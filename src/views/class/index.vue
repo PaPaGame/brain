@@ -12,13 +12,13 @@
         <!-- 表单 -->
         <div>
             <el-table :data="groupList" border>
-                <el-table-column align="center" :label="$t('group.name')" width="250" prop="name">
+                <el-table-column align="center" :label="$t('group.name')" min-width="150" prop="name">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.school')" width="150" prop="school">
+                <el-table-column align="center" :label="$t('group.school')" min-width="150" prop="school">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.staff')" width="90" prop="staff.name">
+                <el-table-column align="center" :label="$t('group.staff')" min-width="90" prop="staff.name">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.studentCount')" width="60">
+                <el-table-column align="center" :label="$t('group.studentCount')" min-width="60">
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top" v-if="scope.row.student && scope.row.student.length">
                             <span>姓名: </span>
@@ -34,11 +34,11 @@
                         <span v-else>0</span>
                     </template>
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.createdAt')" width="120" prop="createdAt">
+                <el-table-column align="center" :label="$t('group.createdAt')" min-width="120" prop="createdAt">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.updatedAt')" width="150" prop="updatedAt">
+                <el-table-column align="center" :label="$t('group.updatedAt')" min-width="150" prop="updatedAt">
                 </el-table-column>
-                <el-table-column align="center" :label="$t('group.operate')" min-width="300">
+                <el-table-column align="center" :label="$t('group.operate')" min-width="200">
                     <template slot-scope="scope">
                         <el-button size="mini" @click="operateHandler(scope.row,'edit')">{{$t('group.edit')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'delete')">{{$t('group.delete')}}</el-button>
@@ -49,10 +49,10 @@
             </el-table>
         </div>
         <!-- 翻页 -->
-        <div class="pagination-container">
+        <!-- <div class="pagination-container"> -->
             <el-pagination background @size-change="pageSizeChangeHandler" @current-change="pageCurrentChangeHandler" :current-page="1" :page-sizes="[5,10,20]" :page-size="10" :total="2" layout="total, sizes, prev, pager, next, jumper">
             </el-pagination>
-        </div>
+        <!-- </div> -->
         <!-- 弹框 -->
         <div>
             <el-dialog :visible.sync="dialogVisible" :title="dialogTitle">
