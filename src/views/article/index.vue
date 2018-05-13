@@ -1,7 +1,7 @@
 <template>
     <section>
         <h3>文章管理</h3>
-        <el-table :data="articles">
+        <el-table :data="articles" border>
             <el-table-column align="center" :label="$t('article.id')" width="80" prop="id"></el-table-column>
             <el-table-column :label="$t('article.title')" min-width="300px" prop="fullTitle"></el-table-column>
             <el-table-column align="center" :label="$t('article.level')" width="100">
@@ -38,7 +38,7 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination layout="prev, pager, next" :total="150" @current-change="pageChangeHandler">
+        <el-pagination background layout="prev, pager, next" :total="150" @current-change="pageChangeHandler">
         </el-pagination>
     </section>
 </template>
