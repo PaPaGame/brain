@@ -44,7 +44,7 @@ export default {
     },
     computed: {
         coverURL() {
-            return `//${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
+            return `${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
         }
     }
 }

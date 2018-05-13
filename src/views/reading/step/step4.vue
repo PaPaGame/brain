@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import eduProgress from "../dialog/progress";
+import eduProgress from "@/components/progress";
 import QuizDialog from "../dialog/quiz";
 import { mapActions, mapGetters } from 'vuex';
 export default {
@@ -29,9 +29,9 @@ export default {
     data() {
         return {
             dialogVisible: false,
-            quizId:'',//this.quizs[0]
-            totalCount:10,
-            currCount:5
+            quizId: '',//this.quizs[0]
+            totalCount: 10,
+            currCount: 5
         }
     },
     methods: {
