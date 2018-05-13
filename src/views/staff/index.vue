@@ -88,7 +88,7 @@ export default {
                         return row.group.length + this.$t('staff.unit');
                     }                },
                 { prop: "createdAt", label: this.$t('staff.createdAt'), width: '230' },
-                { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '140' },
+                { prop: "updatedAt", label: this.$t('staff.updatedAt'), width: '240' },
                 { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
             ],
             showPage: true,

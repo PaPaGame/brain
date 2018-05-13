@@ -82,7 +82,7 @@ export default {
             tableColumns: [
                 { prop: "username", label: this.$t('student.username'), width: '140' },
                 { prop: "school", label: this.$t('student.school'), width: '90' },
-                {                    prop: "articleLevel", label: this.$t('student.article'), width: '90',
+                {                    prop: "articleLevel", label: this.$t('student.article'), width: '100',
                     template: (row) => {
                         if (!row.articleLevel) {
                             return "";
@@ -97,7 +97,7 @@ export default {
                         }
                         return row.group.name;
                     }                },
-                { prop: "createdAt", label: this.$t('student.createdAt'), width: '120' },
+                { prop: "createdAt", label: this.$t('student.createdAt'), width: '250' },
                 { label: this.$t("student.operate"), slotName: 'opBtns' }
             ],
             showPage: true
