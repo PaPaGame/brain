@@ -6,5 +6,5 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   ENV_CONFIG: '"DEV"',
   API_PATH: '"http://localhost:9050/api"',
-  PUBLIC_PATH: '"http://localhost:9050/dist"'
+  PUBLIC_PATH: '"//localhost:9050/dist"'
 })

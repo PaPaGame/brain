@@ -5,7 +5,7 @@
         </div>
         <div class='tool-box clearfix'>
             <div class='btn-group btn-box'>
-                <el-button type="primary"  @click="start">{{$t('reading.readtome')}}</el-button>
+                <el-button type="primary" @click="start">{{$t('reading.readtome')}}</el-button>
                 <el-button type="warning" @click="pause">{{$t('reading.pause')}}</el-button>
                 <span class='switch'>
                     <el-switch v-model="switchVal"></el-switch> {{$t('reading.glossary')}}
@@ -18,19 +18,25 @@
 
 <script>
 // import eduProgress from "../dialog/progress";
-import eduProgress from "@/components/progress";  
+import eduProgress from "@/components/progress";
 import { mapActions, mapGetters } from 'vuex';
+import MyRecorder from "./record/MyRecorder";
 export default {
     components: {
         eduProgress
     },
-    data(){
+    data() {
         return {
-            switchVal:false
+            switchVal: false,
+            recorder: null
         }
     },
-    props:{
-        
+    created() {
+        this.recorder = new MyRecorder();
+        this.recorder.getDevices();
+    },
+    props: {
+
     },
     methods: {
         start() {
