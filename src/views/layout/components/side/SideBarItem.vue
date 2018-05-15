@@ -1,6 +1,6 @@
 <template>
     <div class="menu-wrapper">
-        <div class='logo'><img src="../../../../../static/img/logo.jpeg" class="logo" /></div>
+        <div class='logo'><img src="../../../../../static/img/logo_img.png" class="logo" /></div>
         <template v-for="item in routes" v-if="!item.hidden&&item.children">
 
             <router-link v-if="item.children.length===1 && !item.children[0].children&&!item.alwaysShow" :to="item.path+item.children[0].path" :key="item.children[0].name">
@@ -59,9 +59,30 @@ export default {
     }
 }
 </script>
-<style type="text/css">
+<style type="text/scss">
 .logo {
   width: 100%;
+  background:white;
+}
+.iconfont {
+    font-size:22px;    
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+}
+.iconfont ~ span {
+    display:inline-block;
+    width:60px;
+    text-algin:left;
+}
+.icon-reading {
+    font-size:16px;
+}
+.icon-student {
+    font-size: 27px;
+}
+.icon-tai {
+    font-size: 27px;
 }
 </style>
 
