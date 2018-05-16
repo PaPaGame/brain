@@ -181,7 +181,8 @@ export default {
         commit: "提交",
         eglossary: "翻译",
         ediduknow: "你知道吗？",
-        upload: "上传"
+        upload: "上传",
+        pause: "pause"
     },
     article: {
         id: "编号",
