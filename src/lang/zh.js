@@ -180,7 +180,8 @@ export default {
         takequizagain: "Take Quiz Again",
         commit: "提交",
         eglossary: "翻译",
-        ediduknow: "你知道吗？"
+        ediduknow: "你知道吗？",
+        upload: "上传"
     },
     article: {
         id: "编号",
