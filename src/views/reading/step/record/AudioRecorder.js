@@ -49,13 +49,13 @@ if (hasGetUserMedia()) {
 
 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
-var recorder = new AudioRecorder();
+// var recorder = new AudioRecorder();
 
-var startButton = document.getElementById('btn-start-recording');
-var stopButton = document.getElementById('btn-stop-recording');
+// var startButton = document.getElementById('btn-start-recording');
+// var stopButton = document.getElementById('btn-stop-recording');
 
-startButton.onclick = recorder.start;
-stopButton.onclick = recorder.stop;
+// startButton.onclick = recorder.start;
+// stopButton.onclick = recorder.stop;
 
 function AudioRecorder(config) {
 
@@ -75,7 +75,7 @@ function AudioRecorder(config) {
   var isPaused = false;
   var isAudioProcessStarted = false;
 
-  this.start = function () {
+  this.start = function() {
     setupStorage();
 
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -83,8 +83,8 @@ function AudioRecorder(config) {
       .catch(onMicrophoneCaptureError);
   };
 
-  this.stop = function () {
-    stopRecording(function (blob) {
+  this.stop = function() {
+    stopRecording(function(blob) {
       startButton.disabled = false;
       stopButton.disabled = true;
 
@@ -109,7 +109,7 @@ function AudioRecorder(config) {
       internalInterleavedLength: recordingLength,
       leftBuffers: leftChannel,
       rightBuffers: numberOfAudioChannels === 1 ? [] : rightChannel
-    }, function (buffer, view) {
+    }, function(buffer, view) {
 
       self.blob = new Blob([view], {
         type: 'audio/wav'
@@ -138,15 +138,13 @@ function AudioRecorder(config) {
   }
 
   function setupStorage() {
-    
+
     Storage.ctx = new AudioContext();
-    
+
     if (Storage.ctx.createJavaScriptNode) {
-      alert(333)
 
       jsAudioNode = Storage.ctx.createJavaScriptNode(bufferSize, numberOfAudioChannels, numberOfAudioChannels);
     } else if (Storage.ctx.createScriptProcessor) {
-      alert(444)
       console.log('====================================')
       console.log(Storage.ctx)
       console.log('====================================')
@@ -160,7 +158,6 @@ function AudioRecorder(config) {
   }
 
   function onMicrophoneCaptured(microphone) {
-    alert(111)
     startButton.disabled = true;
     stopButton.disabled = false;
 
@@ -419,7 +416,7 @@ function AudioRecorder(config) {
 
     var webWorker = processInWebWorker(mergeAudioBuffers);
 
-    webWorker.onmessage = function (event) {
+    webWorker.onmessage = function(event) {
       callback(event.data.buffer, event.data.view);
 
       // release memory
@@ -441,3 +438,5 @@ function AudioRecorder(config) {
     return worker;
   }
 }
+
+module.exports = AudioRecorder;

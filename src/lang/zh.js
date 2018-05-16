@@ -173,7 +173,7 @@ export default {
         desc4: "Take The Quiz",
         glossary: "解释",
         readtome: "Read to Me",
-        pause: "Pause",
+        stopRecord: "Stop",
         record2: "Record",
         playmyreading: "Play My Reading",
         takequiz: "Take Quiz",
