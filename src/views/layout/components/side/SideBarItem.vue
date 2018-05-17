@@ -64,24 +64,24 @@ export default {
   width: 100%;
   background:white;
 }
-.iconfont {
+ .sidebar-container .iconfont {
     font-size:22px;    
     width: 30px;
     display: inline-block;
     text-align: center;
 }
-.iconfont ~ span {
+ .sidebar-container .iconfont ~ span {
     display:inline-block;
     width:60px;
     text-algin:left;
 }
-.icon-reading {
+ .sidebar-container .icon-reading {
     font-size:16px;
 }
-.icon-student {
+ .sidebar-container .icon-student {
     font-size: 27px;
 }
-.icon-tai {
+ .sidebar-container .icon-tai {
     font-size: 27px;
 }
 </style>
