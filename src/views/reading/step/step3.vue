@@ -2,6 +2,7 @@
     <div>
         <div>
             <span class='desc'>{{$t("reading.desc3")}}</span>
+            <audio ref="audioRecord"></audio>
         </div>
         <div class='btn-group'>
             <el-button type="primary" @click="startRecord" v-show="!recording">{{$t('reading.record2')}}</el-button>
@@ -22,12 +23,10 @@ export default {
             hasRecord: false
         }
     },
-    mounted() {
-        this.recorder = new AudioRecorder();
-    },
     methods: {
         startRecord() {
             this.recording = true;
+            this.recorder = new AudioRecorder();
             this.recorder.start();
         },
         stopRecord() {
@@ -35,7 +34,8 @@ export default {
             this.hasRecord = true;
             // url 是 一个blob， 把他赋值给audio 就可以播放了
             this.recorder.stop(url => {
-
+                this.$refs.audioRecord.src = url;
+                this.$refs.audioRecord.play();
             });
         },
         playMyRecord() {

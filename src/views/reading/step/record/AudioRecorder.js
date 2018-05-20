@@ -68,9 +68,12 @@ function AudioRecorder(config) {
   var recordingLength = 0;
   var isPaused = false;
   var isAudioProcessStarted = false;
+  var hadSetupStorage = false;
 
   this.start = function() {
+    // if (!hadSetupStorage) {
     setupStorage();
+    // }
 
     navigator.mediaDevices.getUserMedia({ audio: true })
       .then(onMicrophoneCaptured)
@@ -82,15 +85,8 @@ function AudioRecorder(config) {
     stopRecording(function(blob) {
       //stop record and create a blod url
       var blobUrl = URL.createObjectURL(blob);
-      console.log("aaa", blobUrl);
-
       callback && callback(blobUrl);
     });
-
-    // return new Promise(stopRecording(function(blob) {
-    //   //stop record and create a blod url
-    //   resolve(URL.createObjectURL(blob));
-    // }));
   };
 
   function stopRecording(callback) {
@@ -154,6 +150,7 @@ function AudioRecorder(config) {
     }
 
     jsAudioNode.connect(Storage.ctx.destination);
+    hadSetupStorage = true;
   }
 
   function onMicrophoneCaptured(microphone) {
