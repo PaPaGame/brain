@@ -4,10 +4,10 @@
             <span class='desc'>{{$t("reading.desc3")}}</span>
         </div>
         <div class='btn-group'>
-            <el-button type="primary" @click="startRecord" v-if="!this.recording">{{$t('reading.record2')}}</el-button>
-            <el-button type="primary" @click="stopRecord" e-else>{{$t('reading.stopRecord')}}</el-button>
-            <el-button type="warning" @click="playMyRecord">{{$t('reading.playmyreading')}}</el-button>
-            <el-button @click="uploadMyRecord">{{$t('reading.upload')}}</el-button>
+            <el-button type="primary" @click="startRecord" v-show="!recording">{{$t('reading.record2')}}</el-button>
+            <el-button type="primary" @click="stopRecord" v-show="recording">{{$t('reading.stopRecord')}}</el-button>
+            <el-button type="warning" @click="playMyRecord" v-show="hasRecord">{{$t('reading.playmyreading')}}</el-button>
+            <el-button @click="uploadMyRecord" v-show="hasRecord">{{$t('reading.upload')}}</el-button>
         </div>
     </div>
 </template>
@@ -18,7 +18,8 @@ export default {
     data() {
         return {
             recorder: null,
-            recording: false
+            recording: false,
+            hasRecord: false
         }
     },
     mounted() {
@@ -31,13 +32,17 @@ export default {
         },
         stopRecord() {
             this.recording = false;
-            this.recorder.stop();
+            this.hasRecord = true;
+            // url 是 一个blob， 把他赋值给audio 就可以播放了
+            this.recorder.stop(url => {
+
+            });
         },
         playMyRecord() {
 
         },
         uploadMyRecord() {
-            
+            this.hasRecord = false;
         }
     }
 }

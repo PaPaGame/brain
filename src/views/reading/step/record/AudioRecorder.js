@@ -77,12 +77,20 @@ function AudioRecorder(config) {
       .catch(onMicrophoneCaptureError);
   };
 
-  this.stop = function() {
+  this.stop = function(callback) {
 
-    return stopRecording(function(blob) {
+    stopRecording(function(blob) {
       //stop record and create a blod url
-      return URL.createObjectURL(blob);;
+      var blobUrl = URL.createObjectURL(blob);
+      console.log("aaa", blobUrl);
+
+      callback && callback(blobUrl);
     });
+
+    // return new Promise(stopRecording(function(blob) {
+    //   //stop record and create a blod url
+    //   resolve(URL.createObjectURL(blob));
+    // }));
   };
 
   function stopRecording(callback) {
