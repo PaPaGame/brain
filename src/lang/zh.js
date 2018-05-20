@@ -182,7 +182,8 @@ export default {
         eglossary: "翻译",
         ediduknow: "你知道吗？",
         upload: "上传",
-        pause: "pause"
+        pause: "pause",
+        playBlobError: "播放录音失败"
     },
     article: {
         id: "编号",

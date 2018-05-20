@@ -20,12 +20,14 @@ export default {
         return {
             recorder: null,
             recording: false,
-            hasRecord: false
+            hasRecord: false,
+            localBlob: ""
         }
     },
     methods: {
         startRecord() {
             this.recording = true;
+            this.localBlob = "";
             this.recorder = new AudioRecorder();
             this.recorder.start();
         },
@@ -34,12 +36,16 @@ export default {
             this.hasRecord = true;
             // url 是 一个blob， 把他赋值给audio 就可以播放了
             this.recorder.stop(url => {
-                this.$refs.audioRecord.src = url;
-                this.$refs.audioRecord.play();
+                this.localBlob = url;
             });
         },
         playMyRecord() {
-
+            if (this.localBlob === "") {
+                this.$message.error(this.$t("reading.playBlobError"));
+                return;
+            }
+            this.$refs.audioRecord.src = this.localBlob;
+            this.$refs.audioRecord.play();
         },
         uploadMyRecord() {
             this.hasRecord = false;
