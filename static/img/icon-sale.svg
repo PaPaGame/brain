@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="35px" height="29px" viewBox="0 0 35 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.2 (33826) - http://www.bohemiancoding.com/sketch -->
+    <title>sale</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Help---Ticket-Form-Open-Tickets" transform="translate(-921.000000, -503.000000)">
+            <g id="Group-14" transform="translate(501.000000, 101.000000)">
+                <g id="card2" transform="translate(380.600000, 360.695607)">
+                    <g id="sale" transform="translate(40.400000, 42.304393)">
+                        <rect id="Rectangle-28" fill="#E2FFFD" x="0" y="21" width="27" height="6"></rect>
+                        <path d="M0.713388425,21.3320779 L26.8839897,21.3320779" id="Path-27" stroke="#9BE8E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path>
+                        <polygon id="Rectangle-27" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="2.19487059 0 25.2410118 0 27.4358824 27 0 27"></polygon>
+                        <path d="M8.39858952,4.80091021 C8.39858952,4.80091021 7.66127173,12.3590965 13.3284632,12.3590965 C18.9956547,12.3590965 18.2583369,4.75311942 18.2583369,4.75311942" id="Path-28" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path>
+                        <circle id="Oval-19" fill="#377671" opacity="0.2" cx="22.0927043" cy="18.0927043" r="9.04790784"></circle>
+                        <circle id="Oval-19" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#9BE8E2" cx="24.3299904" cy="19.0927043" r="8.09270427"></circle>
+                        <path d="M24.760838,17.1487043 C25.128838,17.2127043 25.568838,17.3647043 26.000838,17.6287043 L26.392838,16.7967043 C25.952838,16.5007043 25.368838,16.2927043 24.760838,16.2367043 L24.760838,15.1887043 L24.056838,15.1887043 L24.056838,16.2447043 C23.048838,16.3567043 22.392838,16.9247043 22.392838,17.7807043 C22.392838,18.8447043 23.256838,19.1407043 24.056838,19.3807043 L24.056838,20.9807043 C23.528838,20.9007043 22.952838,20.6287043 22.472838,20.1887043 L22.064838,21.0047043 C22.576838,21.4767043 23.288838,21.8127043 24.056838,21.8767043 L24.056838,22.9967043 L24.760838,22.9967043 L24.760838,21.8687043 C25.776838,21.7487043 26.464838,21.1647043 26.464838,20.2767043 C26.472838,19.1807043 25.576838,18.8767043 24.760838,18.6287043 L24.760838,17.1487043 Z M23.448838,17.6927043 C23.448838,17.3887043 23.680838,17.1967043 24.056838,17.1327043 L24.056838,18.3887043 C23.696838,18.2447043 23.448838,18.0447043 23.448838,17.6927043 L23.448838,17.6927043 Z M24.760838,19.5967043 C25.144838,19.7487043 25.416838,19.9487043 25.416838,20.3247043 C25.416838,20.6607043 25.176838,20.8847043 24.760838,20.9727043 L24.760838,19.5967043 Z" id="$" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
