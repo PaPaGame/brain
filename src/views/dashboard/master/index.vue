@@ -1,4 +1,4 @@
-    <template>
+<template>
     <div class="dashboard-master-container">
         <div class="clearfix">
             <span class="display_name">{{name}}</span>

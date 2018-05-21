@@ -57,8 +57,8 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .navbar {
-  height: 62.64px;
-  line-height: 62.64px;
+  height: 68.64px;
+  line-height: 68.64px;
   border-radius: 0px !important;
   .right-menu {
     float: right;
@@ -83,7 +83,7 @@ export default {
         .el-icon-caret-bottom {
           position: absolute;
           right: -17px;
-          top: 25px;
+          top: 28px;
           font-size: 12px;
         }
       }

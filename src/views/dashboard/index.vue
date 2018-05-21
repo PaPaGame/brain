@@ -1,5 +1,6 @@
 <template>
     <div class="dashboard-container">
+        <div class='banner'></div>
         <component :is="currentRole"></component>
     </div>
 </template>
@@ -55,4 +56,12 @@ export default {
 
 <style>
 
+.banner {
+    height: 200px;
+    background-image: url("../../../static/img/welcome-banner.svg");
+    margin-bottom:20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
 </style>
