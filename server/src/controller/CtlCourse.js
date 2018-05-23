@@ -112,10 +112,22 @@ const GetCourse = async ctx => {
     }
 }
 
+const SendRecord = async ctx => {
+    let message = {};
+    let recordInfo = ctx.request.body;
+    if (!recordInfo) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+}
+
 module.exports = {
     AddCourse,
     RemoveCourseByLevel,
     AnswerTai,
     AnswerQuiz,
-    GetCourse
+    GetCourse,
+    SendRecord
 };

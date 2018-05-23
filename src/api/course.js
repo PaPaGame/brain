@@ -21,6 +21,13 @@ const course = {
             method: "post",
             params: query
         })
+    },
+    postRecord(data) {
+        return ajax({
+            url: "/course/record",
+            method: "post",
+            params: data
+        })
     }
 };
 

@@ -12,5 +12,6 @@ childRouter.post("/remove", CourseController.RemoveCourseByLevel);
 childRouter.post("/tai", CourseController.AnswerTai);
 childRouter.post("/quiz", CourseController.AnswerQuiz);
 childRouter.post("/get", CourseController.GetCourse);
+childRouter.post("/record", CourseController.SendRecord);
 
 module.exports = childRouter;
