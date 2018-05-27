@@ -24,7 +24,7 @@ export default {
         master: '校长',
         article: '文章',
         keyin: '录入',
-        marking: '评分',
+        grade: '评分',
         data: '数据中心',
         school: '校区管理',
         group: '班级管理',

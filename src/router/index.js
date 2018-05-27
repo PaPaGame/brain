@@ -102,5 +102,15 @@ export const asyncRouterMap = [
                 icon: "reading"
             }
         }]
+    }, {
+        path: "/grade",
+        component: Layout,
+        children: [{
+            path: "", component: _import("grade/index"), name: "grade", meta: {
+                title: "grade",
+                role: [role.MASTER, role.STAFF, role.ADMIN],
+                icon: "reading"
+            }
+        }]
     }
 ];
