@@ -5,15 +5,20 @@
         <el-button @click="onCancel">cancel</el-button>
         <el-button @click="onStop">stop</el-button>
         <el-button @click="onPlay">play</el-button>
+        <audio ref="audio_play" controls autoplay></audio>
     </section>
 </template>
 
 <script>
 import MyAudioRecord from "../reading/step/record/MyAudioRecord";
+// import * as Recorder from "recordmp3js";
+// import { Recorder, initRecorder } from "recordmp3js";
 export default {
     data() {
         return {
-            recorder: null
+            recorder: null,
+            context: null,
+            bloburl: ""
         }
     },
     methods: {
@@ -37,7 +42,12 @@ export default {
             console.log("Stop Recording");
         },
         onPlay() {
-            console.log("Play Record");
+            if (this.recorder) {
+                this.bloburl = this.recorder.getBlobURL();
+                this.$refs.audio_play.src = this.bloburl
+                console.log("Play Record", this.bloburl);
+            }
+            // this.bloburl = this.recorder.getBlobURL();
         }
     }
 }
