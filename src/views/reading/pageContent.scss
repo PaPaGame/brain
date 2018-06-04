@@ -3,6 +3,7 @@
     margin: 0 auto;
     .story-panel {
         position: relative;
+        padding-top: 70px;
         .pageContent {
             // min-width: 850px;// min-height: 475px;
             overflow: hidden;
@@ -11,6 +12,9 @@
             width: 900px;
             height: 600px;
             background-image: url("../../../static/img/bg.png"); //../../assets/bg.png
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             #opened-book {
                 position: relative;
                 height: 475px;
@@ -99,5 +103,18 @@
     a.active {
         background: #409eff;
         color: #fff;
+    }
+}
+@media only screen and (min-height: 520px) and (max-height: 800px) {  
+    .story {
+        position: relative;
+        bottom: 10px;
+        .story-panel {
+            padding-top: 0px;
+            .pageContent {
+                width: 900px;
+                height: 600px;
+            }
+        }
     }
 }
