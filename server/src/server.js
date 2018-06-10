@@ -19,7 +19,7 @@ const app = new Koa();
 
 // 跨域
 app.use(cors({
-    origin: function (ctx) {
+    origin: function(ctx) {
         return '*';
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
@@ -61,7 +61,7 @@ app.use(async (ctx, next) => {
 onerror(app);
 
 // 创建服务并监听配置的端口
-http.createServer(app.callback()).listen(config.port).on('listening', function () {
+app.listen(config.port).on('listening', function() {
     console.log("[server start]");
     console.log('listen port:' + config.port);
 });

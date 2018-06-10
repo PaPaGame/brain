@@ -117,7 +117,7 @@ export default class MyAudioRecord {
     start() {
         this._fetchDevices(() => {
             if (this.recorder) {
-                this.recorder.startRecording();
+                this.recorder.record();
             }
         })
     }
@@ -129,13 +129,15 @@ export default class MyAudioRecord {
     }
 
     stop() {
+        console.log("aaa");
         if (this.recorder) {
-            this.recorder.finishRecording();
-            this.recorder.onComplete = (rec, blob) => {
-                this.bloburl = URL.createObjectURL(blob);
-
-                console.log("on complete", this.bloburl);
-            }
+            console.log("bbb");
+            this.recorder.stop();
+            console.log("ccc");
+            // 创建下载链接
+            this.recorder.exportWAV(this._handleWAV);
+            console.log("ddd");
+            this.recorder.clear();
         }
 
     }
@@ -166,7 +168,6 @@ export default class MyAudioRecord {
     }
 
     _startUserMedia(stream) {
-        console.log("aaaaa", stream);
         var input = self.context.createMediaStreamSource(stream);
         console.log('Media stream created.');
 
@@ -199,5 +200,11 @@ export default class MyAudioRecord {
         console.log("初始化录音实例", this.recorder);
 
         callback && callback();
+    }
+
+    _handleWAV(blob) {
+        console.log("eeee", url);
+        let url = URL.createObjectURL(blob);
+        console.log("导出wav", url);
     }
 }
