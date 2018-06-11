@@ -7,7 +7,7 @@ GenerHtml.prototype.generContainer = (layout) => {
     var rate = 1;
     //如果为大屏则乘以1.3的系数
     if(document.body.clientHeight > 800) {
-        rate =1.3
+        rate =1.2
     }
     div.style.color = "#000000";
     div.style.top = layout.top*rate + "px";
