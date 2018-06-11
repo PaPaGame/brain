@@ -77,5 +77,11 @@
         /*color:#fff;
     	text-align: right;
     	line-height: 40px;*/
+        float:right;
+    }
+}
+@media only screen and (min-height: 520px) and (max-height: 800px) {  
+    .reading-section {
+        padding:10px;
     }
 }

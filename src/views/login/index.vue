@@ -3,7 +3,7 @@
 
         <div class='login-box'>
             <div class="login-bg">
-                <img src="../../../static/img/logo_img.png" class="logo" />
+                <img src="../../../static/img/logo-white.png" class="logo" />
                 <img src="//s3-us-west-2.amazonaws.com/static-css-assets/bg/background-school-signup.svg" class="school-svg">
             </div>
             <el-form :model="form" :rules="rules2" ref="form" label-position="left" label-width="0px" class="demo-ruleForm card-box loginform">
