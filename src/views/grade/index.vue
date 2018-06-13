@@ -1,62 +1,3 @@
-<!--<template>
-    <section>
-        <span>Grade</span>
-        <el-button @click="onRecord">record</el-button>
-        <el-button @click="onCancel">cancel</el-button>
-        <el-button @click="onStop">stop</el-button>
-        <el-button @click="onPlay">play</el-button>
-        <audio ref="audio_play" controls autoplay></audio>
-    </section>
-</template>
-
-<script>
-import MyAudioRecord from "../reading/step/record/MyAudioRecord";
-// import * as Recorder from "recordmp3js";
-// import { Recorder, initRecorder } from "recordmp3js";
-export default {
-    data() {
-        return {
-            recorder: null,
-            context: null,
-            bloburl: ""
-        }
-    },
-    methods: {
-        onRecord() {
-            console.log("Start Recording");
-            this.recorder = new MyAudioRecord();
-            this.recorder.start();
-        },
-        onCancel() {
-            if (!this.recorder) {
-                return;
-            }
-            this.recorder.cancel();
-            console.log("Cancel Recording");
-        },
-        onStop() {
-            if (!this.recorder) {
-                return;
-            }
-            this.recorder.stop();
-            console.log("Stop Recording");
-        },
-        onPlay() {
-            if (this.recorder) {
-                this.bloburl = this.recorder.getBlobURL();
-                this.$refs.audio_play.src = this.bloburl
-                console.log("Play Record", this.bloburl);
-            }
-            // this.bloburl = this.recorder.getBlobURL();
-        }
-    }
-}
-</script>
-
-<style lang="scss" scoped>
-@import "./grade.scss";
-</style>
--->
 <script>
 import RecordRTC from 'recordrtc';
 import { mapGetters } from 'vuex';
@@ -72,6 +13,7 @@ export default {
                     sampleRate: 44100,
                     leftChannel: false,
                     disableLogs: false,
+                    recordContent: ""
                     // recorderType: webrtcDetectedBrowser === 'edge' ? StereoAudioRecorder : null
                 }
             }
@@ -84,7 +26,6 @@ export default {
     },
     methods: {
         record() {
-            console.log("æ");
             var recordRTC = RecordRTC(mediaStream);
             recordRTC.startRecording();
             recordRTC.stopRecording(function(audioURL) {
@@ -151,6 +92,11 @@ export default {
                 this.$emit('record:success', url)
                 this.playbackAudio(url)
             })
+
+
+            this._recordRTC.getDataURL(audioDataURL => {
+                this.recordContent = audioDataURL;
+            })
             this._recordRTC = null;
         },
         playbackAudio(url) {
@@ -165,16 +111,16 @@ export default {
         },
         uploadRecord() {
             let fileName = dayjs().toString("YYYYMMDDHHmmss");
-            console.log(fileName);
-            this._recordRTC.getDataURL(audioDataURL => {
-                let file = {
-                    audio: {
-                        name: fileName + ".wav",
-                        type: "audio/wav",
-                        contents: audioDataURL
-                    }
-                };
-            })
+            let file = {
+                audio: {
+                    name: fileName + ".wav",
+                    type: "audio/wav",
+                    contents: this.recordContent
+                }
+            };
+
+            console.log(this.recordContent);
+            // axios upload method
         }
     },
     destroyed() {
