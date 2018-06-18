@@ -1,156 +1,80 @@
+<template>
+    <section>
+        <h1>评分页面</h1>
+        <el-row :gutter="8">
+            <el-col :xs="{span: 12}" :sm="{span: 12}" :md="{span: 12}" :lg="{span: 8}" :xl="{span: 6}">
+                <class-list @classSelected="classListClick"></class-list>
+            </el-col>
+            <el-col :xs="{span: 24}" :sm="{span: 24}" :md="{span: 24}" :lg="{span: 16}" :xl="{span: 10}">
+                <edu-table :tableColumns="tableColumns" :tableData="allStudent" :totalCount="allStudentCount" :pageSize="studentQueryModel.pageSize" @pageChange="pageChange" ref="table">
+
+                </edu-table>
+            </el-col>
+        </el-row>
+    </section>
+</template>
+
 <script>
-import RecordRTC from 'recordrtc';
-import { mapGetters } from 'vuex';
-import dayjs from "dayjs";
-import courseService from "@/api/course";
+import table from "@/components/table";
+import studentService from "@/api/student";
+import { mapActions, mapGetters } from "vuex";
+import ClassList from "@/components/ClassList";
 export default {
-    props: {
-        options: {
-            default() {
-                return {
-                    type: 'audio',
-                    mimeType: 'video/webm',
-                    bufferSize: 0,
-                    sampleRate: 44100,
-                    leftChannel: false,
-                    disableLogs: false,
-                    recordContent: ""
-                    // recorderType: webrtcDetectedBrowser === 'edge' ? StereoAudioRecorder : null
-                }
-            }
-        }
+    components: {
+        "class-list": ClassList,
+        "edu-table": table
+    },
+    mounted() {
+        // this.fetchStuidentList();
+        this.fetchStudentData();
     },
     data() {
         return {
-            isRecording: false,
-        }
+            studentQueryModel: {
+                currentPage: 1,
+                pageSize: 10,
+            },
+            tableColumns: [
+                { prop: "username", label: this.$t('grade.username'), width: '140' },
+                { prop: "tai", label: this.$t('grade.tai'), width: '90' },
+                { prop: "quiz", label: this.$t('grade.quiz'), width: '90' },
+                { prop: "record", label: this.$t('grade.record'), width: '250' },
+                { label: this.$t("grade.operate"), slotName: 'opBtns' }
+            ],
+            showPage: true
+        };
     },
     methods: {
-        record() {
-            var recordRTC = RecordRTC(mediaStream);
-            recordRTC.startRecording();
-            recordRTC.stopRecording(function(audioURL) {
-                audio.src = audioURL;
-                var recordedBlob = recordRTC.getBlob();
-                recordRTC.getDataURL(function(dataURL) { });
-            })
+        pageChange(e) {
+            this.studentQueryModel.currentPage = e;
+            this.fetchStudentData();
         },
-        captureUserMedia(mediaConstraints, successCallback, errorCallback) {
-            var isBlackBerry = !!(/BB10|BlackBerry/i.test(navigator.userAgent || ''));
-            if (isBlackBerry && !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia)) {
-                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-                navigator.getUserMedia(mediaConstraints, successCallback, errorCallback);
-                return
-            }
-            navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback)
+        classListClick(id) {
+            let query = {};
+            query.id = id;
+            this.getStudentByClassId(query);
         },
-        _addStreamStopListener(stream, callback) {
-            var streamEndedEvent = 'ended'
-            if ('oninactive' in stream) {
-                streamEndedEvent = 'inactive'
-            }
-            this._stream.addEventListener(streamEndedEvent, function() {
-                callback()
-                callback = function() { }
-            }, false)
-            this._stream.getAudioTracks().forEach(function(track) {
-                track.addEventListener(streamEndedEvent, function() {
-                    callback()
-                    callback = function() { }
-                }, false)
-            })
+        fetchStudentData() {
+            this.studentQueryModel.school = this.commParam.school;
+            studentService.getStudentCourseData(this.studentQueryModel);
         },
-        // CORE
-        startRecording() {
-            this.captureUserMedia(
-                { audio: true },
-                (audioStream) => {
-                    this.$emit('record:start')
-                    this.isRecording = true
-                    // recordingPlayer.srcObject = audioStream;
-                    // recordingPlayer.play();
-                    //
-                    // config.onMediaCaptured(audioStream);
-                    this._stream = audioStream
-                    this._recordRTC = RecordRTC(audioStream, this.options)
-                    this._recordRTC.startRecording()
-                    this._addStreamStopListener(audioStream, () => {
-                        this.isRecording = false
-                        // config.onMediaStopped();
-                    })
-                },
-                (error) => {
-                    this.$emit('record:error')
-                    this.isRecording = false
-                    // config.onMediaCapturingFailed(error);
-                })
-        },
-        stopRecording() {
-            if (!this._recordRTC)
-                return;
-            this._recordRTC.stopRecording((url) => {
-                this._stream.stop()
-                this.$emit('record:success', url)
-                this.playbackAudio(url)
-            })
-
-
-            this._recordRTC.getDataURL(audioDataURL => {
-                this.recordContent = audioDataURL;
-            })
-            this._recordRTC = null;
-        },
-        playbackAudio(url) {
-            var audio = new Audio()
-            audio.src = url
-            audio.controls = true
-            audio.play();
-            audio.onended = function() {
-                audio.pause();
-                // audio.src = URL.createObjectURL(button.recordRTC.blob);
-            };
-        },
-        uploadRecord() {
-            let fileName = dayjs().format("YYYYMMDDHHmmss");
-            console.log(fileName);
-            this.recordContent = "solszl";
-            let file = {
-                audio: {
-                    name: fileName + ".wav",
-                    type: "audio/wav",
-                    contents: this.recordContent
-                }
-            };
-
-            console.log(this.recordContent);
-            let postData = {};
-            postData.uid = this.userinfo.id;
-            postData.cid = this.cid || "5adb168f6f036e0f0527a253";
-            postData.file = file;
-            courseService.postRecord(postData);
-        }
-    },
-    destroyed() {
-        this.stopRecording()
+        ...mapActions(["getGroupList", "getStudentByClassId"])
     },
     computed: {
+        commParam() {
+            return { school: this.userinfo.school }
+        },
         ...mapGetters({
+            tableData: 'groupList',
+            totalCount: 'groupCount',
             userinfo: "userinfo",
-            cid: "cid"
+            allStudent: "allStudent",
+            allStudentCount: "allStudentCount"
         })
     }
-
 }
 </script>
 
-<template >
-    <div>
-        <el-button @click="startRecording">start</el-button>
-        <el-button @click="stopRecording">stop</el-button>
-        <el-button @click="uploadRecord">upload</el-button>
-    </div>
-</template>
-
-
 <style lang="scss" scoped>
+@import url("./grade.scss");
 </style>

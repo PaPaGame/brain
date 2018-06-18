@@ -120,7 +120,8 @@ export default {
         target: "目标列表",
         alreadyHasGroup: "所选学生已经有所属班级，需取消之前班级再添加",
         alertConfirmButtonText: "确定",
-        alertTitle: "提示"
+        alertTitle: "提示",
+        viewData: "查看数据"
     },
     student: {
         inputGroupName: "请输入班级名称",
@@ -214,5 +215,12 @@ export default {
         unstartCount: "未开始课文数量",
         overCount: "已完成课文数量",
         fetchError: "获取首页数据出错"
+    },
+    grade: {
+        username: "姓名",
+        tai: "Tai",
+        quiz: "Quiz",
+        record: "record",
+        operate: "操作"
     }
 }

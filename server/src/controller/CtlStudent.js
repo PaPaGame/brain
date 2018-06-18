@@ -2,6 +2,7 @@ import StudentDao from "../dao/DaoStudent";
 
 var StudentModel = require("../models").student;
 var UserModel = require("../models").user;
+var StaffModel = require("../models").staff;
 var studentDao = new StudentDao(StudentModel);
 
 const GetStudent = async (ctx) => {
@@ -217,6 +218,51 @@ const GetStudentByClassId = async ctx => {
     ctx.body = message;
 }
 
+const GetCourseData = async ctx => {
+    let message = {};
+    let userinfo = ctx.request.body;
+    if (!userinfo) {
+        message.status = 400;
+        message.message = "参数错误";
+        ctx.body = message;
+        return;
+    }
+
+    // 查询所有符合条件的学生
+    // 老师的id
+    let id = ctx.state.user.id;
+    let staff = await UserModel.findOne({ "_id": id });
+    if (!staff) {
+        message.status = 400;
+        message.message = "未查找到相关用户信息";
+        ctx.body = message;
+        return;
+    }
+    console.log("staff:", staff);
+    let staffId = staff.uid;
+    let staffObj = await StaffModel.findOne({ "_id": staffId });
+    if (!staff) {
+        message.status = 400;
+        message.message = "未查找到相关用户信息";
+        ctx.body = message;
+        return;
+    }
+    let groups = staffObj.group;
+    let allStudent = await StudentModel.find({ "group.id": { $in: groups } });
+    let studentIds = [];
+    allStudent.forEach(student => {
+        studentIds.push(student._id);
+    })
+    // console.log(allStudent, groups);
+    console.log(studentIds);
+
+    // 查询每个学生的tai
+
+    // 查询每个学生的quiz
+
+    // 查询每个学生的record
+}
+
 module.exports = {
     GetFuzzyByName,
     AddStudent,
@@ -226,5 +272,6 @@ module.exports = {
     GetById,
     UpdateArticleLevel,
     GetAllStudent,
-    GetStudentByClassId
+    GetStudentByClassId,
+    GetCourseData
 }

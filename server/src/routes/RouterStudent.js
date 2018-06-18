@@ -17,5 +17,6 @@ childRouter.post("/id", StudentController.GetById);
 childRouter.post("/article", StudentController.UpdateArticleLevel);
 childRouter.post("/all", StudentController.GetAllStudent);
 childRouter.post("/getbyclassid", StudentController.GetStudentByClassId);
+childRouter.post("/getCourseData", StudentController.GetCourseData);
 
 module.exports = childRouter;

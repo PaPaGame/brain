@@ -62,9 +62,16 @@ const student = {
             method: "post",
             params: query
         })
+    },
+
+    // 获取学生课程状态
+    getStudentCourseData(query) {
+        return ajax({
+            url: "/student/getCourseData",
+            method: "post",
+            params: query
+        });
     }
-
-
 };
 
 

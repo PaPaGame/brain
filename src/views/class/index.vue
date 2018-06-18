@@ -42,6 +42,7 @@
                     <template slot-scope="scope">
                         <el-button size="mini" @click="operateHandler(scope.row,'edit')">{{$t('group.edit')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'delete')">{{$t('group.delete')}}</el-button>
+                        <el-button size="mini" @click="operateHandler(scope.row,'viewData')">{{$t('group.viewData')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'freeze')" v-if="scope.row.status==1">{{$t('group.freeze')}}</el-button>
                         <el-button size="mini" @click="operateHandler(scope.row,'unfreeze')" v-if="scope.row.status==0">{{$t('group.unfreeze')}}</el-button>
                     </template>
@@ -50,8 +51,8 @@
         </div>
         <!-- 翻页 -->
         <!-- <div class="pagination-container"> -->
-            <el-pagination background @size-change="pageSizeChangeHandler" @current-change="pageCurrentChangeHandler" :current-page="1" :page-sizes="[5,10,20]" :page-size="10" :total="2" layout="total, sizes, prev, pager, next, jumper">
-            </el-pagination>
+        <el-pagination background @size-change="pageSizeChangeHandler" @current-change="pageCurrentChangeHandler" :current-page="1" :page-sizes="[5,10,20]" :page-size="10" :total="2" layout="total, sizes, prev, pager, next, jumper">
+        </el-pagination>
         <!-- </div> -->
         <!-- 弹框 -->
         <div>
@@ -177,23 +178,23 @@ export default {
                         confirmButtonText: this.$t("group.confirm"),
                         cancelButtonText: this.$t("group.cancel"),
                         type: "warning"
-                    })
-                        .then(() => {
-                            let query = { id: row._id };
-                            groupService.deleteClass(query).then(res => {
-                                this.$message({
-                                    type: "success",
-                                    message: this.$t("group.deleteSuccess")
-                                });
-                                this.getList();
-                            });
-                        })
-                        .catch(() => {
+                    }).then(() => {
+                        let query = { id: row._id };
+                        groupService.deleteClass(query).then(res => {
                             this.$message({
-                                type: "info",
-                                message: this.$t("group.deleteCancel")
+                                type: "success",
+                                message: this.$t("group.deleteSuccess")
                             });
+                            this.getList();
                         });
+                    }).catch(() => {
+                        this.$message({
+                            type: "info",
+                            message: this.$t("group.deleteCancel")
+                        });
+                    });
+                    break;
+                case "viewData":
                     break;
             }
         },
@@ -223,5 +224,4 @@ export default {
 </script>
 
 <style>
-
 </style>
