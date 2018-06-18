@@ -1,11 +1,15 @@
 import CourseDao from "../dao/DaoCourse";
 import UserDao from "../dao/DaoUser";
+import RecordDao from "../dao/DaoRecord";
+import FileSaver from "../utils/fileSaver";
 
 var CourseModel = require("../models").course;
 var UserModel = require("../models").user;
+var RecordModel = require("../models").record;
 
 var courseDao = new CourseDao(CourseModel);
 var userDao = new UserDao(UserModel);
+var recordDao = new RecordDao(RecordModel);
 
 // 根据学生id 找到 对应的文章等级列表再去文章表找到所有的文章，再插入到课程表内
 const AddCourse = async ctx => {
@@ -121,6 +125,19 @@ const SendRecord = async ctx => {
         ctx.body = message;
         return;
     }
+
+
+    // let saver = new FileSaver();
+    // saver.uid = recordInfo.uid;
+    // saver.cid = recordInfo.cid;
+    // saver.content = recordInfo.file;
+    // let result = await saver.save();
+    // // 如果保存数据成功的话，讲记录存到数据库
+    // if (result) {
+    await recordDao.create(recordInfo);
+    // }
+    message.status = 200;
+    ctx.body = message;
 }
 
 module.exports = {

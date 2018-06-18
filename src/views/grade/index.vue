@@ -2,6 +2,7 @@
 import RecordRTC from 'recordrtc';
 import { mapGetters } from 'vuex';
 import dayjs from "dayjs";
+import courseService from "@/api/course";
 export default {
     props: {
         options: {
@@ -110,7 +111,9 @@ export default {
             };
         },
         uploadRecord() {
-            let fileName = dayjs().toString("YYYYMMDDHHmmss");
+            let fileName = dayjs().format("YYYYMMDDHHmmss");
+            console.log(fileName);
+            this.recordContent = "solszl";
             let file = {
                 audio: {
                     name: fileName + ".wav",
@@ -120,7 +123,11 @@ export default {
             };
 
             console.log(this.recordContent);
-            // axios upload method
+            let postData = {};
+            postData.uid = this.userinfo.id;
+            postData.cid = this.cid || "5adb168f6f036e0f0527a253";
+            postData.file = file;
+            courseService.postRecord(postData);
         }
     },
     destroyed() {
@@ -128,7 +135,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-            userinfo: "userinfo"
+            userinfo: "userinfo",
+            cid: "cid"
         })
     }
 
