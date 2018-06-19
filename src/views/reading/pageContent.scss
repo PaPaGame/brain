@@ -1,19 +1,23 @@
 .story {
-    width: 944px;
+    width: 1100px;
     margin: 0 auto;
     .story-panel {
         position: relative;
+        /*padding-top: 70px;*/
         .pageContent {
             // min-width: 850px;// min-height: 475px;
             overflow: hidden;
             color: #333;
             margin: 0 auto;
-            width: 900px;
-            height: 600px;
+            width: 1100px;
+            height: 670px;
             background-image: url("../../../static/img/bg.png"); //../../assets/bg.png
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
             #opened-book {
                 position: relative;
-                height: 475px;
+                height: calc(100% - 100px);
             }
         }
         .title {
@@ -24,7 +28,7 @@
             font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             margin-top: 30px;
-            padding-left: 109px;
+            padding-left: 129px;
             text-shadow: 4px 3px 22px;
         }
         /*.back-page {
@@ -62,7 +66,7 @@
         .page-btn {
             position: absolute;
             top: 50%;
-            left: 0px;
+            left: -10px;
             width: 40px;
             height: 40px;
             margin-top: -20px;
@@ -99,5 +103,27 @@
     a.active {
         background: #409eff;
         color: #fff;
+    }
+}
+@media only screen and (min-height: 520px) and (max-height: 888px) {  
+    .story {
+        position: relative;
+        bottom: 10px;
+        .story-panel {
+            padding-top: 0px;
+            .pageContent {
+                width: 900px;
+                height: 600px;
+            }
+        }
+    }
+    .story .story-panel .pageContent .back-page {
+        left: 74px;
+    }
+    .story .story-panel .pageContent .forward-page {
+        right: 90px;
+    }
+    .story .story-panel .title {
+        margin-top: 50px;
     }
 }

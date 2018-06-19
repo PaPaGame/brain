@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="43px" height="32px" viewBox="0 0 43 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 40.2 (33826) - http://www.bohemiancoding.com/sketch -->
+    <title>bug</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Help---Ticket-Form-Open-Tickets" transform="translate(-539.000000, -500.000000)">
+            <g id="Group-14" transform="translate(501.000000, 101.000000)">
+                <g id="card1" transform="translate(0.335255, 363.836496)">
+                    <g id="bug" transform="translate(38.664745, 36.163504)">
+                        <rect id="Rectangle-25" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#E2FFFD" x="0" y="3.06164668" width="35.9410657" height="26.5279294"></rect>
+                        <rect id="Rectangle-25-Copy" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF" x="0" y="8.96653821" width="35.9410657" height="20.6230379"></rect>
+                        <path d="M5.96291268,13.7113093 L21.3096331,13.7113093" id="Path-26" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M5.96291268,18.1945784 L12.3430949,18.1945784" id="Path-26-Copy" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M5.96291268,25.367809 L7.85982582,25.367809" id="Path-26-Copy-2" stroke="#9BE8E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.3428356,25.367809 L13.2397487,25.367809" id="Path-26-Copy-3" stroke="#9BE8E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M16.7227585,25.367809 L18.6196717,25.367809" id="Path-26-Copy-4" stroke="#9BE8E2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <circle id="Oval-18" fill="#9BE8E2" cx="3.00917307" cy="6.0992993" r="0.896653821"></circle>
+                        <circle id="Oval-18-Copy" fill="#9BE8E2" cx="5.69913453" cy="6.0992993" r="0.896653821"></circle>
+                        <ellipse id="Oval-18-Copy-2" fill="#9BE8E2" cx="8.389096" cy="6.0992993" rx="0.896653821" ry="0.896653821"></ellipse>
+                        <circle id="Oval-19" fill="#377671" opacity="0.2" cx="30.3299904" cy="10.0927043" r="8.09270427"></circle>
+                        <circle id="Oval-19-Copy" stroke="#1EA69A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="#9BE8E2" cx="32.3299904" cy="8.09270427" r="8.09270427"></circle>
+                        <path d="M31.7305344,4.73394409 C31.7305344,4.36576207 32.0290292,4.06729157 32.4030248,4.06729157 C32.774431,4.06729157 33.0755151,4.37100866 33.0755151,4.73394409 L33.0755151,8.50000102 C33.0755151,8.86818304 32.7770203,9.16665354 32.4030248,9.16665354 C32.0316186,9.16665354 31.7305344,8.86293645 31.7305344,8.50000102 L31.7305344,4.73394409 Z M31.7305344,10.9925709 C31.7305344,10.6237764 32.0290292,10.3248093 32.4030248,10.3248093 C32.774431,10.3248093 33.0755151,10.6209376 33.0755151,10.9925709 L33.0755151,11.4503554 C33.0755151,11.8191499 32.7770203,12.118117 32.4030248,12.118117 C32.0316186,12.118117 31.7305344,11.8219887 31.7305344,11.4503554 L31.7305344,10.9925709 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

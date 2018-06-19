@@ -14,7 +14,7 @@
     padding: 0;
     margin: 0;
     .reading-tab {
-        margin: 20px 0;
+        margin: 0px 0;
         .el-tabs__nav-wrap.is-top {
             padding: 20px 0;
         }
@@ -77,5 +77,11 @@
         /*color:#fff;
     	text-align: right;
     	line-height: 40px;*/
+        float:right;
+    }
+}
+@media only screen and (min-height: 520px) and (max-height: 800px) {  
+    .reading-section {
+        padding:10px;
     }
 }

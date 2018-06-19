@@ -121,7 +121,7 @@ export default {
             if (node.tagName.toLowerCase() == "a") {
 
                 let spell = node.innerHTML;
-                // 点击的单词，如果在vuex里有， 并且是打开解释的时候 就弹框，否则就播放声音
+                // 点击的单词，如果在vuex里有并且接受开关已开启， 并且是打开解释的时候 就弹框，否则就播放声音
                 if (this.glossaries[spell]) {
                     console.log("单词表里有这个单词");
                     this.explainWord = this.glossaries[spell];
