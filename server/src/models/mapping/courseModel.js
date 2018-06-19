@@ -9,6 +9,8 @@ var Schema = mongoose.Schema;
  * @param uid 学生id
  * @param taiState 灯泡答题状态，未开始，已答完(0、1)
  * @param taiAccuracy 灯泡正确率 0~~1
+ * @param taiAnswer
+ * @param taiCount
  * @param quizState 问答状态，未开始，答题中，已答完
  * @param quizCurrent 问答状态， 当前答第几题
  * @param quizAccuracy 问答回答正确率 0~~1
@@ -21,6 +23,7 @@ var Schema = mongoose.Schema;
 */
 var courseSchema = new Schema({
     cid: SchemaTypes.ObjectId,
+    courseState: { type: Number, default: 0 },
     uid: SchemaTypes.ObjectId,
     taiState: { type: String, default: "" },
     taiAccuracy: { type: Number, default: 0 },
@@ -32,7 +35,6 @@ var courseSchema = new Schema({
     recordIds: { type: Array, default: [] },
     recordScore: { type: Number, default: 0 },
     recordComment: { type: String, default: "" },
-    courseState: { type: Number, default: 0 },
     quizCount: { type: Number, default: 0 },
     quizAnswer: { type: Array, default: [] }
 }, {

@@ -3,6 +3,7 @@ import StudentDao from "../dao/DaoStudent";
 var StudentModel = require("../models").student;
 var UserModel = require("../models").user;
 var StaffModel = require("../models").staff;
+var CourseModel = require("../models").course;
 var studentDao = new StudentDao(StudentModel);
 
 const GetStudent = async (ctx) => {
@@ -254,7 +255,14 @@ const GetCourseData = async ctx => {
         studentIds.push(student._id);
     })
     // console.log(allStudent, groups);
-    console.log(studentIds);
+    let allStudentCourse = await CourseModel.find({ "uid": { $in: studentIds } });
+    console.log(allStudentCourse.length);
+    if (allStudentCourse) {
+        message.status = 200;
+        message.data = allStudentCourse;
+    }
+
+    ctx.body = message;
 
     // 查询每个学生的tai
 
