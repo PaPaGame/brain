@@ -129,8 +129,9 @@ export default {
     },
     watch: {
         info(val) {
-            console.log("info" + val);
-            this.getKey(val._id);
+            if(val._id) {
+                this.getKey(val._id);
+            }
         },
         userId(val) {
             console.log("uid:" + val);
