@@ -5,7 +5,7 @@
                 <el-input v-model="queryModel.name" clearable></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.school')">
-                <el-input v-model="queryModel.school" :disabled="userinfo.school!=''"></el-input>
+                <el-input v-model="queryModel.school" :disabled="!canEditSchool"></el-input>
             </el-form-item>
             <el-form-item :label="$t('group.staff')">
                 <!-- <el-input ref="tiTeacherName" v-model="info.staff && info.staff.name || ''" clearable @keyup.enter.native="searchStaffByName"></el-input> -->
@@ -201,6 +201,12 @@ export default {
         }
     },
     computed: {
+        canEditSchool() {
+
+            // 如果是管理员，可以随便填写，否则只能是自己的学校。不可添加其他学校
+            this.queryModel.school = this.userinfo.role === "1000" ? "" : this.userinfo.school;
+            return this.userinfo.role === "1000";
+        },
         ...mapGetters({
             userinfo: "userinfo",
             articleLevelList: "articleLevels",
@@ -226,5 +232,4 @@ export default {
 </script>
 
 <style>
-
 </style>
