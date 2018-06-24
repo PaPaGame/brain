@@ -115,7 +115,8 @@ export default {
     computed: {
         canEditSchool() {
 
-            // return this.$store.getters.userinfo.role != 1;
+            // 如果是管理员，可以随便填写，否则只能是自己的学校。不可添加其他学校
+            this.dataModel.school = this.userinfo.role === "1000" ? "" : this.userinfo.school;
             return this.userinfo.role === "1000";
         },
 
@@ -129,7 +130,7 @@ export default {
     },
     watch: {
         info(val) {
-            if(val._id) {
+            if (val._id) {
                 this.getKey(val._id);
             }
         },
@@ -141,5 +142,4 @@ export default {
 </script>
 
 <style>
-
 </style>
