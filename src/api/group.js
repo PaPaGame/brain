@@ -19,7 +19,7 @@ const group = {
 
     createClass(info) {
         return ajax({
-            url: "/class",
+            url: "/class/add",
             method: "post",
             params: info
         });

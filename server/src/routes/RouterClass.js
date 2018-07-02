@@ -8,7 +8,7 @@ const childRouter = new Router({
 
 childRouter.use(jwt({}));
 // 注册路由
-childRouter.post("", ClassController.Create);
+childRouter.post("/add", ClassController.Create);
 childRouter.post("/getAll", ClassController.GetClass);
 childRouter.post("/update", ClassController.Update);
 childRouter.post("/delete", ClassController.Delete);
