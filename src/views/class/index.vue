@@ -62,8 +62,8 @@
                     <span>{{articleSelectedList}}</span>
                     <el-transfer :button-texts="[$t('group.remove'), $t('group.add')]" :titles="[$t('group.source'), $t('group.target')]" v-model="articleSelectedList" :data="transferSource" @change="transferChangeHandler" @right-check-change="rightCheckChangeHandler"></el-transfer>
                     <span slot="footer">
-                        <el-button @click="innerVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="innerVisible = false">确 定</el-button>
+                        <el-button @click="innerVisible = false">{{$t('group.cancel')}}</el-button>
+                        <el-button type="primary" @click="innerVisible = false">{{$t('group.confirm')}}</el-button>
                     </span>
                 </el-dialog>
             </el-dialog>

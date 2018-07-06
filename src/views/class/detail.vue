@@ -79,9 +79,6 @@ export default {
         }
     },
     methods: {
-        add() {
-            this.staffs.push({ id: Math.random(), name: "小坦克" + Math.random() });
-        },
         btnUpdateHandler() {
             //每次保存之前遍历一下列表，找到所有学生，再存
             let queryResult = [];
@@ -214,6 +211,7 @@ export default {
     },
     watch: {
         classInfo(val) {
+            debugger;
             this.queryModel.id = val._id;
             this.queryModel.name = val.name;
             this.queryModel.student = val.student;
