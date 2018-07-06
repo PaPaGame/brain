@@ -114,8 +114,7 @@ StudentDao.prototype.updateStudents = async (students, levels, groupInfo) => {
     console.log(sids)
     return await StudentModel.update(
         { "_id": { $in: sids } },
-        { "articleLevel": levels, "group": groupInfo },
-        { upsert: true }
+        { "articleLevel": levels, "group": groupInfo }
     );
 }
 

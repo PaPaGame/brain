@@ -68,14 +68,14 @@ export default {
                 staff: { id: "", name: "" },
                 school: "",
                 student: [],
-                articleLevel: []
+                articleLevel: [],
+                cancelStudent: []
             },
             staffs: [],
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
             },
-            students: [],
-            checkedList: []
+            students: []
         }
     },
     methods: {
@@ -94,6 +94,7 @@ export default {
                     }
                 });
             }
+
             this.queryModel.student = queryResult;
             this.queryModel.articleLevel = this.selectedLevel;
             groupService.updateClass(this.queryModel).then(res => {
@@ -211,7 +212,7 @@ export default {
     },
     watch: {
         classInfo(val) {
-            debugger;
+            // debugger;
             this.queryModel.id = val._id;
             this.queryModel.name = val.name;
             this.queryModel.student = val.student;
