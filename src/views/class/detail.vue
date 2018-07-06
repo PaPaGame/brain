@@ -75,7 +75,8 @@ export default {
             rules: {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
             },
-            students: []
+            students: [],
+            checkedList: []
         }
     },
     methods: {
