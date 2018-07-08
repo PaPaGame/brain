@@ -54,6 +54,10 @@ const Update = async (ctx) => {
     }
     // 更新班级信息
     let result = await classDao.updateClassInfo(info);
+    let cancelStudentIds = info.cancelStudentIds;
+    if (cancelStudentIds && cancelStudentIds.length > 0) {
+        let cancelRsult = await studentDao.cancelClass(cancelStudentIds);
+    }
     // 找到所有匹配的文章信息
     let students = info.student;
     let levels = info.articleLevel;

@@ -76,7 +76,9 @@ export default {
                 code: [{ required: true, message: this.$t("group.requiredCode1"), trigger: 'change' }]
             },
             students: [],
-            checkedList: []
+            checkedList: [],
+            originStudent: [], //这个班级原始学生
+            uncheckList: []
         }
     },
     methods: {
@@ -98,6 +100,9 @@ export default {
 
             this.queryModel.student = queryResult;
             this.queryModel.articleLevel = this.selectedLevel;
+            // 把取消课程的学成也传回去
+            this.queryModel.cancelStudentIds = this.uncheckList;
+
             groupService.updateClass(this.queryModel).then(res => {
                 if (res.status = 200) {
                     this.$message.success(this.$t('group.updateSuccess'));
@@ -189,10 +194,26 @@ export default {
             this.students.push(student);
         },
         checkgroupChange(v) {
-            // console.log(v, this.checkedList, this.students);
 
-            // let uncheckedList = this.students.filter(s => this.checkedList.indexOf(s.name) < 0);
-            // console.log(this.checkedList, uncheckedList);
+            this.uncheckList = [];
+            //跟源学生进行比对， 后添加再取消勾选的不进行评定
+            this.originStudent.forEach(student => {
+                let has = false;
+                for (let i = 0; i < this.checkedList.length; i++) {
+                    let st = this.checkedList[i];
+                    if (st == student.name) {
+                        has = true;
+                        break;
+                    }
+                }
+                if (has == false) {
+                    this.uncheckList.push(student.id);
+                }
+            });
+
+            console.log("origin", this.originStudent);
+            console.log("checked", this.checkedList);
+            console.log("uncheck", this.uncheckList);
 
         },
         openInnerDialog() {
@@ -224,6 +245,8 @@ export default {
             val.student.forEach(stu => {
                 this.students.push(stu);
             });
+
+            this.originStudent = val.student;
 
             console.log(this.students);
         }

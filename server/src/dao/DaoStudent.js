@@ -119,6 +119,11 @@ StudentDao.prototype.updateStudents = async (students, levels, groupInfo) => {
 }
 
 StudentDao.prototype.getById = async id => {
-    return StudentModel.findOne({ "_id": id });
+    return await StudentModel.findOne({ "_id": id });
+}
+
+StudentDao.prototype.cancelClass = async studentIds => {
+    // console.log("要清空的ids", studentIds);
+    return await StudentModel.findOneAndUpdate({ "_id": { $in: studentIds } }, { "group": "" });
 }
 module.exports = StudentDao;
