@@ -92,6 +92,11 @@
         .btn-next {
             bottom: 50px;
         }
+        .imgCover {
+            position: absolute;
+            right: 140px;
+            top: 30px;
+        }
     }
 }
 
@@ -105,7 +110,8 @@
         color: #fff;
     }
 }
-@media only screen and (min-height: 520px) and (max-height: 888px) {  
+
+@media only screen and (min-height: 520px) and (max-height: 888px) {
     .story {
         position: relative;
         bottom: 10px;

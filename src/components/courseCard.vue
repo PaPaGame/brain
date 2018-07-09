@@ -25,7 +25,7 @@ export default {
     methods: {
         btnGoClick() {
             console.log("课程信息：", this.courseInfo);
-            this.setCourseInfo(this.courseInfo._id);
+            this.setCourseInfo(this.courseInfo);
             // 开始阅读
             this.$router.push({ name: "readArticle", params: { info: this.courseInfo } });
         },

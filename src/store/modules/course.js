@@ -12,7 +12,8 @@ const state = {
     quiz: {},
     glossaries: {},
     cid: "",
-    taiprogress:''
+    taiprogress: '',
+    courseInfo: {}
 }
 
 const getters = {
@@ -25,7 +26,8 @@ const getters = {
     quiz: state => state.quiz,
     glossaries: state => state.glossaries,
     cid: state => state.cid,
-    taiprogress: state => state.taiprogress
+    taiprogress: state => state.taiprogress,
+    courseInfo: state => state.courseInfo
 }
 
 const mutations = {
@@ -45,7 +47,8 @@ const mutations = {
         state.quiz = data;
     },
     [types.COURSE_SET_COURSE_ID](state, { data }) {
-        state.cid = data;
+        state.cid = data._id;
+        state.courseInfo = data;
     }
 }
 

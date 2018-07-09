@@ -5,8 +5,8 @@
             <div class="pageContent">
                 <div class="title">{{this.title}}</div>
 
+                <img id="imgCover" class="imgCover">
                 <div id="opened-book" ref="contentContainer">
-
                 </div>
                 <!-- 翻页部分 -->
                 <div class="page-btn back-page">
@@ -217,8 +217,18 @@ export default {
             quizs: "quizs",
             tais: "tais",
             pages: "pages",
-            glossaries: "glossaries"
+            glossaries: "glossaries",
+            courseInfo: "courseInfo"
         })
+    },
+    mounted() {
+        let img = document.getElementById("imgCover");
+        console.log("mounted", this.courseInfo);
+        if (!this.courseInfo) {
+            console.log("课程信息为空， 无法初始化");
+            return;
+        }
+        img.src = `${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
     }
 }
 </script>
