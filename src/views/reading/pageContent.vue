@@ -5,8 +5,8 @@
             <div class="pageContent">
                 <div class="title">{{this.title}}</div>
 
-                <img id="imgCover" class="imgCover">
                 <div id="opened-book" ref="contentContainer">
+                    <img id="imgCover" class="imgCover">
                 </div>
                 <!-- 翻页部分 -->
                 <div class="page-btn back-page">
