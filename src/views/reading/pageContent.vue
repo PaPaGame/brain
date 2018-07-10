@@ -59,7 +59,7 @@ export default {
     },
     data() {
         return {
-            currentPage: 0,
+            currentPage: -1,
             divs: [],
             sentences: [],
             currentSentenceIndex: 1,
