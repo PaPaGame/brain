@@ -73,7 +73,8 @@ export default {
             explainVisible: false,
             explainWord: {},
             leftnumber: 1,
-            rightnumber: 2
+            rightnumber: 2,
+            lastIndex: -1
         };
     },
     methods: {
@@ -169,11 +170,15 @@ export default {
             this.loadPage(this.pages[this.currentPage]);
         },
         start() {
+            console.log("开始播放了");
             this.currentPlayMode = 1;
             this.currentPlayState = 1;
             var audioName = this.sentences[this.currentSentenceIndex];
             this.$refs.audio.src = `${process.env.PUBLIC_PATH}/${this.dirName}/audio/${audioName}`;
             this.$refs.audio.play();
+
+            // colour 着色，为当前播放句子添加背景颜色
+            this.colourSentences(this.currentSentenceIndex);
         },
         stop() {
             this.$refs.audio.pause();
@@ -206,6 +211,32 @@ export default {
 
         onExplainClose() {
             this.explainVisible = false;
+        },
+
+        colourSentences(index) {
+            if (this.lastIndex == -1) {
+                this.lastIndex = index;
+            }
+
+            console.log(`播放编号为：${index} 的句子`);
+            let lastDiv = document.getElementById("sen" + this.lastIndex);
+            this.removeColour(lastDiv);
+            this.lastIndex = index;
+            // 着色当前索引的句子
+            let div = document.getElementById("sen" + index);
+            this.addColour(div);
+
+        },
+
+        removeColour(div) {
+            if (!div) {
+                return;
+            }
+            div.style.backgroundColor = "transparent";
+        },
+
+        addColour(div) {
+            div.style.backgroundColor = "#f56c6c";
         }
     },
     computed: {

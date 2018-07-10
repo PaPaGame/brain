@@ -6,20 +6,20 @@ GenerHtml.prototype.generContainer = (layout) => {
     var div = document.createElement("div");
     var rate = 1;
     //如果为大屏则乘以1.3的系数
-    if(document.body.clientHeight > 800) {
-        rate =1.2
+    if (document.body.clientHeight > 800) {
+        rate = 1.2
     }
     div.style.color = "#000000";
-    div.style.top = layout.top*rate + "px";
+    div.style.top = layout.top * rate + "px";
     let left = layout.left;
     if (layout.left > 300) {
         left *= 1.45;
     } else {
         left += 60;
     }
-    div.style.left = left*rate + "px";
-    div.style.width = layout.width*rate + "px";
-    div.style.height = layout.height*rate + "px";
+    div.style.left = left * rate + "px";
+    div.style.width = layout.width * rate + "px";
+    div.style.height = layout.height * rate + "px";
     div.style.position = "absolute";
     return div;
 }
@@ -28,6 +28,7 @@ GenerHtml.prototype.generSentences = (words, fontStyle, wordAudios, audioIndex) 
     var content = "";
     var div = document.createElement("div");
     div.setAttribute("_idx", audioIndex);
+    div.setAttribute("id", "sen" + audioIndex);
     div.style.fontStyle.bold = fontStyle.bold;
     div.style.fontStyle.fontcolor = "#" + fontStyle.front_color;
     div.style.fontStyle.italic = fontStyle.italic;
