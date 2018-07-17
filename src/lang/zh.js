@@ -199,7 +199,9 @@ export default {
         cancel: "取消",
         getLevelFailed: "获取文章等级列表失败",
         getListFailed: "获取文章列表失败",
-        cancelEditMessage: "取消编辑编号"
+        cancelEditMessage: "取消编辑编号",
+        grade: "级别",
+        order: "序号"
     },
     dashboard: {
         schoolCount: "校区数量",

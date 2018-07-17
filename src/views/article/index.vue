@@ -40,6 +40,10 @@
         </el-table>
         <el-pagination background layout="prev, pager, next" :total="150" @current-change="pageChangeHandler">
         </el-pagination>
+
+        <edu-table :tableColumns="tableColumns" :tableData="articles" ref="table" showPage="true">
+
+        </edu-table>
     </section>
 </template>
 
@@ -64,8 +68,16 @@ export default {
             queryModel: {
                 currentPage: 0,
                 pageSize: 10
-            }
-            // list: [{ level: 1, edit: false }, { level: 2, edit: false }]
+            },
+            tableColumns: [
+                { prop: "id", label: this.$t('article.id'), width: 80 },
+                { prop: "fullTitle", label: this.$t('article.title'), width: 320 },
+                { prop: "grade", label: this.$t('article.grade'), width: 80 },
+                { prop: "order", label: this.$t('article.order'), width: 80 },
+                { prop: "lexile", label: this.$t('article.lexile'), width: 110 },
+                { prop: "layoutType", label: this.$t('article.layout'), width: 90 },
+                { prop: "status", label: this.$t('article.status'), width: 100 }
+            ]
         }
     },
     methods: {
