@@ -2,18 +2,29 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>ULearn</title>
-  <script src="static/thirds/WebAudioRecorder.min.js"></script>
-  <script src="static/js/lib/recorder.js"></script>
-  <!-- <script src="static/thirds/recordmp3.js"></script> -->
-  <!-- https://github.com/daaain/JSSoundRecorder -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>ULearn</title>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	<script src="static/thirds/WebAudioRecorder.min.js"></script>
+	<script src="static/js/lib/recorder.js"></script>
+	<!-- <script src="static/thirds/recordmp3.js"></script> -->
+	<!-- https://github.com/daaain/JSSoundRecorder -->
 </head>
 
 <body>
-  <div id="app"></div>
-  <!-- built files will be auto injected -->
+	<div id="app"></div>
+	<!-- built files will be auto injected -->
+	<% if(process.env.BUILD_ENV!='prod') { %>
+		<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+		<script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.js"></script>
+		<script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.js"></script>
+		<% } else { %>
+			<script src="https://cdn.bootcss.com/vue/2.5.16/vue.runtime.min.js"></script>
+			<script src="https://cdn.bootcss.com/vue-router/3.0.1/vue-router.min.js"></script>
+			<script src="https://cdn.bootcss.com/vuex/3.0.1/vuex.min.js"></script>
+			<% } %>
+				<script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </body>
 
 </html>
