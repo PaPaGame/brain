@@ -1,44 +1,44 @@
-import ajax from "@/utils/ajax";
+import ajax from '@/utils/ajax';
 
 const group = {
-    fetchClass(query) {
-        return ajax({
-            url: "/class/getAll",
-            method: "post",
-            params: query
-        });
-    },
+  fetchClass(query) {
+    return ajax({
+      url: '/class/getAll',
+      method: 'post',
+      params: query
+    });
+  },
 
-    deleteClass(query) {
-        return ajax({
-            url: "/class/delete",
-            method: "post",
-            params: query
-        });
-    },
+  deleteClass(query) {
+    return ajax({
+      url: '/class/delete',
+      method: 'post',
+      params: query
+    });
+  },
 
-    createClass(info) {
-        return ajax({
-            url: "/class/add",
-            method: "post",
-            params: info
-        });
-    },
+  createClass(info) {
+    return ajax({
+      url: '/class/add',
+      method: 'post',
+      params: info
+    });
+  },
 
-    updateClass(info) {
-        return ajax({
-            url: "/class/update",
-            method: "post",
-            params: info
-        });
-    },
-    getFuzzyGroup(query) {
-        return ajax({
-            url: "/class/fuzzyGroup",
-            method: "post",
-            data: query
-        })
-    }
+  updateClass(info) {
+    return ajax({
+      url: '/class/update',
+      method: 'post',
+      params: info
+    });
+  },
+  getFuzzyGroup(query) {
+    return ajax({
+      url: '/class/fuzzyGroup',
+      method: 'post',
+      data: query
+    });
+  }
 };
 
 

@@ -1,4 +1,4 @@
-import * as ajax from "@/utils/ajax"
+import * as ajax from '@/utils/ajax';
 /**
  * @author zhenliang.sun
  * 上传功能

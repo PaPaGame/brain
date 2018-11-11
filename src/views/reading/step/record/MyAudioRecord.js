@@ -92,119 +92,122 @@
 // module.exports = MyAudioRecord;
 
 export default class MyAudioRecord {
-    constructor() {
-        self = this;
-        this._init();
-        this.recorder;
-        this.volume;
-        this.volumeLevel = 0;
-        this.currentEditedSoundIndex;
+  constructor() {
+    this.self = this;
+    this._init();
+    this.recorder;
+    this.volume;
+    this.volumeLevel = 0;
+    this.currentEditedSoundIndex;
+  }
+
+  _init() {
+    try {
+      // Fix up for prefixing
+      window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
+      navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+      window.URL = window.URL || window.webkitURL || window.mozURL;
+      this.self.context = new AudioContext();
+    } catch (e) {
+      alert('Web Audio API is not supported in this browser');
+    }
+  }
+
+  start() {
+    this._fetchDevices(() => {
+      if (this.recorder) {
+        this.recorder.record();
+      }
+    });
+  }
+
+  pause() {
+    if (this.recorder) {
+      this.recorder.startRecording();
+    }
+  }
+
+  stop() {
+    console.log('aaa');
+    if (this.recorder) {
+      console.log('bbb');
+      this.recorder.stop();
+      console.log('ccc');
+      // 创建下载链接
+      this.recorder.exportWAV(this._handleWAV);
+      console.log('ddd');
+      this.recorder.clear();
     }
 
-    _init() {
-        try {
-            // Fix up for prefixing
-            window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext;
-            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-            window.URL = window.URL || window.webkitURL || window.mozURL;
-            self.context = new AudioContext();
-        }
-        catch (e) {
-            alert('Web Audio API is not supported in this browser');
-        }
+  }
+
+  cancel() {
+    if (this.recorder) {
+      this.recorder.cancelRecording();
     }
+  }
 
-    start() {
-        this._fetchDevices(() => {
-            if (this.recorder) {
-                this.recorder.record();
-            }
-        })
-    }
+  getBlobURL() {
+    // if (this.recorder) {
+    //     return this.bloburl;
+    // }
 
-    pause() {
-        if (this.recorder) {
-            this.recorder.startRecording();
-        }
-    }
+    // return null;
+    return this.bloburl;
+  }
 
-    stop() {
-        console.log("aaa");
-        if (this.recorder) {
-            console.log("bbb");
-            this.recorder.stop();
-            console.log("ccc");
-            // 创建下载链接
-            this.recorder.exportWAV(this._handleWAV);
-            console.log("ddd");
-            this.recorder.clear();
-        }
+  _fetchDevices(callback) {
+    console.log('获取设备');
+    // navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+    //     this._getDeviceSuccess(stream, callback)
+    // });
+    navigator.getUserMedia({
+      audio: true
+    }, this._startUserMedia, function (e) {
+      console.warn('No live audio input: ' + e);
+    });
+  }
 
-    }
+  _startUserMedia(stream) {
+    var input = this.self.context.createMediaStreamSource(stream);
+    console.log('Media stream created.');
 
-    cancel() {
-        if (this.recorder) {
-            this.recorder.cancelRecording();
-        }
-    }
+    this.self.volume = this.self.context.createGain();
+    this.self.volume.gain.value = this.self.volumeLevel;
+    input.connect(this.self.volume);
+    this.self.volume.connect(this.self.context.destination);
+    console.log('Input connected to audio context destination.');
 
-    getBlobURL() {
-        // if (this.recorder) {
-        //     return this.bloburl;
-        // }
+    this.self.recorder = new Recorder(input);
+    console.log('Recorder initialised.');
+  }
 
-        // return null;
-        return this.bloburl;
-    }
+  _getDeviceSuccess(stream, callback) {
+    console.log(`默认设备ID为${stream.id}`);
+    var sourceNode = this.context.createMediaStreamSource(stream);
+    console.log(this);
+    this.recorder = new WebAudioRecorder(sourceNode, {
+      workerDir: 'static/thirds/'
+    });
+    // 设置录音参数
+    this.recorder.setOptions({
+      timeLimit: 60,
+      ogg: {
+        quality: 0.5
+      },
+      mp3: {
+        bitRate: 192
+      }
+    });
+    this.recorder.setEncoding('mp3'); // 设置编码格式
+    console.log('初始化录音实例', this.recorder);
 
-    _fetchDevices(callback) {
-        console.log("获取设备");
-        // navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        //     this._getDeviceSuccess(stream, callback)
-        // });
-        navigator.getUserMedia({ audio: true }, this._startUserMedia, function(e) {
-            console.warn('No live audio input: ' + e);
-        });
-    }
+    callback && callback();
+  }
 
-    _startUserMedia(stream) {
-        var input = self.context.createMediaStreamSource(stream);
-        console.log('Media stream created.');
-
-        self.volume = self.context.createGain();
-        self.volume.gain.value = self.volumeLevel;
-        input.connect(self.volume);
-        self.volume.connect(self.context.destination);
-        console.log('Input connected to audio context destination.');
-
-        self.recorder = new Recorder(input);
-        console.log('Recorder initialised.');
-    }
-
-    _getDeviceSuccess(stream, callback) {
-        console.log(`默认设备ID为${stream.id}`);
-        var sourceNode = this.context.createMediaStreamSource(stream);
-        console.log(this);
-        this.recorder = new WebAudioRecorder(sourceNode, { workerDir: "static/thirds/" });
-        // 设置录音参数
-        this.recorder.setOptions({
-            timeLimit: 60,
-            ogg: {
-                quality: 0.5
-            },
-            mp3: {
-                bitRate: 192
-            }
-        });
-        this.recorder.setEncoding("mp3"); // 设置编码格式
-        console.log("初始化录音实例", this.recorder);
-
-        callback && callback();
-    }
-
-    _handleWAV(blob) {
-        console.log("eeee", url);
-        let url = URL.createObjectURL(blob);
-        console.log("导出wav", url);
-    }
+  _handleWAV(blob) {
+    console.log('eeee', url);
+    let url = URL.createObjectURL(blob);
+    console.log('导出wav', url);
+  }
 }

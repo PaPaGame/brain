@@ -1,4 +1,4 @@
-import ajax from "./ajax";
+import ajax from './ajax';
 // import "./extend";
 // const deepClone = function deepClonE(source) {
 //     if (!source && typeof source !== 'object') {
@@ -18,5 +18,5 @@ import ajax from "./ajax";
 //     return targetObj
 // }
 export default {
-    ajax
-}
+  ajax
+};

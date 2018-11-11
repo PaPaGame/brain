@@ -1,15 +1,16 @@
 var Storage = {};
-console.log('====================================')
-console.log(navigator.mediaDevices)
-console.log('====================================')
+console.log('====================================');
+console.log(navigator.mediaDevices);
+console.log('====================================');
+
 function audioContextCheck() {
-  if (typeof window.AudioContext !== "undefined") {
+  if (typeof window.AudioContext !== 'undefined') {
     console.log('AudioContext');
     return new window.AudioContext();
-  } else if (typeof webkitAudioContext !== "undefined") {
+  } else if (typeof webkitAudioContext !== 'undefined') {
     console.log('webkitAudioContext');
     return new window.webkitAudioContext();
-  } else if (typeof window.mozAudioContext !== "undefined") {
+  } else if (typeof window.mozAudioContext !== 'undefined') {
     console.log('mozAudioContext');
     return new window.mozAudioContext();
   } else {
@@ -21,13 +22,13 @@ function audioContextCheck() {
 audioContextCheck();
 var context;
 window.addEventListener('load', init, false);
+
 function init() {
   try {
     // Fix up for prefixing
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext();
-  }
-  catch (e) {
+  } catch (e) {
     alert('Web Audio API is not supported in this browser');
   }
 }
@@ -70,20 +71,22 @@ function AudioRecorder(config) {
   var isAudioProcessStarted = false;
   var hadSetupStorage = false;
 
-  this.start = function() {
+  this.start = function () {
     // if (!hadSetupStorage) {
     setupStorage();
     // }
 
-    navigator.mediaDevices.getUserMedia({ audio: true })
+    navigator.mediaDevices.getUserMedia({
+      audio: true
+    })
       .then(onMicrophoneCaptured)
       .catch(onMicrophoneCaptureError);
   };
 
-  this.stop = function(callback) {
+  this.stop = function (callback) {
 
-    stopRecording(function(blob) {
-      //stop record and create a blod url
+    stopRecording(function (blob) {
+      // stop record and create a blod url
       var blobUrl = URL.createObjectURL(blob);
       callback && callback(blobUrl);
     });
@@ -104,7 +107,7 @@ function AudioRecorder(config) {
       internalInterleavedLength: recordingLength,
       leftBuffers: leftChannel,
       rightBuffers: numberOfAudioChannels === 1 ? [] : rightChannel
-    }, function(buffer, view) {
+    }, function (buffer, view) {
 
       self.blob = new Blob([view], {
         type: 'audio/wav'
@@ -140,12 +143,12 @@ function AudioRecorder(config) {
 
       jsAudioNode = Storage.ctx.createJavaScriptNode(bufferSize, numberOfAudioChannels, numberOfAudioChannels);
     } else if (Storage.ctx.createScriptProcessor) {
-      console.log('====================================')
-      console.log(Storage.ctx)
-      console.log('====================================')
+      console.log('====================================');
+      console.log(Storage.ctx);
+      console.log('====================================');
       jsAudioNode = Storage.ctx.createScriptProcessor(bufferSize, numberOfAudioChannels, numberOfAudioChannels);
     } else {
-      alert('WebAudio API has no support on this browser.')
+      alert('WebAudio API has no support on this browser.');
       throw 'WebAudio API has no support on this browser.';
     }
 
@@ -165,8 +168,8 @@ function AudioRecorder(config) {
   }
 
   function onMicrophoneCaptureError() {
-    alert('no support ')
-    console.log("There was an error accessing the microphone. You may need to allow the browser access");
+    alert('no support ');
+    console.log('There was an error accessing the microphone. You may need to allow the browser access');
   }
 
   function onAudioProcess(e) {
@@ -266,15 +269,15 @@ function AudioRecorder(config) {
       // http://stackoverflow.com/a/28977136/552182
       function interpolateArray(data, newSampleRate, oldSampleRate) {
         var fitCount = Math.round(data.length * (newSampleRate / oldSampleRate));
-        //var newData = new Array();
+        // var newData = new Array();
         var newData = [];
-        //var springFactor = new Number((data.length - 1) / (fitCount - 1));
+        // var springFactor = new Number((data.length - 1) / (fitCount - 1));
         var springFactor = Number((data.length - 1) / (fitCount - 1));
         newData[0] = data[0]; // for new allocation
-        for (var i = 1; i < fitCount - 1; i++) {
+        for (var i = 1; i < fitCount - 1; i += 1) {
           var tmp = i * springFactor;
-          //var before = new Number(Math.floor(tmp)).toFixed();
-          //var after = new Number(Math.ceil(tmp)).toFixed();
+          // var before = new Number(Math.floor(tmp)).toFixed();
+          // var after = new Number(Math.ceil(tmp)).toFixed();
           var before = Number(Math.floor(tmp)).toFixed();
           var after = Number(Math.ceil(tmp)).toFixed();
           var atPoint = tmp - before;
@@ -293,7 +296,7 @@ function AudioRecorder(config) {
         var offset = 0;
         var lng = channelBuffer.length;
 
-        for (var i = 0; i < lng; i++) {
+        for (var i = 0; i < lng; i += 1) {
           var buffer = channelBuffer[i];
           result.set(buffer, offset);
           offset += buffer.length;
@@ -310,16 +313,16 @@ function AudioRecorder(config) {
         var inputIndex = 0;
 
         for (var index = 0; index < length;) {
-          result[index++] = leftChannel[inputIndex];
-          result[index++] = rightChannel[inputIndex];
-          inputIndex++;
+          result[index += 1] = leftChannel[inputIndex];
+          result[index += 1] = rightChannel[inputIndex];
+          inputIndex += 1;
         }
         return result;
       }
 
       function writeUTFBytes(view, offset, string) {
         var lng = string.length;
-        for (var i = 0; i < lng; i++) {
+        for (var i = 0; i < lng; i += 1) {
           view.setUint8(offset + i, string.charCodeAt(i));
         }
       }
@@ -389,7 +392,7 @@ function AudioRecorder(config) {
       var lng = interleavedLength;
       var index = 44;
       var volume = 1;
-      for (var i = 0; i < lng; i++) {
+      for (var i = 0; i < lng; i += 1) {
         view.setInt16(index, interleaved[i] * (0x7FFF * volume), true);
         index += 2;
       }
@@ -409,7 +412,7 @@ function AudioRecorder(config) {
 
     var webWorker = processInWebWorker(mergeAudioBuffers);
 
-    webWorker.onmessage = function(event) {
+    webWorker.onmessage = function (event) {
       callback(event.data.buffer, event.data.view);
 
       // release memory
@@ -421,10 +424,10 @@ function AudioRecorder(config) {
 
   function processInWebWorker(_function) {
     var workerURL = URL.createObjectURL(new Blob([_function.toString(),
-    ';this.onmessage =  function (e) {' + _function.name + '(e.data);}'
+      ';this.onmessage =  function (e) {' + _function.name + '(e.data);}'
     ], {
-        type: 'application/javascript'
-      }));
+      type: 'application/javascript'
+    }));
 
     var worker = new Worker(workerURL);
     worker.workerURL = workerURL;

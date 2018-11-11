@@ -2,6 +2,6 @@
 module.exports = {
   NODE_ENV: '"production"',
   ENV_CONFIG: '"prod"',
-  API_PATH: '"//39.104.178.70:8081/api"',
-  PUBLIC_PATH: '"//39.104.178.70:8081/dist"'
+  API_PATH: '"//www.ulearn.net.cn:8081/api"',
+  PUBLIC_PATH: '"//www.ulearn.net.cn:8081/dist"'
 }

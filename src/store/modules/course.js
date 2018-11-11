@@ -1,127 +1,127 @@
-import loader from "@/utils/loader";
-import * as types from "../mutation-type";
-import async from "async";
-var ArticleAnalyze = require("@/views/reading/util/articleAnalyze");
+import loader from '@/utils/loader';
+import * as types from '../mutation-type';
+import async from 'async';
+var ArticleAnalyze = require('@/views/reading/util/articleAnalyze');
 const state = {
-    dirName: "",
-    tais: [],
-    quizs: [],
-    title: "",
-    pages: [],
-    question: {},
-    quiz: {},
-    glossaries: {},
-    cid: "",
-    taiprogress: '',
-    courseInfo: {}
-}
+  dirName: '',
+  tais: [],
+  quizs: [],
+  title: '',
+  pages: [],
+  question: {},
+  quiz: {},
+  glossaries: {},
+  cid: '',
+  taiprogress: '',
+  courseInfo: {}
+};
 
 const getters = {
-    dirName: state => state.dirName,
-    tais: state => state.tais,
-    quizs: state => state.quizs,
-    title: state => state.title,
-    pages: state => state.pages,
-    question: state => state.question,
-    quiz: state => state.quiz,
-    glossaries: state => state.glossaries,
-    cid: state => state.cid,
-    taiprogress: state => state.taiprogress,
-    courseInfo: state => state.courseInfo
-}
+  dirName: state => state.dirName,
+  tais: state => state.tais,
+  quizs: state => state.quizs,
+  title: state => state.title,
+  pages: state => state.pages,
+  question: state => state.question,
+  quiz: state => state.quiz,
+  glossaries: state => state.glossaries,
+  cid: state => state.cid,
+  taiprogress: state => state.taiprogress,
+  courseInfo: state => state.courseInfo
+};
 
 const mutations = {
-    [types.COURSE_UPDATE_INFO](state, { data }) {
-        state.dirName = data.dirName;
-        state.title = data.title;
-        state.tais = data.tais;
-        state.quizs = data.quizs;
-        state.pages = data.pages;
-        state.glossaries = data.glossaries;
-        state.taiprogress = data.taiprogress;
-    },
-    [types.COURSE_UPDATE_QUESTION](state, { data }) {
-        state.question = data;
-    },
-    [types.COURSE_UPDATE_QUIZ](state, { data }) {
-        state.quiz = data;
-    },
-    [types.COURSE_SET_COURSE_ID](state, { data }) {
-        state.cid = data._id;
-        state.courseInfo = data;
-    }
-}
+  [types.COURSE_UPDATE_INFO](state, {data}) {
+    state.dirName = data.dirName;
+    state.title = data.title;
+    state.tais = data.tais;
+    state.quizs = data.quizs;
+    state.pages = data.pages;
+    state.glossaries = data.glossaries;
+    state.taiprogress = data.taiprogress;
+  },
+  [types.COURSE_UPDATE_QUESTION](state, {data}) {
+    state.question = data;
+  },
+  [types.COURSE_UPDATE_QUIZ](state, {data}) {
+    state.quiz = data;
+  },
+  [types.COURSE_SET_COURSE_ID](state, {data}) {
+    state.cid = data._id;
+    state.courseInfo = data;
+  }
+};
 
 const actions = {
-    getPageInfo({ commit, state }, payload) {
+  getPageInfo({commit, state}, payload) {
 
-    },
+  },
 
-    getArticleInfo({ commit, state }, payload) {
-        return new Promise((resolve, reject) => {
+  getArticleInfo({commit, state}, payload) {
+    return new Promise((resolve, reject) => {
 
 
-            let folder = payload;
-            let fileName = folder + ".json";
-            var analyze = new ArticleAnalyze();
-            var obj = {};
-            async.series({
-                one: callback => {
-                    loader({
-                        url: `/${folder}/${fileName}`
-                    }).then(res => {
-                        this.articleInfos = Object.assign(obj, analyze.startBasicInfo(res));
-                        callback(null, this.articleInfos);
-                    });
-                },
-                two: callback => {
-                    let quizName = "quizzes.json";
-                    loader({
-                        url: `/${folder}/${quizName}`
-                    }).then(res => {
-                        let obj2 = analyze.startQuizs(res);
-                        obj.quizs = obj2;
-                        this.articleInfos = obj;
-                        callback(null, this.articleInfos);
-                    });
-                }
-            }, (err, result) => {
-                this.articleInfos.dirName = folder;
-                console.log("final", this.articleInfos);
-                commit(types.COURSE_UPDATE_INFO, { data: this.articleInfos });
-                resolve();
-            });
-        })
-    },
+      let folder = payload;
+      let fileName = folder + '.json';
+      var analyze = new ArticleAnalyze();
+      var obj = {};
+      async.series({
+        one: callback => {
+          loader({
+            url: `/${folder}/${fileName}`
+          }).then(res => {
+            this.articleInfos = Object.assign(obj, analyze.startBasicInfo(res));
+            callback(null, this.articleInfos);
+          });
+        },
+        two: callback => {
+          let quizName = 'quizzes.json';
+          loader({
+            url: `/${folder}/${quizName}`
+          }).then(res => {
+            let obj2 = analyze.startQuizs(res);
+            obj.quizs = obj2;
+            this.articleInfos = obj;
+            callback(null, this.articleInfos);
+          });
+        }
+      }, (err, result) => {
+        this.articleInfos.dirName = folder;
+        console.log('final', this.articleInfos);
+        commit(types.COURSE_UPDATE_INFO, {data: this.articleInfos});
+        resolve();
+      });
+    });
+  },
 
-    getTaiInfo({ commit, state }, payload) {
-        console.log(payload.dirName, payload.taiId);
-        let { dirName, taiId } = payload;
-        loader({
-            url: `/${dirName}/question/${taiId}.json`
-        }).then(res => {
-            commit(types.COURSE_UPDATE_QUESTION, { data: res });
-        });
-    },
+  getTaiInfo({commit, state}, payload) {
+    console.log(payload.dirName, payload.taiId);
+    let {dirName, taiId} = payload;
+    loader({
+      url: `/${dirName}/question/${taiId}.json`
+    }).then(res => {
+      commit(types.COURSE_UPDATE_QUESTION, {data: res});
+    });
+  },
 
-    getQuizInfo({ commit, state }, payload) {
-        let { dirName, quizId } = payload;
-        loader({
-            url: `/${dirName}/question/${quizId}.json`
-        }).then(res => {
-            commit(types.COURSE_UPDATE_QUIZ, { data: res });
-        })
-    },
+  getQuizInfo({commit, state}, payload) {
+    let {dirName, quizId} = payload;
+    loader({
+      url: `/${dirName}/question/${quizId}.json`
+    }).then(res => {
+      commit(types.COURSE_UPDATE_QUIZ, {data: res});
+    });
+  },
 
-    setCourseInfo({ commit, state }, payload) {
-        console.log("设置课程id", payload);
-        commit(types.COURSE_SET_COURSE_ID, { data: payload });
-    }
-}
+  setCourseInfo({commit, state}, payload) {
+    console.log('设置课程id', payload);
+    commit(types.COURSE_SET_COURSE_ID, {data: payload});
+  }
+};
 
 export default {
-    state,
-    getters,
-    mutations,
-    actions
-}
+  state,
+  getters,
+  mutations,
+  actions
+};
