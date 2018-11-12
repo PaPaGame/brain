@@ -7,20 +7,20 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import ScrollBar from "@/components/ScrollBar";
-import SideBarItem from "./SideBarItem";
+import {mapGetters} from 'vuex';
+import ScrollBar from '@/components/ScrollBar';
+import SideBarItem from './SideBarItem';
 export default {
-	components: {
-		ScrollBar,
-		SideBarItem
-	},
-	computed: {
-		...mapGetters([
-			'permission_routers'
-		])
-	},
-	mounted() {
-	}
+  components: {
+    ScrollBar,
+    SideBarItem
+  },
+  computed: {
+    ...mapGetters([
+      'permission_routers'
+    ])
+  },
+  mounted() {
+  }
 };
 </script>

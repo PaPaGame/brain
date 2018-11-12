@@ -23,35 +23,35 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import * as RoleType from "@/router/roleType";
+import {mapActions, mapGetters} from 'vuex';
+import * as RoleType from '@/router/roleType';
 export default {
-    methods: {
-        logout() {
-            console.log("logout from navbar");
-            this.doLogout();
-        },
-        ...mapActions(["doLogout"])
+  methods: {
+    logout() {
+      console.log('logout from navbar');
+      this.doLogout();
     },
-    computed: {
-        currentRole() {
-            switch (this.userinfo.role) {
-                case RoleType.STUDENT:
-                    return "Student";
-                case RoleType.MASTER:
-                    return "Master";
-                case RoleType.ADMIN:
-                    return "Admin";
-                case RoleType.STAFF:
-                    return "Staff"
-                default:
-                    return "NO";
-            }
-        },
-        ...mapGetters({
-            userinfo: "userinfo"
-        })
-    }
+    ...mapActions(['doLogout'])
+  },
+  computed: {
+    currentRole() {
+      switch (this.userinfo.role) {
+      case RoleType.STUDENT:
+        return 'Student';
+      case RoleType.MASTER:
+        return 'Master';
+      case RoleType.ADMIN:
+        return 'Admin';
+      case RoleType.STAFF:
+        return 'Staff';
+      default:
+        return 'NO';
+      }
+    },
+    ...mapGetters({
+      userinfo: 'userinfo'
+    })
+  }
 };
 </script>
 

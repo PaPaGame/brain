@@ -8,8 +8,8 @@
     </el-dialog>
 </template>
 <script type="text/babel">
-import index from './index'
+import index from './index';
 export default {
-    ...index
-}
+  ...index
+};
 </script>

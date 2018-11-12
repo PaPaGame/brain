@@ -8,9 +8,9 @@
 </template>
 <script>
 export default {
-    name: 'PopUp',
-    props: ['PopUpIsShow']
-}
+  name: 'PopUp',
+  props: ['PopUpIsShow']
+};
 </script>
 <style lang="scss">
 .el-dialog__body {

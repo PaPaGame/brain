@@ -16,31 +16,31 @@
   </section>
 </template>
 <script>
-import user from "@/service/user.js";
+import user from '@/service/user.js';
 export default {
   data() {
     var validateAccount = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入帐号"));
+      if (value === '') {
+        callback(new Error('请输入帐号'));
       } else {
         callback();
       }
     };
     var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
+      if (value === '') {
+        callback(new Error('请输入密码'));
       } else {
         callback();
       }
     };
     return {
       ruleForm: {
-        username: "",
-        password: ""
+        username: '',
+        password: ''
       },
       rules: {
-        username: [{ validator: validateAccount, trigger: "blur" }],
-        password: [{ validator: validatePass, trigger: "blur" }]
+        username: [{validator: validateAccount, trigger: 'blur'}],
+        password: [{validator: validatePass, trigger: 'blur'}]
       }
     };
   },
@@ -49,9 +49,9 @@ export default {
       this.$refs[formName].validate(valid => {
         if (valid) {
           //   this.doLogin(this.ruleForm);
-          user.login(this.ruleForm).then(console.log("login success"));
+          user.login(this.ruleForm).then(console.log('login success'));
         } else {
-          console.log("error submit!!");
+          console.log('error submit!!');
           return false;
         }
       });
@@ -62,9 +62,9 @@ export default {
     registForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          user.addUser(this.ruleForm).then(console.log("aaa"));
+          user.addUser(this.ruleForm).then(console.log('aaa'));
         } else {
-          console.log("error regist");
+          console.log('error regist');
           return false;
         }
       });

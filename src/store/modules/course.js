@@ -31,7 +31,9 @@ const getters = {
 };
 
 const mutations = {
-  [types.COURSE_UPDATE_INFO](state, {data}) {
+  [types.COURSE_UPDATE_INFO](state, {
+    data
+  }) {
     state.dirName = data.dirName;
     state.title = data.title;
     state.tais = data.tais;
@@ -40,24 +42,36 @@ const mutations = {
     state.glossaries = data.glossaries;
     state.taiprogress = data.taiprogress;
   },
-  [types.COURSE_UPDATE_QUESTION](state, {data}) {
+  [types.COURSE_UPDATE_QUESTION](state, {
+    data
+  }) {
     state.question = data;
   },
-  [types.COURSE_UPDATE_QUIZ](state, {data}) {
+  [types.COURSE_UPDATE_QUIZ](state, {
+    data
+  }) {
     state.quiz = data;
   },
-  [types.COURSE_SET_COURSE_ID](state, {data}) {
+  [types.COURSE_SET_COURSE_ID](state, {
+    data
+  }) {
     state.cid = data._id;
     state.courseInfo = data;
   }
 };
 
 const actions = {
-  getPageInfo({commit, state}, payload) {
+  getPageInfo({
+    commit,
+    state
+  }, payload) {
 
   },
 
-  getArticleInfo({commit, state}, payload) {
+  getArticleInfo({
+    commit,
+    state
+  }, payload) {
     return new Promise((resolve, reject) => {
 
 
@@ -88,34 +102,57 @@ const actions = {
       }, (err, result) => {
         this.articleInfos.dirName = folder;
         console.log('final', this.articleInfos);
-        commit(types.COURSE_UPDATE_INFO, {data: this.articleInfos});
+        commit(types.COURSE_UPDATE_INFO, {
+          data: this.articleInfos
+        });
         resolve();
       });
     });
   },
 
-  getTaiInfo({commit, state}, payload) {
+  getTaiInfo({
+    commit,
+    state
+  }, payload) {
     console.log(payload.dirName, payload.taiId);
-    let {dirName, taiId} = payload;
+    let {
+      dirName,
+      taiId
+    } = payload;
     loader({
       url: `/${dirName}/question/${taiId}.json`
     }).then(res => {
-      commit(types.COURSE_UPDATE_QUESTION, {data: res});
+      commit(types.COURSE_UPDATE_QUESTION, {
+        data: res
+      });
     });
   },
 
-  getQuizInfo({commit, state}, payload) {
-    let {dirName, quizId} = payload;
+  getQuizInfo({
+    commit,
+    state
+  }, payload) {
+    let {
+      dirName,
+      quizId
+    } = payload;
     loader({
       url: `/${dirName}/question/${quizId}.json`
     }).then(res => {
-      commit(types.COURSE_UPDATE_QUIZ, {data: res});
+      commit(types.COURSE_UPDATE_QUIZ, {
+        data: res
+      });
     });
   },
 
-  setCourseInfo({commit, state}, payload) {
+  setCourseInfo({
+    commit,
+    state
+  }, payload) {
     console.log('设置课程id', payload);
-    commit(types.COURSE_SET_COURSE_ID, {data: payload});
+    commit(types.COURSE_SET_COURSE_ID, {
+      data: payload
+    });
   }
 };
 

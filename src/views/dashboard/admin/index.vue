@@ -12,58 +12,58 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import CourseCard from "@/components/courseCard";
-import InfoGroup from "@/components/InfoGroup";
-import userServices from "@/api/user";
+import {mapActions, mapGetters} from 'vuex';
+import CourseCard from '@/components/courseCard';
+import InfoGroup from '@/components/InfoGroup';
+import userServices from '@/api/user';
 export default {
-    components: {
-        CourseCard,
-        InfoGroup
-    },
-    data() {
-        return {
-            name: "admin",
-            info: [0, 0, 0, 0],
-            infoColumns: [{ icon: "school", title: this.$t('dashboard.schoolCount'), count: "0" },
-            { icon: "mark", title: this.$t('dashboard.staffCount'), count: "0" },
-            { icon: "master", title: this.$t('dashboard.studentCount'), count: "0" },
-            { icon: "group", title: this.$t('dashboard.newStudentCount'), count: "0" }]
-        }
-    },
-    created() {
-        userServices.dashboard(this.userinfo).then(res => {
-            if (res.status === 200) {
-                this.info = res.info;
-            } else {
-                this.$message.error(this.$t("dashboard.fetchError"));
-            }
-        })
-    },
-    methods: {
-        // getUserInfos() {
-        //     let username = this.$refs.tiUsername.currentValue;
-        //     let query = {};
-        //     query.username = username;
-        //     this.getUserInfo(query);
-        // },
-        // printUserinfo() {
-        //     console.log(this.userinfo);
-        //     userServices.dashboard(this.comParams).then(res => {
-        //         if (res.status === 200) {
-        //             this.info = res.info;
-        //         }
-        //     });
-        // },
-        ...mapActions(["getUserInfo"])
-    },
-    computed: {
-        ...mapGetters([
-            "userinfo"
-        ])
-    },
+  components: {
+    CourseCard,
+    InfoGroup
+  },
+  data() {
+    return {
+      name: 'admin',
+      info: [0, 0, 0, 0],
+      infoColumns: [{icon: 'school', title: this.$t('dashboard.schoolCount'), count: '0'},
+        {icon: 'mark', title: this.$t('dashboard.staffCount'), count: '0'},
+        {icon: 'master', title: this.$t('dashboard.studentCount'), count: '0'},
+        {icon: 'group', title: this.$t('dashboard.newStudentCount'), count: '0'}]
+    };
+  },
+  created() {
+    userServices.dashboard(this.userinfo).then(res => {
+      if (res.status === 200) {
+        this.info = res.info;
+      } else {
+        this.$message.error(this.$t('dashboard.fetchError'));
+      }
+    });
+  },
+  methods: {
+    // getUserInfos() {
+    //     let username = this.$refs.tiUsername.currentValue;
+    //     let query = {};
+    //     query.username = username;
+    //     this.getUserInfo(query);
+    // },
+    // printUserinfo() {
+    //     console.log(this.userinfo);
+    //     userServices.dashboard(this.comParams).then(res => {
+    //         if (res.status === 200) {
+    //             this.info = res.info;
+    //         }
+    //     });
+    // },
+    ...mapActions(['getUserInfo'])
+  },
+  computed: {
+    ...mapGetters([
+      'userinfo'
+    ])
+  },
 
-}
+};
 </script>
 
 <style lang="scss" scoped>

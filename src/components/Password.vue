@@ -1,36 +1,36 @@
 <template>
-    <section>
-        <div class="clearfix">
-            <div class="clearfix label-box">
-                <span>密码</span>
-                <input class="copy-text fl" type="password" ref="originPwd"></input>
-                <i class="el-icon-view" @mouseover="this.onMouseOver1()"></i>
-            </div>
-            <div class="clearfix label-box">
-                <span>再次输入</span>
-                <input class="copy-text fl" type="password"></input>
-            </div>
-            <!-- <el-button @click="updatePasswordHandler">确认</el-button> -->
-        </div>
-    </section>
+  <section>
+    <div class="clearfix">
+      <div class="clearfix label-box">
+        <span>密码</span>
+        <input class="copy-text fl" type="password" ref="originPwd">
+        <i class="el-icon-view" @mouseover="this.onMouseOver1()"></i>
+      </div>
+      <div class="clearfix label-box">
+        <span>再次输入</span>
+        <input class="copy-text fl" type="password">
+      </div>
+      <!-- <el-button @click="updatePasswordHandler">确认</el-button> -->
+    </div>
+  </section>
 </template>
 
 <script>
 export default {
-    props: {
-        userInfo: Object
+  props: {
+    userInfo: Object
+  },
+  methods: {
+    updatePasswordHandler() {
+
     },
-    methods: {
-        updatePasswordHandler() {
 
-        },
-
-        onMouseOver1(e) {
-            console.log("over!!");
-            // this.$refs[originPwd].type = "text";
-        }
+    onMouseOver1(e) {
+      console.log('over!!');
+      // this.$refs[originPwd].type = "text";
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -25,7 +25,9 @@ const state = Object.assign({
 // BJTZ001
 
 const mutations = {
-  [types.USER_UPDATE_INFO](state, {data}) {
+  [types.USER_UPDATE_INFO](state, {
+    data
+  }) {
     state.username = data.username;
     state.id = data.id;
     state.role = data.role;
@@ -39,7 +41,9 @@ const mutations = {
 
     console.log('获取用户信息成功', state);
   },
-  [types.USER_UPDATE](state, {data}) {
+  [types.USER_UPDATE](state, {
+    data
+  }) {
     state.username = data.username;
     state.id = data.id;
     state.school = data.school;
@@ -59,11 +63,16 @@ const getters = {
 };
 
 const actions = {
-  getUserInfo({commit, state}, payload) {
+  getUserInfo({
+    commit,
+    state
+  }, payload) {
     return new Promise((resolve, reject) => {
       userService.getUserInfo(payload).then(res => {
         if (res.status === 200) {
-          commit(types.USER_UPDATE_INFO, {data: res.userinfo});
+          commit(types.USER_UPDATE_INFO, {
+            data: res.userinfo
+          });
           resolve();
         } else {
           reject();
@@ -72,7 +81,10 @@ const actions = {
     });
   },
 
-  doLogin({commit, state}, payload) {
+  doLogin({
+    commit,
+    state
+  }, payload) {
     return new Promise((resolve, reject) => {
       userService.login(payload).then(res => {
         if (res.status === 200) {
@@ -83,7 +95,9 @@ const actions = {
           user.role = res.userinfo.role;
           user.username = res.userinfo.username;
           console.log(' dologin:::', user);
-          commit(types.USER_UPDATE_INFO, {data: user});
+          commit(types.USER_UPDATE_INFO, {
+            data: user
+          });
           localStorage.setItem('brain_token', res.token);
           localStorage.setItem('brain_userinfo', JSON.stringify(user));
           resolve(res.userinfo);
@@ -91,7 +105,9 @@ const actions = {
         } else {
           localStorage.setItem('brain_token', '');
           localStorage.setItem('brain_userinfo', '');
-          router.app.$alert(res.message, '提示', {confirmButtonText: '知道了'}).catch(() => { });
+          router.app.$alert(res.message, '提示', {
+            confirmButtonText: '知道了'
+          }).catch(() => {});
           reject();
         }
       });
@@ -99,15 +115,24 @@ const actions = {
 
   },
 
-  doLogout({commit, state}, payload) {
-    router.push({path: '/login'});
+  doLogout({
+    commit,
+    state
+  }, payload) {
+    router.push({
+      path: '/login'
+    });
     userService.logout(payload).then(res => {
 
     }).finally(() => {
       localStorage.setItem('brain_token', '');
       localStorage.setItem('brain_userinfo', '');
-      commit(types.USER_UPDATE, {data: {}});
-      router.push({path: '/login'});
+      commit(types.USER_UPDATE, {
+        data: {}
+      });
+      router.push({
+        path: '/login'
+      });
     });
   }
 };

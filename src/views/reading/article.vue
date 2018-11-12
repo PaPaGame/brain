@@ -38,61 +38,61 @@
 </template>
 
 <script>
-import Steps from "./step";
-import PageContent from "./pageContent";
-import loader from "@/utils/loader";
-import { mapGetters, mapActions } from "vuex";
+import Steps from './step';
+import PageContent from './pageContent';
+import loader from '@/utils/loader';
+import {mapGetters, mapActions} from 'vuex';
 export default {
-    components: {
-        "step-preview": Steps.Step1,
-        "step-read": Steps.Step2,
-        "step-record": Steps.Step3,
-        "step-quiz": Steps.Step4,
-        "page-content": PageContent
+  components: {
+    'step-preview': Steps.Step1,
+    'step-read': Steps.Step2,
+    'step-record': Steps.Step3,
+    'step-quiz': Steps.Step4,
+    'page-content': PageContent
+  },
+  data() {
+    return {
+      contentModel: this.$route.params.info,
+      sentenceIndex: -1
+    };
+  },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
     },
-    data() {
-        return {
-            contentModel: this.$route.params.info,
-            sentenceIndex: -1
-        };
+    loadRemoteJSON() {
+      let f = this.contentModel.dirName;
+      this.getArticleInfo(f).then(res => {
+      });
     },
-    methods: {
-        goBack() {
-            this.$router.go(-1);
-        },
-        loadRemoteJSON() {
-            let f = this.contentModel.dirName;
-            this.getArticleInfo(f).then(res => {
-            });
-        },
-        startReading() {
-            this.$refs.pageContent.start();
-        },
-        stopReading() {
-            this.$refs.pageContent.stop();
-        },
-        taiprogress(idx) {
-        },
-        ...mapActions(["getArticleInfo"])
+    startReading() {
+      this.$refs.pageContent.start();
+    },
+    stopReading() {
+      this.$refs.pageContent.stop();
+    },
+    taiprogress(idx) {
+    },
+    ...mapActions(['getArticleInfo'])
 
-    },
-    computed: mapGetters({
-        title: "title",
-        dirName: "dirName",
-        quizs: "quizs",
-        tais: "tais"
-    }),
-    watch: {
-        '$route'(to, from) {
-            this.contentModel = this.$route.params.info;
-        }
-    },
-    created() {
-        if (this.contentModel) {
-            this.loadRemoteJSON();
-        }
+  },
+  computed: mapGetters({
+    title: 'title',
+    dirName: 'dirName',
+    quizs: 'quizs',
+    tais: 'tais'
+  }),
+  watch: {
+    '$route'(to, from) {
+      this.contentModel = this.$route.params.info;
     }
-}
+  },
+  created() {
+    if (this.contentModel) {
+      this.loadRemoteJSON();
+    }
+  }
+};
 </script>
 
 <style lang="scss">

@@ -34,143 +34,143 @@
 </template>
 
 <script>
-import eduDialog from "@/components/Dialog/dialog";
-import table from "@/components/table";
-import { mapActions, mapGetters } from 'vuex';
-import schoolService from "@/api/school";
-import groupService from "@/api/group";
-import staffService from "@/api/staff";
+import eduDialog from '@/components/Dialog/dialog';
+import table from '@/components/table';
+import {mapActions, mapGetters} from 'vuex';
+import schoolService from '@/api/school';
+import groupService from '@/api/group';
+import staffService from '@/api/staff';
 export default {
-    components: {
-        eduDialog,
-        "edu-table": table
+  components: {
+    eduDialog,
+    'edu-table': table
+  },
+  data() {
+    return {
+      dialogVisible: false,
+      groupList: [],
+      tableColumns: [
+        {prop: 'name', label: this.$t('staff.groupName'), width: '250'},
+        {prop: 'student', label: this.$t('staff.groupStudentCount'), width: '90'},
+        {label: this.$t('staff.operate'), slotName: 'opBtns', width: '170'}
+      ],
+      staffModel: {}
+    };
+  },
+  props: {
+    isShow: {type: Boolean, default: false},
+    dialogTitle: {type: String, default: ''},
+    staffInfo: {type: Object, default: null},
+    status: {type: String, default: ''}
+  },
+  watch: {
+    isShow() {
+      this.dialogVisible = this.isShow;
     },
-    data() {
-        return {
-            dialogVisible: false,
-            groupList: [],
-            tableColumns: [
-                { prop: "name", label: this.$t('staff.groupName'), width: '250' },
-                { prop: "student", label: this.$t('staff.groupStudentCount'), width: '90' },
-                { label: this.$t('staff.operate'), slotName: 'opBtns', width: '170' }
-            ],
-            staffModel: {}
-        };
-    },
-    props: {
-        isShow: { type: Boolean, default: false },
-        dialogTitle: { type: String, default: "" },
-        staffInfo: { type: Object, default: null },
-        status: { type: String, default: "" }
-    },
-    watch: {
-        isShow() {
-            this.dialogVisible = this.isShow;
-        },
-        staffInfo(val) {
-            this.staffModel = val;
-        }
-    },
-    methods: {
-        close() {
-            this.dialogVisible = false;
-            this.staffModel = {};
-            this.$emit("close");
-        },
-        schoolSelectHandler(value) {
-        },
-        groupSelectHandler(value) {
-            // 如果已经有了， 不在重复添加
-            if (this.groupList.indexOf(value) > -1)
-                return;
-            this.groupList.push(value);
-        },
-        async querySearchSchoolAsync(queryStr, callback) {
-            if (queryStr === "")
-                return;
-
-            try {
-                let query = { "code": queryStr }
-                const schoolInfo = await schoolService.getFuzzySchoolList(query);
-                let schoolCodeList = schoolInfo.school;
-                if (schoolCodeList instanceof Array) {
-                    schoolCodeList.map(school => {
-                        school.value = school.code;
-                        return school;
-                    })
-
-                    callback(schoolCodeList);
-                }
-            } catch (e) {
-                console.log(e, "获取学校列表失败");
-            }
-        },
-        async querySearchGroupAsync(queryStr, callback) {
-            if (queryStr === "")
-                return;
-            try {
-                let query = { "name": queryStr };
-                const groupInfo = await groupService.getFuzzyGroup(query);
-                let groupList = groupInfo.group;
-                if (groupList instanceof Array) {
-                    groupList.map(group => {
-                        group.value = group.name;
-                        return group;
-                    })
-                    callback(groupList);
-                }
-            } catch (e) {
-                console.log(e, "获取班级列表失败");
-            }
-        },
-        operateHandler(row, opt) {
-            switch (opt) {
-                case "deleteGroup":
-                    let idx = this.groupList.indexOf(row);
-                    this.groupList.splice(idx, 1);
-                    break;
-            }
-        },
-        addStaff() {
-            let ids = [];
-            this.groupList.forEach(group => {
-                ids.push(group._id);
-            })
-            this.staffModel.group = ids;
-            this.staffModel.status = 0;
-            if (this.userinfo.school !== "") {
-                this.staffModel.school = this.userinfo.school;
-            }
-            console.log(this.staffModel);
-            staffService.addStaff(this.staffModel).then(res => {
-                this.$message({
-                    type: 'success',
-                    message: res.message
-                });
-                this.close();
-                this.getStaffList(this.userParam);
-            });
-        },
-        updateStaff() {
-            staffService.updateStaff(this.staffModel).then(res => {
-                if (res.status === 200) {
-                    this.close();
-                    this.$emit("fetchStaffList");
-                }
-            });
-        },
-        ...mapActions(["getStaffList"])
-    },
-    computed: {
-        userParam() {
-            return {
-                school: this.userinfo.school
-            };
-        }, ...mapGetters({
-            userinfo: "userinfo"
-        })
+    staffInfo(val) {
+      this.staffModel = val;
     }
-}
+  },
+  methods: {
+    close() {
+      this.dialogVisible = false;
+      this.staffModel = {};
+      this.$emit('close');
+    },
+    schoolSelectHandler(value) {
+    },
+    groupSelectHandler(value) {
+      // 如果已经有了， 不在重复添加
+      if (this.groupList.indexOf(value) > -1)
+        return;
+      this.groupList.push(value);
+    },
+    async querySearchSchoolAsync(queryStr, callback) {
+      if (queryStr === '')
+        return;
+
+      try {
+        let query = {'code': queryStr};
+        const schoolInfo = await schoolService.getFuzzySchoolList(query);
+        let schoolCodeList = schoolInfo.school;
+        if (schoolCodeList instanceof Array) {
+          schoolCodeList.map(school => {
+            school.value = school.code;
+            return school;
+          });
+
+          callback(schoolCodeList);
+        }
+      } catch (e) {
+        console.log(e, '获取学校列表失败');
+      }
+    },
+    async querySearchGroupAsync(queryStr, callback) {
+      if (queryStr === '')
+        return;
+      try {
+        let query = {'name': queryStr};
+        const groupInfo = await groupService.getFuzzyGroup(query);
+        let groupList = groupInfo.group;
+        if (groupList instanceof Array) {
+          groupList.map(group => {
+            group.value = group.name;
+            return group;
+          });
+          callback(groupList);
+        }
+      } catch (e) {
+        console.log(e, '获取班级列表失败');
+      }
+    },
+    operateHandler(row, opt) {
+      switch (opt) {
+      case 'deleteGroup':
+        let idx = this.groupList.indexOf(row);
+        this.groupList.splice(idx, 1);
+        break;
+      }
+    },
+    addStaff() {
+      let ids = [];
+      this.groupList.forEach(group => {
+        ids.push(group._id);
+      });
+      this.staffModel.group = ids;
+      this.staffModel.status = 0;
+      if (this.userinfo.school !== '') {
+        this.staffModel.school = this.userinfo.school;
+      }
+      console.log(this.staffModel);
+      staffService.addStaff(this.staffModel).then(res => {
+        this.$message({
+          type: 'success',
+          message: res.message
+        });
+        this.close();
+        this.getStaffList(this.userParam);
+      });
+    },
+    updateStaff() {
+      staffService.updateStaff(this.staffModel).then(res => {
+        if (res.status === 200) {
+          this.close();
+          this.$emit('fetchStaffList');
+        }
+      });
+    },
+    ...mapActions(['getStaffList'])
+  },
+  computed: {
+    userParam() {
+      return {
+        school: this.userinfo.school
+      };
+    }, ...mapGetters({
+      userinfo: 'userinfo'
+    })
+  }
+};
 </script>
 
 <style>

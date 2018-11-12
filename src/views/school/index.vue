@@ -73,79 +73,79 @@
 </template>
 
 <script>
-import schoolService from "@/api/school";
-import DetailPanel from "./detail";
+import schoolService from '@/api/school';
+import DetailPanel from './detail';
 export default {
-    components: {
-        DetailPanel
+  components: {
+    DetailPanel
+  },
+  data() {
+    return {
+      list: null,
+      dialogVisible: false,
+      dialogTitle: null,
+      dialogMode: '',
+      schoolInfo: {
+        code: null,
+        status: 0,
+        master: String,
+        phone: String,
+        createAt: String
+      }
+    };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    getList() {
+      schoolService.fetchData({}).then(res => {
+        this.list = res.schools;
+      });
     },
-    data() {
-        return {
-            list: null,
-            dialogVisible: false,
-            dialogTitle: null,
-            dialogMode: "",
-            schoolInfo: {
-                code: null,
-                status: 0,
-                master: String,
-                phone: String,
-                createAt: String
-            }
-        };
+    btnSearchClickHandler() {
+      console.log(this.$refs.tiSearch);
     },
-    created() {
-        this.getList();
-    },
-    methods: {
-        getList() {
-            schoolService.fetchData({}).then(res => {
-                this.list = res.schools;
-            })
-        },
-        btnSearchClickHandler() {
-            console.log(this.$refs.tiSearch);
-        },
-        btnAddClickHandler() { },
-        pageSizeChangeHandler() { },
-        pageCurrentChangeHandler() { },
-        operateHandler(row, op) {
-            console.log(row, op);
-            this.schoolInfo = row;
-            this.dialogMode = op;
-            switch (op) {
-                case "edit":
-                    this.dialogVisible = true;
-                    this.dialogTitle = this.$t('school.edit');
-                    break;
-                case "delete":
-                    console.log(row._id);
-                    let deleteQuery = { id: row._id };
-                    schoolService.deleteData(deleteQuery).then(res => {
-                        // 删除成功后重新获取一下列表
-                        this.getList();
-                    });
-                    break;
-                case "freeze":
-                    break;
-                case "unfreeze":
-                    break;
-                case "create":
-                    this.schoolInfo = {};
-                    this.schoolInfo.name = "";
-                    this.schoolInfo.code = "";
-                    this.schoolInfo.status = 0;
-                    this.schoolInfo.master = "";
-                    this.schoolInfo.phone = "";
-                    this.dialogVisible = true;
-                    this.dialogTitle = this.$t("school.add");
-                    break;
-                default:
-                    break;
-            }
-        }
+    btnAddClickHandler() { },
+    pageSizeChangeHandler() { },
+    pageCurrentChangeHandler() { },
+    operateHandler(row, op) {
+      console.log(row, op);
+      this.schoolInfo = row;
+      this.dialogMode = op;
+      switch (op) {
+      case 'edit':
+        this.dialogVisible = true;
+        this.dialogTitle = this.$t('school.edit');
+        break;
+      case 'delete':
+        console.log(row._id);
+        let deleteQuery = {id: row._id};
+        schoolService.deleteData(deleteQuery).then(res => {
+          // 删除成功后重新获取一下列表
+          this.getList();
+        });
+        break;
+      case 'freeze':
+        break;
+      case 'unfreeze':
+        break;
+      case 'create':
+        this.schoolInfo = {};
+        this.schoolInfo.name = '';
+        this.schoolInfo.code = '';
+        this.schoolInfo.status = 0;
+        this.schoolInfo.master = '';
+        this.schoolInfo.phone = '';
+        this.dialogVisible = true;
+        this.dialogTitle = this.$t('school.add');
+        break;
+      default:
+        break;
+      }
     }
-}
+  }
+};
 </script>
 
 <style>

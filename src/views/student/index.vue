@@ -39,156 +39,156 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-import ClassList from "@/components/ClassList";
+import {mapGetters, mapActions} from 'vuex';
+import ClassList from '@/components/ClassList';
 // import { FetchStudents } from "@/api/student";
-import studentService from "@/api/student";
-import table from "@/components/table";
-import DetailPanel from "./detail";
-import Password from "@/components/Password";
+import studentService from '@/api/student';
+import table from '@/components/table';
+import DetailPanel from './detail';
+import Password from '@/components/Password';
 export default {
-    components: {
-        ClassList,
-        "edu-table": table,
-        DetailPanel,
-        Password
-    },
-    mounted() {
-        this.fetchStuidentList();
-    },
-    data() {
-        return {
-            studentList: [],
-            dialogVisible: false,
-            dialogTitle: "",
-            dialogOperate: "",
-            dialogPassword: false,
-            currentUserId: "",
-            currentUsername: "",
-            studentInfo: {
-                // _id: "",
-                // username: "",
-                // password: "",
-                // schoolCode: "",
-                // mail: "",
-                // phone: "",
-                // status: 1,
-                // createAt: ""
-            },
-            studentQueryModel: {
-                currentPage: 1,
-                pageSize: 10,
-            },
-            tableColumns: [
-                { prop: "username", label: this.$t('student.username'), width: '140' },
-                { prop: "school", label: this.$t('student.school'), width: '90' },
-                {                    prop: "articleLevel", label: this.$t('student.article'), width: '100',
-                    template: (row) => {
-                        if (!row.articleLevel) {
-                            return "";
-                        }
-                        return row.articleLevel.join(",");
-                    }
-                },
-                {                    prop: "group", label: this.$t('student.group'), width: '140',
-                    template: row => {
-                        if (!row.group) {
-                            return "";
-                        }
-                        return row.group.name;
-                    }                },
-                { prop: "createdAt", label: this.$t('student.createdAt'), width: '250' },
-                { label: this.$t("student.operate"), slotName: 'opBtns' }
-            ],
-            showPage: true
-        };
-    },
-    methods: {
-        btnSearchClickHandler() { },
-        pageChange(e) {
-            this.studentQueryModel.currentPage = e;
-            this.fetchStuidentList();
-        },
-        classListClick(id) {
-            let query = {};
-            query.id = id;
-            this.getStudentByClassId(query);
-            // studentService.getStudentByClassId(query).then(res => {
-            //     if (res.status === 200) {
-            //         this.allStudent = res.students;
-            //         this.allStudentCount = res.count;
-            //     }
-            // })
-        },
-        operateHandler(row, opt) {
-            this.studentInfo = row;
-            switch (opt) {
-                case "create":
-                    this.studentInfo = {};
-                    this.studentInfo.username = "";
-                    this.studentInfo.password = "";
-                    this.studentInfo.schoolCode = "";
-                    this.studentInfo.phone = "";
-                    this.studentInfo.mail = "";
-                    this.studentInfo.status = 1;
-                    this.dialogVisible = true;
-                    this.dialogTitle = this.$t("student.addTitle");
-                    this.dialogOperate = opt;
-                    break;
-                case "view":
-                    this.currentUserId = this.studentInfo._id;
-                    this.dialogVisible = true;
-                    this.dialogTitle = this.$t("student.view");
-                    this.dialogOperate = opt;
-                    break;
-                case "editpwd":
-                    this.dialogPassword = true;
-                    break;
-                case "edit":
-                    this.dialogOperate = opt;
-                    this.dialogVisible = true;
-                    console.log(this.studentInfo);
-                    break;
-                case "delete":
-                    if (row.group !== "") {
-                        this.$alert(this.$t('student.groupNotNull'), this.$t("student.deleteTitle"), {
-                            confirmButtonText: this.$t("student.deleteConfirm")
-                        });
-                        return;
-                    }
-                    console.log(row);
-                    let studentInfo = {};
-                    studentInfo.id = row._id;
-                    studentService.removeStudent(studentInfo).then(res => {
-                        if (res.status === 200) {
-                            this.$message.success(res.message);
-                            this.fetchStuidentList();
-                        } else {
-                            this.$message.error(res.message);
-                        }
-                    })
-                    break;
+  components: {
+    ClassList,
+    'edu-table': table,
+    DetailPanel,
+    Password
+  },
+  mounted() {
+    this.fetchStuidentList();
+  },
+  data() {
+    return {
+      studentList: [],
+      dialogVisible: false,
+      dialogTitle: '',
+      dialogOperate: '',
+      dialogPassword: false,
+      currentUserId: '',
+      currentUsername: '',
+      studentInfo: {
+        // _id: "",
+        // username: "",
+        // password: "",
+        // schoolCode: "",
+        // mail: "",
+        // phone: "",
+        // status: 1,
+        // createAt: ""
+      },
+      studentQueryModel: {
+        currentPage: 1,
+        pageSize: 10,
+      },
+      tableColumns: [
+        {prop: 'username', label: this.$t('student.username'), width: '140'},
+        {prop: 'school', label: this.$t('student.school'), width: '90'},
+        {prop: 'articleLevel', label: this.$t('student.article'), width: '100',
+          template: (row) => {
+            if (!row.articleLevel) {
+              return '';
             }
+            return row.articleLevel.join(',');
+          }
         },
-        fetchStuidentList() {
-            this.studentQueryModel.school = this.commParam.school;
-            this.getStudentList(this.studentQueryModel);
-        },
-        ...mapActions(["getGroupList", "getStudentList", "getStudentByClassId"])
+        {prop: 'group', label: this.$t('student.group'), width: '140',
+          template: row => {
+            if (!row.group) {
+              return '';
+            }
+            return row.group.name;
+          }},
+        {prop: 'createdAt', label: this.$t('student.createdAt'), width: '250'},
+        {label: this.$t('student.operate'), slotName: 'opBtns'}
+      ],
+      showPage: true
+    };
+  },
+  methods: {
+    btnSearchClickHandler() { },
+    pageChange(e) {
+      this.studentQueryModel.currentPage = e;
+      this.fetchStuidentList();
     },
-    computed: {
-        commParam() {
-            return { school: this.userinfo.school }
-        },
-        ...mapGetters({
-            tableData: 'groupList',
-            totalCount: 'groupCount',
-            userinfo: "userinfo",
-            allStudent: "allStudent",
-            allStudentCount: "allStudentCount"
-        })
-    }
-}
+    classListClick(id) {
+      let query = {};
+      query.id = id;
+      this.getStudentByClassId(query);
+      // studentService.getStudentByClassId(query).then(res => {
+      //     if (res.status === 200) {
+      //         this.allStudent = res.students;
+      //         this.allStudentCount = res.count;
+      //     }
+      // })
+    },
+    operateHandler(row, opt) {
+      this.studentInfo = row;
+      switch (opt) {
+      case 'create':
+        this.studentInfo = {};
+        this.studentInfo.username = '';
+        this.studentInfo.password = '';
+        this.studentInfo.schoolCode = '';
+        this.studentInfo.phone = '';
+        this.studentInfo.mail = '';
+        this.studentInfo.status = 1;
+        this.dialogVisible = true;
+        this.dialogTitle = this.$t('student.addTitle');
+        this.dialogOperate = opt;
+        break;
+      case 'view':
+        this.currentUserId = this.studentInfo._id;
+        this.dialogVisible = true;
+        this.dialogTitle = this.$t('student.view');
+        this.dialogOperate = opt;
+        break;
+      case 'editpwd':
+        this.dialogPassword = true;
+        break;
+      case 'edit':
+        this.dialogOperate = opt;
+        this.dialogVisible = true;
+        console.log(this.studentInfo);
+        break;
+      case 'delete':
+        if (row.group !== '') {
+          this.$alert(this.$t('student.groupNotNull'), this.$t('student.deleteTitle'), {
+            confirmButtonText: this.$t('student.deleteConfirm')
+          });
+          return;
+        }
+        console.log(row);
+        let studentInfo = {};
+        studentInfo.id = row._id;
+        studentService.removeStudent(studentInfo).then(res => {
+          if (res.status === 200) {
+            this.$message.success(res.message);
+            this.fetchStuidentList();
+          } else {
+            this.$message.error(res.message);
+          }
+        });
+        break;
+      }
+    },
+    fetchStuidentList() {
+      this.studentQueryModel.school = this.commParam.school;
+      this.getStudentList(this.studentQueryModel);
+    },
+    ...mapActions(['getGroupList', 'getStudentList', 'getStudentByClassId'])
+  },
+  computed: {
+    commParam() {
+      return {school: this.userinfo.school};
+    },
+    ...mapGetters({
+      tableData: 'groupList',
+      totalCount: 'groupCount',
+      userinfo: 'userinfo',
+      allStudent: 'allStudent',
+      allStudentCount: 'allStudentCount'
+    })
+  }
+};
 </script>
 
 <style lang="scss" scoped>

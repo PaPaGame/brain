@@ -15,64 +15,64 @@
 </template>
 
 <script>
-import table from "@/components/table";
-import studentService from "@/api/student";
-import { mapActions, mapGetters } from "vuex";
-import ClassList from "@/components/ClassList";
+import table from '@/components/table';
+import studentService from '@/api/student';
+import {mapActions, mapGetters} from 'vuex';
+import ClassList from '@/components/ClassList';
 export default {
-    components: {
-        "class-list": ClassList,
-        "edu-table": table
+  components: {
+    'class-list': ClassList,
+    'edu-table': table
+  },
+  mounted() {
+    // this.fetchStuidentList();
+    this.fetchStudentData();
+  },
+  data() {
+    return {
+      studentQueryModel: {
+        currentPage: 1,
+        pageSize: 10,
+      },
+      tableColumns: [
+        {prop: 'username', label: this.$t('grade.username'), width: '140'},
+        {prop: 'tai', label: this.$t('grade.tai'), width: '90'},
+        {prop: 'quiz', label: this.$t('grade.quiz'), width: '90'},
+        {prop: 'record', label: this.$t('grade.record'), width: '250'},
+        {label: this.$t('grade.operate'), slotName: 'opBtns'}
+      ],
+      showPage: true
+    };
+  },
+  methods: {
+    pageChange(e) {
+      this.studentQueryModel.currentPage = e;
+      this.fetchStudentData();
     },
-    mounted() {
-        // this.fetchStuidentList();
-        this.fetchStudentData();
+    classListClick(id) {
+      let query = {};
+      query.id = id;
+      this.getStudentByClassId(query);
     },
-    data() {
-        return {
-            studentQueryModel: {
-                currentPage: 1,
-                pageSize: 10,
-            },
-            tableColumns: [
-                { prop: "username", label: this.$t('grade.username'), width: '140' },
-                { prop: "tai", label: this.$t('grade.tai'), width: '90' },
-                { prop: "quiz", label: this.$t('grade.quiz'), width: '90' },
-                { prop: "record", label: this.$t('grade.record'), width: '250' },
-                { label: this.$t("grade.operate"), slotName: 'opBtns' }
-            ],
-            showPage: true
-        };
+    fetchStudentData() {
+      this.studentQueryModel.school = this.commParam.school;
+      studentService.getStudentCourseData(this.studentQueryModel);
     },
-    methods: {
-        pageChange(e) {
-            this.studentQueryModel.currentPage = e;
-            this.fetchStudentData();
-        },
-        classListClick(id) {
-            let query = {};
-            query.id = id;
-            this.getStudentByClassId(query);
-        },
-        fetchStudentData() {
-            this.studentQueryModel.school = this.commParam.school;
-            studentService.getStudentCourseData(this.studentQueryModel);
-        },
-        ...mapActions(["getGroupList", "getStudentByClassId"])
+    ...mapActions(['getGroupList', 'getStudentByClassId'])
+  },
+  computed: {
+    commParam() {
+      return {school: this.userinfo.school};
     },
-    computed: {
-        commParam() {
-            return { school: this.userinfo.school }
-        },
-        ...mapGetters({
-            tableData: 'groupList',
-            totalCount: 'groupCount',
-            userinfo: "userinfo",
-            allStudent: "allStudent",
-            allStudentCount: "allStudentCount"
-        })
-    }
-}
+    ...mapGetters({
+      tableData: 'groupList',
+      totalCount: 'groupCount',
+      userinfo: 'userinfo',
+      allStudent: 'allStudent',
+      allStudentCount: 'allStudentCount'
+    })
+  }
+};
 </script>
 
 <style lang="scss" scoped>

@@ -36,28 +36,28 @@
 </template>
 
 <script>
-import { generateTitle } from '@/utils/i18n'
+import {generateTitle} from '@/utils/i18n';
 
 export default {
-    name: 'SidebarItem',
-    props: {
-        routes: {
-            type: Array
-        },
-        isNest: {
-            type: Boolean,
-            default: false
-        }
+  name: 'SidebarItem',
+  props: {
+    routes: {
+      type: Array
     },
-    methods: {
-        generateTitle
-    },
-    watch: {
-        routes(val) {
-            // console.log("watch routes: " + JSON.stringify(val));
-        }
+    isNest: {
+      type: Boolean,
+      default: false
     }
-}
+  },
+  methods: {
+    generateTitle
+  },
+  watch: {
+    routes(val) {
+      // console.log("watch routes: " + JSON.stringify(val));
+    }
+  }
+};
 </script>
 <style type="text/scss">
 .logo {

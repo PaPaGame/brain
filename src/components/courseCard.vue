@@ -20,34 +20,34 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import {mapActions} from 'vuex';
 export default {
-    methods: {
-        btnGoClick() {
-            console.log("课程信息：", this.courseInfo);
-            this.setCourseInfo(this.courseInfo);
-            // 开始阅读
-            this.$router.push({ name: "readArticle", params: { info: this.courseInfo } });
-        },
-        btnGoAgainClcik() {
+  methods: {
+    btnGoClick() {
+      console.log('课程信息：', this.courseInfo);
+      this.setCourseInfo(this.courseInfo);
+      // 开始阅读
+      this.$router.push({name: 'readArticle', params: {info: this.courseInfo}});
+    },
+    btnGoAgainClcik() {
 
-        },
-        ...mapActions(["setCourseInfo"])
     },
-    props: {
-        courseInfo: Object
-    },
-    data() {
-        return {
+    ...mapActions(['setCourseInfo'])
+  },
+  props: {
+    courseInfo: Object
+  },
+  data() {
+    return {
 
-        };
-    },
-    computed: {
-        coverURL() {
-            return `${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
-        }
+    };
+  },
+  computed: {
+    coverURL() {
+      return `${process.env.PUBLIC_PATH}/${this.courseInfo.dirName}/images/${this.courseInfo.cover}`;
     }
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>

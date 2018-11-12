@@ -53,58 +53,58 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
-import router from "../../router"
+import {mapActions} from 'vuex';
+import router from '../../router';
 export default {
-    data() {
-        return {
-            title: '',
-            form: {
-                username: '',
-                password: ''
-            },
-            rules2: {
-                username: [
-                    { required: true, message: this.$t("signin.inputUsername"), trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: this.$t("signin.inputPassword"), trigger: 'blur' }
-                ]
-            }
+  data() {
+    return {
+      title: '',
+      form: {
+        username: '',
+        password: ''
+      },
+      rules2: {
+        username: [
+          {required: true, message: this.$t('signin.inputUsername'), trigger: 'blur'}
+        ],
+        password: [
+          {required: true, message: this.$t('signin.inputPassword'), trigger: 'blur'}
+        ]
+      }
+    };
+  },
+  methods: {
+    handleSubmit2(form) {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          let data = {};
+
+          data.username = this.form.username;
+          data.password = this.form.password;
+          this.doLogin(data).then(res => {
+            this.$store.dispatch('GenerateRoutes', res.role).then(() => {
+              console.log('动态路由规划完毕');
+              console.log(this.$store.getters.addRouters);
+              router.addRoutes(this.$store.getters.addRouters);
+              router.push({path: '/'});
+
+            });
+          });
+        } else {
+          return false;
         }
+      });
     },
-    methods: {
-        handleSubmit2(form) {
-            this.$refs.form.validate((valid) => {
-                if (valid) {
-                    let data = {}
-
-                    data.username = this.form.username;
-                    data.password = this.form.password;
-                    this.doLogin(data).then(res => {
-                        this.$store.dispatch("GenerateRoutes", res.role).then(() => {
-                            console.log("动态路由规划完毕");
-                            console.log(this.$store.getters.addRouters);
-                            router.addRoutes(this.$store.getters.addRouters);
-                            router.push({ path: "/" });
-
-                        });
-                    });
-                } else {
-                    return false
-                }
-            })
-        },
-        ...mapActions(["doLogin"])
-    },
-    mounted() {
-        window.addEventListener('keyup', (e) => {
-            if (e.keyCode === 13) {
-                this.handleSubmit2('form')
-            }
-        })
-    }
-}
+    ...mapActions(['doLogin'])
+  },
+  mounted() {
+    window.addEventListener('keyup', (e) => {
+      if (e.keyCode === 13) {
+        this.handleSubmit2('form');
+      }
+    });
+  }
+};
 </script>
 
  <style lang="scss" scoped>

@@ -1,30 +1,30 @@
 <template>
-    <el-row class="info-group" :gutter="40">
-        <template v-for="(value, index) in infoColumns">
-            <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-                <div class="info-container">
-                    <div class="icon-wrapper" :class="'icon-'+index">
+  <el-row class="info-group" :gutter="40">
+    <template v-for="(value, index) in infoColumns">
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col" :key="index">
+        <div class="info-container">
+          <div class="icon-wrapper" :class="'icon-'+index">
 
-                        <svg-icon :icon-class="value.icon" class-name="info-icon" />
-                    </div>
-                    <div class="info-desc">
-                        <div class="info-title">{{value.title}}</div>
-                        <div class="info-value">{{info[index]}}</div>
-                    </div>
-                </div>
-            </el-col>
-        </template>
-    </el-row>
+            <svg-icon :icon-class="value.icon" class-name="info-icon" />
+          </div>
+          <div class="info-desc">
+            <div class="info-title">{{value.title}}</div>
+            <div class="info-value">{{info[index]}}</div>
+          </div>
+        </div>
+      </el-col>
+    </template>
+  </el-row>
 </template>
 
 <script>
 export default {
-    name: "InfoGroup",
-    props: {
-        infoColumns: Array,
-        info: Array
-    }
-}
+  name: 'InfoGroup',
+  props: {
+    infoColumns: Array,
+    info: Array
+  }
+};
 </script>
 
 <style lang="scss" scoped>

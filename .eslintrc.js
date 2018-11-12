@@ -5,11 +5,17 @@ module.exports = {
     "es6": true,
     "node": true
   },
-  "extends": "eslint:recommended",
-  "parser": "babel-eslint",
+  "extends": [
+    'plugin:vue/essential',
+    // ,"eslint:recommended"
+  ],
   "parserOptions": {
-    "ecmaVersion": 2015,
-    "sourceType": "module"
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "parser": "babel-eslint",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
     "indent": [
