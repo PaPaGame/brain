@@ -1,20 +1,17 @@
-import { SchemaTypes } from "mongoose";
-
-var mongoose = require("mongoose");
-var crypto = require("crypto");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var classSchema = new Schema({
-    name: String,
-    school: String,
-    staff: Object,
-    student: Array,
-    articleLevel: Array
+  name: String,
+  school: String,
+  staff: Object,
+  student: Array,
+  articleLevel: Array
 }, {
-        timestamps: {
-            type: Number,
-            default: new Date().getTime()
-        }
-    });
+  timestamps: {
+    type: Number,
+    default: new Date().getTime()
+  }
+});
 
-mongoose.model("class", classSchema, "class");
+mongoose.model('class', classSchema, 'class');

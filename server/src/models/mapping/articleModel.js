@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 /**
@@ -14,22 +14,22 @@ var Schema = mongoose.Schema;
  * @param order 文章等级内序号
  */
 var articleSchema = new Schema({
-    id: String,
-    fullTitle: String,
-    dirName: String,
-    // part: String,
-    level: String,
-    lexile: Number,
-    layoutType: String,
-    status: String,
-    cover: String,
-    grade: Number,
-    order: Number
+  id: String,
+  fullTitle: String,
+  dirName: String,
+  // part: String,
+  level: String,
+  lexile: Number,
+  layoutType: String,
+  status: String,
+  cover: String,
+  grade: Number,
+  order: Number
 }, {
-        timestamps: {
-            type: Number,
-            default: new Date().getTime()
-        }
-    });
+  timestamps: {
+    type: Number,
+    default: new Date().getTime()
+  }
+});
 
-mongoose.model("article", articleSchema, "article");
+mongoose.model('article', articleSchema, 'article');

@@ -1,6 +1,6 @@
-import { SchemaTypes } from "mongoose";
+import {SchemaTypes} from 'mongoose';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 /** 
@@ -9,15 +9,15 @@ var Schema = mongoose.Schema;
  * @param recordName 录音名字
 */
 var recordSchema = new Schema({
-    cid: SchemaTypes.ObjectId,
-    uid: SchemaTypes.ObjectId,
-    recordName: String
+  cid: SchemaTypes.ObjectId,
+  uid: SchemaTypes.ObjectId,
+  recordName: String
 }, {
-        timestamps: {
-            type: Number,
-            default: new Date().getTime()
-        }
-    });
+  timestamps: {
+    type: Number,
+    default: new Date().getTime()
+  }
+});
 
 
-mongoose.model("record", recordSchema, "record");
+mongoose.model('record', recordSchema, 'record');

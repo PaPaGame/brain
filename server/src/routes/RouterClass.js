@@ -1,17 +1,17 @@
-import Router from "koa-router";
-import jwt from "../middleware/jwt";
-import { ClassController } from "../controller/index";
+import Router from 'koa-router';
+import jwt from '../middleware/jwt';
+import {ClassController} from '../controller/index';
 
 const childRouter = new Router({
-    prefix: '/class'
+  prefix: '/class'
 });
 
 childRouter.use(jwt({}));
 // 注册路由
-childRouter.post("/add", ClassController.Create);
-childRouter.post("/getAll", ClassController.GetClass);
-childRouter.post("/update", ClassController.Update);
-childRouter.post("/delete", ClassController.Delete);
-childRouter.post("/fuzzyGroup", ClassController.GetFuzzyGroups);
+childRouter.post('/add', ClassController.Create);
+childRouter.post('/getAll', ClassController.GetClass);
+childRouter.post('/update', ClassController.Update);
+childRouter.post('/delete', ClassController.Delete);
+childRouter.post('/fuzzyGroup', ClassController.GetFuzzyGroups);
 
 module.exports = childRouter;

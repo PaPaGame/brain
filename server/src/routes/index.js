@@ -1,15 +1,15 @@
-import Router from "koa-router";
+import Router from 'koa-router';
 const router = Router({
-    prefix: '/api'
+  prefix: '/api'
 });
 // 用户相关路由
-const userRouter = require("../routes/RouterUser");
-const schoolRouter = require("../routes/RouterSchool");
-const articleRouter = require("../routes/RouterArticle");
-const staffRouter = require("../routes/RouterStaff");
-const classRouter = require("../routes/RouterClass");
-const studentRouter = require("../routes/RouterStudent");
-const courseRouter = require("../routes/RouterCourse");
+const userRouter = require('../routes/RouterUser');
+const schoolRouter = require('../routes/RouterSchool');
+const articleRouter = require('../routes/RouterArticle');
+const staffRouter = require('../routes/RouterStaff');
+const classRouter = require('../routes/RouterClass');
+const studentRouter = require('../routes/RouterStudent');
+const courseRouter = require('../routes/RouterCourse');
 
 // 用户相关路由
 router.use(userRouter.routes(), userRouter.allowedMethods());
