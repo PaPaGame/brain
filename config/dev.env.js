@@ -1,10 +1,10 @@
-'use strict'
-const merge = require('webpack-merge')
-const prodEnv = require('./prod.env')
+'use strict';
+const merge = require('webpack-merge');
+const prodEnv = require('./prod.env');
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   ENV_CONFIG: '"DEV"',
   API_PATH: '"http://localhost:9050/api"',
   PUBLIC_PATH: '"//localhost:9050/dist"'
-})
+});

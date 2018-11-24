@@ -1,17 +1,18 @@
-import _ from "lodash";
-import development from './development'
-import production from './production'
+import _ from 'lodash';
+import development from './development';
+import production from './production';
 
 export const env = process.env.NODE_ENV || 'development';
 const configs = {
-    development: development,
-    production: production
-}
+  development: development,
+  production: production
+};
 
 const defaultConfig = {
-    env: env
-}
+  env: env,
+  https_port: 9051
+};
 
-const config = _.merge(defaultConfig, configs[env])
+const config = _.merge(defaultConfig, configs[env]);
 
-export default config
+export default config;
