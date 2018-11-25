@@ -13,7 +13,6 @@ import {
   connectDatabase
 } from './models/index';
 import routers from './routes';
-const jwt = require('koa-jwt');
 
 // 实例化koa
 const app = new Koa();
