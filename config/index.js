@@ -49,6 +49,7 @@ module.exports = {
     cacheBusting: true,
 
     cssSourceMap: true,
+    https: true
   },
 
   build: {

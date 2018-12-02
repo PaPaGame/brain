@@ -10,7 +10,6 @@ const configs = {
 
 const defaultConfig = {
   env: env,
-  https_port: 9051
 };
 
 const config = _.merge(defaultConfig, configs[env]);
