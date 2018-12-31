@@ -15,6 +15,9 @@ import {
 import routers from './routes';
 const jwt = require('koa-jwt');
 
+const https = require('https');
+const fs = require('fs');
+
 // 实例化koa
 const app = new Koa();
 
@@ -62,7 +65,19 @@ app.use(async (ctx, next) => {
 onerror(app);
 
 // 创建服务并监听配置的端口
-app.listen(config.port).on('listening', function () {
+// app.listen(config.port).on('listening', function () {
+//   console.log('[server start]');
+//   console.log('listen port:' + config.port);
+// });
+
+// console.log(__dirname);
+// console.log(__dirname + '/../config/214953651560340/214953651560340.key');
+var options = {
+  key: fs.readFileSync(__dirname + '/../config/214953651560340/214953651560340.key'),
+  cert: fs.readFileSync(__dirname + '/../config/214953651560340/214953651560340.pem')
+};
+
+const httpsServer = https.createServer(options, app.callback()).listen(9050, () => {
   console.log('[server start]');
   console.log('listen port:' + config.port);
 });
