@@ -24,7 +24,7 @@ const course = {
   },
   postRecord(data) {
     return ajax({
-      url: '/course/record',
+      url: '/course/uploadRecord',
       method: 'post',
       params: data
     });

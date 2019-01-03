@@ -77,7 +77,7 @@ var options = {
   cert: fs.readFileSync(__dirname + '/../config/214953651560340/214953651560340.pem')
 };
 
-const httpsServer = https.createServer(options, app.callback()).listen(9050, () => {
+const httpsServer = https.createServer(options, app.callback()).listen(config.port, () => {
   console.log('[server start]');
   console.log('listen port:' + config.port);
 });

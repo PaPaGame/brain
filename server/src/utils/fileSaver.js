@@ -1,3 +1,4 @@
+import fs from 'fs';
 export default class FileSaver {
   constructor() {
 
@@ -19,22 +20,31 @@ export default class FileSaver {
     return this._cid;
   }
 
-  set content(value) {
-    this._content = value;
+  set file(value) {
+    this._file = value;
   }
 
-  get content() {
-    return this._content;
+  get file() {
+    return this._file;
   }
 
   async save() {
-    if (!this.uid || !this.cid || !this.content) {
+    if (!this.uid || !this.cid || !this.file) {
       console.log('1:', this.uid);
       console.log('2:', this.cid);
-      console.log('3:', this.content);
-      return;
+      console.log('3:', this.file);
+      return false;
     }
 
-    // return await fs
+    let file = this.file;
+    let audioData = file.contents.split(';base64,').pop();
+
+    return await fs.writeFile(file.name, audioData, {
+      encoding: 'base64'
+    }, err => {
+      if (err) {
+        console.log('write file failed', err);
+      }
+    });
   }
 }

@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      isRecording: false,
+      isRecording: false
     };
   },
   methods: {
@@ -32,39 +32,64 @@ export default {
       recordRTC.stopRecording(function(audioURL) {
         audio.src = audioURL;
         var recordedBlob = recordRTC.getBlob();
-        recordRTC.getDataURL(function(dataURL) { });
+        recordRTC.getDataURL(function(dataURL) {});
       });
     },
     captureUserMedia(mediaConstraints, successCallback, errorCallback) {
-      var isBlackBerry = !!(/BB10|BlackBerry/i.test(navigator.userAgent || ''));
-      if (isBlackBerry && !!(navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia)) {
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        navigator.getUserMedia(mediaConstraints, successCallback, errorCallback);
+      var isBlackBerry = !!/BB10|BlackBerry/i.test(navigator.userAgent || '');
+      if (
+        isBlackBerry &&
+        !!(
+          navigator.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia
+        )
+      ) {
+        navigator.getUserMedia =
+          navigator.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia;
+        navigator.getUserMedia(
+          mediaConstraints,
+          successCallback,
+          errorCallback
+        );
         return;
       }
-      navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+      navigator.mediaDevices
+        .getUserMedia(mediaConstraints)
+        .then(successCallback)
+        .catch(errorCallback);
     },
     _addStreamStopListener(stream, callback) {
       var streamEndedEvent = 'ended';
       if ('oninactive' in stream) {
         streamEndedEvent = 'inactive';
       }
-      this._stream.addEventListener(streamEndedEvent, function() {
-        callback();
-        callback = function() { };
-      }, false);
-      this._stream.getAudioTracks().forEach(function(track) {
-        track.addEventListener(streamEndedEvent, function() {
+      this._stream.addEventListener(
+        streamEndedEvent,
+        function() {
           callback();
-          callback = function() { };
-        }, false);
+          callback = function() {};
+        },
+        false
+      );
+      this._stream.getAudioTracks().forEach(function(track) {
+        track.addEventListener(
+          streamEndedEvent,
+          function() {
+            callback();
+            callback = function() {};
+          },
+          false
+        );
       });
     },
     // CORE
     startRecording() {
       this.captureUserMedia(
         {audio: true},
-        (audioStream) => {
+        audioStream => {
           this.$emit('record:start');
           this.isRecording = true;
           // recordingPlayer.srcObject = audioStream;
@@ -79,21 +104,20 @@ export default {
             // config.onMediaStopped();
           });
         },
-        (error) => {
+        error => {
           this.$emit('record:error');
           this.isRecording = false;
           // config.onMediaCapturingFailed(error);
-        });
+        }
+      );
     },
     stopRecording() {
-      if (!this._recordRTC)
-        return;
-      this._recordRTC.stopRecording((url) => {
+      if (!this._recordRTC) return;
+      this._recordRTC.stopRecording(url => {
         this._stream.stop();
         this.$emit('record:success', url);
         this.playbackAudio(url);
       });
-
 
       this._recordRTC.getDataURL(audioDataURL => {
         this.recordContent = audioDataURL;
@@ -105,41 +129,38 @@ export default {
       audio.src = url;
       audio.controls = true;
       audio.play();
-      audio.onended = function() {
+      audio.onended = () => {
         audio.pause();
-        // audio.src = URL.createObjectURL(button.recordRTC.blob);
       };
     },
     uploadRecord() {
       let fileName = dayjs().format('YYYYMMDDHHmmss');
       console.log(fileName);
-      this.recordContent = 'solszl';
-      let file = {
-        audio: {
-          name: fileName + '.wav',
-          type: 'audio/wav',
-          contents: this.recordContent
-        }
+      // this.recordContent = 'solszl';
+      let audio = {
+        name: fileName + '.wav',
+        type: 'audio/wav',
+        contents: this.recordContent
       };
 
       console.log(this.recordContent);
       let postData = {};
       postData.uid = this.userinfo.id;
       postData.cid = this.cid || '5adb168f6f036e0f0527a253';
-      postData.file = file;
+      postData.file = audio;
       courseService.postRecord(postData);
     }
   },
   destroyed() {
     this.stopRecording();
   },
+
   computed: {
     ...mapGetters({
       userinfo: 'userinfo',
       cid: 'cid'
     })
   }
-
 };
 </script>
 

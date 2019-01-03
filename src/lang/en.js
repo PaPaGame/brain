@@ -47,7 +47,6 @@ export default {
     freeze: 'freeze',
     unfreeze: 'unfreeze',
     create: 'create',
-    edit: 'edit',
     staff: 'staff',
     requiredCode: 'requiredCode',
     fuzzyMasterList: 'fuzzyMasterList',
@@ -92,7 +91,6 @@ export default {
     lastLoginAt: 'lastLoginAt',
     school: 'school',
     operate: 'operate',
-    createdAt: 'createdAt',
     updatedAt: 'updateAt',
     staff: 'staff',
     students: 'student',
@@ -120,7 +118,8 @@ export default {
     target: 'target',
     alreadyHasGroup: '所选学生已经有所属班级，需cancel之前班级再添加',
     alertConfirmButtonText: '确定',
-    alertTitle: '提示'
+    alertTitle: '提示',
+    viewData: '查看数据'
   },
   student: {
     inputGroupName: 'inputGroupName',
@@ -133,7 +132,6 @@ export default {
     searchName: 'searchName',
     search: 'search',
     add: 'add',
-    username: 'username',
     password: 'passWord',
     schoolCode: 'schoolCode',
     validate: 'validate',
@@ -173,14 +171,17 @@ export default {
     desc4: 'Take The Quiz',
     glossary: 'glossary',
     readtome: 'Read to Me',
-    pause: 'Pause',
+    stopRecord: '停止',
     record2: 'Record',
     playmyreading: 'Play My Reading',
     takequiz: 'Take Quiz',
     takequizagain: 'Take Quiz Again',
     commit: 'commit',
     eglossary: 'eglosary',
-    ediduknow: 'ediduknow？'
+    ediduknow: 'ediduknow？',
+    upload: '上传',
+    pause: 'pause',
+    playBlobError: '播放录音失败'
   },
   article: {
     id: 'id',
@@ -195,7 +196,9 @@ export default {
     cancel: 'cancel',
     getLevelFailed: 'getLevelFailed',
     getListFailed: 'getListFailed',
-    cancelEditMessage: 'canceledit编号'
+    cancelEditMessage: 'canceledit编号',
+    grade: '级别',
+    order: '序号'
   },
   dashboard: {
     schoolCount: 'schoolCount',
@@ -211,5 +214,12 @@ export default {
     unstartCount: 'unstartCount',
     overCount: 'overCount',
     fetchError: 'fetchError'
+  },
+  grade: {
+    username: '姓名',
+    tai: 'Tai',
+    quiz: 'Quiz',
+    record: 'record',
+    operate: '操作'
   }
 };

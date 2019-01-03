@@ -118,7 +118,7 @@ const GetCourse = async ctx => {
   }
 };
 
-const SendRecord = async ctx => {
+const UploadRecord = async ctx => {
   let message = {};
   let recordInfo = ctx.request.body;
   if (!recordInfo) {
@@ -128,12 +128,11 @@ const SendRecord = async ctx => {
     return;
   }
 
-
-  // let saver = new FileSaver();
-  // saver.uid = recordInfo.uid;
-  // saver.cid = recordInfo.cid;
-  // saver.content = recordInfo.file;
-  // let result = await saver.save();
+  let saver = new FileSaver();
+  saver.uid = recordInfo.uid;
+  saver.cid = recordInfo.cid;
+  saver.file = recordInfo.file.contents;
+  let result = await saver.save();
   // // 如果保存数据成功的话，讲记录存到数据库
   // if (result) {
   await recordDao.create(recordInfo);
@@ -148,5 +147,5 @@ module.exports = {
   AnswerTai,
   AnswerQuiz,
   GetCourse,
-  SendRecord
+  UploadRecord
 };
